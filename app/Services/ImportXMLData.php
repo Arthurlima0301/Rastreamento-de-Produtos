@@ -5,35 +5,24 @@ namespace App\Services;
 use App\Models\NotaFiscal;
 use Illuminate\Support\Facades\DB;
 
+
+
 class ImportXMLData
 {
     /**
      * Import data from an XML file and save it to the database.
      */
     public function import($file)
-    {    
-        $xml = simplexml_load_file($file->getRealPath());
-        
-        DB::transaction(function () use ($xml) {    
-            $this->validateFields($xml);
-            $this->validate($xml);
-
-            NotaFiscal::create([
-                'codigo_nf' => $xml->NFe->infNFe->ide->nNF,
-                'data_emissao' => $xml->NFe->infNFe->ide->dhEmi,
-            ]);
-        });
-
-    }
-
-    /**
-     * Validate the XML file already exists.
-     */
-    public function validate($xml)
     {
-        if (NotaFiscal::where('codigo_nf', $xml->NFe->infNFe->ide->nNF)->exists()) {
-            throw new \Exception('Nota fiscal já existe.');
-        }
+        $xml = simplexml_load_file($file->getRealPath());
+
+        DB::transaction(function () use ($xml) {
+            $this->validateFields($xml);
+            $this->validateAlreadyExists($xml);
+
+            $notaFiscal = $this->createNotaFiscal($xml);
+
+        });
     }
 
     /**
@@ -46,5 +35,26 @@ class ImportXMLData
         }
     }
 
-    
+    /**
+     * Validate the XML file already exists.
+     */
+    public function validateAlreadyExists($xml)
+    {
+        if (NotaFiscal::where('codigo_nf', $xml->NFe->infNFe->ide->nNF)->exists()) {
+            throw new \Exception('Nota fiscal já existe.');
+        }
+    }
+
+    /**
+     * Create Nota Fiscal.
+     */
+    public function createNotaFiscal($xml)
+    {
+        return NotaFiscal::create([
+            'codigo_nf' => $xml->NFe->infNFe->ide->nNF,
+            'data_emissao' => $xml->NFe->infNFe->ide->dhEmi,
+        ]);
+    }
+
+  
 }
