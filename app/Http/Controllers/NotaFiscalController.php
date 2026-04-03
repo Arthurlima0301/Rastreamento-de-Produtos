@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\NotaFiscalImportRequest;
+use App\Http\Requests\ImportXMLRequest;
 use App\Models\NotaFiscal;
 use App\Services\ImportXMLData;
 
@@ -20,7 +20,7 @@ class NotaFiscalController extends Controller
     /*
      * Import a newly created resource in storage.
      */
-    public function import(NotaFiscalImportRequest $request)
+    public function import(ImportXMLRequest $request)
     {
         try {
             (new ImportXMLData())->import($request->file('xml_file'));
