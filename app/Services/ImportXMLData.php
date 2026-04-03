@@ -7,25 +7,44 @@ use Illuminate\Support\Facades\DB;
 
 class ImportXMLData
 {
+    /**
+     * Import data from an XML file and save it to the database.
+     */
     public function import($file)
-    {
-    
+    {    
         $xml = simplexml_load_file($file->getRealPath());
-
-        DB::transaction(function () use ($xml) {
-            if (NotaFiscal::where('codigo_nf', $xml->infNFe->ide->cNF)->exists()) {
-                throw new \Exception('Nota fiscal já existe.');
-            }
-
-            if (!isset($xml->infNFe->ide->cNF) || !isset($xml->infNFe->ide->dhEmi)) {
-                throw new \Exception('O XML não contém os campos necessários: cNF ou dhEmi.');
-            }
         
+        DB::transaction(function () use ($xml) {    
+            $this->validateFields($xml);
+            $this->validate($xml);
+
             NotaFiscal::create([
-                'codigo_nf' => $xml->infNFe->ide->cNF,
-                'data_emissao' => $xml->infNFe->ide->dhEmi,
+                'codigo_nf' => $xml->NFe->infNFe->ide->nNF,
+                'data_emissao' => $xml->NFe->infNFe->ide->dhEmi,
             ]);
         });
 
     }
+
+    /**
+     * Validate the XML file already exists.
+     */
+    public function validate($xml)
+    {
+        if (NotaFiscal::where('codigo_nf', $xml->NFe->infNFe->ide->nNF)->exists()) {
+            throw new \Exception('Nota fiscal já existe.');
+        }
+    }
+
+    /**
+     * Validate if the XML file contains the necessary fields before importing.
+     */
+    public function validateFields($xml)
+    {
+        if (!isset($xml->NFe->infNFe->ide->nNF) || !isset($xml->NFe->infNFe->ide->dhEmi)) {
+            throw new \Exception('O XML não contém os campos necessários: nNF e dhEmi.');
+        }
+    }
+
+    
 }
