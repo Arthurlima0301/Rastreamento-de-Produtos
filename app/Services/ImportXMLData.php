@@ -5,7 +5,7 @@ namespace App\Services;
 use App\Models\NotaFiscal;
 use Illuminate\Support\Facades\DB;
 
-
+use App\Services\ExtractItems;
 
 class ImportXMLData
 {
@@ -22,13 +22,14 @@ class ImportXMLData
 
             $notaFiscal = $this->createNotaFiscal($xml);
 
+            $this->importItems($xml, $notaFiscal->id);
         });
     }
 
     /**
      * Validate if the XML file contains the necessary fields before importing.
      */
-    public function validateFields($xml)
+    private function validateFields($xml)
     {
         if (!isset($xml->NFe->infNFe->ide->nNF) || !isset($xml->NFe->infNFe->ide->dhEmi)) {
             throw new \Exception('O XML não contém os campos necessários: nNF e dhEmi.');
@@ -38,7 +39,7 @@ class ImportXMLData
     /**
      * Validate the XML file already exists.
      */
-    public function validateAlreadyExists($xml)
+    private function validateAlreadyExists($xml)
     {
         if (NotaFiscal::where('codigo_nf', $xml->NFe->infNFe->ide->nNF)->exists()) {
             throw new \Exception('Nota fiscal já existe.');
@@ -48,7 +49,7 @@ class ImportXMLData
     /**
      * Create Nota Fiscal.
      */
-    public function createNotaFiscal($xml)
+    private function createNotaFiscal($xml)
     {
         return NotaFiscal::create([
             'codigo_nf' => $xml->NFe->infNFe->ide->nNF,
@@ -56,5 +57,11 @@ class ImportXMLData
         ]);
     }
 
-  
+    /**
+     * Import Itens from an XML file and save them to the database. 
+     */
+    private function importItems($xml, $notaFiscalId)
+    {
+        (new ExtractItems)->extract($xml, $notaFiscalId);
+    }
 }

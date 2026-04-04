@@ -27,7 +27,7 @@ class NotaFiscalController extends Controller
         } catch (\Exception $e) {
             return redirect()->route('notas.index')->with('error', 'Erro ao importar nota fiscal: ' . $e->getMessage());
         }
-        
+
         return redirect()->route('notas.index')->with('success', 'Nota fiscal importada com sucesso!');
     }
 }
