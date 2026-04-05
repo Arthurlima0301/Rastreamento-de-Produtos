@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="utf-8"?>
+<nfeProc xmlns="http://www.portalfiscal.inf.br/nfe" versao="4.00">
+  <protNFe>
+    <infProt>
+      <nProt>111111111111111</nProt>
+      <digVal>aaaaaaaaaaaaaaaaaaaaaaaaaaaa</digVal>
+      <dhRecbto>2026-01-01T00:00:00-03:00</dhRecbto>
+      <Id>Id111111111111111</Id>
+      <chNFe>11111111111111111111111111111111111111111111</chNFe>
+      <xMotivo>Autorizado o uso da NF-e</xMotivo>
+      <cStat>100</cStat>
+    </infProt>
+  </protNFe>
+  <NFe>
+    <infNFe Id="NFe11111111111111111111111111111111111111111111">
+      <ide>
+        <tpNF>1</tpNF>
+        <mod>55</mod>
+        <indPres>9</indPres>
+        <tpImp>2</tpImp>
+        <nNF>123456</nNF>
+        <cMunFG>1234567</cMunFG>
+        <procEmi>0</procEmi>
+        <finNFe>1</finNFe>
+        <dhEmi>2026-01-01T00:00:00-03:00</dhEmi>
+        <tpAmb>1</tpAmb>
+        <indFinal>0</indFinal>
+        <idDest>1</idDest>
+        <tpEmis>1</tpEmis>
+        <cDV>0</cDV>
+        <cUF>12</cUF>
+        <serie>1</serie>
+        <natOp>Venda de Produto Genérico</natOp>
+        <cNF>12345678</cNF>
+        <verProc>Teste1.0</verProc>
+        <indIntermed>0</indIntermed>
+      </ide>
+      <emit>
+        <xNome>EMPRESA EXEMPLO LTDA</xNome>
+        <CRT>3</CRT>
+        <xFant>EMPRESA EXEMPLO LTDA</xFant>
+        <CNPJ>11111111111111</CNPJ>
+        <enderEmit>
+          <fone>1111111111</fone>
+          <UF>EX</UF>
+          <xPais>Brasil</xPais>
+          <cPais>1058</cPais>
+          <xLgr>Rua Exemplo</xLgr>
+          <xMun>Cidade Exemplo</xMun>
+          <nro>100</nro>
+          <cMun>1234567</cMun>
+          <xBairro>Bairro Exemplo</xBairro>
+          <CEP>11111111</CEP>
+        </enderEmit>
+        <IE>111111111111</IE>
+      </emit>
+      <dest>
+        <xNome>CLIENTE EXEMPLO LTDA</xNome>
+        <CNPJ>22222222222222</CNPJ>
+        <enderDest>
+          <fone>2222222222</fone>
+          <UF>EX</UF>
+          <xPais>Brasil</xPais>
+          <cPais>1058</cPais>
+          <xLgr>Rua Cliente</xLgr>
+          <xMun>Cidade Cliente</xMun>
+          <nro>200</nro>
+          <cMun>7654321</cMun>
+          <xBairro>Bairro Cliente</xBairro>
+          <CEP>22222222</CEP>
+        </enderDest>
+        <IE>222222222222</IE>
+        <indIEDest>1</indIEDest>
+        <email>cliente@exemplo.com</email>
+      </dest>
+      <det>
+        <nItem>1</nItem>
+        <prod>
+          <cEAN>1234567890123</cEAN>
+          <cProd>1001</cProd>
+          <qCom>10.0000</qCom>
+          <cEANTrib>1234567890123</cEANTrib>
+          <vUnTrib>5.00</vUnTrib>
+          <qTrib>10.0000</qTrib>
+          <vProd>50.00</vProd>
+          <nFCI>AAAAAAAA-AAAA-AAAA-AAAA-AAAAAAAAAAAA</nFCI>
+          <xProd>Produto Genérico 1</xProd>
+          <vUnCom>5.00</vUnCom>
+          <indTot>1</indTot>
+          <uTrib>UN</uTrib>
+          <NCM>12345678</NCM>
+          <uCom>UN</uCom>
+          <CFOP>5101</CFOP>
+          <CEST>1234567</CEST>
+        </prod>
+        <imposto>
+          <ICMS>
+            <ICMS40>
+              <orig>0</orig>
+              <CST>40</CST>
+            </ICMS40>
+          </ICMS>
+        </imposto>
+        <vItem>50.00</vItem>
+        <infAdProd>Produto genérico para teste.</infAdProd>
+      </det>
+      <det>
+        <nItem>2</nItem>
+        <prod>
+          <cEAN>9876543210987</cEAN>
+          <cProd>1002</cProd>
+          <qCom>5.0000</qCom>
+          <cEANTrib>9876543210987</cEANTrib>
+          <vUnTrib>10.00</vUnTrib>
+          <qTrib>5.0000</qTrib>
+          <vProd>50.00</vProd>
+          <nFCI>BBBBBBBB-BBBB-BBBB-BBBB-BBBBBBBBBBBB</nFCI>
+          <xProd>Produto Genérico 2</xProd>
+          <vUnCom>10.00</vUnCom>
+          <indTot>1</indTot>
+          <uTrib>UN</uTrib>
+          <NCM>87654321</NCM>
+          <uCom>UN</uCom>
+          <CFOP>5102</CFOP>
+          <CEST>7654321</CEST>
+        </prod>
+        <imposto>
+          <ICMS>
+            <ICMS40>
+              <orig>0</orig>
+              <CST>40</CST>
+            </ICMS40>
+          </ICMS>
+        </imposto>
+        <vItem>50.00</vItem>
+        <infAdProd>Produto genérico para teste 2.</infAdProd>
+      </det>
+      <total>
+        <ICMSTot>
+          <vCOFINS>0.00</vCOFINS>
+          <vBCST>0.00</vBCST>
+          <vICMSDeson>0.00</vICMSDeson>
+          <vProd>100.00</vProd>
+          <vSeg>0.00</vSeg>
+          <vFCP>0.00</vFCP>
+          <vFCPST>0.00</vFCPST>
+          <vNF>100.00</vNF>
+          <vPIS>0.00</vPIS>
+          <vIPIDevol>0.00</vIPIDevol>
+          <vBC>0.00</vBC>
+          <vST>0.00</vST>
+          <vICMS>0.00</vICMS>
+          <vII>0.00</vII>
+          <vFCPSTRet>0.00</vFCPSTRet>
+          <vDesc>0.00</vDesc>
+          <vOutro>0.00</vOutro>
+          <vIPI>0.00</vIPI>
+          <vFrete>0.00</vFrete>
+        </ICMSTot>
+      </total>
+      <transp>
+        <modFrete>0</modFrete>
+        <vol>
+          <pesoL>5.000</pesoL>
+          <qVol>2</qVol>
+          <nVol>2</nVol>
+          <pesoB>5.500</pesoB>
+        </vol>
+      </transp>
+      <pag>
+        <detPag>
+          <vPag>100.00</vPag>
+          <tPag>01</tPag>
+          <indPag>0</indPag>
+        </detPag>
+      </pag>
+      <infAdic>
+        <infCpl>Nota fiscal de teste válida.</infCpl>
+      </infAdic>
+      <infRespTec>
+        <fone>1111111111</fone>
+        <CNPJ>33333333333333</CNPJ>
+        <xContato>Contato Exemplo</xContato>
+        <email>tecnico@exemplo.com</email>
+      </infRespTec>
+    </infNFe>
+  </NFe>
+  <versao>4.00</versao>
+</nfeProc>
