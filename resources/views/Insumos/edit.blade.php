@@ -21,8 +21,8 @@
             <input type="text" name="nome" id="nome" value="{{ $insumo->nome }}" required>
         </div>
         <div>
-            <label for="código_insumo">Código:</label>
-            <input type="text" name="código_insumo" id="código_insumo" value="{{ $insumo->codigo_insumo }}" required>
+            <label for="codigo_insumo">Código:</label>
+            <input type="text" name="codigo_insumo" id="codigo_insumo" value="{{ $insumo->codigo_insumo }}" required>
         </div>
         <div>
             <label for="unidade_medida">Unidade de Medida:</label>

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Insumo;
 use App\Http\Requests\StoreInsumoRequest;
+use App\Http\Requests\UpdateInsumoRequest;
 use Illuminate\Http\Request;
 
 class InsumoController extends Controller
@@ -53,7 +54,7 @@ class InsumoController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(StoreInsumoRequest $request, Insumo $insumo)
+    public function update(UpdateInsumoRequest $request, Insumo $insumo)
     {
         $insumo->update($request->validated());
         return redirect()->route('insumos.index')->with('success', 'Insumo atualizado com sucesso.');
