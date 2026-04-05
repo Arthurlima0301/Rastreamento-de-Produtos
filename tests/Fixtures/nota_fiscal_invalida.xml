@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<nfeProc xmlns="http://www.portalfiscal.inf.br/nfe" versao="4.00">
+  <protNFe>
+    <infProt>
+      <nProt>000000000000000</nProt>
+      <digVal>xxxxxxxxxxxxxxxxxxxxxxxxxxxx</digVal>
+      <dhRecbto>2026-01-01T00:00:00-03:00</dhRecbto>
+      <Id>Id000000000000000</Id>
+      <chNFe>00000000000000000000000000000000000000000000</chNFe>
+      <xMotivo>Autorizado o uso da NF-e</xMotivo>
+      <cStat>100</cStat>
+    </infProt>
+  </protNFe>
+  <NFe>
+    <infNFe Id="NFe00000000000000000000000000000000000000000000">
+      <ide>
+        <tpNF>1</tpNF>
+        <mod>55</mod>
+        <indPres>9</indPres>
+        <tpImp>2</tpImp>
+        <nNF>000000</nNF>
+        <cMunFG>0000000</cMunFG>
+        <procEmi>0</procEmi>
+        <finNFe>1</finNFe>
+        <dhEmi>2026-01-01T00:00:00-03:00</dhEmi>
+        <tpAmb>1</tpAmb>
+        <indFinal>0</indFinal>
+        <idDest>1</idDest>
+        <tpEmis>1</tpEmis>
+        <cDV>0</cDV>
+        <cUF>00</cUF>
+        <serie>1</serie>
+        <natOp>Operação Genérica</natOp>
+        <cNF>00000000</cNF>
+        <verProc>Teste1.0</verProc>
+        <indIntermed>0</indIntermed>
+      </ide>
+      <emit>
+        <xNome>EMPRESA TESTE LTDA</xNome>
+        <CRT>3</CRT>
+        <xFant>EMPRESA TESTE LTDA</xFant>
+        <CNPJ>00000000000000</CNPJ>
+        <enderEmit>
+          <fone>0000000000</fone>
+          <UF>XX</UF>
+          <xPais>Brasil</xPais>
+          <cPais>1058</cPais>
+          <xLgr>Rua Teste</xLgr>
+          <xMun>Cidade Teste</xMun>
+          <nro>123</nro>
+          <cMun>0000000</cMun>
+          <xBairro>Bairro Teste</xBairro>
+          <CEP>00000000</CEP>
+        </enderEmit>
+        <IE>000000000000</IE>
+      </emit>
+      <dest>
+        <xNome>CLIENTE TESTE LTDA</xNome>
+        <CNPJ>00000000000000</CNPJ>
+        <enderDest>
+          <fone>0000000000</fone>
+          <UF>XX</UF>
+          <xPais>Brasil</xPais>
+          <cPais>1058</cPais>
+          <xLgr>Rua Cliente</xLgr>
+          <xMun>Cidade Cliente</xMun>
+          <nro>456</nro>
+          <cMun>0000000</cMun>
+          <xBairro>Bairro Cliente</xBairro>
+          <CEP>00000000</CEP>
+        </enderDest>
+        <IE>000000000000</IE>
+        <indIEDest>1</indIEDest>
+        <email>cliente@teste.com</email>
+      </dest>    
+      <total>
+        <ICMSTot>
+          <vCOFINS>0.00</vCOFINS>
+          <vBCST>0.00</vBCST>
+          <vICMSDeson>0.00</vICMSDeson>
+          <vProd>0.00</vProd>
+          <vSeg>0.00</vSeg>
+          <vFCP>0.00</vFCP>
+          <vFCPST>0.00</vFCPST>
+          <vNF>0.00</vNF>
+          <vPIS>0.00</vPIS>
+          <vIPIDevol>0.00</vIPIDevol>
+          <vBC>0.00</vBC>
+          <vST>0.00</vST>
+          <vICMS>0.00</vICMS>
+          <vII>0.00</vII>
+          <vFCPSTRet>0.00</vFCPSTRet>
+          <vDesc>0.00</vDesc>
+          <vOutro>0.00</vOutro>
+          <vIPI>0.00</vIPI>
+          <vFrete>0.00</vFrete>
+        </ICMSTot>
+      </total>
+      <transp>
+        <modFrete>0</modFrete>
+        <vol>
+          <pesoL>0.000</pesoL>
+          <qVol>0</qVol>
+          <nVol>0</nVol>
+          <pesoB>0.000</pesoB>
+        </vol>
+      </transp>
+      <pag>
+        <detPag>
+          <vPag>0.00</vPag>
+          <tPag>00</tPag>
+          <indPag>0</indPag>
+        </detPag>
+      </pag>
+      <infAdic>
+        <infCpl>Informação adicional genérica.</infCpl>
+      </infAdic>
+      <infRespTec>
+        <fone>0000000000</fone>
+        <CNPJ>00000000000000</CNPJ>
+        <xContato>Contato Teste</xContato>
+        <email>tecnico@teste.com</email>
+      </infRespTec>
+    </infNFe>
+  </NFe>
+  <versao>4.00</versao>
+</nfeProc>
