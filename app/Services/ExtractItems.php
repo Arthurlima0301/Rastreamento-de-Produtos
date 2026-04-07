@@ -53,12 +53,11 @@ class ExtractItems
     private function saveItems($items, $notaFiscalId)
     {
         foreach ($items as $item) {
-            // converter o codigo do insumo para o id do insumo
-            
+            // Convert cProd to integer for comparison the product code with the insumo code in the database            
             $insumo = Insumo::where('codigo_insumo', (int) $item->prod->cProd)->first();
             
             Item::create([
-                'numero' => $item->nItem,
+                'numero' => $item['nItem'] ?? $item->nItem,
                 'nota_fiscal_id' => $notaFiscalId,
                 'insumo_id' => $insumo->id,
                 'quantidade' => $item->prod->qCom,

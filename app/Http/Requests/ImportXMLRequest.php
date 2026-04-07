@@ -17,7 +17,7 @@ class ImportXMLRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'xml_file' => ['required', 'file', 'mimetypes:text/xml,application/xml', 'max:5120'],
+            'xml_file' => ['required', 'file', 'max:5120'],
         ];
     }
 
@@ -29,7 +29,6 @@ class ImportXMLRequest extends FormRequest
         return [
             'xml_file.required' => 'Arquivo XML é obrigatório.',
             'xml_file.file' => 'Envie um arquivo válido.',
-            'xml_file.mimetypes' => 'O arquivo deve ser do tipo XML.',
             'xml_file.max' => 'O arquivo deve ter no máximo 5MB.',
         ];
     }
