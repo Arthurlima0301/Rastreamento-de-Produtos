@@ -1,189 +1,195 @@
-<?xml version="1.0" encoding="utf-8"?>
-<nfeProc xmlns="http://www.portalfiscal.inf.br/nfe" versao="4.00">
-  <protNFe>
-    <infProt>
-      <nProt>111111111111111</nProt>
-      <digVal>aaaaaaaaaaaaaaaaaaaaaaaaaaaa</digVal>
-      <dhRecbto>2026-01-01T00:00:00-03:00</dhRecbto>
-      <Id>Id111111111111111</Id>
-      <chNFe>11111111111111111111111111111111111111111111</chNFe>
-      <xMotivo>Autorizado o uso da NF-e</xMotivo>
-      <cStat>100</cStat>
-    </infProt>
-  </protNFe>
-  <NFe>
-    <infNFe Id="NFe11111111111111111111111111111111111111111111">
-      <ide>
-        <tpNF>1</tpNF>
-        <mod>55</mod>
-        <indPres>9</indPres>
-        <tpImp>2</tpImp>
-        <nNF>123456</nNF>
-        <cMunFG>1234567</cMunFG>
-        <procEmi>0</procEmi>
-        <finNFe>1</finNFe>
-        <dhEmi>2026-01-01T00:00:00-03:00</dhEmi>
-        <tpAmb>1</tpAmb>
-        <indFinal>0</indFinal>
-        <idDest>1</idDest>
-        <tpEmis>1</tpEmis>
-        <cDV>0</cDV>
-        <cUF>12</cUF>
-        <serie>1</serie>
-        <natOp>Venda de Produto Genérico</natOp>
-        <cNF>12345678</cNF>
-        <verProc>Teste1.0</verProc>
-        <indIntermed>0</indIntermed>
-      </ide>
-      <emit>
-        <xNome>EMPRESA EXEMPLO LTDA</xNome>
-        <CRT>3</CRT>
-        <xFant>EMPRESA EXEMPLO LTDA</xFant>
-        <CNPJ>11111111111111</CNPJ>
-        <enderEmit>
-          <fone>1111111111</fone>
-          <UF>EX</UF>
-          <xPais>Brasil</xPais>
-          <cPais>1058</cPais>
-          <xLgr>Rua Exemplo</xLgr>
-          <xMun>Cidade Exemplo</xMun>
-          <nro>100</nro>
-          <cMun>1234567</cMun>
-          <xBairro>Bairro Exemplo</xBairro>
-          <CEP>11111111</CEP>
-        </enderEmit>
-        <IE>111111111111</IE>
-      </emit>
-      <dest>
-        <xNome>CLIENTE EXEMPLO LTDA</xNome>
-        <CNPJ>22222222222222</CNPJ>
-        <enderDest>
-          <fone>2222222222</fone>
-          <UF>EX</UF>
-          <xPais>Brasil</xPais>
-          <cPais>1058</cPais>
-          <xLgr>Rua Cliente</xLgr>
-          <xMun>Cidade Cliente</xMun>
-          <nro>200</nro>
-          <cMun>7654321</cMun>
-          <xBairro>Bairro Cliente</xBairro>
-          <CEP>22222222</CEP>
-        </enderDest>
-        <IE>222222222222</IE>
-        <indIEDest>1</indIEDest>
-        <email>cliente@exemplo.com</email>
-      </dest>
-      <det>
-        <nItem>1</nItem>
-        <prod>
-          <cEAN>1234567890123</cEAN>
-          <cProd>1001</cProd>
-          <qCom>10.0000</qCom>
-          <cEANTrib>1234567890123</cEANTrib>
-          <vUnTrib>5.00</vUnTrib>
-          <qTrib>10.0000</qTrib>
-          <vProd>50.00</vProd>
-          <nFCI>AAAAAAAA-AAAA-AAAA-AAAA-AAAAAAAAAAAA</nFCI>
-          <xProd>Produto Genérico 1</xProd>
-          <vUnCom>5.00</vUnCom>
-          <indTot>1</indTot>
-          <uTrib>UN</uTrib>
-          <NCM>12345678</NCM>
-          <uCom>UN</uCom>
-          <CFOP>5101</CFOP>
-          <CEST>1234567</CEST>
-        </prod>
-        <imposto>
-          <ICMS>
-            <ICMS40>
-              <orig>0</orig>
-              <CST>40</CST>
-            </ICMS40>
-          </ICMS>
-        </imposto>
-        <vItem>50.00</vItem>
-        <infAdProd>Produto genérico para teste.</infAdProd>
-      </det>
-      <det>
-        <nItem>2</nItem>
-        <prod>
-          <cEAN>9876543210987</cEAN>
-          <cProd>1002</cProd>
-          <qCom>5.0000</qCom>
-          <cEANTrib>9876543210987</cEANTrib>
-          <vUnTrib>10.00</vUnTrib>
-          <qTrib>5.0000</qTrib>
-          <vProd>50.00</vProd>
-          <nFCI>BBBBBBBB-BBBB-BBBB-BBBB-BBBBBBBBBBBB</nFCI>
-          <xProd>Produto Genérico 2</xProd>
-          <vUnCom>10.00</vUnCom>
-          <indTot>1</indTot>
-          <uTrib>UN</uTrib>
-          <NCM>87654321</NCM>
-          <uCom>UN</uCom>
-          <CFOP>5102</CFOP>
-          <CEST>7654321</CEST>
-        </prod>
-        <imposto>
-          <ICMS>
-            <ICMS40>
-              <orig>0</orig>
-              <CST>40</CST>
-            </ICMS40>
-          </ICMS>
-        </imposto>
-        <vItem>50.00</vItem>
-        <infAdProd>Produto genérico para teste 2.</infAdProd>
-      </det>
-      <total>
-        <ICMSTot>
-          <vCOFINS>0.00</vCOFINS>
-          <vBCST>0.00</vBCST>
-          <vICMSDeson>0.00</vICMSDeson>
-          <vProd>100.00</vProd>
-          <vSeg>0.00</vSeg>
-          <vFCP>0.00</vFCP>
-          <vFCPST>0.00</vFCPST>
-          <vNF>100.00</vNF>
-          <vPIS>0.00</vPIS>
-          <vIPIDevol>0.00</vIPIDevol>
-          <vBC>0.00</vBC>
-          <vST>0.00</vST>
-          <vICMS>0.00</vICMS>
-          <vII>0.00</vII>
-          <vFCPSTRet>0.00</vFCPSTRet>
-          <vDesc>0.00</vDesc>
-          <vOutro>0.00</vOutro>
-          <vIPI>0.00</vIPI>
-          <vFrete>0.00</vFrete>
-        </ICMSTot>
-      </total>
-      <transp>
-        <modFrete>0</modFrete>
-        <vol>
-          <pesoL>5.000</pesoL>
-          <qVol>2</qVol>
-          <nVol>2</nVol>
-          <pesoB>5.500</pesoB>
-        </vol>
-      </transp>
-      <pag>
-        <detPag>
-          <vPag>100.00</vPag>
-          <tPag>01</tPag>
-          <indPag>0</indPag>
-        </detPag>
-      </pag>
-      <infAdic>
-        <infCpl>Nota fiscal de teste válida.</infCpl>
-      </infAdic>
-      <infRespTec>
-        <fone>1111111111</fone>
-        <CNPJ>33333333333333</CNPJ>
-        <xContato>Contato Exemplo</xContato>
-        <email>tecnico@exemplo.com</email>
-      </infRespTec>
-    </infNFe>
-  </NFe>
-  <versao>4.00</versao>
+<nfeProc versao="4.00" xmlns="http://www.portalfiscal.inf.br/nfe">
+    <NFe xmlns="http://www.portalfiscal.inf.br/nfe">
+        <infNFe versao="4.00" Id="NFe00000000000000000000000000000000000000000000">
+            <ide>
+                <cUF>35</cUF>
+                <cNF>67954701</cNF>
+                <natOp>Remessa de vasilhame ou sacaria</natOp>
+                <mod>55</mod>
+                <serie>1</serie>
+                <nNF>367935</nNF>
+                <dhEmi>2025-12-17T17:19:56-03:00</dhEmi>
+                <tpNF>1</tpNF>
+                <idDest>1</idDest>
+                <cMunFG>3538709</cMunFG>
+                <tpImp>2</tpImp>
+                <tpEmis>1</tpEmis>
+                <cDV>7</cDV>
+                <tpAmb>1</tpAmb>
+                <finNFe>1</finNFe>
+                <indFinal>0</indFinal>
+                <indPres>9</indPres>
+                <indIntermed>0</indIntermed>
+                <procEmi>0</procEmi>
+                <verProc>Tri6.2.103.264</verProc>
+            </ide>
+            <emit>
+                <CNPJ>00000000000000</CNPJ>
+                <xNome>EMPRESA EMITENTE LTDA</xNome>
+                <xFant>EMPRESA EMITENTE</xFant>
+                <enderEmit>
+                    <xLgr>Rua Exemplo</xLgr>
+                    <nro>123</nro>
+                    <xBairro>Bairro Exemplo</xBairro>
+                    <cMun>0000000</cMun>
+                    <xMun>Cidade Exemplo</xMun>
+                    <UF>EX</UF>
+                    <CEP>00000000</CEP>
+                    <cPais>1058</cPais>
+                    <xPais>Brasil</xPais>
+                    <fone>0000000000</fone>
+                </enderEmit>
+                <IE>000000000000</IE>
+                <CRT>3</CRT>
+            </emit>
+            <dest>
+                <CNPJ>11111111000111</CNPJ>
+                <xNome>EMPRESA DESTINATARIA LTDA</xNome>
+                <enderDest>
+                    <xLgr>Avenida Exemplo</xLgr>
+                    <nro>456</nro>
+                    <xBairro>Bairro Destino</xBairro>
+                    <cMun>1111111</cMun>
+                    <xMun>Cidade Destino</xMun>
+                    <UF>EX</UF>
+                    <CEP>11111111</CEP>
+                    <cPais>1058</cPais>
+                    <xPais>Brasil</xPais>
+                    <fone>1111111111</fone>
+                </enderDest>
+                <indIEDest>1</indIEDest>
+                <IE>111111111111</IE>
+                <email>destinatario@exemplo.com</email>
+            </dest>
+            <det nItem="1">
+                <prod>
+                    <cProd>1001</cProd>
+                    <cEAN>SEM GTIN</cEAN>
+                    <xProd>PALLETE DE MADEIRA DIVERSOS EMBALATEC</xProd>
+                    <NCM>44152000</NCM>
+                    <CFOP>5920</CFOP>
+                    <uCom>PC</uCom>
+                    <qCom>24.0000</qCom>
+                    <vUnCom>37.2700000000</vUnCom>
+                    <vProd>894.48</vProd>
+                    <cEANTrib>SEM GTIN</cEANTrib>
+                    <uTrib>ST</uTrib>
+                    <qTrib>24.0000</qTrib>
+                    <vUnTrib>37.2700000000</vUnTrib>
+                    <indTot>1</indTot>
+                </prod>
+                <imposto>
+                    <ICMS>
+                        <ICMS40>
+                            <orig>0</orig>
+                            <CST>40</CST>
+                        </ICMS40>
+                    </ICMS>
+                    <IPI>
+                        <cEnq>999</cEnq>
+                        <IPINT>
+                            <CST>53</CST>
+                        </IPINT>
+                    </IPI>
+                    <PIS>
+                        <PISNT>
+                            <CST>07</CST>
+                        </PISNT>
+                    </PIS>
+                    <COFINS>
+                        <COFINSNT>
+                            <CST>07</CST>
+                        </COFINSNT>
+                    </COFINS>
+                </imposto>
+                <infAdProd>ICMS isento cfe. art. 82, inc. I, do Anexo I, c/c art. 8o, do Decreto no
+                    45.490/00 - RICMS Isento ou nao sujeito a IPI</infAdProd>
+            </det>
+            <total>
+                <ICMSTot>
+                    <vBC>0.00</vBC>
+                    <vICMS>0.00</vICMS>
+                    <vICMSDeson>0.00</vICMSDeson>
+                    <vFCP>0.00</vFCP>
+                    <vBCST>0.00</vBCST>
+                    <vST>0.00</vST>
+                    <vFCPST>0.00</vFCPST>
+                    <vFCPSTRet>0.00</vFCPSTRet>
+                    <vProd>894.48</vProd>
+                    <vFrete>0.00</vFrete>
+                    <vSeg>0.00</vSeg>
+                    <vDesc>0.00</vDesc>
+                    <vII>0.00</vII>
+                    <vIPI>0.00</vIPI>
+                    <vIPIDevol>0.00</vIPIDevol>
+                    <vPIS>0.00</vPIS>
+                    <vCOFINS>0.00</vCOFINS>
+                    <vOutro>0.00</vOutro>
+                    <vNF>894.48</vNF>
+                </ICMSTot>
+            </total>
+            <transp>
+                <modFrete>0</modFrete>
+                <vol>
+                    <qVol>24</qVol>
+                    <esp>PC</esp>
+                    <pesoL>432.000</pesoL>
+                    <pesoB>432.000</pesoB>
+                </vol>
+            </transp>
+            <pag>
+                <detPag>
+                    <indPag>1</indPag>
+                    <tPag>18</tPag>
+                    <vPag>894.48</vPag>
+                </detPag>
+            </pag>
+            <infAdic>
+                <infCpl>ICMS isento cfe. art. 82, inc. I, do Anexo I, c/c art. 8o, do Decreto no
+                    45.490/00 - RICMS. Isento ou nao sujeito a IPI. E-mail do transportador:: * Em
+                    caso de Sinistro ligar: * 08007772746 # ARGO SEGUROS * ISENTO DE ICMS CONF ART
+                    82 do Anexo I item I-b</infCpl>
+            </infAdic>
+            <infRespTec>
+                <CNPJ>22222222000122</CNPJ>
+                <xContato>Responsável Técnico</xContato>
+                <email>tecnico@exemplo.com</email>
+                <fone>2222222222</fone>
+            </infRespTec>
+        </infNFe>
+        <Signature xmlns="http://www.w3.org/2000/09/xmldsig#">
+            <SignedInfo>
+                <CanonicalizationMethod Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315" />
+                <SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1" />
+                <Reference URI="#NFe35251211547756000171550010003679351679547017">
+                    <Transforms>
+                        <Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature" />
+                        <Transform Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315" />
+                    </Transforms>
+                    <DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+                    <DigestValue>8mix+j+X9oTTnp6bbiSUTJOFkjI=</DigestValue>
+                </Reference>
+            </SignedInfo>
+            <SignatureValue>
+                MJ+nHm43YCHGPPm2qFZlHZqcx0yifXlviqp2F9Dq7Lsnd3CK9GWEAW0jwXkI+1BfkwF5TunZLl1O+dIKHOWrwVv4d6yyS0gw2JXytrAz0vzGANNocZBhc51eAA/VjR8A+ovVKmcr0ybnQa/mYAXPL+y12mOKG+y7Ue9qz7wufCwodmXdwb4KqbffWM9HAyOtlr5Cibv1MNsHJ98lAccMswsjQ5hPMORnLSz3fgoUI3NFVRBguEjjRHh1NEBYX9X8AZZmhVs84pcFWY7PQGVsABwTmLxW2vhmmgAXd3t6ezY6Bayxeq7SS0SuY57W04hEN8qQkZMPDQuaro+oxw9xVQ==</SignatureValue>
+            <KeyInfo>
+                <X509Data>
+                    <X509Certificate>
+                        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</X509Certificate>
+                </X509Data>
+            </KeyInfo>
+        </Signature>
+    </NFe>
+    <protNFe versao="4.00">
+        <infProt Id="Id135253977919959">
+            <tpAmb>1</tpAmb>
+            <verAplic>SP_NFE_PL009_V4</verAplic>
+            <chNFe>35251211547756000171550010003679351679547017</chNFe>
+            <dhRecbto>2025-12-17T17:20:15-03:00</dhRecbto>
+            <nProt>135253977919959</nProt>
+            <digVal>8mix+j+X9oTTnp6bbiSUTJOFkjI=</digVal>
+            <cStat>100</cStat>
+            <xMotivo>Autorizado o uso da NF-e</xMotivo>
+        </infProt>
+    </protNFe>
 </nfeProc>
