@@ -1,14 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
+@extends('Layout.layout')
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-</head>
+@section('title', 'Editar Insumo')
 
-<body>
+@section('content')
     <h1>Editar Insumo</h1>
     @if ($errors->any())
         <p>{{ $errors->first() }}</p>
@@ -31,7 +25,4 @@
         </div>
         <button type="submit">Atualizar Insumo</button>
     </form>
-
-</body>
-
-</html>
+@endsection

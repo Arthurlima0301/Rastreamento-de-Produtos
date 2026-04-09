@@ -1,14 +1,8 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
+@extends('Layout.layout')
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Notas Fiscais</title>
-    @vite(['resources/js/app.js', 'resources/css/app.css'])
-</head>
+@section('title', 'Notas Fiscais')
 
-<body x-data="{}">
+@section('content')
     <h1>Notas Fiscais</h1>
 
     @if (session('success'))
@@ -56,6 +50,4 @@
         </tbody>
     </table>
     @endif
-</body>
-
-</html>
+@endsection
