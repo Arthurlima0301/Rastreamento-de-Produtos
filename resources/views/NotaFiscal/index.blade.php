@@ -24,30 +24,28 @@
         @enderror
     </form>
 
-    <h2>Lista de notas fiscais</h2>
-
     @if ($notas->isEmpty())
     <p>Nenhuma nota fiscal registrada.</p>
     @else
-    <table border="1" cellpadding="8" cellspacing="0" style="border-collapse: collapse;">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Código NF</th>
-                <th>Data de Emissão</th>
-                <th>Criado em</th>
-            </tr>
-        </thead>
-        <tbody>
+    
+    <x-table>
+        <x-slot name="header">
+            <th class="p-2">ID</th>
+            <th class="p-2">Código NF</th>
+            <th class="p-2">Data de Emissão</th>
+            <th class="p-2">Criado em</th>
+        </x-slot>
+
+        <x-slot name="rows">
             @foreach ($notas as $nota)
-            <tr>
-                <td>{{ $nota->id }}</td>
-                <td>{{ $nota->codigo_nf }}</td>
-                <td>{{ $nota->data_emissao }}</td>
-                <td>{{ $nota->created_at }}</td>
-            </tr>
+                <tr>
+                    <td class="p-2">{{ $nota->id }}</td>
+                    <td class="p-2">{{ $nota->codigo_nf }}</td>
+                    <td class="p-2">{{ $nota->data_emissao }}</td>
+                    <td class="p-2">{{ $nota->created_at }}</td>
+                </tr>
             @endforeach
-        </tbody>
-    </table>
+        </x-slot>
+    </x-table>
     @endif
 @endsection

@@ -3,30 +3,31 @@
 @section('title', 'Items')
 
 @section('content')
-    <table class="text-center">
-        <thead>
-            <tr>
-                <th>Código</th>
-                <th>Descrição</th>
-                <th>Item</th>
-                <th>Unidade de Medida</th>
-                <th>Quantidade</th>
-                <th>Nota Fiscal</th>
-                <th>Data</th>
-            </tr>
-        </thead>
-        <tbody>
+    <h1>Items</h1>
+
+    <x-table>
+        <x-slot name="header">
+            <th class="p-2">Código</th>
+            <th class="p-2">Descrição</th>
+            <th class="p-2">Item</th>
+            <th class="p-2">Unidade de Medida</th>
+            <th class="p-2">Quantidade</th>
+            <th class="p-2">Nota Fiscal</th>
+            <th class="p-2">Data</th>
+        </x-slot>
+
+        <x-slot name="rows">
             @foreach($items as $item)
                 <tr>
-                    <td>{{ $item->insumo->codigo_insumo }}</td>
-                    <td>{{ $item->insumo->nome}}</td>
-                    <td>{{ $item->numero }}</td>
-                    <td>{{ $item->insumo->unidade_medida }}</td>
-                    <td>{{ $item->quantidade }}</td>
-                    <td>{{ $item->notaFiscal->codigo_nf }}</td>
-                    <td>{{ $item->notaFiscal->data_emissao}}</td>
+                    <td class="p-2">{{ $item->insumo->codigo_insumo }}</td>
+                    <td class="p-2">{{ $item->insumo->nome}}</td>
+                    <td class="p-2">{{ $item->numero }}</td>
+                    <td class="p-2">{{ $item->insumo->unidade_medida }}</td>
+                    <td class="p-2">{{ $item->quantidade }}</td>
+                    <td class="p-2">{{ $item->notaFiscal->codigo_nf }}</td>
+                    <td class="p-2">{{ $item->notaFiscal->data_emissao}}</td>
                 </tr>
             @endforeach
-        </tbody>
-    </table>
+        </x-slot>
+    </x-table>
 @endsection

@@ -11,32 +11,31 @@
 
 
 <a href="{{ route('insumos.create') }}">Criar Novo Insumo</a>
-<table style="text-align: center;">
-    <thead>
-        <tr>
-            <th>Nome</th>
-            <th>Código</th>
-            <th>Unidade de Medida</th>
-            <th>Ações</th>
-        </tr>
-    </thead>
-    <tbody>
+<x-table>
+    <x-slot name="header">
+        <th class="p-2">Nome</th>
+        <th class="p-2">Código</th>
+        <th class="p-2">Unidade de Medida</th>
+        <th class="p-2">Ações</th>
+    </x-slot>
+
+    <x-slot name="rows">
         @foreach ($insumos as $insumo)
-        <tr>
-            <td>{{ $insumo->nome }}</td>
-            <td>{{ $insumo->codigo_insumo }}</td>
-            <td>{{ $insumo->unidade_medida }}</td>
-            <td>
-                <a href="{{ route('insumos.show', $insumo->id) }}">Ver</a>
-                <a href="{{ route('insumos.edit', $insumo->id) }}">Editar</a>
-                <form action="{{ route('insumos.destroy', $insumo->id) }}" method="POST" style="display: inline;">
-                    @csrf
-                    @method('DELETE')
-                    <button type="submit">Excluir</button>
-                </form>
-            </td>
-        </tr>
+            <tr>
+                <td class="p-2">{{ $insumo->nome }}</td>
+                <td class="p-2">{{ $insumo->codigo_insumo }}</td>
+                <td class="p-2">{{ $insumo->unidade_medida }}</td>
+                <td class="p-2">
+                    <a href="{{ route('insumos.show', $insumo->id) }}">Ver</a>
+                    <a href="{{ route('insumos.edit', $insumo->id) }}">Editar</a>
+                    <form action="{{ route('insumos.destroy', $insumo->id) }}" method="POST" style="display: inline;">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit">Excluir</button>
+                    </form>
+                </td>
+            </tr>
         @endforeach
-    </tbody>
-</table>
+    </x-slot>
+</x-table>
 @endsection
