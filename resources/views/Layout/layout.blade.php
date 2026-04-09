@@ -10,6 +10,9 @@
 </head>
 
 <body x-data="{}">
+    <!-- Header Component --->
+    <x-header></x-header>
+
     <main>
         @yield('content')
     </main>
