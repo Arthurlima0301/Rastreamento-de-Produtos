@@ -3,7 +3,11 @@
 @section('title', 'Criar Insumo')
 
 @section('content')
-<h1>Criar Insumo</h1>
+<x-card title="Criar Insumo">
+    <x-slot name="slot">
+        <!-- action slot left intentionally empty -->
+    </x-slot>
+</x-card>
 
 <x-error-message></x-error-message>
 

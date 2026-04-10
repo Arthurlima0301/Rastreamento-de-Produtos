@@ -3,12 +3,14 @@
 @section('title', 'Lista de Insumos')
 
 @section('content')
-<h1>Lista de Insumos</h1>
+<x-card title="Lista de Insumos">
+    <x-slot name="slot">
+        <a href="{{ route('insumos.create') }}">Criar Novo Insumo</a>
+    </x-slot>
+</x-card>
 
 <x-sucess-message></x-sucess-message>
 
-
-<a href="{{ route('insumos.create') }}">Criar Novo Insumo</a>
 <x-table>
     <x-slot name="header">
             <th class="p-2">Nome</th>

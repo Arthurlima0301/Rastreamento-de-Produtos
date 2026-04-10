@@ -3,7 +3,11 @@
 @section('title', 'Items')
 
 @section('content')
-    <h1>Items</h1>
+    <x-card title="Items">
+        <x-slot name="slot">
+            <!-- action slot left intentionally empty -->
+        </x-slot>
+    </x-card>
 
     <x-table>
         <x-slot name="header">

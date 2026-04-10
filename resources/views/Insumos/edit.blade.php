@@ -3,8 +3,12 @@
 @section('title', 'Editar Insumo')
 
 @section('content')
-    <h1>Editar Insumo</h1>
-    
+    <x-card title="Editar Insumo">
+        <x-slot name="slot">
+            <!-- action slot left intentionally empty -->
+        </x-slot>
+    </x-card>
+
     @if ($errors->any())
         <p>{{ $errors->first() }}</p>
     @endif
