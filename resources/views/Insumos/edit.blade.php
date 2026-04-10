@@ -4,9 +4,11 @@
 
 @section('content')
     <h1>Editar Insumo</h1>
+    
     @if ($errors->any())
         <p>{{ $errors->first() }}</p>
     @endif
+
     <form action="{{ route('insumos.update', $insumo->id) }}" method="POST">
         @csrf
         @method('PUT')

@@ -5,15 +5,13 @@
 @section('content')
 <h1>Lista de Insumos</h1>
 
-@if (session('success'))
-<p>{{ session('success') }}</p>
-@endif
+<x-sucess-message></x-sucess-message>
 
 
 <a href="{{ route('insumos.create') }}">Criar Novo Insumo</a>
 <x-table>
     <x-slot name="header">
-        <th class="p-2">Nome</th>
+            <th class="p-2">Nome</th>
         <th class="p-2">Código</th>
         <th class="p-2">Unidade de Medida</th>
         <th class="p-2">Ações</th>

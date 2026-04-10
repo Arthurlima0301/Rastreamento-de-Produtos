@@ -5,9 +5,7 @@
 @section('content')
 <h1>Criar Insumo</h1>
 
-@if ($errors->any())
-<p>{{ $errors->first() }}</p>
-@endif
+<x-error-message></x-error-message>
 
 <form action="{{ route('insumos.store') }}" method="POST">
     @csrf
