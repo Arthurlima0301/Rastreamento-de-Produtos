@@ -6,6 +6,11 @@
             </tr>
         </thead>
         <tbody>
+            @if($rows->isEmpty())
+                <tr>
+                    <td colspan="10" class="p-4">Nenhum registro encontrado.</td>
+                </tr>
+            @endif
             {{ $rows }}
         </tbody>
     </table>

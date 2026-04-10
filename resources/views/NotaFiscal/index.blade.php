@@ -15,27 +15,23 @@
     <x-sucess-message></x-sucess-message>
     <x-error-message></x-error-message>
 
-    @if ($notas->isEmpty())
-        <p>Nenhuma nota fiscal registrada.</p>
-    @else
-        <x-table>
-            <x-slot name="header">
-                <th class="p-2">ID</th>
-                <th class="p-2">Código NF</th>
-                <th class="p-2">Data de Emissão</th>
-                <th class="p-2">Criado em</th>
-            </x-slot>
+    <x-table>
+        <x-slot name="header">
+            <th class="p-2">ID</th>
+            <th class="p-2">Código NF</th>
+            <th class="p-2">Data de Emissão</th>
+            <th class="p-2">Criado em</th>
+        </x-slot>
 
-            <x-slot name="rows">
-                @foreach ($notas as $nota)
-                    <tr>
-                        <td class="p-2">{{ $nota->id }}</td>
-                        <td class="p-2">{{ $nota->codigo_nf }}</td>
-                        <td class="p-2">{{ $nota->data_emissao }}</td>
-                        <td class="p-2">{{ $nota->created_at }}</td>
-                    </tr>
-                @endforeach
-            </x-slot>
-        </x-table>
-    @endif
+        <x-slot name="rows">
+            @foreach ($notas as $nota)
+                <tr>
+                    <td class="p-2">{{ $nota->id }}</td>
+                    <td class="p-2">{{ $nota->codigo_nf }}</td>
+                    <td class="p-2">{{ $nota->data_emissao }}</td>
+                    <td class="p-2">{{ $nota->created_at }}</td>
+                </tr>
+            @endforeach
+        </x-slot>
+    </x-table>
 @endsection
