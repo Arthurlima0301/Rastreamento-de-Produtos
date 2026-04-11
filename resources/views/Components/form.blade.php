@@ -1,5 +1,5 @@
 <form action="{{ $action }}" method="{{ $method }}"
-    class="flex flex-col gap-6 justify-center items-center h-[40rem] w-full bg-surface rounded-lg shadow-md border-2 border-gray-300"
+    class="flex flex-col gap-6 justify-center items-center h-[40rem] w-full bg-surface rounded-lg shadow-md border-2 border-stroke"
 >
     @csrf
 

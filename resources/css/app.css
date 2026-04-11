@@ -16,6 +16,7 @@
     --color-primary: #1e40af; /* primary: primary buttons / links */
     --color-secondary: #8fb8ff; /* secondary: subtle accents */
     --color-accent: #ff7a66; /* accent: badges / highlights */
+    --color-stroke: #d1d5db; /* stroke: borders, dividers */
 
     /* Text colors */
     --color-mtext: #20303b; /* texto: primary body text */
