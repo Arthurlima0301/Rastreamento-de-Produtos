@@ -8,8 +8,12 @@
     @vite(['resources/js/app.js', 'resources/css/app.css'])
 </head>
 <body x-data="{}">
-    <div @click=" alert('Hello World') " class="cursor-pointer">
-        <h1 >Hello World</h1>
-    </div>
+    <x-card title="Hello World">
+        <x-slot name="slot">
+            <div @click=" alert('Hello World') " class="cursor-pointer">
+                <span></span>
+            </div>
+        </x-slot>
+    </x-card>
 </body>
 </html>

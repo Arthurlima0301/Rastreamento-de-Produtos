@@ -1,35 +1,17 @@
-<!DOCTYPE html>
-<html lang="en">
+@extends('Layout.layout')
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-</head>
+@section('title', 'Criar Insumo')
 
-<body>
-    <h1>Criar Insumo</h1>
-    @if ($errors->any())
-        <p>{{ $errors->first() }}</p>
-    @endif
-    <form action="{{ route('insumos.store') }}" method="POST">
-        @csrf
-        <div>
-            <label for="codigo_insumo">Código:</label>
-            <input type="text" name="codigo_insumo" id="codigo_insumo" required>
-        </div>
-        <div>
-            <label for="nome">Nome:</label>
-            <input type="text" name="nome" id="nome" required>
-        </div>
-        <div>
-            <label for="unidade_medida">Unidade de Medida:</label>
-            <input type="text" name="unidade_medida" id="unidade_medida" required>
-        </div>
-        <button type="submit">Criar Insumo</button>
-    </form>
+@section('content')
+<x-card title="Criar Insumo"></x-card>
 
-</body>
+<x-error-message></x-error-message>
 
-</html>
+<x-form action="{{ route('insumos.store') }}" method="POST" title="Criar Insumo" buttonText="Criar Insumo">
+
+    <x-input name="codigo_insumo" label="Código" type="text" value="" required></x-input>
+    <x-input name="nome" label="Nome" type="text" value="" required></x-input>
+    <x-input name="unidade_medida" label="Unidade de Medida" type="text" value=""  required></x-input>
+</x-form>
+
+@endsection

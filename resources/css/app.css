@@ -8,4 +8,22 @@
 @theme {
     --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
         'Segoe UI Symbol', 'Noto Color Emoji';
+    /* Backgrounds */
+    --color-main: #000000; /* background: app/page background */
+    --color-surface: #ffffff; /* background: cards, panels */
+
+    /* Core brand colors */
+    --color-primary: #1e40af; /* primary: primary buttons / links */
+    --color-secondary: #8fb8ff; /* secondary: subtle accents */
+    --color-accent: #ff7a66; /* accent: badges / highlights */
+    --color-stroke: #d1d5db; /* stroke: borders, dividers */
+
+    /* Text colors */
+    --color-mtext: #20303b; /* texto: primary body text */
+    --color-muted: #ffffff; /* texto: secondary / helper text */
+
+    /* Feedback */
+    --color-success: #43b883; /* success: success states, badges */
+    --color-warning: #f5a623; /* warning: warnings, alerts */
+    --color-danger: #e04848; /* danger: error states */
 }

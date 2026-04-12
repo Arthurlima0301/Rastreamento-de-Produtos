@@ -1,61 +1,39 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
+@extends('Layout.layout')
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Notas Fiscais</title>
-    @vite(['resources/js/app.js', 'resources/css/app.css'])
-</head>
+@section('title', 'Notas Fiscais')
 
-<body x-data="{}">
-    <h1>Notas Fiscais</h1>
+@section('content')
+    <x-card title="Notas Fiscais">
+        <x-slot name="slot">
+            <form action="{{ route('notas.import') }}" method="POST" enctype="multipart/form-data" x-ref="form">
+                @csrf
+                <label for="xml_file">Arquivo XML</label>
+                <input type="file" class="hidden" name="xml_file" id="xml_file" accept=".xml" required
+                    @change = "$refs.form.submit()">
+            </form>
+        </x-slot>
+    </x-card>
 
-    @if (session('success'))
-    <p style="color: green;">{{ session('success') }}</p>
-    @endif
-    @if (session('error'))
-    <p style="color: red;">{{ session('error') }}</p>
-    @endif
 
-    <form action="{{ route('notas.import') }}" method="POST" enctype="multipart/form-data" x-ref="form">
-        @csrf
-        <label for="xml_file">Arquivo XML</label>
-        <input type="file" class="hidden" name="xml_file" id="xml_file" accept=".xml" required
-        
-        @change = "$refs.form.submit()">
 
-        @if($errors->isNotEmpty())
-        <p style="color:red;">{{ $errors->first() }}</p>
-        @enderror
-    </form>
+    <x-sucess-message></x-sucess-message>
+    <x-error-message></x-error-message>
 
-    <h2>Lista de notas fiscais</h2>
+    <x-table>
+        <x-slot name="header">
+            <th class="p-2">ID</th>
+            <th class="p-2">Código NF</th>
+            <th class="p-2">Data de Emissão</th>
+        </x-slot>
 
-    @if ($notas->isEmpty())
-    <p>Nenhuma nota fiscal registrada.</p>
-    @else
-    <table border="1" cellpadding="8" cellspacing="0" style="border-collapse: collapse;">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Código NF</th>
-                <th>Data de Emissão</th>
-                <th>Criado em</th>
-            </tr>
-        </thead>
-        <tbody>
+        <x-slot name="rows">
             @foreach ($notas as $nota)
-            <tr>
-                <td>{{ $nota->id }}</td>
-                <td>{{ $nota->codigo_nf }}</td>
-                <td>{{ $nota->data_emissao }}</td>
-                <td>{{ $nota->created_at }}</td>
-            </tr>
+                <tr>
+                    <td class="p-2">{{ $nota->id }}</td>
+                    <td class="p-2">{{ $nota->codigo_nf }}</td>
+                    <td class="p-2">{{ $nota->data_emissao }}</td>
+                </tr>
             @endforeach
-        </tbody>
-    </table>
-    @endif
-</body>
-
-</html>
+        </x-slot>
+    </x-table>
+@endsection

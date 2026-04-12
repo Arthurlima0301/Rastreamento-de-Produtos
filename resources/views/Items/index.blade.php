@@ -1,38 +1,37 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-    @vite('resources/css/app.css')
-</head>
-<body>
-    <table class="text-center">
-        <thead>
-            <tr>
-                <th>Código</th>
-                <th>Descrição</th>
-                <th>Item</th>
-                <th>Unidade de Medida</th>
-                <th>Quantidade</th>
-                <th>Nota Fiscal</th>
-                <th>Data</th>
-            </tr>
-        </thead>
-        <tbody>
+@extends('Layout.layout')
+
+@section('title', 'Items')
+
+@section('content')
+    <x-card title="Items">
+        <x-slot name="slot">
+            <!-- action slot left intentionally empty -->
+        </x-slot>
+    </x-card>
+
+    <x-table>
+        <x-slot name="header">
+            <th class="p-2">Código</th>
+            <th class="p-2">Descrição</th>
+            <th class="p-2">Item</th>
+            <th class="p-2">Unidade de Medida</th>
+            <th class="p-2">Quantidade</th>
+            <th class="p-2">Nota Fiscal</th>
+            <th class="p-2">Data</th>
+        </x-slot>
+
+        <x-slot name="rows">
             @foreach($items as $item)
                 <tr>
-                    <td>{{ $item->insumo->codigo_insumo }}</td>
-                    <td>{{ $item->insumo->nome}}</td>
-                    <td>{{ $item->numero }}</td>
-                    <td>{{ $item->insumo->unidade_medida }}</td>
-                    <td>{{ $item->quantidade }}</td>
-                    <td>{{ $item->notaFiscal->codigo_nf }}</td>
-                    <td>{{ $item->notaFiscal->data_emissao}}</td>
+                    <td class="p-2">{{ $item->insumo->codigo_insumo }}</td>
+                    <td class="p-2">{{ $item->insumo->nome}}</td>
+                    <td class="p-2">{{ $item->numero }}</td>
+                    <td class="p-2">{{ $item->insumo->unidade_medida }}</td>
+                    <td class="p-2">{{ $item->quantidade }}</td>
+                    <td class="p-2">{{ $item->notaFiscal->codigo_nf }}</td>
+                    <td class="p-2">{{ $item->notaFiscal->data_emissao}}</td>
                 </tr>
             @endforeach
-        </tbody>
-    </table>
-</body>
-</html>
+        </x-slot>
+    </x-table>
+@endsection
