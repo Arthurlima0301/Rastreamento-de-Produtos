@@ -24,7 +24,6 @@
             <th class="p-2">ID</th>
             <th class="p-2">Código NF</th>
             <th class="p-2">Data de Emissão</th>
-            <th class="p-2">Criado em</th>
         </x-slot>
 
         <x-slot name="rows">
@@ -33,7 +32,6 @@
                     <td class="p-2">{{ $nota->id }}</td>
                     <td class="p-2">{{ $nota->codigo_nf }}</td>
                     <td class="p-2">{{ $nota->data_emissao }}</td>
-                    <td class="p-2">{{ $nota->created_at }}</td>
                 </tr>
             @endforeach
         </x-slot>
