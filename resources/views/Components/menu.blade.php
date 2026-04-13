@@ -12,8 +12,8 @@
              <a href="{{ route('insumos.index') }}" class="block p-2 w-full hover:bg-secondary">Insumos</a>
          </li>
 
-         <li class="w-full">
-             <a href="" class="block p-2 w-full hover:bg-secondary">Saídas</a>
-         </li>
+        <li class="w-full">
+            <a href="{{ route('saidas.index') }}" class="block p-2 w-full hover:bg-secondary">Saídas</a>
+        </li>
      </ul>
  </nav>
