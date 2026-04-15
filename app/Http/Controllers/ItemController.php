@@ -12,8 +12,9 @@ class ItemController extends Controller
      */
     public function index()
     {
-        $items = Item::with('notaFiscal', 'insumo')->orderBy('created_at', 'asc')->get();
+        $items = Item::with('notaFiscal', 'insumo')->withSum('saidasItems', 'quantidade')->get();
         
+
         return view('items.index', compact('items'));
     }
 
