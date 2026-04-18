@@ -3,9 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Item;
 use App\Models\Saida;
-use App\Models\SaidaItem;
+
 
 class SaidaController extends Controller
 {
