@@ -15,6 +15,7 @@
         <x-slot name="header">
             <th class="p-2">ID</th>
             <th class="p-2">Data</th>
+            <th class="p-2">Nota Fiscal</th>
         </x-slot>
 
         <x-slot name="rows">
@@ -22,6 +23,7 @@
                 <tr>
                     <td class="p-2">{{ $saida->id }}</td>
                     <td class="p-2">{{ $saida->data_saida }}</td>
+                    <td class="p-2">{{ $saida->nota_fiscal }}</td>
                 </tr>
             @endforeach
         </x-slot>
