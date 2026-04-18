@@ -1,5 +1,5 @@
 @extends('Layout.layout')
-
+   
 @section('title', 'Saídas')
 
 @section('content')
@@ -83,7 +83,7 @@
             </x-table>
         </div>
 
-        
+        @include('Components.selected-items-list')
 
     </section>
 @endsection
