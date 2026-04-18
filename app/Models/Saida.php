@@ -18,6 +18,7 @@ class Saida extends Model
      */
     protected $fillable = [
         'data_saida',
+        'nota_fiscal',
     ];
 
     /**

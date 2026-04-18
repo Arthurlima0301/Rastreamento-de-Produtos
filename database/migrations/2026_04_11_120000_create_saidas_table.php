@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('saidas', function (Blueprint $table) {
             $table->id();
+            $table->string('nota_fiscal')->nullable();
             $table->dateTime('data_saida');
         });
     }
