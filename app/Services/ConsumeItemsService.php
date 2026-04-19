@@ -29,7 +29,7 @@ class ConsumeItemsService
             $itemModel = Item::withSum('saidasItems', 'quantidade')->where('id', $item['id'])->lockForUpdate()->first();
 
             if ($itemModel->saldo < (float) $item['quantidade'] || $itemModel->saldo <= 0) {
-                throw new \Exception("O item {$itemModel->nome} não possui saldo suficiente para a saída.");
+                throw new \Exception("O item {$itemModel->insumo->nome} não possui saldo suficiente para a saída.");
             }
         }
     }
