@@ -21,7 +21,7 @@
         <x-slot name="rows">
             @foreach ($saidas as $saida)
                 <tr>
-                    <td class="p-2">{{ $saida->id }}</td>
+                    <td class="p-2"><a href="{{ route('saidas.show', $saida->id) }}">{{ $saida->id }}</a></td>
                     <td class="p-2">{{ $saida->data_saida }}</td>
                     <td class="p-2">{{ $saida->nota_fiscal ?? 'N/A' }}</td>
                 </tr>

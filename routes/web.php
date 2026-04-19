@@ -21,3 +21,5 @@ Route::get('/items', [ItemController::class, 'index'])->name('items.index');
 Route::get('/saidas', [SaidaController::class, 'index'])->name('saidas.index');
 Route::get('/saidas/create', [SaidaController::class, 'create'])->name('saidas.create');
 Route::post('/saidas', [SaidaController::class, 'store'])->name('saidas.store');
+Route::get('/saidas/{saida}', [SaidaController::class, 'show'])->name('saidas.show');
+
