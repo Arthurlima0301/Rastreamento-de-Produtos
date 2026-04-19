@@ -1,34 +1,38 @@
 @extends('Layout.layout')
-   
+
 @section('title', 'Saídas')
 
 @section('content')
     <x-error-message></x-error-message>
 
-    
+
     <section class="flex gap-3 w-full"
         x-data='{
+            allItems: @json($items),
             items: @json($items),
             search: "",
+            selectedItems: [],
 
             searchItem() {
-                if(this.search !== "") {
-                    this.items = this.items.filter(item => item.insumo.nome.toLowerCase().includes(this.search.toLowerCase()));
+                if (this.search !== "") {
+                     this.items = this.allItems.filter(item =>
+                        item.insumo.nome.toLowerCase().includes(this.search.toLowerCase())
+                    );
                 } else {
-                    this.items = @json($items);
+                    this.items = this.allItems;
                 }
             },
 
-            selectedItems: [],
-
             selectItem(item) {
-                if(!this.selectedItems.includes(item)) {
+                const exists = this.selectedItems.some(i => i.id === item.id);
+
+                if (!exists) {
                     this.selectedItems.push(item);
-                }else {
+                } else {
                     this.selectedItems = this.selectedItems.filter(i => i.id !== item.id);
                 }
             }
-    }'>
+}'>
 
         <div>
             <x-card title="Criar Saída">
@@ -38,7 +42,7 @@
                 </x-slot>
             </x-card>
 
-        
+
 
             <x-table>
                 <x-slot name="header">
@@ -56,7 +60,7 @@
                 <x-slot name="rows">
                     <!-- Loop through listed items -->
                     <template x-for="item in items" :key="item.id">
-                        <tr>
+                        <tr class="hover:bg-stroke">
                             <td class="p-2 hobe"><span x-text="item.insumo.codigo_insumo"></span></td>
                             <td class="p-2"><span x-text="item.insumo.nome"></span></td>
                             <td class="p-2"><span x-text="item.numero"></span></td>
@@ -65,16 +69,14 @@
                             <td class="p-2"><span x-text="item.nota_fiscal.codigo_nf"></span></td>
                             <td class="p-2"><span x-text="item.nota_fiscal.data_emissao"></span></td>
                             <td class="p-2"><span x-text="item.saldo"></span></td>
-                      
-                            <td class="p-2">
-                                <button 
-                                    class="bg-primary text-muted p-2 cursor-pointer rounded"
 
-                                    @click="
-                                        selectItem(item);
-                                        $event.target.classList.toggle('bg-secondary');
-                                    "
-                                >Selecionar</button>
+                            <td class="p-2">
+                                <button class="text-muted p-2 cursor-pointer rounded"
+                                    :class="{
+                                        'bg-primary': !selectedItems.some(i => i.id === item.id),
+                                        'bg-secondary': selectedItems.some(i => i.id === item.id)
+                                    }"
+                                    @click="selectItem(item)">Selecionar</button>
                             </td>
                         </tr>
                     </template>
