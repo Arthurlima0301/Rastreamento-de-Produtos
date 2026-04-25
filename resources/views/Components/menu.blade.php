@@ -1,7 +1,7 @@
  <nav class="absolute z-10 w-62 p-2 text-xl bg-surface shadow-md" x-show="menuOpen">
      <ul>
          <li>
-             <a href="{{ route('notas.index') }}" class="block p-2 w-full hover:bg-secondary">Notas</a>
+             <a href="{{ route('invoices.index') }}" class="block p-2 w-full hover:bg-secondary">Notas</a>
          </li>
 
          <li class="w-full">
@@ -9,11 +9,11 @@
          </li>
 
          <li class="w-full">
-             <a href="{{ route('insumos.index') }}" class="block p-2 w-full hover:bg-secondary">Insumos</a>
+             <a href="{{ route('supplies.index') }}" class="block p-2 w-full hover:bg-secondary">Insumos</a>
          </li>
 
         <li class="w-full">
-            <a href="{{ route('saidas.index') }}" class="block p-2 w-full hover:bg-secondary">Saídas</a>
+            <a href="{{ route('dispatches.index') }}" class="block p-2 w-full hover:bg-secondary">Saídas</a>
         </li>
      </ul>
  </nav>

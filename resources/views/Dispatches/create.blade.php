@@ -5,7 +5,6 @@
 @section('content')
     <x-error-message></x-error-message>
 
-
     <section class="flex gap-3 w-full"
         x-data='{
             allItems: @json($items),
@@ -16,7 +15,7 @@
             searchItem() {
                 if (this.search !== "") {
                      this.items = this.allItems.filter(item =>
-                        item.insumo.nome.toLowerCase().includes(this.search.toLowerCase())
+                        item.supply.name.toLowerCase().includes(this.search.toLowerCase())
                     );
                 } else {
                     this.items = this.allItems;
@@ -42,8 +41,6 @@
                 </x-slot>
             </x-card>
 
-
-
             <x-table>
                 <x-slot name="header">
                     <th class="p-2">Código</th>
@@ -61,14 +58,14 @@
                     <!-- Loop through listed items -->
                     <template x-for="item in items" :key="item.id">
                         <tr class="hover:bg-stroke">
-                            <td class="p-2 hobe"><span x-text="item.insumo.codigo_insumo"></span></td>
-                            <td class="p-2"><span x-text="item.insumo.nome"></span></td>
-                            <td class="p-2"><span x-text="item.numero"></span></td>
-                            <td class="p-2"><span x-text="item.insumo.unidade_medida"></span></td>
-                            <td class="p-2"><span x-text="item.quantidade"></span></td>
-                            <td class="p-2"><span x-text="item.nota_fiscal.codigo_nf"></span></td>
-                            <td class="p-2"><span x-text="item.nota_fiscal.data_emissao"></span></td>
-                            <td class="p-2"><span x-text="item.saldo"></span></td>
+                            <td class="p-2 hobe"><span x-text="item.supply.supply_code"></span></td>
+                            <td class="p-2"><span x-text="item.supply.name"></span></td>
+                            <td class="p-2"><span x-text="item.number"></span></td>
+                            <td class="p-2"><span x-text="item.supply.unit_of_measure"></span></td>
+                            <td class="p-2"><span x-text="item.quantity"></span></td>
+                            <td class="p-2"><span x-text="item.invoice.invoice_code"></span></td>
+                            <td class="p-2"><span x-text="item.invoice.issued_at"></span></td>
+                            <td class="p-2"><span x-text="item.balance"></span></td>
 
                             <td class="p-2">
                                 <button class="text-muted p-2 cursor-pointer rounded"

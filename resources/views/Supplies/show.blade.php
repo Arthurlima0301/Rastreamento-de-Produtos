@@ -9,7 +9,7 @@
         </x-slot>
     </x-card>
 
-    <p><strong>Código:</strong> {{ $insumo->codigo_insumo }}</p>
-    <p><strong>Nome:</strong> {{ $insumo->nome }}</p>
-    <p><strong>Unidade de Medida:</strong> {{ $insumo->unidade_medida }}</p>
+    <p><strong>Código:</strong> {{ $supply->supply_code }}</p>
+    <p><strong>Nome:</strong> {{ $supply->name }}</p>
+    <p><strong>Unidade de Medida:</strong> {{ $supply->unit_of_measure }}</p>
 @endsection
