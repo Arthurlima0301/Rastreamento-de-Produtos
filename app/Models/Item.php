@@ -2,8 +2,8 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
@@ -20,43 +20,43 @@ class Item extends Model
      * The attributes that are mass assignable.
      */
     protected $fillable = [
-        'numero',
-        'nota_fiscal_id',
-        'insumo_id',
-        'quantidade',
+        'number',
+        'invoice_id',
+        'supply_id',
+        'quantity',
     ];
 
     /**
      * The balance append to the model.
      */
-    protected $appends = ['saldo'];
+    protected $appends = ['balance'];
 
-    public function getSaldoAttribute() : float
+    public function getBalanceAttribute(): float
     {
-        return $this->quantidade - $this->saidas_items_sum_quantidade;
+        return $this->quantity - ($this->dispatch_items_sum_quantity ?? 0);
     }
 
     /**
-     * Get the nota fiscal that owns the item.
+     * Get the invoice that owns the item.
      */
-    public function notaFiscal() : BelongsTo
+    public function invoice(): BelongsTo
     {
-        return $this->belongsTo(NotaFiscal::class, 'nota_fiscal_id');
+        return $this->belongsTo(Invoice::class, 'invoice_id');
     }
 
     /**
-     * Get the insumo that owns the item.
+     * Get the supply that owns the item.
      */
-    public function insumo() : BelongsTo
+    public function supply(): BelongsTo
     {
-        return $this->belongsTo(Insumo::class, 'insumo_id');
+        return $this->belongsTo(Supply::class, 'supply_id');
     }
 
     /**
-     * Get the saida items for the item.
+     * Get the dispatch items for the item.
      */
-    public function saidasItems() : HasMany
+    public function dispatchItems(): HasMany
     {
-        return $this->hasMany(SaidaItem::class, 'item_id');
+        return $this->hasMany(DispatchItem::class, 'item_id');
     }
 }

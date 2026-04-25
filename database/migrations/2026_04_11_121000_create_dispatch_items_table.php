@@ -11,14 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('saidas_items', function (Blueprint $table) {
+        Schema::create('dispatch_items', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('saida_id');
+            $table->unsignedBigInteger('dispatch_id');
             $table->unsignedBigInteger('item_id');
-            $table->integer('quantidade')->default(0);
+            $table->integer('quantity')->default(0);
             $table->timestamps();
 
-            $table->foreign('saida_id')->references('id')->on('saidas')->onDelete('cascade');
+            $table->foreign('dispatch_id')->references('id')->on('dispatches')->onDelete('cascade');
             $table->foreign('item_id')->references('id')->on('items')->onDelete('cascade');
         });
     }
@@ -28,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('saidas_items');
+        Schema::dropIfExists('dispatch_items');
     }
 };

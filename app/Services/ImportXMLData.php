@@ -2,10 +2,8 @@
 
 namespace App\Services;
 
-use App\Models\NotaFiscal;
+use App\Models\Invoice;
 use Illuminate\Support\Facades\DB;
-
-use App\Services\ExtractItems;
 
 class ImportXMLData
 {
@@ -20,9 +18,9 @@ class ImportXMLData
             $this->validateFields($xml);
             $this->validateAlreadyExists($xml);
 
-            $notaFiscal = $this->createNotaFiscal($xml);
+            $invoice = $this->createInvoice($xml);
 
-            $this->importItems($xml, $notaFiscal->id);
+            $this->importItems($xml, $invoice->id);
         });
     }
 
@@ -41,27 +39,27 @@ class ImportXMLData
      */
     private function validateAlreadyExists($xml)
     {
-        if (NotaFiscal::where('codigo_nf', $xml->NFe->infNFe->ide->nNF)->exists()) {
+        if (Invoice::where('invoice_code', $xml->NFe->infNFe->ide->nNF)->exists()) {
             throw new \Exception('Nota fiscal já existe.');
         }
     }
 
     /**
-     * Create Nota Fiscal.
+     * Create Invoice.
      */
-    private function createNotaFiscal($xml)
+    private function createInvoice($xml): Invoice
     {
-        return NotaFiscal::create([
-            'codigo_nf' => $xml->NFe->infNFe->ide->nNF,
-            'data_emissao' => $xml->NFe->infNFe->ide->dhEmi,
+        return Invoice::create([
+            'invoice_code' => $xml->NFe->infNFe->ide->nNF,
+            'issued_at' => $xml->NFe->infNFe->ide->dhEmi,
         ]);
     }
 
     /**
-     * Import Itens from an XML file and save them to the database. 
+     * Import items from an XML file and save them to the database.
      */
-    private function importItems($xml, $notaFiscalId)
+    private function importItems($xml, int $invoiceId)
     {
-        (new ExtractItems)->extract($xml, $notaFiscalId);
+        (new ExtractItems())->extract($xml, $invoiceId);
     }
 }

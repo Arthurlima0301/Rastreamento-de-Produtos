@@ -5,7 +5,7 @@
 @section('content')
     <x-card title="Notas Fiscais">
         <x-slot name="slot">
-            <form action="{{ route('notas.import') }}" method="POST" enctype="multipart/form-data" x-ref="form">
+            <form action="{{ route('invoices.import') }}" method="POST" enctype="multipart/form-data" x-ref="form">
                 @csrf
                 <label for="xml_file">Arquivo XML</label>
                 <input type="file" class="hidden" name="xml_file" id="xml_file" accept=".xml" required
@@ -13,8 +13,6 @@
             </form>
         </x-slot>
     </x-card>
-
-
 
     <x-sucess-message></x-sucess-message>
     <x-error-message></x-error-message>
@@ -27,11 +25,11 @@
         </x-slot>
 
         <x-slot name="rows">
-            @foreach ($notas as $nota)
+            @foreach ($invoices as $invoice)
                 <tr>
-                    <td class="p-2">{{ $nota->id }}</td>
-                    <td class="p-2">{{ $nota->codigo_nf }}</td>
-                    <td class="p-2">{{ $nota->data_emissao }}</td>
+                    <td class="p-2">{{ $invoice->id }}</td>
+                    <td class="p-2">{{ $invoice->invoice_code }}</td>
+                    <td class="p-2">{{ $invoice->issued_at }}</td>
                 </tr>
             @endforeach
         </x-slot>

@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Item;
-use Illuminate\Http\Request;
 
 class ItemController extends Controller
 {
@@ -12,10 +11,10 @@ class ItemController extends Controller
      */
     public function index()
     {
-        $items = Item::with('notaFiscal', 'insumo')->withSum('saidasItems', 'quantidade')->get();
+        $items = Item::with('invoice', 'supply')->withSum('dispatchItems', 'quantity')->get();
         
 
-        return view('items.index', compact('items'));
+        return view('Items.index', compact('items'));
     }
 
     /**

@@ -2,51 +2,50 @@
 
 namespace App\Services;
 
+use App\Models\Dispatch;
 use App\Models\Item;
-use App\Models\Saida;
 use Illuminate\Support\Facades\DB;
 
 class ConsumeItemsService
 {
     /**
-     * Consume a list of items and create a Saida record
+     * Consume a list of items and create a Dispatch record.
      */
     public function consume(array $items)
     {
         DB::transaction(function () use ($items) {
             $this->verifyItemsBalance($items);
-            $this->createSaidaRecord($items);
+            $this->createDispatchRecord($items);
         });
     }
 
-
     /**
-     * Verify if each item has sufficient balance for the requested quantity
+     * Verify if each item has sufficient balance for the requested quantity.
      */
     private function verifyItemsBalance(array $items)
     {
         foreach ($items as $item) {
-            $itemModel = Item::withSum('saidasItems', 'quantidade')->where('id', $item['id'])->lockForUpdate()->first();
+            $itemModel = Item::withSum('dispatchItems', 'quantity')->where('id', $item['id'])->lockForUpdate()->first();
 
-            if ($itemModel->saldo < (float) $item['quantidade'] || $itemModel->saldo <= 0) {
-                throw new \Exception("O item {$itemModel->insumo->nome} não possui saldo suficiente para a saída.");
+            if ($itemModel->balance < (float) $item['quantity'] || $itemModel->balance <= 0) {
+                throw new \Exception("O item {$itemModel->supply->name} não possui saldo suficiente para a saída.");
             }
         }
     }
 
     /**
-     * Create a Saida record with the provided items
+     * Create a Dispatch record with the provided items.
      */
-    private function createSaidaRecord(array $items)
+    private function createDispatchRecord(array $items)
     {
-        $saida = Saida::create([
-            'data_saida' => now(),
+        $dispatch = Dispatch::create([
+            'dispatched_at' => now(),
         ]);
 
         foreach ($items as $item) {
-            $saida->items()->create([
+            $dispatch->items()->create([
                 'item_id' => $item['id'],
-                'quantidade' => $item['quantidade'],
+                'quantity' => $item['quantity'],
             ]);
         }
     }

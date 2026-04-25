@@ -2,23 +2,23 @@
 
 namespace Tests\Feature;
 
+use App\Models\Supply;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
 class ImportXMLTest extends TestCase
 {
     use RefreshDatabase;
+
     /*
     * Test a valid XML import
     */
-    public function test_importa_xml_valido()
+    public function test_import_valid_xml()
     {
-        // Register necessary products before import
-        \App\Models\Insumo::create(['codigo_insumo' => '1001', 'nome' => 'Produto Genérico 1', 'unidade_medida' => 'UN']);
-        \App\Models\Insumo::create(['codigo_insumo' => '1002', 'nome' => 'Produto Genérico 2', 'unidade_medida' => 'UN']);
+        Supply::create(['supply_code' => '1001', 'name' => 'Produto Genérico 1', 'unit_of_measure' => 'UN']);
+        Supply::create(['supply_code' => '1002', 'name' => 'Produto Genérico 2', 'unit_of_measure' => 'UN']);
 
-        // Simulate the upload of a valid XML file
-        $response = $this->post('notas/import', [
+        $response = $this->post('invoices/import', [
             'xml_file' => new \Illuminate\Http\UploadedFile(
                 base_path('tests/Fixtures/nota_fiscal_valida.xml'),
                 'nota_fiscal_valida.xml',
@@ -28,18 +28,16 @@ class ImportXMLTest extends TestCase
             ),
         ]);
 
-        $response->assertRedirect(route('notas.index'));
+        $response->assertRedirect(route('invoices.index'));
         $response->assertSessionHas('success');
     }
-
 
     /*
     * Test an invalid XML import
     */
-    public function test_nao_importa_xml_invalido()
+    public function test_do_not_import_invalid_xml()
     {
-        // Simulate the upload of an invalid XML file
-        $response = $this->post('notas/import', [
+        $response = $this->post('invoices/import', [
             'xml_file' => new \Illuminate\Http\UploadedFile(
                 base_path('tests/Fixtures/nota_fiscal_invalida.xml'),
                 'nota_fiscal_invalida.xml',
@@ -49,17 +47,16 @@ class ImportXMLTest extends TestCase
             ),
         ]);
 
-        $response->assertRedirect(route('notas.index'));
+        $response->assertRedirect(route('invoices.index'));
         $response->assertSessionHas('error');
     }
 
     /**
-     * Test that duplicate fiscal notes are not imported
+     * Test that duplicate fiscal notes are not imported.
      */
-    public function test_nao_importa_nota_fiscal_duplicada()
+    public function test_do_not_import_duplicate_invoice()
     {
-        // Simulate the upload of a valid XML file
-        $this->post('notas/import', [
+        $this->post('invoices/import', [
             'xml_file' => new \Illuminate\Http\UploadedFile(
                 base_path('tests/Fixtures/nota_fiscal_valida.xml'),
                 'nota_fiscal_valida.xml',
@@ -69,8 +66,7 @@ class ImportXMLTest extends TestCase
             ),
         ]);
 
-        // Try to import the same file again
-        $response = $this->post('notas/import', [
+        $response = $this->post('invoices/import', [
             'xml_file' => new \Illuminate\Http\UploadedFile(
                 base_path('tests/Fixtures/nota_fiscal_valida.xml'),
                 'nota_fiscal_valida.xml',
@@ -80,18 +76,16 @@ class ImportXMLTest extends TestCase
             ),
         ]);
 
-        $response->assertRedirect(route('notas.index'));
+        $response->assertRedirect(route('invoices.index'));
         $response->assertSessionHas('error');
     }
-
 
     /**
-     * Test that XML is not imported if the product code of the item is not registered
+     * Test that XML is not imported if the item product code is not registered.
      */
-    public function test_nao_importa_xml_se_codigo_produto_nao_cadastrado()
+    public function test_do_not_import_xml_if_product_code_is_not_registered()
     {
-        // Do not register products in the database
-        $response = $this->post('notas/import', [
+        $response = $this->post('invoices/import', [
             'xml_file' => new \Illuminate\Http\UploadedFile(
                 base_path('tests/Fixtures/nota_fiscal_valida.xml'),
                 'nota_fiscal_valida.xml',
@@ -100,8 +94,7 @@ class ImportXMLTest extends TestCase
                 true
             ),
         ]);
-        $response->assertRedirect(route('notas.index'));
+        $response->assertRedirect(route('invoices.index'));
         $response->assertSessionHas('error');
     }
-
 }

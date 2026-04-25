@@ -2,24 +2,20 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Models\Item;
-use App\Models\Saida;
-
 use App\Http\Requests\ConsumeItemsRequest;
-use App\Models\SaidaItem;
+use App\Models\Dispatch;
+use App\Models\Item;
 use App\Services\ConsumeItemsService;
-use Illuminate\Support\Benchmark;
 
-class SaidaController extends Controller
+class DispatchController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $saidas = Saida::orderBy('data_saida', 'desc')->get();
-        return view('Saidas.index', compact('saidas'));
+        $dispatches = Dispatch::orderBy('dispatched_at', 'desc')->get();
+        return view('Dispatches.index', compact('dispatches'));
     }
 
     /**
@@ -27,8 +23,8 @@ class SaidaController extends Controller
      */
     public function create()
     {
-        $items = Item::with('notaFiscal', 'insumo')->withSum('saidasItems', 'quantidade')->get();
-        return view('Saidas.create', compact('items'));
+        $items = Item::with('invoice', 'supply')->withSum('dispatchItems', 'quantity')->get();
+        return view('Dispatches.create', compact('items'));
     }
 
     /**
@@ -36,14 +32,11 @@ class SaidaController extends Controller
      */
     public function store(ConsumeItemsRequest $request)
     {
-
         try {
-
             (new ConsumeItemsService())->consume($request->items);
 
-            return redirect()->route('saidas.index')->with('success', 'Saída processada com sucesso!');
+            return redirect()->route('dispatches.index')->with('success', 'Saída processada com sucesso!');
         } catch (\Exception $e) {
-
             return redirect()->back()->with('error', 'Ocorreu um erro ao processar a saída: ' . $e->getMessage());
         }
     }
@@ -51,9 +44,9 @@ class SaidaController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Saida $saida)
+    public function show(Dispatch $dispatch)
     {
-        $saida = Saida::with('items.item.insumo', 'items.item.notaFiscal')->find($saida->id);
-        return view('Saidas.show', compact('saida'));
+        $dispatch = Dispatch::with('items.item.supply', 'items.item.invoice')->find($dispatch->id);
+        return view('Dispatches.show', compact('dispatch'));
     }
 }

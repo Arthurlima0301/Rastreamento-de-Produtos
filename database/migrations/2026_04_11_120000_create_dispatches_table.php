@@ -11,12 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('insumos', function (Blueprint $table) {
+        Schema::create('dispatches', function (Blueprint $table) {
             $table->id();
-            $table->string('codigo_insumo')->unique();
-            $table->string('nome');
-            $table->string('unidade_medida');
-            $table->timestamps();
+            $table->string('invoice')->nullable();
+            $table->dateTime('dispatched_at');
         });
     }
 
@@ -25,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('insumos');
+        Schema::dropIfExists('dispatches');
     }
 };

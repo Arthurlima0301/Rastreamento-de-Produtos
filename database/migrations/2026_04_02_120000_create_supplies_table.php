@@ -11,10 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('saidas', function (Blueprint $table) {
+        Schema::create('supplies', function (Blueprint $table) {
             $table->id();
-            $table->string('nota_fiscal')->nullable();
-            $table->dateTime('data_saida');
+            $table->string('supply_code')->unique();
+            $table->string('name');
+            $table->string('unit_of_measure');
+            $table->timestamps();
         });
     }
 
@@ -23,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('saidas');
+        Schema::dropIfExists('supplies');
     }
 };

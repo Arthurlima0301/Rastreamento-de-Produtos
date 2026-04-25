@@ -3,14 +3,14 @@
 namespace App\Services;
 
 use App\Models\Item;
-use App\Models\Insumo;
+use App\Models\Supply;
 
 class ExtractItems
 {
     /**
      * Extract items from an XML file and save them to the database.
      */
-    public function extract($xml, $notaFiscalId)
+    public function extract($xml, $invoiceId)
     {
         $this->validateFields($xml);
 
@@ -19,9 +19,9 @@ class ExtractItems
             $items[] = $item;
         }
 
-        $this->validateInsumos($items);
+        $this->validateSupplies($items);
 
-        $this->saveItems($items, $notaFiscalId);
+        $this->saveItems($items, $invoiceId);
     }
 
     /**
@@ -34,15 +34,16 @@ class ExtractItems
         }
     }
 
-    /*
-    * Validate insumo exists in the database before saving items.
-    */
-    private function validateInsumos($items)
+    /**
+     * Validate supply exists in the database before saving items.
+     */
+    private function validateSupplies(array $items)
     {
         foreach ($items as $item) {
-            $insumoCod = (int) $item->prod->cProd;
-            if (!Insumo::where('codigo_insumo', $insumoCod)->exists()) {
-                throw new \Exception("O insumo com código {$insumoCod} não existe na base de dados.");
+            $supplyCode = (int) $item->prod->cProd;
+
+            if (!Supply::where('supply_code', $supplyCode)->exists()) {
+                throw new \Exception("O insumo com código {$supplyCode} não existe na base de dados.");
             }
         }
     }
@@ -50,17 +51,16 @@ class ExtractItems
     /**
      * Save items to the database.
      */
-    private function saveItems($items, $notaFiscalId)
+    private function saveItems(array $items, int $invoiceId)
     {
         foreach ($items as $item) {
-            // Convert cProd to integer for comparison the product code with the insumo code in the database            
-            $insumo = Insumo::where('codigo_insumo', (int) $item->prod->cProd)->first();
-            
+            $supply = Supply::where('supply_code', (int) $item->prod->cProd)->first();
+
             Item::create([
-                'numero' => $item['nItem'] ?? $item->nItem,
-                'nota_fiscal_id' => $notaFiscalId,
-                'insumo_id' => $insumo->id,
-                'quantidade' => $item->prod->qCom,
+                'number' => $item['nItem'] ?? $item->nItem,
+                'invoice_id' => $invoiceId,
+                'supply_id' => $supply->id,
+                'quantity' => $item->prod->qCom,
             ]);
         }
     }

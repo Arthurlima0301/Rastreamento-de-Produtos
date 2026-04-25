@@ -24,14 +24,14 @@
         <x-slot name="rows">
             @foreach($items as $item)
                 <tr>
-                    <td class="p-2">{{ $item->insumo->codigo_insumo }}</td>
-                    <td class="p-2">{{ $item->insumo->nome}}</td>
-                    <td class="p-2">{{ $item->numero }}</td>
-                    <td class="p-2">{{ $item->insumo->unidade_medida }}</td>
-                    <td class="p-2">{{ $item->quantidade }}</td>
-                    <td class="p-2">{{ $item->notaFiscal->codigo_nf }}</td>
-                    <td class="p-2">{{ $item->notaFiscal->data_emissao}}</td>
-                    <td class="p-2">{{ $item->saldo }}</td>
+                    <td class="p-2">{{ $item->supply->supply_code }}</td>
+                    <td class="p-2">{{ $item->supply->name }}</td>
+                    <td class="p-2">{{ $item->number }}</td>
+                    <td class="p-2">{{ $item->supply->unit_of_measure }}</td>
+                    <td class="p-2">{{ $item->quantity }}</td>
+                    <td class="p-2">{{ $item->invoice->invoice_code }}</td>
+                    <td class="p-2">{{ $item->invoice->issued_at }}</td>
+                    <td class="p-2">{{ $item->balance }}</td>
                 </tr>
             @endforeach
         </x-slot>

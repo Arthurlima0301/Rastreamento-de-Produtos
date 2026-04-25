@@ -5,7 +5,7 @@
 @section('content')
     <x-card title="Saidas">
         <x-slot name="slot">
-            <a href="{{ route('saidas.create') }}">Criar Saída</a>
+            <a href="{{ route('dispatches.create') }}">Criar Saída</a>
         </x-slot>
     </x-card>
 
@@ -19,11 +19,11 @@
         </x-slot>
 
         <x-slot name="rows">
-            @foreach ($saidas as $saida)
+            @foreach ($dispatches as $dispatch)
                 <tr>
-                    <td class="p-2"><a href="{{ route('saidas.show', $saida->id) }}">{{ $saida->id }}</a></td>
-                    <td class="p-2">{{ $saida->data_saida }}</td>
-                    <td class="p-2">{{ $saida->nota_fiscal ?? 'N/A' }}</td>
+                    <td class="p-2"><a href="{{ route('dispatches.show', $dispatch->id) }}">{{ $dispatch->id }}</a></td>
+                    <td class="p-2">{{ $dispatch->dispatched_at }}</td>
+                    <td class="p-2">{{ $dispatch->invoice ?? 'N/A' }}</td>
                 </tr>
             @endforeach
         </x-slot>

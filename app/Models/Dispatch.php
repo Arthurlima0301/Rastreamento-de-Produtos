@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class Saida extends Model
+class Dispatch extends Model
 {
     use HasFactory;
 
@@ -17,23 +17,23 @@ class Saida extends Model
      * The attributes that are mass assignable.
      */
     protected $fillable = [
-        'data_saida',
-        'nota_fiscal',
+        'dispatched_at',
+        'invoice',
     ];
 
     /**
-     * Accesor to format the 'data_saida' attribute as 'd/m/Y' when accessed.
+     * Accessor to format the 'dispatched_at' attribute as 'd/m/Y' when accessed.
      */
-    public function getDataSaidaAttribute($value) : string
+    public function getDispatchedAtAttribute($value): string
     {
         return date('d/m/Y', strtotime($value));
     }
 
     /**
-     * Get the items for the saida.
+     * Get the items for the dispatch.
      */
-    public function items() : HasMany
+    public function items(): HasMany
     {
-        return $this->hasMany(SaidaItem::class, 'saida_id');
+        return $this->hasMany(DispatchItem::class, 'dispatch_id');
     }
 }

@@ -8,16 +8,16 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::create('nota_fiscal', function (Blueprint $table) {
+        Schema::create('invoices', function (Blueprint $table) {
             $table->id();
-            $table->string('codigo_nf')->unique();
-            $table->dateTime('data_emissao');
+            $table->string('invoice_code')->unique();
+            $table->dateTime('issued_at');
             $table->timestamps();
         });
     }
 
     public function down(): void
     {
-        Schema::dropIfExists('nota_fiscal');
+        Schema::dropIfExists('invoices');
     }
 };
