@@ -10,14 +10,14 @@ return new class extends Migration
     {
         Schema::create('items', function (Blueprint $table) {
             $table->id();
-            $table->integer('numero');
-            $table->unsignedBigInteger('nota_fiscal_id');
-            $table->unsignedBigInteger('insumo_id');
-            $table->integer('quantidade');
+            $table->integer('number');
+            $table->unsignedBigInteger('invoice_id');
+            $table->unsignedBigInteger('supply_id');
+            $table->integer('quantity');
             $table->timestamps();
 
-            $table->foreign('nota_fiscal_id')->references('id')->on('nota_fiscal')->onDelete('cascade');
-            $table->foreign('insumo_id')->references('id')->on('insumos');
+            $table->foreign('invoice_id')->references('id')->on('invoices')->onDelete('cascade');
+            $table->foreign('supply_id')->references('id')->on('supplies');
         });
     }
 

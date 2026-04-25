@@ -1,6 +1,7 @@
-<?php 
+<?php
 
 namespace App\Http\Requests;
+
 use Illuminate\Foundation\Http\FormRequest;
 
 class ConsumeItemsRequest extends FormRequest
@@ -23,14 +24,13 @@ class ConsumeItemsRequest extends FormRequest
         return [
             'items' => 'required|array',
             'items.*.id' => 'required|exists:items,id',
-            'items.*.quantidade' => 'required|numeric|min:1',
+            'items.*.quantity' => 'required|numeric|min:1',
         ];
     }
 
-
     /**
      * Get custom error messages for validation failures.
-     * 
+     *
      * @return array<string, string>
      */
     public function messages(): array
@@ -38,9 +38,9 @@ class ConsumeItemsRequest extends FormRequest
         return [
             'items.required' => 'A lista de itens é obrigatória.',
             'items.*.id.exists' => 'O item selecionado é inválido.',
-            'items.*.quantidade.required' => 'A quantidade é obrigatória.',
-            'items.*.quantidade.numeric' => 'A quantidade deve ser um número.',
-            'items.*.quantidade.min' => 'A quantidade deve ser pelo menos 1.',
+            'items.*.quantity.required' => 'A quantidade é obrigatória.',
+            'items.*.quantity.numeric' => 'A quantidade deve ser um número.',
+            'items.*.quantity.min' => 'A quantidade deve ser pelo menos 1.',
         ];
     }
 }

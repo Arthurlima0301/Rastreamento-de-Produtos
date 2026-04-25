@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreInsumoRequest extends FormRequest
+class StoreSupplyRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,9 +22,9 @@ class StoreInsumoRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'codigo_insumo' => 'required|string|unique:insumos,codigo_insumo',
-            'nome' => 'required|string',
-            'unidade_medida' => 'required|string',
+            'supply_code' => 'required|string|unique:supplies,supply_code',
+            'name' => 'required|string',
+            'unit_of_measure' => 'required|string',
         ];
     }
 
@@ -36,11 +36,11 @@ class StoreInsumoRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'codigo_insumo.required' => 'O campo código do insumo é obrigatório.',
-            'codigo_insumo.unique' => 'O código do insumo já existe. Por favor, escolha outro.',
-            'nome.required' => 'O campo nome é obrigatório.',
-            'unidade_medida.required' => 'O campo unidade de medida é obrigatório.',
-            'unidade_medida.string' => 'O campo unidade de medida deve ser uma string.',
+            'supply_code.required' => 'O campo código do insumo é obrigatório.',
+            'supply_code.unique' => 'O código do insumo já existe. Por favor, escolha outro.',
+            'name.required' => 'O campo nome é obrigatório.',
+            'unit_of_measure.required' => 'O campo unidade de medida é obrigatório.',
+            'unit_of_measure.string' => 'O campo unidade de medida deve ser uma string.',
         ];
     }
 }

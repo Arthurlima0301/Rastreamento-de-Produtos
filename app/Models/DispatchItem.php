@@ -6,15 +6,14 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-
-class SaidaItem extends Model
+class DispatchItem extends Model
 {
     use HasFactory;
 
     /**
      * The table associated with the model.
      */
-    protected $table = 'saidas_items';
+    protected $table = 'dispatch_items';
 
     /**
      * The attributes that are mass assignable.
@@ -26,23 +25,23 @@ class SaidaItem extends Model
      * @return array<string, string, float>
      */
     protected $fillable = [
-        'saida_id',
+        'dispatch_id',
         'item_id',
-        'quantidade',
+        'quantity',
     ];
 
     /**
-     * Get the saida that owns the saida item.
+     * Get the dispatch that owns the dispatch item.
      */
-    public function saida() : BelongsTo
+    public function dispatch(): BelongsTo
     {
-        return $this->belongsTo(Saida::class, 'saida_id');
+        return $this->belongsTo(Dispatch::class, 'dispatch_id');
     }
 
     /**
-     * Get the item that owns the saida item.
+     * Get the item that owns the dispatch item.
      */
-    public function item() : BelongsTo
+    public function item(): BelongsTo
     {
         return $this->belongsTo(Item::class, 'item_id');
     }

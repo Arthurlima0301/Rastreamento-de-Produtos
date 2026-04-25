@@ -3,10 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ImportXMLRequest;
-use App\Models\NotaFiscal;
+use App\Models\Invoice;
 use App\Services\ImportXMLData;
 
-class NotaFiscalController extends Controller
+class InvoiceController extends Controller
 {
 
     private $importService;
@@ -21,8 +21,8 @@ class NotaFiscalController extends Controller
      */
     public function index()
     {
-        $notas = NotaFiscal::orderBy('data_emissao', 'desc')->get();
-        return view('NotaFiscal.index', compact('notas'));
+        $invoices = Invoice::orderBy('issued_at', 'desc')->get();
+        return view('Invoices.index', compact('invoices'));
     }
 
     /*
@@ -34,10 +34,10 @@ class NotaFiscalController extends Controller
             $this->importService->import($request->file('xml_file'));
 
         } catch (\Exception $e) {
-            return redirect()->route('notas.index')->with('error', 'Erro ao importar nota fiscal: ' . $e->getMessage());
+            return redirect()->route('invoices.index')->with('error', 'Erro ao importar nota fiscal: ' . $e->getMessage());
 
         }
 
-        return redirect()->route('notas.index')->with('success', 'Nota fiscal importada com sucesso!');
+        return redirect()->route('invoices.index')->with('success', 'Nota fiscal importada com sucesso!');
     }
 }
