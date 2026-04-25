@@ -8,6 +8,14 @@ use App\Services\ImportXMLData;
 
 class NotaFiscalController extends Controller
 {
+
+    private $importService;
+
+    public function __construct(ImportXMLData $importService)
+    {
+        $this->importService = $importService;
+    }
+
     /*
      * Display a listing of the resource.
      */
@@ -23,9 +31,11 @@ class NotaFiscalController extends Controller
     public function import(ImportXMLRequest $request)
     {
         try {
-            (new ImportXMLData())->import($request->file('xml_file'));
+            $this->importService->import($request->file('xml_file'));
+
         } catch (\Exception $e) {
             return redirect()->route('notas.index')->with('error', 'Erro ao importar nota fiscal: ' . $e->getMessage());
+
         }
 
         return redirect()->route('notas.index')->with('success', 'Nota fiscal importada com sucesso!');

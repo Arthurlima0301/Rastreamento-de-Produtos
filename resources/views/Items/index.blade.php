@@ -18,6 +18,7 @@
             <th class="p-2">Quantidade</th>
             <th class="p-2">Nota Fiscal</th>
             <th class="p-2">Data</th>
+            <th class="p-2">Saldo</th>
         </x-slot>
 
         <x-slot name="rows">
@@ -30,6 +31,7 @@
                     <td class="p-2">{{ $item->quantidade }}</td>
                     <td class="p-2">{{ $item->notaFiscal->codigo_nf }}</td>
                     <td class="p-2">{{ $item->notaFiscal->data_emissao}}</td>
+                    <td class="p-2">{{ $item->saldo }}</td>
                 </tr>
             @endforeach
         </x-slot>
