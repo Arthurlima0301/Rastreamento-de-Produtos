@@ -12,11 +12,13 @@ class SupplyCrudTest extends TestCase
 
     public function test_create_supply_with_valid_data()
     {
-        $response = $this->post('/supplies', [
+        $attributes = Supply::factory()->raw([
             'supply_code' => 'ABC123',
             'name' => 'Teste',
             'unit_of_measure' => 'kg',
         ]);
+
+        $response = $this->post('/supplies', $attributes);
 
         $response->assertStatus(302);
         $this->assertDatabaseHas('supplies', ['supply_code' => 'ABC123']);
@@ -35,7 +37,7 @@ class SupplyCrudTest extends TestCase
 
     public function test_list_supplies()
     {
-        Supply::create([
+        Supply::factory()->create([
             'supply_code' => 'LISTA1',
             'name' => 'Teste Lista',
             'unit_of_measure' => 'kg',
@@ -48,7 +50,7 @@ class SupplyCrudTest extends TestCase
 
     public function test_update_supply()
     {
-        $supply = Supply::create([
+        $supply = Supply::factory()->create([
             'supply_code' => 'UPD1',
             'name' => 'Antigo',
             'unit_of_measure' => 'kg',
@@ -66,7 +68,7 @@ class SupplyCrudTest extends TestCase
 
     public function test_delete_supply()
     {
-        $supply = Supply::create([
+        $supply = Supply::factory()->create([
             'supply_code' => 'DEL1',
             'name' => 'Teste Deleta',
             'unit_of_measure' => 'kg',
