@@ -10,6 +10,13 @@ use App\Services\ConsumeItemsService;
 class DispatchController extends Controller
 {
     /**
+     * Inject the ConsumeItemsService into the controller.
+     */
+    public function __construct(
+        private ConsumeItemsService $consumeItemsService
+    ) {}
+
+    /**
      * Display a listing of the resource.
      */
     public function index()
@@ -33,7 +40,7 @@ class DispatchController extends Controller
     public function store(ConsumeItemsRequest $request)
     {
         try {
-            (new ConsumeItemsService())->consume($request->items);
+            $this->consumeItemsService->consume($request->validated()['items']);
 
             return redirect()->route('dispatches.index')->with('success', 'Saída processada com sucesso!');
         } catch (\Exception $e) {
