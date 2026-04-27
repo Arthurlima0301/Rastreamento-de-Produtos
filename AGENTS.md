@@ -84,3 +84,31 @@ Projeto Laravel 13, Tailwind CSS 4, AlpineJS e Vite. O app usa rotas em `routes/
 - Rotas: `routes/web.php`
 - Entrada CSS: `resources/css/app.css`
 - Entrada JS: `resources/js/app.js`
+
+# Workflow
+- Sempre criar branch nova para cada tarefa a partir da branch main.
+- Nome da branch: type/scope-descricao (ex: feat/auth-login).
+- Nunca trabalhar na main.
+
+- Commits devem seguir Conventional Commits.
+- Messagem do commit devem ser em Português
+
+- Nunca misturar contextos diferentes no mesmo commit.
+
+- Sempre commitar incrementalmente:
+  - mudança pequena → commit pequeno
+  - não acumular para organizar depois
+
+- Antes de commitar:
+  - listar arquivos alterados
+  - agrupar por contexto
+  - justificar agrupamento
+
+- Nunca executar:
+  - git rebase
+  - git push --force
+  - git merge
+
+sem autorização explícita.
+
+- Se houver dúvida de escopo → parar e não commitar.
