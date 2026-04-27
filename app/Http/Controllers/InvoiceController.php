@@ -4,17 +4,17 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\ImportXMLRequest;
 use App\Models\Invoice;
-use App\Services\ImportXMLData;
+use App\Services\ImportInvoiceFromXMLService;
 
 class InvoiceController extends Controller
 {
-
-    private $importService;
-
-    public function __construct(ImportXMLData $importService)
-    {
-        $this->importService = $importService;
-    }
+    /**
+     * Inject the ImportInvoiceFromXMLService into the controller.
+     */
+    public function __construct(
+        private ImportInvoiceFromXMLService $importService
+    )
+    {}
 
     /*
      * Display a listing of the resource.

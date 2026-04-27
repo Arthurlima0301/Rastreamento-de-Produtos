@@ -5,7 +5,7 @@ namespace App\Services;
 use App\Models\Invoice;
 use Illuminate\Support\Facades\DB;
 
-class ImportXMLData
+class ImportInvoiceFromXMLService
 {
     /**
      * Import data from an XML file and save it to the database.
