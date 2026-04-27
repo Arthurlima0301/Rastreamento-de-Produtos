@@ -3,8 +3,6 @@
 namespace Tests\Feature;
 
 use App\Models\Item;
-use App\Models\Invoice;
-use App\Models\Supply;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -17,44 +15,26 @@ class RegisterDispatchTest extends TestCase
      */
     public function test_register_dispatch()
     {
-        Supply::create([
-            'supply_code' => '1',
-            'name' => 'Produto 1',
-            'unit_of_measure' => 'un',
-        ]);
-
-        Invoice::create([
-            'invoice_code' => '445551',
-            'issued_at' => '2024-01-01',
-        ]);
-
-        Item::create([
-            'number' => '1',
-            'invoice_id' => '1',
-            'supply_id' => '1',
-            'quantity' => '200',
+        $item = Item::factory()->create([
+            'quantity' => 200,
         ]);
 
         $this->post('dispatches', [
             'items' => [
                 0 => [
-                    'id' => '1',
+                    'id' => $item->id,
                     'quantity' => '10',
                 ],
                 1 => [
-                    'id' => '1',
+                    'id' => $item->id,
                     'quantity' => '10',
                 ],
             ],
         ]);
 
+        $this->assertDatabaseCount('dispatch_items', 2);
         $this->assertDatabaseHas('dispatch_items', [
-            'id' => '1',
-            'quantity' => '10',
-        ]);
-
-        $this->assertDatabaseHas('dispatch_items', [
-            'id' => '2',
+            'item_id' => $item->id,
             'quantity' => '10',
         ]);
     }
@@ -64,34 +44,20 @@ class RegisterDispatchTest extends TestCase
      */
     public function test_update_item_balance()
     {
-        Supply::create([
-            'supply_code' => '1',
-            'name' => 'Produto 1',
-            'unit_of_measure' => 'un',
-        ]);
-
-        Invoice::create([
-            'invoice_code' => '445551',
-            'issued_at' => '2024-01-01',
-        ]);
-
-        Item::create([
-            'number' => '1',
-            'invoice_id' => '1',
-            'supply_id' => '1',
-            'quantity' => '100',
+        $item = Item::factory()->create([
+            'quantity' => 100,
         ]);
 
         $this->post('dispatches', [
             'items' => [
                 0 => [
-                    'id' => '1',
+                    'id' => $item->id,
                     'quantity' => '100',
                 ],
             ],
         ]);
 
-        $this->assertEquals(0, Item::withSum('dispatchItems', 'quantity')->find(1)->balance);
+        $this->assertEquals(0, Item::withSum('dispatchItems', 'quantity')->find($item->id)->balance);
     }
 
     /**
@@ -99,41 +65,21 @@ class RegisterDispatchTest extends TestCase
      */
     public function test_do_not_allow_consuming_item_with_insufficient_balance()
     {
-        Supply::create([
-            'supply_code' => '1',
-            'name' => 'Produto 1',
-            'unit_of_measure' => 'un',
-        ]);
-
-        Invoice::create([
-            'invoice_code' => '445551',
-            'issued_at' => '2024-01-01',
-        ]);
-
-        Item::create([
-            'number' => '1',
-            'invoice_id' => '1',
-            'supply_id' => '1',
-            'quantity' => '100',
+        $item = Item::factory()->create([
+            'quantity' => 100,
         ]);
 
         $response = $this->post('dispatches', [
             'items' => [
                 0 => [
-                    'id' => '1',
+                    'id' => $item->id,
                     'quantity' => '101',
                 ],
             ],
         ]);
 
-        $this->assertDatabaseMissing('dispatches', [
-            'id' => '1',
-        ]);
-
-        $this->assertDatabaseMissing('dispatch_items', [
-            'id' => '1',
-        ]);
-
+        $this->assertDatabaseCount('dispatches', 0);
+        $this->assertDatabaseCount('dispatch_items', 0);
         $response->assertSessionHas('error');
     }
 }

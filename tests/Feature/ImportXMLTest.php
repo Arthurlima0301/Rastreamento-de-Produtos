@@ -4,6 +4,7 @@ namespace Tests\Feature;
 
 use App\Models\Supply;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Http\UploadedFile;
 use Tests\TestCase;
 
 class ImportXMLTest extends TestCase
@@ -15,11 +16,10 @@ class ImportXMLTest extends TestCase
     */
     public function test_import_valid_xml()
     {
-        Supply::create(['supply_code' => '1001', 'name' => 'Produto Genérico 1', 'unit_of_measure' => 'UN']);
-        Supply::create(['supply_code' => '1002', 'name' => 'Produto Genérico 2', 'unit_of_measure' => 'UN']);
+        Supply::factory()->create(['supply_code' => '1001']);
 
         $response = $this->post('invoices/import', [
-            'xml_file' => new \Illuminate\Http\UploadedFile(
+            'xml_file' => new UploadedFile(
                 base_path('tests/Fixtures/nota_fiscal_valida.xml'),
                 'nota_fiscal_valida.xml',
                 'text/xml',
@@ -38,7 +38,7 @@ class ImportXMLTest extends TestCase
     public function test_do_not_import_invalid_xml()
     {
         $response = $this->post('invoices/import', [
-            'xml_file' => new \Illuminate\Http\UploadedFile(
+            'xml_file' => new UploadedFile(
                 base_path('tests/Fixtures/nota_fiscal_invalida.xml'),
                 'nota_fiscal_invalida.xml',
                 'text/xml',
@@ -56,8 +56,10 @@ class ImportXMLTest extends TestCase
      */
     public function test_do_not_import_duplicate_invoice()
     {
+        Supply::factory()->create(['supply_code' => '1001']);
+
         $this->post('invoices/import', [
-            'xml_file' => new \Illuminate\Http\UploadedFile(
+            'xml_file' => new UploadedFile(
                 base_path('tests/Fixtures/nota_fiscal_valida.xml'),
                 'nota_fiscal_valida.xml',
                 'text/xml',
@@ -67,7 +69,7 @@ class ImportXMLTest extends TestCase
         ]);
 
         $response = $this->post('invoices/import', [
-            'xml_file' => new \Illuminate\Http\UploadedFile(
+            'xml_file' => new UploadedFile(
                 base_path('tests/Fixtures/nota_fiscal_valida.xml'),
                 'nota_fiscal_valida.xml',
                 'text/xml',
@@ -86,7 +88,7 @@ class ImportXMLTest extends TestCase
     public function test_do_not_import_xml_if_product_code_is_not_registered()
     {
         $response = $this->post('invoices/import', [
-            'xml_file' => new \Illuminate\Http\UploadedFile(
+            'xml_file' => new UploadedFile(
                 base_path('tests/Fixtures/nota_fiscal_valida.xml'),
                 'nota_fiscal_valida.xml',
                 'text/xml',
