@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Supply;
 use App\Http\Requests\StoreSupplyRequest;
 use App\Http\Requests\UpdateSupplyRequest;
+use App\Models\Supply;
 
 class SupplyController extends Controller
 {
@@ -13,8 +13,7 @@ class SupplyController extends Controller
      */
     public function index()
     {
-        $supplies = Supply::all();
-        return view('Supplies.index', compact('supplies'));
+        return view('Supplies.index');
     }
 
     /**
@@ -31,6 +30,7 @@ class SupplyController extends Controller
     public function store(StoreSupplyRequest $request)
     {
         Supply::create($request->validated());
+
         return redirect()->route('supplies.index')->with('success', 'Insumo criado com sucesso.');
     }
 
@@ -56,6 +56,7 @@ class SupplyController extends Controller
     public function update(UpdateSupplyRequest $request, Supply $supply)
     {
         $supply->update($request->validated());
+
         return redirect()->route('supplies.index')->with('success', 'Insumo atualizado com sucesso.');
     }
 
@@ -65,6 +66,7 @@ class SupplyController extends Controller
     public function destroy(Supply $supply)
     {
         $supply->delete();
+
         return redirect()->route('supplies.index')->with('success', 'Insumo deletado com sucesso.');
     }
 }
