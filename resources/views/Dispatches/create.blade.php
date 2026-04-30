@@ -3,6 +3,8 @@
 @section('title', 'Saídas')
 
 @section('content')
+    <x-alpine-assets />
+
     <x-error-message></x-error-message>
 
     <section class="flex gap-3 w-full"
