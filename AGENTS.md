@@ -98,6 +98,8 @@ Projeto Laravel 13, Tailwind CSS 4, AlpineJS e Vite. O app usa rotas em `routes/
 - Sempre commitar incrementalmente:
   - mudança pequena → commit pequeno
   - não acumular para organizar depois
+  - commits devem agrupar apenas arquivos com dependencia direta entre si
+  - quando houver contexto de negocio claro, separar por contexto (ex: tudo que envolve Dispatches em um commit proprio)
 
 - Antes de commitar:
   - listar arquivos alterados
@@ -112,3 +114,9 @@ Projeto Laravel 13, Tailwind CSS 4, AlpineJS e Vite. O app usa rotas em `routes/
 sem autorização explícita.
 
 - Se houver dúvida de escopo → parar e não commitar.
+
+# Dores e Problemas
+
+- AlpineJS e Livewire nunca devem coexistir no mesmo escopo global.
+- Nao carregar `resources/js/app.js` no layout global quando Livewire estiver ativo.
+- Quando AlpineJS for necessario, importar `resources/js/app.js` diretamente nas views ou componentes que dependem dele.
