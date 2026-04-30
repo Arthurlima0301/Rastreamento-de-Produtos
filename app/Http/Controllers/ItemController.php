@@ -2,8 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Item;
-
 class ItemController extends Controller
 {
     /**
@@ -11,15 +9,6 @@ class ItemController extends Controller
      */
     public function index()
     {
-        $items = Item::with('invoice', 'supply')->withSum('dispatchItems', 'quantity')->get();
-        
-
-        return view('Items.index', compact('items'));
+        return view('Items.index');
     }
-
-    /**
-     * 
-     */
-
-
 }
