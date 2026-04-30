@@ -9,7 +9,7 @@
         <x-slot name="slot">
             <p><strong>Código:</strong> {{ $dispatch->id }}</p>
             <p><strong>Data:</strong> {{ $dispatch->dispatched_at }}</p>
-            <p><strong>Nota Fiscal:</strong> {{ $dispatch->invoice ?? 'Não informada' }}</p>
+            <livewire:dispatches.edit-dispatch-invoice :dispatchId="$dispatch->id" />
         </x-slot>
     </x-card>
 
