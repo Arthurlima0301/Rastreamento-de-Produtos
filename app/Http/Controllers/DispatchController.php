@@ -21,8 +21,7 @@ class DispatchController extends Controller
      */
     public function index()
     {
-        $dispatches = Dispatch::orderBy('dispatched_at', 'desc')->get();
-        return view('Dispatches.index', compact('dispatches'));
+        return view('Dispatches.index');
     }
 
     /**

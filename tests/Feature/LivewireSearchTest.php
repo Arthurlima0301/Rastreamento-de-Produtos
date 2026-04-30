@@ -2,9 +2,11 @@
 
 namespace Tests\Feature;
 
+use App\Livewire\Dispatches\DispatchTable;
 use App\Livewire\Invoices\InvoiceTable;
 use App\Livewire\Items\ItemTable;
 use App\Livewire\Supplies\SupplyTable;
+use App\Models\Dispatch;
 use App\Models\Invoice;
 use App\Models\Item;
 use App\Models\Supply;
@@ -75,6 +77,22 @@ class LivewireSearchTest extends TestCase
         ]);
 
         Livewire::test(InvoiceTable::class)
+            ->set('search', 'NF1')
+            ->assertSee('NF100')
+            ->assertDontSee('NF200');
+    }
+
+    public function test_filter_dispatches_by_search_prefix(): void
+    {
+        Dispatch::factory()->create([
+            'invoice' => 'NF100',
+        ]);
+
+        Dispatch::factory()->create([
+            'invoice' => 'NF200',
+        ]);
+
+        Livewire::test(DispatchTable::class)
             ->set('search', 'NF1')
             ->assertSee('NF100')
             ->assertDontSee('NF200');
