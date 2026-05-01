@@ -29,8 +29,7 @@ class DispatchController extends Controller
      */
     public function create()
     {
-        $items = Item::with('invoice', 'supply')->withSum('dispatchItems', 'quantity')->get();
-        return view('pages.Dispatches.create', compact('items'));
+        return view('pages.Dispatches.create');
     }
 
     /**
