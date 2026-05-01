@@ -1,4 +1,4 @@
-<div class="flex-1">
+<div x-data class="flex-1">
     <form action="{{ route('dispatches.store') }}" method="POST" class="max-h-[85vh] p-4 bg-surface border-2 border-stroke overflow-y-auto rounded shadow">
         @csrf
         <h1 class="text-xl font-bold">Selecionados</h1>

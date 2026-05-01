@@ -1,6 +1,6 @@
 # Repository Guidelines
 
-Projeto Laravel 13, Tailwind CSS 4, AlpineJS e Vite. O app usa rotas em `routes/web.php`, controllers em `App/Http/Controllers`, requests em `App/Http/Requests`, services em `App/Services` e views em `resources/views/`.
+Projeto Laravel 13, Livewire, Tailwind CSS 4 e Vite. Alpine deve ser consumido pelo Livewire, sem dependencia npm explicita. O app usa rotas em `routes/web.php`, controllers em `App/Http/Controllers`, requests em `App/Http/Requests`, services em `App/Services` e views em `resources/views/`.
 
 ## Mandatory Rules
 
@@ -19,7 +19,7 @@ Projeto Laravel 13, Tailwind CSS 4, AlpineJS e Vite. O app usa rotas em `routes/
 - `database/migrations/`: schema do banco. As tabelas principais sao `insumos`, `nota_fiscal`, `items`, `saidas` e `saidas_items`.
 - `database/seeders/` e `database/factories/`: dados iniciais e fabricas de teste.
 - `resources/css/app.css`: entrada do Tailwind, incluindo `@tailwindcss/vite`
-- `resources/js/app.js`: entrada JS da aplicacao, incluindo o `import Alpine from alpinejs`.
+- `resources/js/bootstrap.js`: setup JS auxiliar do Laravel; nao deve iniciar Alpine nem substituir o Alpine fornecido pelo Livewire.
 - `resources/views/`: views Blade organizadas por funcionalidade em pastas como `Insumos/`, `Items/`, `NotaFiscal/`, `Saidas/`, `Components/` e `Layout/`.
 - `resources/views/Layout/layout.blade.php`: layout principal compartilhado pelas telas.
 - `resources/views/Components/`: componentes Blade reutilizaveis da interface.
@@ -83,7 +83,6 @@ Projeto Laravel 13, Tailwind CSS 4, AlpineJS e Vite. O app usa rotas em `routes/
 - Layout principal: `resources/views/Layout/layout.blade.php`
 - Rotas: `routes/web.php`
 - Entrada CSS: `resources/css/app.css`
-- Entrada JS: `resources/js/app.js`
 
 # Workflow
 - Sempre criar branch nova para cada tarefa a partir da branch main.
@@ -117,6 +116,6 @@ sem autorização explícita.
 
 # Dores e Problemas
 
-- AlpineJS e Livewire nunca devem coexistir no mesmo escopo global.
-- Nao carregar `resources/js/app.js` no layout global quando Livewire estiver ativo.
-- Quando AlpineJS for necessario, importar `resources/js/app.js` diretamente nas views ou componentes que dependem dele.
+- Alpine deve vir do Livewire; nao instalar `alpinejs` pelo npm para uso da aplicacao.
+- Nao carregar `resources/js/app.js` nem componentes de assets Alpine no layout ou nas views.
+- Views e componentes que usam Alpine devem manter `x-data` no proprio escopo e depender de `@livewireStyles` e `@livewireScripts` no layout global.
