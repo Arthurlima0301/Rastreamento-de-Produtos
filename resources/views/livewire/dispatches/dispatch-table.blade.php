@@ -1,15 +1,5 @@
-@extends('Layout.layout')
-
-@section('title', 'Saidas')
-
-@section('content')
-    <x-card title="Saidas">
-        <x-slot name="slot">
-            <a href="{{ route('dispatches.create') }}">Criar Saída</a>
-        </x-slot>
-    </x-card>
-
-    <x-sucess-message></x-sucess-message>
+<div class="w-full space-y-4">
+    <x-search-input />
 
     <x-table>
         <x-slot name="header">
@@ -19,7 +9,7 @@
         </x-slot>
 
         <x-slot name="rows">
-            @foreach ($dispatches as $dispatch)
+            @foreach ($elementos as $dispatch)
                 <tr>
                     <td class="p-2"><a href="{{ route('dispatches.show', $dispatch->id) }}">{{ $dispatch->id }}</a></td>
                     <td class="p-2">{{ $dispatch->dispatched_at }}</td>
@@ -28,4 +18,4 @@
             @endforeach
         </x-slot>
     </x-table>
-@endsection
+</div>

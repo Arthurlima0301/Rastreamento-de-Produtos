@@ -1,6 +1,6 @@
 # Repository Guidelines
 
-Projeto Laravel 13, Tailwind CSS 4, AlpineJS e Vite. O app usa rotas em `routes/web.php`, controllers em `App/Http/Controllers`, requests em `App/Http/Requests`, services em `App/Services` e views em `resources/views/`.
+Projeto Laravel 13, Livewire, Tailwind CSS 4 e Vite. Alpine deve ser consumido pelo Livewire, sem dependencia npm explicita. O app usa rotas em `routes/web.php`, controllers em `App/Http/Controllers`, requests em `App/Http/Requests`, services em `App/Services` e views em `resources/views/`.
 
 ## Mandatory Rules
 
@@ -19,10 +19,11 @@ Projeto Laravel 13, Tailwind CSS 4, AlpineJS e Vite. O app usa rotas em `routes/
 - `database/migrations/`: schema do banco. As tabelas principais sao `insumos`, `nota_fiscal`, `items`, `saidas` e `saidas_items`.
 - `database/seeders/` e `database/factories/`: dados iniciais e fabricas de teste.
 - `resources/css/app.css`: entrada do Tailwind, incluindo `@tailwindcss/vite`
-- `resources/js/app.js`: entrada JS da aplicacao, incluindo o `import Alpine from alpinejs`.
-- `resources/views/`: views Blade organizadas por funcionalidade em pastas como `Insumos/`, `Items/`, `NotaFiscal/`, `Saidas/`, `Components/` e `Layout/`.
+- `resources/js/bootstrap.js`: setup JS auxiliar do Laravel; nao deve iniciar Alpine nem substituir o Alpine fornecido pelo Livewire.
+- `resources/views/pages/`: paginas Blade renderizadas por controllers, organizadas por funcionalidade em pastas como `Supplies/`, `Items/`, `Invoices/` e `Dispatches/`.
 - `resources/views/Layout/layout.blade.php`: layout principal compartilhado pelas telas.
 - `resources/views/Components/`: componentes Blade reutilizaveis da interface.
+- `resources/views/livewire/`: views internas dos componentes Livewire.
 - `tests/Feature/`: testes de fluxo HTTP que exercitam rotas, controllers, validacoes e persistencia com `RefreshDatabase`.
 - `tests/Unit/`: testes focados em unidades isoladas.
 
@@ -83,7 +84,6 @@ Projeto Laravel 13, Tailwind CSS 4, AlpineJS e Vite. O app usa rotas em `routes/
 - Layout principal: `resources/views/Layout/layout.blade.php`
 - Rotas: `routes/web.php`
 - Entrada CSS: `resources/css/app.css`
-- Entrada JS: `resources/js/app.js`
 
 # Workflow
 - Sempre criar branch nova para cada tarefa a partir da branch main.
@@ -98,6 +98,8 @@ Projeto Laravel 13, Tailwind CSS 4, AlpineJS e Vite. O app usa rotas em `routes/
 - Sempre commitar incrementalmente:
   - mudança pequena → commit pequeno
   - não acumular para organizar depois
+  - commits devem agrupar apenas arquivos com dependencia direta entre si
+  - quando houver contexto de negocio claro, separar por contexto (ex: tudo que envolve Dispatches em um commit proprio)
 
 - Antes de commitar:
   - listar arquivos alterados
@@ -112,3 +114,9 @@ Projeto Laravel 13, Tailwind CSS 4, AlpineJS e Vite. O app usa rotas em `routes/
 sem autorização explícita.
 
 - Se houver dúvida de escopo → parar e não commitar.
+
+# Dores e Problemas
+
+- Alpine deve vir do Livewire; nao instalar `alpinejs` pelo npm para uso da aplicacao.
+- Nao carregar `resources/js/app.js` nem componentes de assets Alpine no layout ou nas views.
+- Views e componentes que usam Alpine devem manter `x-data` no proprio escopo e depender de `@livewireStyles` e `@livewireScripts` no layout global.

@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('supplies', function (Blueprint $table) {
             $table->id();
             $table->string('supply_code')->unique();
-            $table->string('name');
+            $table->string('name')->index();
             $table->string('unit_of_measure');
             $table->timestamps();
         });

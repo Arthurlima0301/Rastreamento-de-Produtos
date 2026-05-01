@@ -21,8 +21,7 @@ class DispatchController extends Controller
      */
     public function index()
     {
-        $dispatches = Dispatch::orderBy('dispatched_at', 'desc')->get();
-        return view('Dispatches.index', compact('dispatches'));
+        return view('pages.Dispatches.index');
     }
 
     /**
@@ -31,7 +30,7 @@ class DispatchController extends Controller
     public function create()
     {
         $items = Item::with('invoice', 'supply')->withSum('dispatchItems', 'quantity')->get();
-        return view('Dispatches.create', compact('items'));
+        return view('pages.Dispatches.create', compact('items'));
     }
 
     /**
@@ -54,6 +53,6 @@ class DispatchController extends Controller
     public function show(Dispatch $dispatch)
     {
         $dispatch = Dispatch::with('items.item.supply', 'items.item.invoice')->find($dispatch->id);
-        return view('Dispatches.show', compact('dispatch'));
+        return view('pages.Dispatches.show', compact('dispatch'));
     }
 }

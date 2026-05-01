@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ImportXMLRequest;
-use App\Models\Invoice;
 use App\Services\ImportInvoiceFromXMLService;
 
 class InvoiceController extends Controller
@@ -13,16 +12,14 @@ class InvoiceController extends Controller
      */
     public function __construct(
         private ImportInvoiceFromXMLService $importService
-    )
-    {}
+    ) {}
 
     /*
      * Display a listing of the resource.
      */
     public function index()
     {
-        $invoices = Invoice::orderBy('issued_at', 'desc')->get();
-        return view('Invoices.index', compact('invoices'));
+        return view('pages.Invoices.index');
     }
 
     /*
@@ -34,7 +31,7 @@ class InvoiceController extends Controller
             $this->importService->import($request->file('xml_file'));
 
         } catch (\Exception $e) {
-            return redirect()->route('invoices.index')->with('error', 'Erro ao importar nota fiscal: ' . $e->getMessage());
+            return redirect()->route('invoices.index')->with('error', 'Erro ao importar nota fiscal: '.$e->getMessage());
 
         }
 

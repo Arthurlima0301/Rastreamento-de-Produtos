@@ -1,13 +1,5 @@
-@extends('Layout.layout')
-
-@section('title', 'Items')
-
-@section('content')
-    <x-card title="Items">
-        <x-slot name="slot">
-            <!-- action slot left intentionally empty -->
-        </x-slot>
-    </x-card>
+<div class="w-full space-y-4">
+    <x-search-input />
 
     <x-table>
         <x-slot name="header">
@@ -22,7 +14,7 @@
         </x-slot>
 
         <x-slot name="rows">
-            @foreach($items as $item)
+            @foreach ($elementos as $item)
                 <tr>
                     <td class="p-2">{{ $item->supply->supply_code }}</td>
                     <td class="p-2">{{ $item->supply->name }}</td>
@@ -36,4 +28,4 @@
             @endforeach
         </x-slot>
     </x-table>
-@endsection
+</div>
