@@ -13,7 +13,7 @@ class SupplyController extends Controller
      */
     public function index()
     {
-        return view('Supplies.index');
+        return view('pages.Supplies.index');
     }
 
     /**
@@ -21,7 +21,7 @@ class SupplyController extends Controller
      */
     public function create()
     {
-        return view('Supplies.create');
+        return view('pages.Supplies.create');
     }
 
     /**
@@ -39,7 +39,7 @@ class SupplyController extends Controller
      */
     public function show(Supply $supply)
     {
-        return view('Supplies.show', compact('supply'));
+        return view('pages.Supplies.show', compact('supply'));
     }
 
     /**
@@ -47,7 +47,7 @@ class SupplyController extends Controller
      */
     public function edit(Supply $supply)
     {
-        return view('Supplies.edit', compact('supply'));
+        return view('pages.Supplies.edit', compact('supply'));
     }
 
     /**

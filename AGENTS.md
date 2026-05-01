@@ -20,9 +20,10 @@ Projeto Laravel 13, Livewire, Tailwind CSS 4 e Vite. Alpine deve ser consumido p
 - `database/seeders/` e `database/factories/`: dados iniciais e fabricas de teste.
 - `resources/css/app.css`: entrada do Tailwind, incluindo `@tailwindcss/vite`
 - `resources/js/bootstrap.js`: setup JS auxiliar do Laravel; nao deve iniciar Alpine nem substituir o Alpine fornecido pelo Livewire.
-- `resources/views/`: views Blade organizadas por funcionalidade em pastas como `Insumos/`, `Items/`, `NotaFiscal/`, `Saidas/`, `Components/` e `Layout/`.
+- `resources/views/pages/`: paginas Blade renderizadas por controllers, organizadas por funcionalidade em pastas como `Supplies/`, `Items/`, `Invoices/` e `Dispatches/`.
 - `resources/views/Layout/layout.blade.php`: layout principal compartilhado pelas telas.
 - `resources/views/Components/`: componentes Blade reutilizaveis da interface.
+- `resources/views/livewire/`: views internas dos componentes Livewire.
 - `tests/Feature/`: testes de fluxo HTTP que exercitam rotas, controllers, validacoes e persistencia com `RefreshDatabase`.
 - `tests/Unit/`: testes focados em unidades isoladas.
 

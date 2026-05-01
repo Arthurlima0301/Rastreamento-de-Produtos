@@ -19,7 +19,7 @@ class InvoiceController extends Controller
      */
     public function index()
     {
-        return view('Invoices.index');
+        return view('pages.Invoices.index');
     }
 
     /*

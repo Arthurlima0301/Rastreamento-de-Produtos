@@ -9,6 +9,6 @@ class ItemController extends Controller
      */
     public function index()
     {
-        return view('Items.index');
+        return view('pages.Items.index');
     }
 }
