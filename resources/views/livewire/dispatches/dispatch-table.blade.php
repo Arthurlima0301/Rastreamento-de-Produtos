@@ -10,7 +10,7 @@
 
         <x-slot name="rows">
             @foreach ($dispatches as $dispatch)
-                <tr>
+                <tr class="hover:bg-hovered">
                     <td class="p-2"><a href="{{ route('dispatches.show', $dispatch->id) }}">{{ $dispatch->id }}</a></td>
                     <td class="p-2">{{ $dispatch->dispatched_at }}</td>
                     <td class="p-2">{{ $dispatch->invoice ?? 'N/A' }}</td>

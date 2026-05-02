@@ -11,7 +11,7 @@
 
         <x-slot name="rows">
             @foreach ($supplies as $supply)
-                <tr>
+                <tr class="hover:bg-hovered">
                     <td class="p-2">{{ $supply->name }}</td>
                     <td class="p-2">{{ $supply->supply_code }}</td>
                     <td class="p-2">{{ $supply->unit_of_measure }}</td>

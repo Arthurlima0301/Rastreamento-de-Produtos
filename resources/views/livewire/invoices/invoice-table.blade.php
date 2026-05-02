@@ -10,7 +10,7 @@
 
         <x-slot name="rows">
             @foreach ($invoices as $invoice)
-                <tr>
+                <tr class="hover:bg-hovered">
                     <td class="p-2">{{ $invoice->id }}</td>
                     <td class="p-2">{{ $invoice->invoice_code }}</td>
                     <td class="p-2">{{ $invoice->issued_at }}</td>
