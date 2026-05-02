@@ -9,7 +9,7 @@
         </x-slot>
 
         <x-slot name="rows">
-            @foreach ($elementos as $dispatch)
+            @foreach ($dispatches as $dispatch)
                 <tr>
                     <td class="p-2"><a href="{{ route('dispatches.show', $dispatch->id) }}">{{ $dispatch->id }}</a></td>
                     <td class="p-2">{{ $dispatch->dispatched_at }}</td>

@@ -9,7 +9,7 @@
         </x-slot>
 
         <x-slot name="rows">
-            @foreach ($elementos as $invoice)
+            @foreach ($invoices as $invoice)
                 <tr>
                     <td class="p-2">{{ $invoice->id }}</td>
                     <td class="p-2">{{ $invoice->invoice_code }}</td>

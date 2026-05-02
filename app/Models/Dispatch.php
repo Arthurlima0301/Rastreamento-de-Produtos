@@ -36,4 +36,16 @@ class Dispatch extends Model
     {
         return $this->hasMany(DispatchItem::class, 'dispatch_id');
     }
+
+    /**
+     * Scope a query to search dispatches by invoice.
+     */
+    public function scopeSearchByInvoice($query, $search)
+    {
+        $search = trim((string) $search);
+
+        return $query->when($search !== '', function ($query) use ($search) {
+            $query->where('invoice', 'like', $search.'%');
+        });
+    }
 }

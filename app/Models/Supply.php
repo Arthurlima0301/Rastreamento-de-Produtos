@@ -22,4 +22,16 @@ class Supply extends Model
         'name',
         'unit_of_measure',
     ];
+
+    /**
+     * Scope a query to search supplies by name.
+     */
+    public function scopeSearchByName($query, $search)
+    {
+        $search = trim((string) $search);
+
+        return $query->when($search !== '', function ($query) use ($search) {
+            $query->where('name', 'like', $search.'%');
+        });
+    }
 }

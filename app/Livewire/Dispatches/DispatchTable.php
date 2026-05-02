@@ -11,15 +11,11 @@ class DispatchTable extends Component
 
     public function render()
     {
-        $search = trim($this->search);
-
-        $elementos = Dispatch::query()
-            ->when($search !== '', function ($query) use ($search) {
-                $query->where('invoice', 'like', $search.'%');
-            })
+        $dispatches = Dispatch::query()
+            ->searchByInvoice($this->search)
             ->orderBy('dispatched_at', 'desc')
             ->get();
 
-        return view('livewire.dispatches.dispatch-table', compact('elementos'));
+        return view('livewire.dispatches.dispatch-table', compact('dispatches'));
     }
 }

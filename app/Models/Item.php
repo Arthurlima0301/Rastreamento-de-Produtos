@@ -59,4 +59,18 @@ class Item extends Model
     {
         return $this->hasMany(DispatchItem::class, 'item_id');
     }
+
+    /**
+     * Scope a query to search items by supply name.
+     */
+    public function scopeSearchBySupplyName($query, $search)
+    {
+        $search = trim((string) $search);
+
+        return $query->when($search !== '', function ($query) use ($search) {
+            $query->whereHas('supply', function ($query) use ($search) {
+                $query->where('name', 'like', $search.'%');
+            });
+        });
+    }
 }

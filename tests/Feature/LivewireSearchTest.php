@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Livewire\Dispatches\CreateDispatch;
 use App\Livewire\Dispatches\DispatchTable;
 use App\Livewire\Invoices\InvoiceTable;
 use App\Livewire\Items\ItemTable;
@@ -96,5 +97,33 @@ class LivewireSearchTest extends TestCase
             ->set('search', 'NF1')
             ->assertSee('NF100')
             ->assertDontSee('NF200');
+    }
+
+    public function test_filter_dispatch_creation_items_by_search_prefix(): void
+    {
+        $matchedSupply = Supply::factory()->create([
+            'supply_code' => 'SUP100',
+            'name' => 'Brita',
+        ]);
+
+        $otherSupply = Supply::factory()->create([
+            'supply_code' => 'SUP200',
+            'name' => 'Cal',
+        ]);
+
+        Item::factory()->create([
+            'number' => 10,
+            'supply_id' => $matchedSupply->id,
+        ]);
+
+        Item::factory()->create([
+            'number' => 20,
+            'supply_id' => $otherSupply->id,
+        ]);
+
+        Livewire::test(CreateDispatch::class)
+            ->set('search', 'Bri')
+            ->assertSee('Brita')
+            ->assertDontSee('Cal');
     }
 }

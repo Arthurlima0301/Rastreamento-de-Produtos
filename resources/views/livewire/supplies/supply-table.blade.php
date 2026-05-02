@@ -10,7 +10,7 @@
         </x-slot>
 
         <x-slot name="rows">
-            @foreach ($elementos as $supply)
+            @foreach ($supplies as $supply)
                 <tr>
                     <td class="p-2">{{ $supply->name }}</td>
                     <td class="p-2">{{ $supply->supply_code }}</td>

@@ -11,14 +11,10 @@ class SupplyTable extends Component
 
     public function render()
     {
-        $search = trim($this->search);
-
-        $elementos = Supply::query()
-            ->when($search !== '', function ($query) use ($search) {
-                $query->where('name', 'like', $search.'%');
-            })
+        $supplies = Supply::query()
+            ->searchByName($this->search)
             ->get();
 
-        return view('livewire.supplies.supply-table', compact('elementos'));
+        return view('livewire.supplies.supply-table', compact('supplies'));
     }
 }

@@ -11,17 +11,11 @@ class ItemTable extends Component
 
     public function render()
     {
-        $search = trim($this->search);
-
-        $elementos = Item::with('invoice', 'supply')
+        $items = Item::with('invoice', 'supply')
             ->withSum('dispatchItems', 'quantity')
-            ->when($search !== '', function ($query) use ($search) {
-                $query->whereHas('supply', function ($query) use ($search) {
-                    $query->where('name', 'like', $search.'%');
-                });
-            })
+            ->searchBySupplyName($this->search)
             ->get();
 
-        return view('livewire.items.item-table', compact('elementos'));
+        return view('livewire.items.item-table', compact('items'));
     }
 }

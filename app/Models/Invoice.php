@@ -38,4 +38,16 @@ class Invoice extends Model
     {
         return $this->hasMany(Item::class, 'invoice_id');
     }
+
+    /**
+     * Scope a query to search invoices by invoice code.
+     */
+    public function scopeSearchByInvoiceCode($query, $search)
+    {
+        $search = trim((string) $search);
+
+        return $query->when($search !== '', function ($query) use ($search) {
+            $query->where('invoice_code', 'like', $search.'%');
+        });
+    }
 }

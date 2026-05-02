@@ -11,15 +11,11 @@ class InvoiceTable extends Component
 
     public function render()
     {
-        $search = trim($this->search);
-
-        $elementos = Invoice::query()
-            ->when($search !== '', function ($query) use ($search) {
-                $query->where('invoice_code', 'like', $search.'%');
-            })
+        $invoices = Invoice::query()
+            ->searchByInvoiceCode($this->search)
             ->orderBy('issued_at', 'desc')
             ->get();
 
-        return view('livewire.invoices.invoice-table', compact('elementos'));
+        return view('livewire.invoices.invoice-table', compact('invoices'));
     }
 }
