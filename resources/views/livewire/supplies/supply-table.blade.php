@@ -28,4 +28,6 @@
             @endforeach
         </x-slot>
     </x-table>
+
+    {{ $supplies->links(data: ['scrollTo' => false]) }}
 </div>

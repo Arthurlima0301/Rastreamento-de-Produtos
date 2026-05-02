@@ -4,9 +4,12 @@ namespace App\Livewire\Dispatches;
 
 use App\Models\Item;
 use Livewire\Component;
+use Livewire\WithPagination;
 
 class CreateDispatch extends Component
 {
+    use WithPagination;
+
     public string $search = '';
 
     public array $selectedItems = [];
@@ -16,7 +19,7 @@ class CreateDispatch extends Component
         $items = Item::with('invoice', 'supply')
             ->withSum('dispatchItems', 'quantity')
             ->searchBySupplyName($this->search)
-            ->get();
+            ->paginate(50);
 
         return view('livewire.dispatches.create-dispatch', compact('items'));
     }

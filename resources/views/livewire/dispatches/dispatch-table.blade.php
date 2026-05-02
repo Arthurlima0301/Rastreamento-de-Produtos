@@ -18,4 +18,6 @@
             @endforeach
         </x-slot>
     </x-table>
+
+    {{ $dispatches->links(data: ['scrollTo' => false]) }}
 </div>

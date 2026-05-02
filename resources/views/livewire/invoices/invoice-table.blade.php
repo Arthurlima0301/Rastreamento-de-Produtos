@@ -18,4 +18,6 @@
             @endforeach
         </x-slot>
     </x-table>
+
+    {{ $invoices->links(data: ['scrollTo' => false]) }}
 </div>
