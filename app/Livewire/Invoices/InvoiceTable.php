@@ -4,22 +4,21 @@ namespace App\Livewire\Invoices;
 
 use App\Models\Invoice;
 use Livewire\Component;
+use Livewire\WithPagination;
 
 class InvoiceTable extends Component
 {
+    use WithPagination;
+
     public string $search = '';
 
     public function render()
     {
-        $search = trim($this->search);
-
-        $elementos = Invoice::query()
-            ->when($search !== '', function ($query) use ($search) {
-                $query->where('invoice_code', 'like', $search.'%');
-            })
+        $invoices = Invoice::query()
+            ->searchByInvoiceCode($this->search)
             ->orderBy('issued_at', 'desc')
-            ->get();
+            ->paginate(50);
 
-        return view('livewire.invoices.invoice-table', compact('elementos'));
+        return view('livewire.invoices.invoice-table', compact('invoices'));
     }
 }

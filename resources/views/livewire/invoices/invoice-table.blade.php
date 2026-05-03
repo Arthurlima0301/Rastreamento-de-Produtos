@@ -9,8 +9,8 @@
         </x-slot>
 
         <x-slot name="rows">
-            @foreach ($elementos as $invoice)
-                <tr>
+            @foreach ($invoices as $invoice)
+                <tr class="hover:bg-hovered">
                     <td class="p-2">{{ $invoice->id }}</td>
                     <td class="p-2">{{ $invoice->invoice_code }}</td>
                     <td class="p-2">{{ $invoice->issued_at }}</td>
@@ -18,4 +18,6 @@
             @endforeach
         </x-slot>
     </x-table>
+
+    {{ $invoices->links(data: ['scrollTo' => false]) }}
 </div>

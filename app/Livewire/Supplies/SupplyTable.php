@@ -4,21 +4,20 @@ namespace App\Livewire\Supplies;
 
 use App\Models\Supply;
 use Livewire\Component;
+use Livewire\WithPagination;
 
 class SupplyTable extends Component
 {
+    use WithPagination;
+
     public string $search = '';
 
     public function render()
     {
-        $search = trim($this->search);
+        $supplies = Supply::query()
+            ->searchByName($this->search)
+            ->paginate(50);
 
-        $elementos = Supply::query()
-            ->when($search !== '', function ($query) use ($search) {
-                $query->where('name', 'like', $search.'%');
-            })
-            ->get();
-
-        return view('livewire.supplies.supply-table', compact('elementos'));
+        return view('livewire.supplies.supply-table', compact('supplies'));
     }
 }

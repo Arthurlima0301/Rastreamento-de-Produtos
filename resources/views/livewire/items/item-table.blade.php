@@ -14,8 +14,8 @@
         </x-slot>
 
         <x-slot name="rows">
-            @foreach ($elementos as $item)
-                <tr>
+            @foreach ($items as $item)
+                <tr class="hover:bg-hovered">
                     <td class="p-2">{{ $item->supply->supply_code }}</td>
                     <td class="p-2">{{ $item->supply->name }}</td>
                     <td class="p-2">{{ $item->number }}</td>
@@ -28,4 +28,8 @@
             @endforeach
         </x-slot>
     </x-table>
+
+    {{ $items->links(data: ['scrollTo' => false]) }}
+
+
 </div>

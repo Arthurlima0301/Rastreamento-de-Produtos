@@ -10,8 +10,8 @@
         </x-slot>
 
         <x-slot name="rows">
-            @foreach ($elementos as $supply)
-                <tr>
+            @foreach ($supplies as $supply)
+                <tr class="hover:bg-hovered">
                     <td class="p-2">{{ $supply->name }}</td>
                     <td class="p-2">{{ $supply->supply_code }}</td>
                     <td class="p-2">{{ $supply->unit_of_measure }}</td>
@@ -28,4 +28,6 @@
             @endforeach
         </x-slot>
     </x-table>
+
+    {{ $supplies->links(data: ['scrollTo' => false]) }}
 </div>

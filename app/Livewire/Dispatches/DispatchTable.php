@@ -4,22 +4,21 @@ namespace App\Livewire\Dispatches;
 
 use App\Models\Dispatch;
 use Livewire\Component;
+use Livewire\WithPagination;
 
 class DispatchTable extends Component
 {
+    use WithPagination;
+
     public string $search = '';
 
     public function render()
     {
-        $search = trim($this->search);
-
-        $elementos = Dispatch::query()
-            ->when($search !== '', function ($query) use ($search) {
-                $query->where('invoice', 'like', $search.'%');
-            })
+        $dispatches = Dispatch::query()
+            ->searchByInvoice($this->search)
             ->orderBy('dispatched_at', 'desc')
-            ->get();
+            ->paginate(50);
 
-        return view('livewire.dispatches.dispatch-table', compact('elementos'));
+        return view('livewire.dispatches.dispatch-table', compact('dispatches'));
     }
 }

@@ -2,34 +2,33 @@
 
 namespace App\Livewire\Dispatches;
 
-use Livewire\Component;
 use App\Models\Item;
+use Livewire\Component;
+use Livewire\WithPagination;
 
 class CreateDispatch extends Component
 {
+    use WithPagination;
+
     public string $search = '';
+
     public array $selectedItems = [];
 
     public function render()
     {
-        $search = trim($this->search);
-
-        $elementos = Item::with('invoice', 'supply')
+        $items = Item::with('invoice', 'supply')
             ->withSum('dispatchItems', 'quantity')
-            ->when($search !== '', function ($query) use ($search) {
-                $query->whereHas('supply', function ($query) use ($search) {
-                    $query->where('name', 'like', $search . '%');
-                });
-            })
-            ->get();
+            ->searchBySupplyName($this->search)
+            ->paginate(50);
 
-        return view('livewire.dispatches.create-dispatch', compact('elementos'));
+        return view('livewire.dispatches.create-dispatch', compact('items'));
     }
 
     public function selectItem($itemId)
     {
         if (isset($this->selectedItems[$itemId])) {
             unset($this->selectedItems[$itemId]);
+
             return;
         }
 
