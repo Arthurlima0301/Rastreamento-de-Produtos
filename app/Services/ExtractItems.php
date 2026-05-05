@@ -12,40 +12,12 @@ class ExtractItems
      */
     public function extract($xml, $invoiceId)
     {
-        $this->validateFields($xml);
-
         $items = [];
         foreach ($xml->NFe->infNFe->det as $item) {
             $items[] = $item;
         }
 
-        $this->validateSupplies($items);
-
         $this->saveItems($items, $invoiceId);
-    }
-
-    /**
-     * Validate if the XML file contains the necessary fields before extracting items.
-     */
-    private function validateFields($xml)
-    {
-        if (!isset($xml->NFe->infNFe->det) || count($xml->NFe->infNFe->det) == 0) {
-            throw new \Exception('O XML não contém os campos necessários: det.');
-        }
-    }
-
-    /**
-     * Validate supply exists in the database before saving items.
-     */
-    private function validateSupplies(array $items)
-    {
-        foreach ($items as $item) {
-            $supplyCode = (int) $item->prod->cProd;
-
-            if (!Supply::where('supply_code', $supplyCode)->exists()) {
-                throw new \Exception("O insumo com código {$supplyCode} não existe na base de dados.");
-            }
-        }
     }
 
     /**

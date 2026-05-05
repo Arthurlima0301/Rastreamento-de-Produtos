@@ -37,7 +37,7 @@ class ImportXMLTest extends TestCase
     */
     public function test_do_not_import_invalid_xml()
     {
-        $response = $this->post('invoices/import', [
+        $response = $this->from(route('invoices.index'))->post('invoices/import', [
             'xml_file' => new UploadedFile(
                 base_path('tests/Fixtures/nota_fiscal_invalida.xml'),
                 'nota_fiscal_invalida.xml',
@@ -48,7 +48,7 @@ class ImportXMLTest extends TestCase
         ]);
 
         $response->assertRedirect(route('invoices.index'));
-        $response->assertSessionHas('error');
+        $response->assertSessionHasErrors('xml_file');
     }
 
     /**
@@ -68,7 +68,7 @@ class ImportXMLTest extends TestCase
             ),
         ]);
 
-        $response = $this->post('invoices/import', [
+        $response = $this->from(route('invoices.index'))->post('invoices/import', [
             'xml_file' => new UploadedFile(
                 base_path('tests/Fixtures/nota_fiscal_valida.xml'),
                 'nota_fiscal_valida.xml',
@@ -79,7 +79,7 @@ class ImportXMLTest extends TestCase
         ]);
 
         $response->assertRedirect(route('invoices.index'));
-        $response->assertSessionHas('error');
+        $response->assertSessionHasErrors('xml_file');
     }
 
     /**
@@ -87,7 +87,7 @@ class ImportXMLTest extends TestCase
      */
     public function test_do_not_import_xml_if_product_code_is_not_registered()
     {
-        $response = $this->post('invoices/import', [
+        $response = $this->from(route('invoices.index'))->post('invoices/import', [
             'xml_file' => new UploadedFile(
                 base_path('tests/Fixtures/nota_fiscal_valida.xml'),
                 'nota_fiscal_valida.xml',
@@ -96,7 +96,8 @@ class ImportXMLTest extends TestCase
                 true
             ),
         ]);
+
         $response->assertRedirect(route('invoices.index'));
-        $response->assertSessionHas('error');
+        $response->assertSessionHasErrors('xml_file');
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Rules\ValidXMLInvoice;
 use Illuminate\Foundation\Http\FormRequest;
 
 class ImportXMLRequest extends FormRequest
@@ -17,7 +18,7 @@ class ImportXMLRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'xml_file' => ['required', 'file', 'max:5120'],
+            'xml_file' => ['required', 'file', 'max:5120', new ValidXMLInvoice],
         ];
     }
 
