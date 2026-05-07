@@ -108,5 +108,43 @@ class RegisterDispatchTest extends TestCase
     }
 
 
-   
+    /**
+     * Test register with a nonexistent item.
+     */
+    public function test_do_not_allow_consuming_nonexistent_item()
+    {
+        $response = $this->post('dispatches', [
+            'items' => [
+                0 => [
+                    'id' => 999,
+                    'quantity' => '10',
+                ],
+            ],
+        ]);
+
+        $response->assertSessionHas('errors');
+        $this->assertDatabaseCount('dispatches', 0);
+        $this->assertDatabaseCount('dispatch_items', 0);
+    }
+
+    /**
+     * Test register with a non-numeric quantity.
+     */
+    public function test_do_not_allow_consuming_item_with_non_numeric_quantity()
+    {
+        $item = Item::factory()->create();
+
+        $response = $this->post('dispatches', [
+            'items' => [
+                0 => [
+                    'id' => $item->id,
+                    'quantity' => 'abc',
+                ],
+            ],
+        ]);
+
+        $response->assertSessionHas('errors');
+        $this->assertDatabaseCount('dispatches', 0);
+        $this->assertDatabaseCount('dispatch_items', 0);
+    }
 }
