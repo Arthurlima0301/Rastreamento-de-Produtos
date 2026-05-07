@@ -82,4 +82,31 @@ class RegisterDispatchTest extends TestCase
         $this->assertDatabaseCount('dispatch_items', 0);
         $response->assertSessionHas('error');
     }
+
+    /*
+    * Test register consume item a decimal quantity.
+    */
+    public function test_allow_consuming_item_with_decimal_quantity()
+    {
+        $item = Item::factory()->create();
+
+        $response = $this->post('dispatches', [
+            'items' => [
+                0 => [
+                    'id' => $item->id,
+                    'quantity' => '10.5',
+                ],
+            ],
+        ]);
+
+        $response->assertSessionHas('success');
+        $this->assertDatabaseCount('dispatch_items', 1);
+        $this->assertDatabaseHas('dispatch_items', [
+            'item_id' => $item->id,
+            'quantity' => '10.5',
+        ]);
+    }
+
+
+   
 }

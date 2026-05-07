@@ -24,7 +24,7 @@ class ConsumeItemsRequest extends FormRequest
         return [
             'items' => 'required|array',
             'items.*.id' => 'required|exists:items,id',
-            'items.*.quantity' => 'required|numeric|min:1',
+            'items.*.quantity' => 'required|numeric|min:0.01',
         ];
     }
 
