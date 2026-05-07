@@ -30,6 +30,14 @@ class DispatchItem extends Model
         'quantity',
     ];
 
+    /*
+    * Formatter quantity attribute accessor.
+    */
+    public function getFormattedQuantityAttribute(): string
+    {
+        return number_format($this->quantity,2,',','.');
+    }
+
     /**
      * Get the dispatch that owns the dispatch item.
      */

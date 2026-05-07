@@ -37,6 +37,22 @@ class Item extends Model
     }
 
     /**
+     * Formatter quantity attribute accessor.
+     */
+    public function getFormattedQuantityAttribute(): string
+    {
+        return number_format($this->quantity,2,',','.');
+    }
+
+    /**
+     * Formated balance attribute accessor.
+     */
+    public function getFormattedBalanceAttribute(): string
+    {
+        return number_format($this->balance, 2, ',', '.');
+    }
+
+    /**
      * Get the invoice that owns the item.
      */
     public function invoice(): BelongsTo

@@ -31,7 +31,7 @@
                     <td class="p-2">{{ $dispatchItem->item->supply->supply_code }}</td>
                     <td class="p-2">{{ $dispatchItem->item->supply->name }}</td>
                     <td class="p-2">{{ $dispatchItem->item->supply->unit_of_measure }}</td>
-                    <td class="p-2">{{ $dispatchItem->quantity }}</td>
+                    <td class="p-2">{{ $dispatchItem->formatted_quantity }}</td>
                 </tr>
             @endforeach
         </x-slot>
