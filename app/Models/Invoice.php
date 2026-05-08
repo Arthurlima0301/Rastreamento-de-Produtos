@@ -32,6 +32,14 @@ class Invoice extends Model
     }
 
     /**
+     * Get the formatted invoice code.
+     */
+    protected function getFormattedInvoiceCodeAttribute(): string
+    {
+        return number_format($this->invoice_code, 0, '', '.');
+    }
+
+    /**
      * Get the items for the invoice.
      */
     public function items(): HasMany
@@ -44,7 +52,7 @@ class Invoice extends Model
      */
     public function scopeSearchByInvoiceCode($query, $search)
     {
-        $search = trim((string) $search);
+        $search = trim(str_replace('.', '', (string) $search));
 
         return $query->when($search !== '', function ($query) use ($search) {
             $query->where('invoice_code', 'like', $search.'%');

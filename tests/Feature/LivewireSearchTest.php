@@ -70,17 +70,33 @@ class LivewireSearchTest extends TestCase
     public function test_filter_invoices_by_search_prefix(): void
     {
         Invoice::factory()->create([
-            'invoice_code' => 'NF100',
+            'invoice_code' => '999100',
         ]);
 
         Invoice::factory()->create([
-            'invoice_code' => 'NF200',
+            'invoice_code' => '999200',
         ]);
 
         Livewire::test(InvoiceTable::class)
-            ->set('search', 'NF1')
-            ->assertSee('NF100')
-            ->assertDontSee('NF200');
+            ->set('search', '9991')
+            ->assertSee('999.100')
+            ->assertDontSee('999.200');
+    }
+
+    public function test_filter_invoices_by_formatted_numeric_code_prefix(): void
+    {
+        Invoice::factory()->create([
+            'invoice_code' => '1234',
+        ]);
+
+        Invoice::factory()->create([
+            'invoice_code' => '2234',
+        ]);
+
+        Livewire::test(InvoiceTable::class)
+            ->set('search', '1.234')
+            ->assertSee('1.234')
+            ->assertDontSee('2.234');
     }
 
     public function test_filter_dispatches_by_search_prefix(): void
