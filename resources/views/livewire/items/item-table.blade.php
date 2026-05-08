@@ -21,7 +21,7 @@
                     <td class="p-2">{{ $item->number }}</td>
                     <td class="p-2">{{ $item->supply->unit_of_measure }}</td>
                     <td class="p-2">{{ $item->formatted_quantity }}</td>
-                    <td class="p-2">{{ $item->invoice->invoice_code }}</td>
+                    <td class="p-2">{{ $item->invoice->formatted_invoice_code }}</td>
                     <td class="p-2">{{ $item->invoice->issued_at }}</td>
                     <td class="p-2">{{ $item->formatted_balance }}</td>
                 </tr>

@@ -27,7 +27,7 @@
             @foreach ($dispatch->items as $dispatchItem)
                 <tr>
                     <td class="p-2">{{ $dispatchItem->item->number }}</td>
-                    <td class="p-2">{{ $dispatchItem->item->invoice->invoice_code }}</td>
+                    <td class="p-2">{{ $dispatchItem->item->invoice->formatted_invoice_code }}</td>
                     <td class="p-2">{{ $dispatchItem->item->supply->supply_code }}</td>
                     <td class="p-2">{{ $dispatchItem->item->supply->name }}</td>
                     <td class="p-2">{{ $dispatchItem->item->supply->unit_of_measure }}</td>

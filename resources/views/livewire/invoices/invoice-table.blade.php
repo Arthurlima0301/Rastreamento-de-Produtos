@@ -12,7 +12,7 @@
             @foreach ($invoices as $invoice)
                 <tr class="hover:bg-hovered">
                     <td class="p-2">{{ $invoice->id }}</td>
-                    <td class="p-2">{{ $invoice->invoice_code }}</td>
+                    <td class="p-2">{{ $invoice->formatted_invoice_code }}</td>
                     <td class="p-2">{{ $invoice->issued_at }}</td>
                 </tr>
             @endforeach
