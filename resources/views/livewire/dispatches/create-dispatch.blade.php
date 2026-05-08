@@ -23,10 +23,10 @@
                         <td class="p-2">{{ $item->supply->name }}</td>
                         <td class="p-2">{{ $item->number }}</td>
                         <td class="p-2">{{ $item->supply->unit_of_measure }}</td>
-                        <td class="p-2">{{ $item->quantity }}</td>
+                        <td class="p-2">{{ $item->formatted_quantity }}</td>
                         <td class="p-2">{{ $item->invoice->invoice_code }}</td>
                         <td class="p-2">{{ $item->invoice->issued_at }}</td>
-                        <td class="p-2">{{ $item->balance }}</td>
+                        <td class="p-2">{{ $item->formatted_balance }}</td>
                         <td class="p-2">
 
                             <button

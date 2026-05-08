@@ -8,7 +8,7 @@
                 <input type="hidden" name="items[{{ $index }}][id]" value="{{ $item['id'] }}" />
                 
                 <p class="w-full">{{ $item['supply_name'] }}</p>
-                <input type="number" name="items[{{ $index }}][quantity]" class="w-full border-2 border-stroke p-2 rounded" placeholder = "Quantidade" />
+                <input type="decimal" name="items[{{ $index }}][quantity]" class="w-full border-2 border-stroke p-2 rounded" placeholder = "Quantidade" />
             </div>
         @endforeach
 
