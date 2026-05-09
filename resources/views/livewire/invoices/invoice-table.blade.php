@@ -6,6 +6,8 @@
             <th class="p-2">ID</th>
             <th class="p-2">Código NF</th>
             <th class="p-2">Data de Emissão</th>
+            <th class="p-2">Quantidade de Itens</th>
+            <th class="p-2">Ações</th>
         </x-slot>
 
         <x-slot name="rows">
@@ -14,6 +16,10 @@
                     <td class="p-2">{{ $invoice->id }}</td>
                     <td class="p-2">{{ $invoice->formatted_invoice_code }}</td>
                     <td class="p-2">{{ $invoice->issued_at }}</td>
+                    <td class="p-2">{{ $invoice->items_count }}</td>
+                    <td class="p-2">
+                        <a href="{{ route('invoices.show', $invoice->id) }}">Ver</a>
+                    </td>
                 </tr>
             @endforeach
         </x-slot>

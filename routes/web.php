@@ -13,6 +13,7 @@ Route::resource('supplies', SupplyController::class);
 // Invoice routes
 Route::get('/invoices', [InvoiceController::class, 'index'])->name('invoices.index');
 Route::post('invoices/import', [InvoiceController::class, 'import'])->name('invoices.import');
+Route::get('invoices/{invoice}', [InvoiceController::class, 'show'])->name('invoices.show');
 
 // Item routes
 Route::get('/items', [ItemController::class, 'index'])->name('items.index');

@@ -17,6 +17,7 @@ class InvoiceTable extends Component
         $invoices = Invoice::query()
             ->searchByInvoiceCode($this->search)
             ->orderBy('issued_at', 'desc')
+            ->withCount('items')
             ->paginate(50);
 
         return view('livewire.invoices.invoice-table', compact('invoices'));
