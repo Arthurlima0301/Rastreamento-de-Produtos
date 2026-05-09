@@ -11,12 +11,18 @@ class InvoiceTable extends Component
     use WithPagination;
 
     public string $search = '';
+    public string $parameter = 'desc';
+
 
     public function render()
     {
+        $this->validate([
+            'parameter' => 'in:asc,desc',
+        ]);
+
         $invoices = Invoice::query()
             ->searchByInvoiceCode($this->search)
-            ->orderBy('issued_at', 'desc')
+            ->orderBy('issued_at', $this->parameter)
             ->withCount('items')
             ->paginate(50);
 
