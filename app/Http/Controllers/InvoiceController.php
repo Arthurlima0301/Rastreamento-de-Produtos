@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ImportXMLRequest;
+use App\Models\Invoice;
 use App\Services\ImportInvoiceFromXMLService;
 
 class InvoiceController extends Controller
@@ -36,5 +37,18 @@ class InvoiceController extends Controller
         }
 
         return redirect()->route('invoices.index')->with('success', 'Nota fiscal importada com sucesso!');
+    }
+
+    /**
+     * Display the specified resource.
+     */
+    public function show($id)
+    {
+        
+        $invoice = Invoice::with('items','items.supply')
+        ->withCount('items')
+        ->findOrFail($id);
+        
+        return view('pages.Invoices.show', compact('invoice'));
     }
 }
