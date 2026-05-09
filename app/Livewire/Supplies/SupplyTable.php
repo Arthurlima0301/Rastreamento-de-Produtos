@@ -16,6 +16,7 @@ class SupplyTable extends Component
     {
         $supplies = Supply::query()
             ->searchByName($this->search)
+            ->orderBy('name', 'asc')
             ->paginate(50);
 
         return view('livewire.supplies.supply-table', compact('supplies'));
