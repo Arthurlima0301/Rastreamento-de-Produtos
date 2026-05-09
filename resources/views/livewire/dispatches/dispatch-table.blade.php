@@ -4,7 +4,13 @@
     <x-table>
         <x-slot name="header">
             <th class="p-2">ID</th>
-            <th class="p-2">Data</th>
+            <th class="p-2">
+                Data:
+                <select name="field" id="field" wire:model.live="parameter">
+                    <option value="desc" class="text-mtext">Mais Recentes</option>
+                    <option value="asc" class="text-mtext">Mais Antigas</option>
+                </select>
+            </th>
             <th class="p-2">Nota Fiscal</th>
             <th class="p-2">Ações</th>
         </x-slot>
