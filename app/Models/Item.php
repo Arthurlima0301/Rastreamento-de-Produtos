@@ -90,6 +90,7 @@ class Item extends Model
         return $query
             ->select(
                 'items.id',
+                'items.number',
                 'items.supply_id',
                 'items.invoice_id',
                 'items.quantity',
