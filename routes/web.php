@@ -1,10 +1,10 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\SupplyController;
-use App\Http\Controllers\ItemController;
-use App\Http\Controllers\InvoiceController;
-use App\Http\Controllers\DispatchController;
+use App\Http\Controllers\Dispatches\DispatchController;
+use App\Http\Controllers\Invoices\InvoiceController;
+use App\Http\Controllers\Items\ItemController;
+use App\Http\Controllers\Supplies\SupplyController;
 
 
 // Supply routes

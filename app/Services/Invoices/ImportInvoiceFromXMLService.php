@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services;
+namespace App\Services\Invoices;
 
 use App\Models\Invoice;
 use Illuminate\Support\Facades\DB;

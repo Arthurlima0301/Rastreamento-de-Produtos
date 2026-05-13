@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services;
+namespace App\Services\Dispatches;
 
 use App\Models\Dispatch;
 use App\Models\Item;

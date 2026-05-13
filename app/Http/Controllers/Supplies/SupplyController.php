@@ -1,9 +1,10 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Supplies;
 
-use App\Http\Requests\StoreSupplyRequest;
-use App\Http\Requests\UpdateSupplyRequest;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\Supplies\StoreSupplyRequest;
+use App\Http\Requests\Supplies\UpdateSupplyRequest;
 use App\Models\Supply;
 
 class SupplyController extends Controller

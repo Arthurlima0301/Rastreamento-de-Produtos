@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Supplies;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateSupplyRequest extends FormRequest
+class StoreSupplyRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -21,10 +21,8 @@ class UpdateSupplyRequest extends FormRequest
      */
     public function rules(): array
     {
-        $supplyId = $this->route('supply')?->id ?? $this->supply;
-
         return [
-            'supply_code' => 'required|string|unique:supplies,supply_code,' . $supplyId,
+            'supply_code' => 'required|string|unique:supplies,supply_code',
             'name' => 'required|string',
             'unit_of_measure' => 'required|string',
         ];

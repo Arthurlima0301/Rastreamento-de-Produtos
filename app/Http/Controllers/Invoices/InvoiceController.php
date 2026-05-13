@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Invoices;
 
-use App\Http\Requests\ImportXMLRequest;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\Invoices\ImportXMLRequest;
 use App\Models\Invoice;
-use App\Services\ImportInvoiceFromXMLService;
+use App\Services\Invoices\ImportInvoiceFromXMLService;
 
 class InvoiceController extends Controller
 {
