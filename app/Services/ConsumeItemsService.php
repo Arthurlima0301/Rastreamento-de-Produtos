@@ -25,7 +25,7 @@ class ConsumeItemsService
     private function verifyItemsBalance(array $items)
     {
         foreach ($items as $item) {
-            $itemModel = Item::withSum('dispatchItems', 'quantity')->where('id', $item['id'])->lockForUpdate()->first();
+            $itemModel = Item::withBalance()->lockForUpdate()->first();
 
             if ($itemModel->balance < (float) $item['quantity'] || $itemModel->balance <= 0) {
                 throw new \Exception("O item {$itemModel->supply->name} não possui saldo suficiente para a saída.");

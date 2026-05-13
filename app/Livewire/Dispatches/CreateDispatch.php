@@ -16,8 +16,8 @@ class CreateDispatch extends Component
 
     public function render()
     {
-        $items = Item::with('invoice', 'supply')
-            ->withSum('dispatchItems', 'quantity')
+        $items = Item::withBalance()
+            ->filterBalance()
             ->searchBySupplyName($this->search)
             ->paginate(50);
 

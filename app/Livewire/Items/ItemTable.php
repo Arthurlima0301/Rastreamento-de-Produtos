@@ -11,11 +11,15 @@ class ItemTable extends Component
     use WithPagination;
 
     public string $search = '';
+    
+    public bool $available = false; 
+
 
     public function render()
     {
-        $items = Item::with('invoice', 'supply')
-            ->withSum('dispatchItems', 'quantity')
+
+        $items = Item::withBalance()
+            ->filterBalance($this->available)
             ->searchBySupplyName($this->search)
             ->paginate(50);
 
