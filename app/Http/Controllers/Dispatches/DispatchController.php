@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Dispatches;
 
-use App\Http\Requests\ConsumeItemsRequest;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\Dispatches\ConsumeItemsRequest;
 use App\Models\Dispatch;
 use App\Models\Item;
-use App\Services\ConsumeItemsService;
+use App\Services\Dispatches\ConsumeItemsService;
 
 class DispatchController extends Controller
 {

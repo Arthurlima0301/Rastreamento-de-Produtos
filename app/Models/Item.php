@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Facades\DB;
 
 class Item extends Model
 {
@@ -26,22 +27,13 @@ class Item extends Model
         'quantity',
     ];
 
-    /**
-     * The balance append to the model.
-     */
-    protected $appends = ['balance'];
-
-    public function getBalanceAttribute(): float
-    {
-        return $this->quantity - ($this->dispatch_items_sum_quantity ?? 0);
-    }
 
     /**
      * Formatter quantity attribute accessor.
      */
     public function getFormattedQuantityAttribute(): string
     {
-        return number_format($this->quantity,2,',','.');
+        return number_format($this->quantity, 2, ',', '.');
     }
 
     /**
@@ -85,8 +77,43 @@ class Item extends Model
 
         return $query->when($search !== '', function ($query) use ($search) {
             $query->whereHas('supply', function ($query) use ($search) {
-                $query->where('name', 'like', $search.'%');
+                $query->where('name', 'like', $search . '%');
             });
+        });
+    }
+
+    /**
+     * Scope a query to calculate item balance.
+     */
+    public function scopewithBalance($query)
+    {
+        return $query
+            ->select(
+                'items.id',
+                'items.number',
+                'items.supply_id',
+                'items.invoice_id',
+                'items.quantity',
+                'supplies.name as supply_name',
+                DB::raw('items.quantity - COALESCE(SUM(dispatch_items.quantity), 0) as balance')
+            )
+            ->join('supplies', 'supplies.id', '=', 'items.supply_id')
+            ->join('invoices', 'invoices.id', '=', 'items.invoice_id')
+            ->leftJoin('dispatch_items', 'dispatch_items.item_id', '=', 'items.id')
+            ->groupBy(
+                'items.id',
+                'items.quantity',
+                'supplies.name'
+            );
+    }
+
+    /**
+     * Scope a query to calculate item balance.
+     */
+    public function scopefilterBalance($query, $available = true)
+    {
+        return $query->when($available === true, function ($query) {
+            $query->havingRaw('balance > 0');
         });
     }
 }

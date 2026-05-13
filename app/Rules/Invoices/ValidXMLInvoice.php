@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Rules;
+namespace App\Rules\Invoices;
 
 use App\Models\Invoice;
 use App\Models\Supply;

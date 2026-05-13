@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Invoices;
 
-use App\Rules\ValidXMLInvoice;
+use App\Rules\Invoices\ValidXMLInvoice;
 use Illuminate\Foundation\Http\FormRequest;
 
 class ImportXMLRequest extends FormRequest
