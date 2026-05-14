@@ -2,11 +2,13 @@
 
 namespace Tests\Feature;
 
+use App\Livewire\Clients\ClientTable;
 use App\Livewire\Dispatches\CreateDispatch;
 use App\Livewire\Dispatches\DispatchTable;
 use App\Livewire\Invoices\InvoiceTable;
 use App\Livewire\Items\ItemTable;
 use App\Livewire\Supplies\SupplyTable;
+use App\Models\Client;
 use App\Models\Dispatch;
 use App\Models\Invoice;
 use App\Models\Item;
@@ -18,6 +20,22 @@ use Tests\TestCase;
 class LivewireSearchTest extends TestCase
 {
     use RefreshDatabase;
+
+    public function test_filter_clients_by_search_prefix(): void
+    {
+        Client::factory()->create([
+            'name' => 'Cliente Alpha',
+        ]);
+
+        Client::factory()->create([
+            'name' => 'Cliente Beta',
+        ]);
+
+        Livewire::test(ClientTable::class)
+            ->set('search', 'Cliente A')
+            ->assertSee('Cliente Alpha')
+            ->assertDontSee('Cliente Beta');
+    }
 
     public function test_filter_supplies_by_search_prefix(): void
     {
