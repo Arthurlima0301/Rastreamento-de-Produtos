@@ -15,6 +15,7 @@ class SupplyTable extends Component
     public function render()
     {
         $supplies = Supply::query()
+            ->with('client')
             ->searchByName($this->search)
             ->orderBy('name', 'asc')
             ->paginate(50);

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Supplies;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Supplies\StoreSupplyRequest;
 use App\Http\Requests\Supplies\UpdateSupplyRequest;
+use App\Models\Client;
 use App\Models\Supply;
 
 class SupplyController extends Controller
@@ -22,7 +23,9 @@ class SupplyController extends Controller
      */
     public function create()
     {
-        return view('pages.Supplies.create');
+        $clients = Client::orderBy('name', 'asc')->get();
+
+        return view('pages.Supplies.create', compact('clients'));
     }
 
     /**
@@ -40,6 +43,8 @@ class SupplyController extends Controller
      */
     public function show(Supply $supply)
     {
+        $supply->load('client');
+
         return view('pages.Supplies.show', compact('supply'));
     }
 
@@ -48,7 +53,9 @@ class SupplyController extends Controller
      */
     public function edit(Supply $supply)
     {
-        return view('pages.Supplies.edit', compact('supply'));
+        $clients = Client::orderBy('name', 'asc')->get();
+
+        return view('pages.Supplies.edit', compact('supply', 'clients'));
     }
 
     /**

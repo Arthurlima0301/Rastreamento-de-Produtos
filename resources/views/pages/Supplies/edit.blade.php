@@ -17,6 +17,15 @@
         <x-input label="Código" name="supply_code" id="supply_code" value="{{ $supply->supply_code }}" required />
         <x-input label="Nome" name="name" id="name" value="{{ $supply->name }}" required />
         <x-input label="Unidade de Medida" name="unit_of_measure" id="unit_of_measure" value="{{ $supply->unit_of_measure }}" required />
+        <div class="flex flex-col gap-2">
+            <label for="client_id">Cliente</label>
+            <select name="client_id" id="client_id" class="min-w-[300px] border border-stroke rounded-md p-2" required>
+                <option value="">Selecione um cliente</option>
+                @foreach ($clients as $client)
+                    <option value="{{ $client->id }}" @selected(old('client_id', $supply->client_id) == $client->id)>{{ $client->name }}</option>
+                @endforeach
+            </select>
+        </div>
 
     </x-form>
 @endsection

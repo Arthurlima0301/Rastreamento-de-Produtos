@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Supply extends Model
 {
@@ -21,7 +22,16 @@ class Supply extends Model
         'supply_code',
         'name',
         'unit_of_measure',
+        'client_id',
     ];
+
+    /**
+     * Get the client that owns the supply.
+     */
+    public function client(): BelongsTo
+    {
+        return $this->belongsTo(Client::class, 'client_id');
+    }
 
     /**
      * Scope a query to search supplies by name.
