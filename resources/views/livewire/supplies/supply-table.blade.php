@@ -6,6 +6,7 @@
             <th class="p-2">Nome</th>
             <th class="p-2">Código</th>
             <th class="p-2">Unidade de Medida</th>
+            <th class="p-2">Cliente</th>
             <th class="p-2">Ações</th>
         </x-slot>
 
@@ -15,6 +16,7 @@
                     <td class="p-2">{{ $supply->name }}</td>
                     <td class="p-2">{{ $supply->supply_code }}</td>
                     <td class="p-2">{{ $supply->unit_of_measure }}</td>
+                    <td class="p-2">{{ $supply->client->name }}</td>
                     <td class="p-2">
                         <a href="{{ route('supplies.show', $supply->id) }}">Ver</a>
                         <a href="{{ route('supplies.edit', $supply->id) }}">Editar</a>

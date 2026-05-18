@@ -4,37 +4,29 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class Supply extends Model
+class Client extends Model
 {
     use HasFactory;
-
-    /**
-     * The table associated with the model.
-     */
-    protected $table = 'supplies';
 
     /**
      * The attributes that are mass assignable.
      */
     protected $fillable = [
-        'supply_code',
         'name',
-        'unit_of_measure',
-        'client_id',
     ];
 
     /**
-     * Get the client that owns the supply.
+     * Get the supplies for the client.
      */
-    public function client(): BelongsTo
+    public function supplies(): HasMany
     {
-        return $this->belongsTo(Client::class, 'client_id');
+        return $this->hasMany(Supply::class, 'client_id');
     }
 
     /**
-     * Scope a query to search supplies by name.
+     * Scope a query to search clients by name.
      */
     public function scopeSearchByName($query, $search)
     {

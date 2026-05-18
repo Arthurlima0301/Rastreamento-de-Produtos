@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Supplies;
 
+use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class StoreSupplyRequest extends FormRequest
@@ -17,7 +18,7 @@ class StoreSupplyRequest extends FormRequest
     /**
      * Get the validation rules that apply to the request.
      *
-     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
+     * @return array<string, ValidationRule|array<mixed>|string>
      */
     public function rules(): array
     {
@@ -25,6 +26,7 @@ class StoreSupplyRequest extends FormRequest
             'supply_code' => 'required|string|unique:supplies,supply_code',
             'name' => 'required|string',
             'unit_of_measure' => 'required|string',
+            'client_id' => 'required|exists:clients,id',
         ];
     }
 
@@ -41,6 +43,8 @@ class StoreSupplyRequest extends FormRequest
             'name.required' => 'O campo nome é obrigatório.',
             'unit_of_measure.required' => 'O campo unidade de medida é obrigatório.',
             'unit_of_measure.string' => 'O campo unidade de medida deve ser uma string.',
+            'client_id.required' => 'O campo cliente e obrigatorio.',
+            'client_id.exists' => 'O cliente informado e invalido.',
         ];
     }
 }

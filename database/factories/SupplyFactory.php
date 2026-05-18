@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Client;
 use App\Models\Supply;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -16,6 +17,7 @@ class SupplyFactory extends Factory
             'supply_code' => fake()->unique()->numerify('SUP-#####'),
             'name' => fake()->words(3, true),
             'unit_of_measure' => fake()->randomElement(['kg', 'un', 'pc', 'm']),
+            'client_id' => Client::factory(),
         ];
     }
 }

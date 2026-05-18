@@ -1,5 +1,9 @@
  <nav x-data class="absolute z-10 w-62 p-2 text-xl bg-surface shadow-md" x-show="menuOpen">
      <ul>
+         <li class="w-full">
+             <a href="{{ route('clients.index') }}" class="block p-2 w-full hover:bg-secondary">Clientes</a>
+         </li>
+         
          <li>
              <a href="{{ route('invoices.index') }}" class="block p-2 w-full hover:bg-secondary">Notas</a>
          </li>
@@ -12,8 +16,8 @@
              <a href="{{ route('supplies.index') }}" class="block p-2 w-full hover:bg-secondary">Insumos</a>
          </li>
 
-        <li class="w-full">
-            <a href="{{ route('dispatches.index') }}" class="block p-2 w-full hover:bg-secondary">Saídas</a>
-        </li>
+         <li class="w-full">
+             <a href="{{ route('dispatches.index') }}" class="block p-2 w-full hover:bg-secondary">Saídas</a>
+         </li>
      </ul>
  </nav>

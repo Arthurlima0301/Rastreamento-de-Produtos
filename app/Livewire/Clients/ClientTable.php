@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Livewire\Supplies;
+namespace App\Livewire\Clients;
 
-use App\Models\Supply;
+use App\Models\Client;
 use Livewire\Component;
 use Livewire\WithPagination;
 
-class SupplyTable extends Component
+class ClientTable extends Component
 {
     use WithPagination;
 
@@ -14,12 +14,11 @@ class SupplyTable extends Component
 
     public function render()
     {
-        $supplies = Supply::query()
-            ->with('client')
+        $clients = Client::query()
             ->searchByName($this->search)
             ->orderBy('name', 'asc')
             ->paginate(50);
 
-        return view('livewire.supplies.supply-table', compact('supplies'));
+        return view('livewire.clients.client-table', compact('clients'));
     }
 }
