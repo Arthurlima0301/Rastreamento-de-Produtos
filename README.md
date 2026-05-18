@@ -1,58 +1,278 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Controle de Insumos
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Sistema web desenvolvido em Laravel para controle de insumos, notas fiscais, itens importados por XML e registro de saídas de estoque.
 
-## About Laravel
+O projeto foi criado para resolver um fluxo interno de controle de materiais: cadastrar insumos, importar notas fiscais, consultar saldo disponível e registrar o consumo dos itens com base nas quantidades disponíveis.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## Objetivo
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+O objetivo do sistema é centralizar o controle de entrada e saída de insumos, reduzindo conferências manuais e evitando consumo acima do saldo disponível.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+Fluxo principal:
 
-## Learning Laravel
+1. Cadastrar insumos no sistema.
+2. Importar XML de nota fiscal.
+3. Validar se os produtos da nota existem como insumos cadastrados.
+4. Registrar os itens da nota fiscal.
+5. Consultar saldo disponível por item.
+6. Registrar saídas de estoque.
+7. Consultar histórico de notas, itens e saídas.
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+## Tecnologias utilizadas
 
-In addition, [Laracasts](https://laracasts.com) contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+- PHP 8.3
+- Laravel 13
+- Livewire 4
+- MySQL
+- Blade
+- Tailwind CSS
+- Vite
+- PHPUnit
 
-You can also watch bite-sized lessons with real-world projects on [Laravel Learn](https://laravel.com/learn), where you will be guided through building a Laravel application from scratch while learning PHP fundamentals.
+## Funcionalidades
 
-## Agentic Development
+### Insumos
 
-Laravel's predictable structure and conventions make it ideal for AI coding agents like Claude Code, Cursor, and GitHub Copilot. Install [Laravel Boost](https://laravel.com/docs/ai) to supercharge your AI workflow:
+- Cadastro de insumos.
+- Listagem de insumos.
+- Busca por nome.
+- Validação de dados no cadastro.
+- Relacionamento entre insumos e itens de notas fiscais.
+
+### Notas fiscais
+
+- Importação de XML de NF-e.
+- Validação da estrutura do XML.
+- Validação de nota fiscal duplicada.
+- Validação de existência dos insumos antes da importação.
+- Listagem de notas fiscais.
+- Busca por número da nota.
+- Visualização dos itens vinculados à nota fiscal.
+
+### Itens
+
+- Registro automático dos itens importados do XML.
+- Associação entre item, nota fiscal e insumo.
+- Controle de quantidade com valores decimais.
+- Cálculo de saldo disponível com base nas saídas registradas.
+- Busca por nome do insumo.
+- Filtro de itens com saldo disponível.
+
+### Saídas
+
+- Registro de saída de itens.
+- Validação de saldo disponível.
+- Registro dos itens consumidos.
+- Histórico de saídas.
+- Detalhamento dos itens vinculados a cada saída.
+
+## Regras de negócio
+
+- Uma nota fiscal não pode ser importada mais de uma vez.
+- Um XML só pode ser importado se tiver estrutura válida de NF-e.
+- Os produtos do XML precisam existir previamente como insumos cadastrados.
+- Um item não pode ser consumido acima do saldo disponível.
+- Quantidades de entrada e saída aceitam valores decimais.
+- O saldo do item é calculado pela quantidade de entrada menos a soma das saídas registradas.
+
+## Estrutura principal
+
+```txt
+app/
+├── Http/
+│   ├── Controllers/
+│   │   ├── Dispatches/
+│   │   ├── Invoices/
+│   │   ├── Items/
+│   │   └── Supplies/
+│   └── Requests/
+│       ├── Dispatches/
+│       ├── Invoices/
+│       └── Supplies/
+├── Livewire/
+│   ├── Dispatches/
+│   ├── Invoices/
+│   ├── Items/
+│   └── Supplies/
+├── Models/
+├── Rules/
+│   └── Invoices/
+└── Services/
+    ├── Dispatches/
+    └── Invoices/
+````
+
+## Principais classes do domínio
+
+### Services
+
+* `ImportInvoiceFromXMLService`: responsável por importar a nota fiscal a partir do XML.
+* `ExtractItems`: responsável por extrair e registrar os itens da nota fiscal.
+* `ConsumeItemsService`: responsável por registrar o consumo dos itens em uma saída.
+
+### Models
+
+* `Supply`: representa um insumo cadastrado.
+* `Invoice`: representa uma nota fiscal importada.
+* `Item`: representa um item de uma nota fiscal.
+* `Dispatch`: representa uma saída de estoque.
+* `DispatchItem`: representa os itens consumidos em uma saída.
+
+## Banco de dados
+
+Principais tabelas do sistema:
+
+* `supplies`
+* `invoices`
+* `items`
+* `dispatches`
+* `dispatch_items`
+
+As quantidades dos itens e das saídas utilizam campos decimais para suportar valores fracionados vindos do XML da nota fiscal.
+
+## Testes
+
+O projeto possui testes automatizados cobrindo fluxos principais, como:
+
+* importação de XML válido;
+* bloqueio de XML inválido;
+* bloqueio de nota fiscal duplicada;
+* bloqueio de XML com insumo inexistente;
+* registro de saída;
+* bloqueio de saída sem saldo suficiente;
+* consumo com quantidade decimal;
+* busca com Livewire;
+* edição de nota fiscal;
+* CRUD de insumos.
+
+Para executar os testes:
 
 ```bash
-composer require laravel/boost --dev
-
-php artisan boost:install
+php artisan test
 ```
 
-Boost provides your agent 15+ tools and skills that help agents build Laravel applications while following best practices.
+Ou usando o script do Composer:
 
-## Contributing
+```bash
+composer test
+```
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+## Instalação
 
-## Code of Conduct
+Clone o repositório:
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+```bash
+git clone https://github.com/Arthurlima0301/Controle-de-Insumos.git
+```
 
-## Security Vulnerabilities
+Entre na pasta do projeto:
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+```bash
+cd Controle-de-Insumos
+```
 
-## License
+Instale as dependências PHP:
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+```bash
+composer install
+```
+
+Instale as dependências JavaScript:
+
+```bash
+npm install
+```
+
+Copie o arquivo de ambiente:
+
+```bash
+cp .env.example .env
+```
+
+No Windows PowerShell:
+
+```powershell
+copy .env.example .env
+```
+
+Gere a chave da aplicação:
+
+```bash
+php artisan key:generate
+```
+
+Configure o banco de dados no arquivo `.env`:
+
+```env
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=controle_insumos
+DB_USERNAME=root
+DB_PASSWORD=
+```
+
+Execute as migrations:
+
+```bash
+php artisan migrate
+```
+
+Compile os assets:
+
+```bash
+npm run build
+```
+
+Inicie o servidor local:
+
+```bash
+php artisan serve
+```
+
+Para desenvolvimento com Vite:
+
+```bash
+npm run dev
+```
+
+## Comando rápido de setup
+
+O projeto possui um script de setup configurado no Composer:
+
+```bash
+composer run setup
+```
+
+Esse comando instala dependências, prepara o `.env`, gera a chave da aplicação, executa as migrations e compila os assets.
+
+## Rodando o ambiente de desenvolvimento
+
+O projeto também possui script para iniciar servidor, fila, logs e Vite em paralelo:
+
+```bash
+composer run dev
+```
+
+## Status do projeto
+
+Projeto em desenvolvimento.
+
+Funcionalidades principais já implementadas:
+
+* cadastro de insumos;
+* importação de XML;
+* validação de nota fiscal;
+* listagem de notas;
+* listagem de itens;
+* cálculo de saldo;
+* registro de saídas;
+* testes automatizados dos principais fluxos.
+  
+## Autor
+
+Desenvolvido por Arthur Lima.
+
+GitHub: [Arthurlima0301](https://github.com/Arthurlima0301)
+
+
