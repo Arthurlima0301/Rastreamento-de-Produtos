@@ -30,11 +30,12 @@
                         <td class="p-2">
 
                             <x-button
-                                variant="{{ isset($selectedItems[$item->id]) ? 'filled' : 'primary' }}"
-                                color="{{ isset($selectedItems[$item->id]) ? 'gray' : 'blue' }}"
+                                variant="primary"
+                                color="{{ isset($selectedItems[$item->id]) ? 'red' : 'blue' }}"
                                 class="w-full"
                                 wire:click="selectItem({{ $item->id }})">
-                                {{ isset($selectedItems[$item->id]) ? 'Selecionado' : 'Selecionar' }}
+
+                                {{ isset($selectedItems[$item->id]) ? 'Remover' : 'Selecionar' }}
                             </x-button>
                         </td>
                     </tr>
