@@ -27,15 +27,18 @@ class CreateDispatch extends Component
 
     public function selectItem($itemId, $itemSupplyName)
     {
+        $this->selectedItems[$itemId] = [
+            'id' => $itemId,
+            'supply_name' => $itemSupplyName,
+        ];
+    }
+
+    public function removeItem($itemId)
+    {
         if (isset($this->selectedItems[$itemId])) {
             unset($this->selectedItems[$itemId]);
 
             return;
         }
-
-        $this->selectedItems[$itemId] = [
-            'id' => $itemId,
-            'supply_name' => $itemSupplyName,
-        ];
     }
 }
