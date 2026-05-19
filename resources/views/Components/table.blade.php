@@ -1,6 +1,6 @@
 <div class="max-h-[75vh] w-full overflow-y-auto border-1 border-stroke rounded-lg shadow-sm">
     <table class="w-full text-center border-collapse">
-        <thead class="sticky inset-0 bg-main text-muted">
+        <thead class="sticky inset-0 z-8 bg-main text-muted">
             <tr class="text-md">
                 {{ $header }}
             </tr>
