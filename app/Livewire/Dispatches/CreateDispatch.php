@@ -24,7 +24,7 @@ class CreateDispatch extends Component
         return view('livewire.dispatches.create-dispatch', compact('items'));
     }
 
-    public function selectItem($itemId)
+    public function selectItem($itemId, $itemSupplyName)
     {
         if (isset($this->selectedItems[$itemId])) {
             unset($this->selectedItems[$itemId]);
@@ -32,11 +32,9 @@ class CreateDispatch extends Component
             return;
         }
 
-        $item = Item::with('supply')->find($itemId);
-
         $this->selectedItems[$itemId] = [
-            'id' => $item->id,
-            'supply_name' => $item->supply->name,
+            'id' => $itemId,
+            'supply_name' => $itemSupplyName,
         ];
     }
 }
