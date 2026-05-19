@@ -14,6 +14,7 @@ class CreateDispatch extends Component
 
     public array $selectedItems = [];
 
+    #[Computed]
     public function render()
     {
         $items = Item::withBalance()
