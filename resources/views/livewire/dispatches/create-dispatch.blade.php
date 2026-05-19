@@ -29,11 +29,11 @@
                         <flux:table.cell align="center">
                             <x-button
                                 variant="primary"
-                                color="{{ isset($selectedItems[$item->id]) ? 'red' : 'blue' }}"
+                                color="{{ isset($selectedItems[$item->id]) ? 'gray' : 'blue' }}"
                                 class="w-full"
-                                wire:click="selectItem({{ $item->id }})"
+                                wire:click="selectItem({{ $item->id }}, '{{ $item->supply->name }}')"
                             >
-                                {{ isset($selectedItems[$item->id]) ? 'Remover' : 'Selecionar' }}
+                                {{ isset($selectedItems[$item->id]) ? 'Selecinado' : 'Selecionar' }}
                             </x-button>
                         </flux:table.cell>
                     </flux:table.row>

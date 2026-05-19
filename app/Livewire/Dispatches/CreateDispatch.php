@@ -14,6 +14,7 @@ class CreateDispatch extends Component
 
     public array $selectedItems = [];
 
+    #[Computed]
     public function render()
     {
         $items = Item::withBalance()
@@ -24,19 +25,20 @@ class CreateDispatch extends Component
         return view('livewire.dispatches.create-dispatch', compact('items'));
     }
 
-    public function selectItem($itemId)
+    public function selectItem($itemId, $itemSupplyName)
+    {
+        $this->selectedItems[$itemId] = [
+            'id' => $itemId,
+            'supply_name' => $itemSupplyName,
+        ];
+    }
+
+    public function removeItem($itemId)
     {
         if (isset($this->selectedItems[$itemId])) {
             unset($this->selectedItems[$itemId]);
 
             return;
         }
-
-        $item = Item::with('supply')->find($itemId);
-
-        $this->selectedItems[$itemId] = [
-            'id' => $item->id,
-            'supply_name' => $item->supply->name,
-        ];
     }
 }

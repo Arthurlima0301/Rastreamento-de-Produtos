@@ -1,6 +1,5 @@
 @props(['selectedItems'])
 
-
 <div>
     <flux:card class="max-h-[85vh] overflow-y-auto">
         <form action="{{ route('dispatches.store') }}" method="POST" class="space-y-4">
@@ -11,12 +10,14 @@
                 <p class="text-sm text-gray-500">Nenhum item selecionado. Seleciona itens para adicionar à saída.</p>
             @else
                 @foreach ($selectedItems as $index => $item)
-                    <div class="flex items-center justify-between gap-3">
+                    <div class="flex items-center justify-between gap-3" wire:key="{{ $item['id'] }}">
                         <input type="hidden" name="items[{{ $index }}][id]" value="{{ $item['id'] }}" />
 
                         <p class="text-sm w-full">{{ $item['supply_name'] }}</p>
                         <x-input type="decimal" name="items[{{ $index }}][quantity]" class="w-1"
                             placeholder="Quantidade" />
+
+                        <x-button variant="ghost" icon="x-mark" class="p-4" wire:click="removeItem({{ $item['id'] }})"  />
                     </div>
                 @endforeach
             @endif
