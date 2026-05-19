@@ -17,5 +17,5 @@
     :id="$id"
     :label="$label"
     :value="$fieldValue"
-    {{ $attributes->class('min-w-[300px]') }}
+    {{ $attributes->class('') }}
 />
