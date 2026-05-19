@@ -1,35 +1,36 @@
 <div class="w-full space-y-4">
     <x-search-input />
 
-    <x-table>
-        <x-slot name="header">
-            <th class="p-2">ID</th>
-            <th class="p-2">Código da Nota</th>
-            <th class="p-2">
-                Data de Emissão:
-                <select name="field"  wire:model.live="parameter">
-                    <option value="desc" class="text-mtext">Mais Recentes</option>
-                    <option value="asc"  class="text-mtext">Mais Antigas</option>
-                </select>
-            </th>
-            <th class="p-2">Quantidade de Itens</th>
-            <th class="p-2">Ações</th>
-        </x-slot>
+    <x-table :paginate="$invoices">
+        <x-slot:header>
+            <flux:table.column align="center">ID</flux:table.column>
+            <flux:table.column align="center">Código da Nota</flux:table.column>
 
-        <x-slot name="rows">
+            <flux:table.column align="center">
+                
+                <x-sort collumn-title="Data de Emissão" model="parameter">
+                    <flux:menu.radio value="desc">Mais Recentes</flux:menu.radio>
+                    <flux:menu.radio value="asc">Mais Antigos</flux:menu.radio>
+                </x-sort>
+
+            </flux:table.column>
+
+            <flux:table.column align="center">Quantidade de Itens</flux:table.column>
+            <flux:table.column align="center">Ações</flux:table.column>
+        </x-slot:header>
+
+        <x-slot:rows>
             @foreach ($invoices as $invoice)
-                <tr class="hover:bg-hovered">
-                    <td class="p-2">{{ $invoice->id }}</td>
-                    <td class="p-2">{{ $invoice->formatted_invoice_code }}</td>
-                    <td class="p-2">{{ $invoice->issued_at }}</td>
-                    <td class="p-2">{{ $invoice->items_count }}</td>
-                    <td class="p-2">
-                        <a href="{{ route('invoices.show', $invoice->id) }}">Ver</a>
-                    </td>
-                </tr>
+                <flux:table.row wire:key="invoice-{{ $invoice->id }}">
+                    <flux:table.cell align="center">{{ $invoice->id }}</flux:table.cell>
+                    <flux:table.cell align="center">{{ $invoice->formatted_invoice_code }}</flux:table.cell>
+                    <flux:table.cell align="center">{{ $invoice->issued_at }}</flux:table.cell>
+                    <flux:table.cell align="center">{{ $invoice->items_count }}</flux:table.cell>
+                    <flux:table.cell align="center">
+                        <x-button href="{{ route('invoices.show', $invoice->id) }}" variant="ghost" icon="eye" />
+                    </flux:table.cell>
+                </flux:table.row>
             @endforeach
-        </x-slot>
+        </x-slot:rows>
     </x-table>
-
-    {{ $invoices->links(data: ['scrollTo' => false]) }}
 </div>

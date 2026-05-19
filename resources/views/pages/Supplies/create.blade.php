@@ -15,19 +15,12 @@
 
         <x-input name="unit_of_measure" label="Unidade de Medida" type="text" value="" required></x-input>
 
-        <div class="flex flex-col gap-2">
-
-            <label for="client_id">Cliente</label>
-
-            <select name="client_id" id="client_id" class="min-w-[300px] border border-stroke rounded-md p-2" required>
-
+        <x-select name="client_id" id="client_id" label="Cliente" class="min-w-[300px]" required>
                 <option value="">Selecione um cliente</option>
                 @foreach ($clients as $client)
                     <option value="{{ $client->id }}" @selected(old('client_id') == $client->id)>{{ $client->name }}</option>
                 @endforeach
-                
-            </select>
-        </div>
+        </x-select>
     </x-form>
 
 @endsection

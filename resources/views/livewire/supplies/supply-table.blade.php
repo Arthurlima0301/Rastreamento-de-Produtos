@@ -1,35 +1,36 @@
 <div class="w-full space-y-4">
     <x-search-input />
 
-    <x-table>
-        <x-slot name="header">
-            <th class="p-2">Nome</th>
-            <th class="p-2">Código</th>
-            <th class="p-2">Unidade de Medida</th>
-            <th class="p-2">Cliente</th>
-            <th class="p-2">Ações</th>
-        </x-slot>
+    <x-table :paginate="$supplies">
+        <x-slot:header>
+            <flux:table.column align="center">Nome</flux:table.column>
+            <flux:table.column align="center">Código</flux:table.column>
+            <flux:table.column align="center">Unidade de Medida</flux:table.column>
+            <flux:table.column align="center">Cliente</flux:table.column>
+            <flux:table.column align="center">Ações</flux:table.column>
+        </x-slot:header>
 
-        <x-slot name="rows">
+        <x-slot:rows>
             @foreach ($supplies as $supply)
-                <tr class="hover:bg-hovered">
-                    <td class="p-2">{{ $supply->name }}</td>
-                    <td class="p-2">{{ $supply->supply_code }}</td>
-                    <td class="p-2">{{ $supply->unit_of_measure }}</td>
-                    <td class="p-2">{{ $supply->client->name }}</td>
-                    <td class="p-2">
-                        <a href="{{ route('supplies.show', $supply->id) }}">Ver</a>
-                        <a href="{{ route('supplies.edit', $supply->id) }}">Editar</a>
-                        <form action="{{ route('supplies.destroy', $supply->id) }}" method="POST" style="display: inline;">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit">Excluir</button>
-                        </form>
-                    </td>
-                </tr>
-            @endforeach
-        </x-slot>
-    </x-table>
+                <flux:table.row wire:key="supply-{{ $supply->id }}">
+                    <flux:table.cell align="center">{{ $supply->name }}</flux:table.cell>
+                    <flux:table.cell align="center">{{ $supply->supply_code }}</flux:table.cell>
+                    <flux:table.cell align="center">{{ $supply->unit_of_measure }}</flux:table.cell>
+                    <flux:table.cell align="center">{{ $supply->client->name }}</flux:table.cell>
+                    <flux:table.cell align="center">
+                        <div class="flex justify-center gap-2">
+                            <x-button href="{{ route('supplies.show', $supply->id) }}" variant="ghost" icon="eye" />
+                            <x-button href="{{ route('supplies.edit', $supply->id) }}" variant="ghost" icon="pencil" />
 
-    {{ $supplies->links(data: ['scrollTo' => false]) }}
+                            <form action="{{ route('supplies.destroy', $supply->id) }}" method="POST">
+                                @csrf
+                                @method('DELETE')
+                                <x-button type="submit" variant="danger" icon="trash" />
+                            </form>
+                        </div>
+                    </flux:table.cell>
+                </flux:table.row>
+            @endforeach
+        </x-slot:rows>
+    </x-table>
 </div>

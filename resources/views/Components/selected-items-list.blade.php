@@ -1,17 +1,27 @@
-<div class="flex-1">
-    <form action="{{ route('dispatches.store') }}" method="POST" class="max-h-[85vh] p-4 bg-surface border-2 border-stroke overflow-y-auto rounded shadow">
-        @csrf
-        <h1 class="text-xl font-bold">Selecionados</h1>
-        
-        @foreach ($selectedItems as $index => $item)
-                <div class="flex items-center justify-between mb-2">
-                <input type="hidden" name="items[{{ $index }}][id]" value="{{ $item['id'] }}" />
-                
-                <p class="w-full">{{ $item['supply_name'] }}</p>
-                <input type="decimal" name="items[{{ $index }}][quantity]" class="w-full border-2 border-stroke p-2 rounded" placeholder = "Quantidade" />
-            </div>
-        @endforeach
+@props(['selectedItems'])
 
-        <button type="submit" class="w-full bg-primary text-muted p-2 cursor-pointer rounded">Salvar Saída</button>
-    </form>
+
+<div>
+    <flux:card class="max-h-[85vh] overflow-y-auto">
+        <form action="{{ route('dispatches.store') }}" method="POST" class="space-y-4">
+            @csrf
+            <flux:heading size="lg">Selecionados</flux:heading>
+
+            @if(empty($selectedItems))
+                <p class="text-sm text-gray-500">Nenhum item selecionado. Seleciona itens para adicionar à saída.</p>
+            @else
+                @foreach ($selectedItems as $index => $item)
+                    <div class="flex items-center justify-between gap-3">
+                        <input type="hidden" name="items[{{ $index }}][id]" value="{{ $item['id'] }}" />
+
+                        <p class="text-sm w-full">{{ $item['supply_name'] }}</p>
+                        <x-input type="decimal" name="items[{{ $index }}][quantity]" class="w-1"
+                            placeholder="Quantidade" />
+                    </div>
+                @endforeach
+            @endif
+            <x-button type="submit" variant="primary" class="w-full">Salvar Saída</x-button>
+        </form>
+    </flux:card>
 </div>
+

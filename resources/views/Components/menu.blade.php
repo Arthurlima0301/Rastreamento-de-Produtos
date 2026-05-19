@@ -1,23 +1,11 @@
- <nav x-data class="absolute z-10 w-62 p-2 text-xl bg-surface shadow-md" x-show="menuOpen">
-     <ul>
-         <li class="w-full">
-             <a href="{{ route('clients.index') }}" class="block p-2 w-full hover:bg-secondary">Clientes</a>
-         </li>
-         
-         <li>
-             <a href="{{ route('invoices.index') }}" class="block p-2 w-full hover:bg-secondary">Notas</a>
-         </li>
+<flux:dropdown position="bottom" align="end">
+  <x-button icon="bars-3" @click="menuOpen = !menuOpen" >Menu</x-button>
 
-         <li class="w-full">
-             <a href="{{ route('items.index') }}" class="block p-2 w-full hover:bg-secondary">Itens</a>
-         </li>
-
-         <li class="w-full">
-             <a href="{{ route('supplies.index') }}" class="block p-2 w-full hover:bg-secondary">Insumos</a>
-         </li>
-
-         <li class="w-full">
-             <a href="{{ route('dispatches.index') }}" class="block p-2 w-full hover:bg-secondary">Saídas</a>
-         </li>
-     </ul>
- </nav>
+  <flux:navmenu>
+        <flux:navmenu.item href="{{ route('clients.index') }}" icon="user">Clientes</flux:navmenu.item>
+        <flux:navmenu.item href="{{ route('invoices.index') }}" icon="document-text">Notas Fiscais</flux:navmenu.item>
+        <flux:navmenu.item href="{{ route('items.index') }}" icon="rectangle-stack">Itens</flux:navmenu.item>
+        <flux:navmenu.item href="{{ route('supplies.index') }}" icon="cube">Insumos</flux:navmenu.item>
+        <flux:navmenu.item href="{{ route('dispatches.index') }}" icon="truck">Saídas</flux:navmenu.item>
+    </flux:navmenu>
+</flux:dropdown>

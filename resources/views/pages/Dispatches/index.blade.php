@@ -5,11 +5,13 @@
 @section('content')
     <x-card title="Saidas">
         <x-slot name="slot">
-            <a href="{{ route('dispatches.create') }}">Criar Saída</a>
+            <x-button href="{{ route('dispatches.create') }}" variant="primary" icon="plus">
+                Criar Nova Saída
+            </x-button>
         </x-slot>
     </x-card>
 
-    <x-sucess-message></x-sucess-message>
+    <x-success-message></x-success-message>
 
     <livewire:dispatches.dispatch-table />
 @endsection

@@ -8,6 +8,7 @@
 
     @vite(['resources/css/app.css'])
     @livewireStyles
+    @fluxAppearance
 </head>
 
 <body class="h-screen">
@@ -19,6 +20,7 @@
     </main>
 
     @livewireScripts
+    @fluxScripts
 </body>
 
 </html>
