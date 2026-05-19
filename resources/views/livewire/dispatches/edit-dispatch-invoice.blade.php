@@ -8,11 +8,11 @@
             <span class="text-red-500">{{ $message }}</span>
         @enderror
 
-        <button class="p-1 bg-primary text-muted  rounded-md cursor-pointer" wire:click="save()">Salvar</button>
-        <button class="p-1 bg-danger text-muted rounded-md cursor-pointer" wire:click="cancel()">Cancelar</button>
+        <x-button variant="primary" size="sm" wire:click="save()">Salvar</x-button>
+        <x-button variant="danger" size="sm" wire:click="cancel()">Cancelar</x-button>
     @else
         <p><span class="font-bold">Nota Fiscal:</span> {{ $invoice }}</p>
        
-        <button class="p-1 bg-warning text-muted  rounded-md cursor-pointer" wire:click="edit()">Editar</button>
+        <x-button variant="primary" color="amber" size="sm" wire:click="edit()">Editar</x-button>
     @endif
 </div>

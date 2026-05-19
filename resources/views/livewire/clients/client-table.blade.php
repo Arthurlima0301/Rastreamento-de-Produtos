@@ -16,7 +16,7 @@
                         <form action="{{ route('clients.destroy', $client->id) }}" method="POST" style="display: inline;">
                             @csrf
                             @method('DELETE')
-                            <button type="submit">Excluir</button>
+                            <x-button type="submit" variant="danger" size="sm">Excluir</x-button>
                         </form>
                     </td>
                 </tr>

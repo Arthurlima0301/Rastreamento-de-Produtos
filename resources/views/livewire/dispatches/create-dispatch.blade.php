@@ -29,11 +29,13 @@
                         <td class="p-2">{{ $item->formatted_balance }}</td>
                         <td class="p-2">
 
-                            <button
-                                class="w-full text-muted p-2 cursor-pointer rounded {{ isset($selectedItems[$item->id]) ? 'bg-secondary' : 'bg-primary' }}"
+                            <x-button
+                                variant="{{ isset($selectedItems[$item->id]) ? 'filled' : 'primary' }}"
+                                color="{{ isset($selectedItems[$item->id]) ? 'gray' : 'blue' }}"
+                                class="w-full"
                                 wire:click="selectItem({{ $item->id }})">
                                 {{ isset($selectedItems[$item->id]) ? 'Selecionado' : 'Selecionar' }}
-                            </button>
+                            </x-button>
                         </td>
                     </tr>
                 @endforeach
