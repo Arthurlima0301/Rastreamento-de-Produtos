@@ -1,8 +1,8 @@
 @props(['selectedItems'])
 
 
-<div class="">
-    <flux:card class="flex-1 max-h-[85vh] overflow-y-auto">
+<div>
+    <flux:card class="max-h-[85vh] overflow-y-auto">
         <form action="{{ route('dispatches.store') }}" method="POST" class="space-y-4">
             @csrf
             <flux:heading size="lg">Selecionados</flux:heading>
@@ -15,7 +15,7 @@
                         <input type="hidden" name="items[{{ $index }}][id]" value="{{ $item['id'] }}" />
 
                         <p class="text-sm w-full">{{ $item['supply_name'] }}</p>
-                        <x-input type="decimal" name="items[{{ $index }}][quantity]" class="w-full"
+                        <x-input type="decimal" name="items[{{ $index }}][quantity]" class="w-1"
                             placeholder="Quantidade" />
                     </div>
                 @endforeach
@@ -24,5 +24,4 @@
         </form>
     </flux:card>
 </div>
-
 
