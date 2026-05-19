@@ -5,13 +5,16 @@
         <x-slot:header>
             <flux:table.column align="center">ID</flux:table.column>
             <flux:table.column align="center">Código da Nota</flux:table.column>
+
             <flux:table.column align="center">
-                Data de Emissão:
-                <select name="field" wire:model.live="parameter">
-                    <option value="desc" class="text-mtext">Mais Recentes</option>
-                    <option value="asc" class="text-mtext">Mais Antigas</option>
-                </select>
+                
+                <x-sort collumn-title="Data de Emissão" model="parameter">
+                    <flux:menu.radio value="desc">Mais Recentes</flux:menu.radio>
+                    <flux:menu.radio value="asc">Mais Antigos</flux:menu.radio>
+                </x-sort>
+
             </flux:table.column>
+
             <flux:table.column align="center">Quantidade de Itens</flux:table.column>
             <flux:table.column align="center">Ações</flux:table.column>
         </x-slot:header>
