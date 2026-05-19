@@ -1,13 +1,20 @@
-<div class="flex justify-between items-center w-full p-4 border-2 border-stroke shadow-md rounded-md">
-    <div class="flex items-center gap-3">
-        <button onclick="window.history.back()">
-            <img src="{{ asset('/img/buttons/btn-return.svg') }}" class="h-9 cursor-pointer" alt="">
-        </button>
+@props([
+    'title',
+])
 
-        <h1 class="text-xl font-bold">{{ $title }}</h1>
-    </div>
+<flux:card {{ $attributes->class('w-full') }}>
+    <div class="flex items-center justify-between gap-4">
+        <div class="flex items-center gap-3">
+            
+            <flux:button variant="ghost" class="p-0" onclick="window.history.back()">
+                <flux:icon name="arrow-left" />
+            </flux:button>
 
-    <div>
-        {{ $slot }}
+            <flux:heading size="lg">{{ $title }}</flux:heading>
+        </div>
+
+        <div>
+            {{ $slot }}
+        </div>
     </div>
-</div>
+</flux:card>

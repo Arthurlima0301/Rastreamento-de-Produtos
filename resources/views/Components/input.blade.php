@@ -1,4 +1,21 @@
-<div class="flex flex-col gap-2">
-    <label for="{{ $name }}">{{ $label }}</label>
-    <input type="text" name="{{ $name }}" id="{{ $name }}" value="{{ $value }}" class="min-w-[300px] border border-stroke rounded-md p-2" required>
-</div>
+@props([
+    'name',
+    'label' => null,
+    'type' => 'text',
+    'value' => null,
+    'id' => null,
+])
+
+@php
+    $id = $id ?? $name;
+    $fieldValue = old($name, $value ?? '');
+@endphp
+
+<flux:input
+    :type="$type"
+    :name="$name"
+    :id="$id"
+    :label="$label"
+    :value="$fieldValue"
+    {{ $attributes->class('min-w-[300px]') }}
+/>
