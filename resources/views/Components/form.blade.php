@@ -1,15 +1,22 @@
-<form action="{{ $action }}" method="{{ $method }}"
-    class="flex flex-col gap-6 justify-center items-center h-[40rem] w-full bg-surface rounded-lg shadow-md border-2 border-stroke"
->
+@props([
+    'action',
+    'method' => 'POST',
+    'title' => 'Formulario',
+    'buttonText' => 'Enviar',
+])
+
+<form action="{{ $action }}" method="{{ $method }}" {{ $attributes->class('flex justify-center w-full') }}>
     @csrf
 
-    <h1 class="text-[30px] font-bold ">{{ $title ?? 'Formulário' }}</h1>
+    <flux:card class="space-y-6">
+        <flux:heading size="xl">{{ $title }}</flux:heading>
 
-    <div class="flex flex-col gap-4">
-        {{ $slot }}
-    </div>
+        <div class="flex flex-col gap-4">
+            {{ $slot }}
+        </div>
 
-    <button type="submit" class="min-w-[300px] bg-primary text-muted p-3 rounded-md cursor-pointer">
-        {{ $buttonText ?? 'Enviar' }}
-    </button>
+        <x-button type="submit" variant="primary" class="min-w-[300px]">
+            {{ $buttonText }}
+        </x-button>
+    </flux:card>
 </form>
