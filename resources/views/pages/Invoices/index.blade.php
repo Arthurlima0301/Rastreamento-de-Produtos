@@ -14,7 +14,7 @@
         </x-slot>
     </x-card>
 
-    <x-sucess-message></x-sucess-message>
+    <x-success-message></x-success-message>
     <x-error-message></x-error-message>
 
     <livewire:invoices.invoice-table />

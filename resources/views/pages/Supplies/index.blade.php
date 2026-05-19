@@ -9,7 +9,7 @@
     </x-slot>
 </x-card>
 
-<x-sucess-message></x-sucess-message>
+<x-success-message></x-success-message>
 
 <livewire:supplies.supply-table />
 @endsection
