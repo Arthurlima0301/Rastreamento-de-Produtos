@@ -1,49 +1,45 @@
-<div class="flex w-full">
-    <div>
+<div class="flex w-full max-w-full flex-col gap-4 overflow-hidden xl:flex-row">
+    <div class="">
         <x-search-input />
 
-        <x-table>
-            <x-slot name="header">
-                <th class="p-2">Código</th>
-                <th class="p-2">Descrição</th>
-                <th class="p-2">Item</th>
-                <th class="p-2">Unidade de Medida</th>
-                <th class="p-2">Quantidade</th>
-                <th class="p-2">Nota Fiscal</th>
-                <th class="p-2">Data</th>
-                <th class="p-2">Saldo</th>
-                <th class="p-2">Ações</th>
-            </x-slot>
+        <x-table :paginate="$items">
+            <x-slot:header>
+                <flux:table.column align="center">Código</flux:table.column>
+                <flux:table.column align="center">Descrição</flux:table.column>
+                <flux:table.column align="center">Item</flux:table.column>
+                <flux:table.column align="center">Unidade de Medida</flux:table.column>
+                <flux:table.column align="center">Quantidade</flux:table.column>
+                <flux:table.column align="center">Nota Fiscal</flux:table.column>
+                <flux:table.column align="center">Data</flux:table.column>
+                <flux:table.column align="center">Saldo</flux:table.column>
+                <flux:table.column align="center">Ações</flux:table.column>
+            </x-slot:header>
 
-            <x-slot name="rows">
-
+            <x-slot:rows>
                 @foreach ($items as $item)
-                    <tr class="hover:bg-hovered">
-                        <td class="p-2">{{ $item->supply->supply_code }}</td>
-                        <td class="p-2">{{ $item->supply->name }}</td>
-                        <td class="p-2">{{ $item->number }}</td>
-                        <td class="p-2">{{ $item->supply->unit_of_measure }}</td>
-                        <td class="p-2">{{ $item->formatted_quantity }}</td>
-                        <td class="p-2">{{ $item->invoice->formatted_invoice_code }}</td>
-                        <td class="p-2">{{ $item->invoice->issued_at }}</td>
-                        <td class="p-2">{{ $item->formatted_balance }}</td>
-                        <td class="p-2">
-
+                    <flux:table.row wire:key="dispatch-item-{{ $item->id }}">
+                        <flux:table.cell align="center">{{ $item->supply->supply_code }}</flux:table.cell>
+                        <flux:table.cell align="center">{{ $item->supply->name }}</flux:table.cell>
+                        <flux:table.cell align="center">{{ $item->number }}</flux:table.cell>
+                        <flux:table.cell align="center">{{ $item->supply->unit_of_measure }}</flux:table.cell>
+                        <flux:table.cell align="center">{{ $item->formatted_quantity }}</flux:table.cell>
+                        <flux:table.cell align="center">{{ $item->invoice->formatted_invoice_code }}</flux:table.cell>
+                        <flux:table.cell align="center">{{ $item->invoice->issued_at }}</flux:table.cell>
+                        <flux:table.cell align="center">{{ $item->formatted_balance }}</flux:table.cell>
+                        <flux:table.cell align="center">
                             <x-button
                                 variant="primary"
                                 color="{{ isset($selectedItems[$item->id]) ? 'red' : 'blue' }}"
                                 class="w-full"
-                                wire:click="selectItem({{ $item->id }})">
-
+                                wire:click="selectItem({{ $item->id }})"
+                            >
                                 {{ isset($selectedItems[$item->id]) ? 'Remover' : 'Selecionar' }}
                             </x-button>
-                        </td>
-                    </tr>
+                        </flux:table.cell>
+                    </flux:table.row>
                 @endforeach
-            </x-slot>
+            </x-slot:rows>
         </x-table>
-
-        {{ $items->links(data: ['scrollTo' => false]) }}
     </div>
 
     <x-selected-items-list :selectedItems="$selectedItems" />

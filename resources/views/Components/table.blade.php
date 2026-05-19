@@ -1,17 +1,13 @@
-<div class="max-h-[75vh] w-full overflow-y-auto border-1 border-stroke rounded-lg shadow-sm">
-    <table class="w-full text-center border-collapse">
-        <thead class="sticky inset-0 z-8 bg-main text-muted">
-            <tr class="text-md">
-                {{ $header }}
-            </tr>
-        </thead>
-        <tbody>
-            @if($rows->isEmpty())
-                <tr>
-                    <td colspan="10" class="p-4">Nenhum registro encontrado.</td>
-                </tr>
-            @endif
-            {{ $rows }}
-        </tbody>
-    </table>
-</div>
+@props([
+    'paginate' => null,
+])
+
+<flux:table :paginate="$paginate" container:class="w-full max-h-[75vh]">
+    <flux:table.columns sticky class="bg-white dark:bg-zinc-900">
+        {{ $header }}
+    </flux:table.columns>
+
+    <flux:table.rows>
+        {{ $rows }}
+    </flux:table.rows>
+</flux:table>

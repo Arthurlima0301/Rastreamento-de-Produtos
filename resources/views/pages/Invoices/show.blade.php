@@ -13,23 +13,23 @@
         </x-slot>
     </x-card>
 
-    <x-table>
-        <x-slot name="header">
-            <th class="p-2">Item</th>
-            <th class="p-2">Insumo</th>
-            <th class="p-2">Quantidade</th>
-            <th class="p-2">Unidade de Medida</th>
-        </x-slot>
+    <x-table :empty="$invoice->items->isEmpty()" empty-colspan="4">
+        <x-slot:header>
+            <flux:table.column align="center">Item</flux:table.column>
+            <flux:table.column align="center">Insumo</flux:table.column>
+            <flux:table.column align="center">Quantidade</flux:table.column>
+            <flux:table.column align="center">Unidade de Medida</flux:table.column>
+        </x-slot:header>
 
-        <x-slot name="rows">
+        <x-slot:rows>
             @foreach ($invoice->items as $invoiceItem)
-                <tr class="hover:bg-hovered">
-                    <td class="p-3">{{ $invoiceItem->number }}</td>
-                    <td class="p-3">{{ $invoiceItem->supply->name }}</td>
-                    <td class="p-3">{{ $invoiceItem->formatted_quantity }}</td>
-                    <td class="p-3">{{ $invoiceItem->supply->unit_of_measure}}</td>
-                </tr>
+                <flux:table.row>
+                    <flux:table.cell align="center">{{ $invoiceItem->number }}</flux:table.cell>
+                    <flux:table.cell align="center">{{ $invoiceItem->supply->name }}</flux:table.cell>
+                    <flux:table.cell align="center">{{ $invoiceItem->formatted_quantity }}</flux:table.cell>
+                    <flux:table.cell align="center">{{ $invoiceItem->supply->unit_of_measure }}</flux:table.cell>
+                </flux:table.row>
             @endforeach
-        </x-slot>
+        </x-slot:rows>
     </x-table>
 @endsection
