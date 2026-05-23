@@ -27,8 +27,8 @@ class CreateDispatch extends Component
         $items = Item::withBalance()
             ->filterBalance()
             ->searchBySupplyName($this->search)
-            ->orderBy('balance', 'desc')
             ->orderBy('supply_name', 'asc')
+            ->orderBy('balance', 'asc')
             ->paginate(50);
 
         return view('livewire.dispatches.create-dispatch', compact('items'));
