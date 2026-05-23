@@ -85,7 +85,7 @@ class Item extends Model
     /**
      * Scope a query to calculate item balance.
      */
-    public function scopewithBalance($query)
+    public function scopeWithBalance($query)
     {
         return $query
             ->select(
@@ -110,7 +110,7 @@ class Item extends Model
     /**
      * Scope a query to calculate item balance.
      */
-    public function scopefilterBalance($query, $available = true)
+    public function scopeFilterBalance($query, $available = true)
     {
         return $query->when($available === true, function ($query) {
             $query->havingRaw('balance > 0');
