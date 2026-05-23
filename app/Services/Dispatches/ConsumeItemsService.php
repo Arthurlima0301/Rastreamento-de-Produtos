@@ -3,7 +3,6 @@
 namespace App\Services\Dispatches;
 
 use App\Models\Dispatch;
-use App\Models\Item;
 use Illuminate\Support\Facades\DB;
 
 class ConsumeItemsService
@@ -14,23 +13,8 @@ class ConsumeItemsService
     public function consume(array $items)
     {
         DB::transaction(function () use ($items) {
-            $this->verifyItemsBalance($items);
             $this->createDispatchRecord($items);
         });
-    }
-
-    /**
-     * Verify if each item has sufficient balance for the requested quantity.
-     */
-    private function verifyItemsBalance(array $items)
-    {
-        foreach ($items as $item) {
-            $itemModel = Item::withBalance()->where('items.id', $item['id'])->lockForUpdate()->first();
-
-            if ($itemModel->balance < (float) $item['quantity'] || $itemModel->balance <= 0) {
-                throw new \Exception("O item {$itemModel->supply->name} não possui saldo suficiente para a saída.");
-            }
-        }
     }
 
     /**

@@ -1,3 +1,8 @@
+@props([
+    'slot' => null,
+])
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -17,6 +22,9 @@
 
     <main class="flex flex-col items-center w-full p-4">
         @yield('content')
+
+        {{ $slot }}
+
     </main>
 
     @livewireScripts
