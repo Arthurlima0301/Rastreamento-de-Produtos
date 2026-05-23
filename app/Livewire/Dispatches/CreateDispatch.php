@@ -62,6 +62,16 @@ class CreateDispatch extends Component
     }
 
     /**
+     * Clear the selected items list, removing all items from the selection.
+     */
+    public function clearSelection()
+    {
+        $this->resetErrorBag();
+        $this->selectedItems = [];
+    }
+
+
+    /**
      * Validate the selected items and their quantities before saving the dispatch.
      */
     public function save(ConsumeItemsService $consumeItemsService)
