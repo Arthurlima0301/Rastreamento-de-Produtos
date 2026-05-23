@@ -22,7 +22,7 @@ class RegisterDispatchTest extends TestCase
             'quantity' => 200,
         ]);
 
-        Livewire::test('dispatches.create-dispatch')
+        Livewire::test('dispatches.selected-items-list')
             ->set('selectedItems', [
                 0 => [
                     'id' => $item->id,
@@ -50,7 +50,7 @@ class RegisterDispatchTest extends TestCase
             'quantity' => 100,
         ]);
 
-        Livewire::test('dispatches.create-dispatch')
+        Livewire::test('dispatches.selected-items-list')
             ->set('selectedItems', [
                 0 => [
                     'id' => $item->id,
@@ -73,7 +73,7 @@ class RegisterDispatchTest extends TestCase
             'quantity' => 100,
         ]);
 
-        Livewire::test('dispatches.create-dispatch')
+        Livewire::test('dispatches.selected-items-list')
             ->set(
                 'selectedItems',
                 [
@@ -98,7 +98,7 @@ class RegisterDispatchTest extends TestCase
     {
         $item = Item::factory()->create();
 
-        Livewire::test('dispatches.create-dispatch')
+        Livewire::test('dispatches.selected-items-list')
             ->set(
                 'selectedItems',
                 [
@@ -125,7 +125,7 @@ class RegisterDispatchTest extends TestCase
      */
     public function test_do_not_allow_consuming_nonexistent_item()
     {
-        Livewire::test('dispatches.create-dispatch')
+        Livewire::test('dispatches.selected-items-list')
             ->set(
                 'selectedItems',
                 [
@@ -150,7 +150,7 @@ class RegisterDispatchTest extends TestCase
     {
         $item = Item::factory()->create();
 
-        Livewire::test('dispatches.create-dispatch')
+        Livewire::test('dispatches.selected-items-list')
             ->set(
                 'selectedItems',
                 [

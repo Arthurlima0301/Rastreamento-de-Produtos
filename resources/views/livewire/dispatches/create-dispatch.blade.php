@@ -1,7 +1,5 @@
-<div class="w-full"> 
+<div class="w-full">
     <x-card title="Criar Saída" />
-
-    <x-error-message></x-error-message>
 
     <section class="flex w-full max-w-full flex-col gap-4 overflow-hidden xl:flex-row">
         <div class="">
@@ -33,11 +31,7 @@
                             <flux:table.cell align="center">{{ $item->invoice->issued_at }}</flux:table.cell>
                             <flux:table.cell align="center">{{ $item->formatted_balance }}</flux:table.cell>
                             <flux:table.cell align="center">
-                                <x-button variant="primary"
-                                    color="{{ isset($selectedItems[$item->id]) ? 'gray' : 'blue' }}" class="w-full"
-                                    wire:click="selectItem({{ $item->id }}, '{{ $item->supply->name }}')">
-                                    {{ isset($selectedItems[$item->id]) ? 'Selecinado' : 'Selecionar' }}
-                                </x-button>
+                                <x-dispatches.select-item-button :item-id="$item->id" :supply-name="$item->supply->name" />
                             </flux:table.cell>
                         </flux:table.row>
                     @endforeach
@@ -45,6 +39,6 @@
             </x-table>
         </div>
 
-        <x-selected-items-list :selectedItems="$selectedItems" />
+        <livewire:dispatches.selected-items-list :key="'dispatch-selected-items-list'" />
     </section>
 </div>
