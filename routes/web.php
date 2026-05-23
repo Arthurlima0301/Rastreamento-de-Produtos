@@ -5,6 +5,7 @@ use App\Http\Controllers\Dispatches\DispatchController;
 use App\Http\Controllers\Invoices\InvoiceController;
 use App\Http\Controllers\Items\ItemController;
 use App\Http\Controllers\Supplies\SupplyController;
+use App\Livewire\Dispatches\CreateDispatch;
 use Illuminate\Support\Facades\Route;
 
 // Client routes
@@ -23,6 +24,5 @@ Route::get('/items', [ItemController::class, 'index'])->name('items.index');
 
 // Dispatch routes
 Route::get('/dispatches', [DispatchController::class, 'index'])->name('dispatches.index');
-Route::get('/dispatches/create', [DispatchController::class, 'create'])->name('dispatches.create');
-Route::post('/dispatches', [DispatchController::class, 'store'])->name('dispatches.store');
+Route::get('/dispatches/create', CreateDispatch::class)->name('dispatches.create');
 Route::get('/dispatches/{dispatch}', [DispatchController::class, 'show'])->name('dispatches.show');

@@ -2,9 +2,11 @@
 
 namespace Tests\Feature;
 
-use App\Models\Item;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
+
+use App\Models\Item;
+use Livewire\Livewire;
 
 class RegisterDispatchTest extends TestCase
 {
@@ -15,24 +17,24 @@ class RegisterDispatchTest extends TestCase
      */
     public function test_register_dispatch()
     {
+        // Create an item with a quantity of 200
         $item = Item::factory()->create([
             'quantity' => 200,
         ]);
 
-        $this->post('dispatches', [
-            'items' => [
+        Livewire::test('dispatches.create-dispatch')
+            ->set('selectedItems', [
                 0 => [
                     'id' => $item->id,
+                    'supply_name' => $item->supply_name,
                     'quantity' => '10',
                 ],
-                1 => [
-                    'id' => $item->id,
-                    'quantity' => '10',
-                ],
-            ],
-        ]);
+            ])
+            ->call('save')
+            ->assertRedirect(route('dispatches.index'));
 
-        $this->assertDatabaseCount('dispatch_items', 2);
+
+        $this->assertDatabaseCount('dispatch_items', 1);
         $this->assertDatabaseHas('dispatch_items', [
             'item_id' => $item->id,
             'quantity' => '10',
@@ -48,16 +50,18 @@ class RegisterDispatchTest extends TestCase
             'quantity' => 100,
         ]);
 
-        $this->post('dispatches', [
-            'items' => [
+        Livewire::test('dispatches.create-dispatch')
+            ->set('selectedItems', [
                 0 => [
                     'id' => $item->id,
+                    'supply_name' => $item->supply_name,
                     'quantity' => '100',
                 ],
-            ],
-        ]);
+            ])
+            ->call('save')
+            ->assertRedirect(route('dispatches.index'));
 
-        $this->assertEquals(0, Item::withSum('dispatchItems', 'quantity')->find($item->id)->balance);
+        $this->assertEquals(0.0, (float) Item::withBalance()->find($item->id)->balance);
     }
 
     /**
@@ -69,18 +73,22 @@ class RegisterDispatchTest extends TestCase
             'quantity' => 100,
         ]);
 
-        $response = $this->post('dispatches', [
-            'items' => [
-                0 => [
-                    'id' => $item->id,
-                    'quantity' => '101',
+        Livewire::test('dispatches.create-dispatch')
+            ->set(
+                'selectedItems',
+                [
+                    0 => [
+                        'id' => $item->id,
+                        'supply_name' => $item->supply_name,
+                        'quantity' => '101',
+                    ],
                 ],
-            ],
-        ]);
+            )
+            ->call('save')
+            ->assertHasErrors('selectedItems');
 
         $this->assertDatabaseCount('dispatches', 0);
         $this->assertDatabaseCount('dispatch_items', 0);
-        $response->assertSessionHas('error');
     }
 
     /*
@@ -90,16 +98,20 @@ class RegisterDispatchTest extends TestCase
     {
         $item = Item::factory()->create();
 
-        $response = $this->post('dispatches', [
-            'items' => [
-                0 => [
-                    'id' => $item->id,
-                    'quantity' => '10.5',
+        Livewire::test('dispatches.create-dispatch')
+            ->set(
+                'selectedItems',
+                [
+                    0 => [
+                        'id' => $item->id,
+                        'supply_name' => $item->supply_name,
+                        'quantity' => '10.5',
+                    ],
                 ],
-            ],
-        ]);
+            )
+            ->call('save')
+            ->assertRedirect(route('dispatches.index'));
 
-        $response->assertSessionHas('success');
         $this->assertDatabaseCount('dispatch_items', 1);
         $this->assertDatabaseHas('dispatch_items', [
             'item_id' => $item->id,
@@ -113,16 +125,20 @@ class RegisterDispatchTest extends TestCase
      */
     public function test_do_not_allow_consuming_nonexistent_item()
     {
-        $response = $this->post('dispatches', [
-            'items' => [
-                0 => [
-                    'id' => 999,
-                    'quantity' => '10',
+        Livewire::test('dispatches.create-dispatch')
+            ->set(
+                'selectedItems',
+                [
+                    0 => [
+                        'id' => 999, // Nonexistent item ID
+                        'supply_name' => "nonexistent item",
+                        'quantity' => '10',
+                    ],
                 ],
-            ],
-        ]);
+            )
+            ->call('save')
+            ->assertHasErrors('selectedItems');
 
-        $response->assertSessionHas('errors');
         $this->assertDatabaseCount('dispatches', 0);
         $this->assertDatabaseCount('dispatch_items', 0);
     }
@@ -134,16 +150,20 @@ class RegisterDispatchTest extends TestCase
     {
         $item = Item::factory()->create();
 
-        $response = $this->post('dispatches', [
-            'items' => [
-                0 => [
-                    'id' => $item->id,
-                    'quantity' => 'abc',
+        Livewire::test('dispatches.create-dispatch')
+            ->set(
+                'selectedItems',
+                [
+                    0 => [
+                        'id' => $item->id,
+                        'supply_name' => $item->supply_name,
+                        'quantity' => 'abc',
+                    ],
                 ],
-            ],
-        ]);
+            )
+            ->call('save')
+            ->assertHasErrors(['selectedItems.0.quantity']);
 
-        $response->assertSessionHas('errors');
         $this->assertDatabaseCount('dispatches', 0);
         $this->assertDatabaseCount('dispatch_items', 0);
     }
