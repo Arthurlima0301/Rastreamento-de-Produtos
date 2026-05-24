@@ -3,6 +3,7 @@
 namespace App\Livewire\Dispatches;
 
 use App\Models\Dispatch;
+use Flux\Flux;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -18,7 +19,7 @@ class DispatchTable extends Component
         $this->validate([
             'parameter' => 'in:asc,desc',
         ]);
-        
+
         $dispatches = Dispatch::query()
             ->searchByInvoice($this->search)
             ->orderBy('dispatched_at', $this->parameter)
@@ -30,6 +31,6 @@ class DispatchTable extends Component
     public function destroy(Dispatch $dispatch)
     {
         $dispatch->delete();
-        return redirect()->route('dispatches.index')->with('success','Saída excluída com sucesso!');
+        return redirect()->route('dispatches.index')->with('success', 'Saída excluída com sucesso!');
     }
 }

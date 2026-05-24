@@ -22,10 +22,36 @@
                     <flux:table.cell align="center">{{ $dispatch->invoice ?? 'N/A' }}</flux:table.cell>
                     <flux:table.cell align="center">
                         <x-button href="{{ route('dispatches.show', $dispatch->id) }}" variant="ghost" icon="eye" />
-                        <x-button wire:click="destroy({{ $dispatch->id }})" variant="primary" color="red" icon="trash" />
+
+                        <flux:modal.trigger :name="'confirm-'.$dispatch->id">
+                            <x-button variant="primary" color="red" icon="trash" />
+                        </flux:modal.trigger>
+
+
                     </flux:table.cell>
                 </flux:table.row>
+
+                <flux:modal :name="'confirm-'.$dispatch->id">
+                    <div class="space-y-4">
+                        <flux:heading size="lg">Confirmar Exclusão</flux:heading>
+                        <p>Tem certeza que deseja excluir esta saída?</p>
+
+                        <div class="flex justify-end gap-2">
+                            <flux:modal.close>
+                                <x-button variant="ghost">
+                                    Cancelar
+                                </x-button>
+                            </flux:modal.close>
+
+                            <x-button wire:click="destroy({{ $dispatch->id }})" variant="primary">
+                                Continuar
+                            </x-button>
+
+                        </div>
+                </flux:modal>
             @endforeach
         </x-slot:rows>
     </x-table>
+
+
 </div>
