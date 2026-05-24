@@ -22,11 +22,18 @@ class Dispatch extends Model
     ];
 
     /**
+     * The attributes that should be cast to native types.
+     */
+    protected $casts = [
+        'dispatched_at' => 'date',
+    ];
+
+    /**
      * Accessor to format the 'dispatched_at' attribute as 'd/m/Y' when accessed.
      */
-    public function getDispatchedAtAttribute($value): string
+    public function getFormattedDispatchedAtAttribute(): string
     {
-        return date('d/m/Y', strtotime($value));
+        return date('d/m/Y', strtotime($this->dispatched_at));
     }
 
     /**
