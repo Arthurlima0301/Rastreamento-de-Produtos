@@ -26,4 +26,10 @@ class DispatchTable extends Component
 
         return view('livewire.dispatches.dispatch-table', compact('dispatches'));
     }
+
+    public function destroy(Dispatch $dispatch)
+    {
+        $dispatch->delete();
+        return redirect()->route('dispatches.index')->with('success','Saída excluída com sucesso!');
+    }
 }

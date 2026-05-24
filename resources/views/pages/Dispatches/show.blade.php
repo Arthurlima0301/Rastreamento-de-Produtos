@@ -7,9 +7,7 @@
 
     <x-card title="Detalhes da Saída">
         <x-slot name="slot">
-            <p><strong>Código:</strong> {{ $dispatch->id }}</p>
-            <p><strong>Data:</strong> {{ $dispatch->dispatched_at }}</p>
-            <livewire:dispatches.edit-dispatch-invoice :dispatchId="$dispatch->id" />
+            <livewire:dispatches.edit-dispatch :dispatchId="$dispatch->id" />
         </x-slot>
     </x-card>
 

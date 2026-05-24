@@ -18,10 +18,11 @@
             @foreach ($dispatches as $dispatch)
                 <flux:table.row wire:key="dispatch-{{ $dispatch->id }}">
                     <flux:table.cell align="center">{{ $dispatch->id }}</flux:table.cell>
-                    <flux:table.cell align="center">{{ $dispatch->dispatched_at }}</flux:table.cell>
+                    <flux:table.cell align="center">{{ $dispatch->formatted_dispatched_at }}</flux:table.cell>
                     <flux:table.cell align="center">{{ $dispatch->invoice ?? 'N/A' }}</flux:table.cell>
                     <flux:table.cell align="center">
                         <x-button href="{{ route('dispatches.show', $dispatch->id) }}" variant="ghost" icon="eye" />
+                        <x-button wire:click="destroy({{ $dispatch->id }})" variant="primary" color="red" icon="trash" />
                     </flux:table.cell>
                 </flux:table.row>
             @endforeach
