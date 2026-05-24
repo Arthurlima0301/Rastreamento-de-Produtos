@@ -68,6 +68,11 @@ class SelectedItemsList extends Component
     }
 
 
+    public function openModal($modalName)
+    {
+        $this->dispatch('open-modal', name: $modalName);
+    }
+
     /**
      * Validate the selected items and their quantities before saving the dispatch.
      */
