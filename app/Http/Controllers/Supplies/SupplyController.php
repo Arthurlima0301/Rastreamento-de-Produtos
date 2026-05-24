@@ -73,6 +73,10 @@ class SupplyController extends Controller
      */
     public function destroy(Supply $supply)
     {
+        if ($supply->items()->exists()) {
+            return redirect()->route('supplies.index')->with('error', 'Não é possível deletar um insumo que possui itens associados.');
+        }
+
         $supply->delete();
 
         return redirect()->route('supplies.index')->with('success', 'Insumo deletado com sucesso.');
