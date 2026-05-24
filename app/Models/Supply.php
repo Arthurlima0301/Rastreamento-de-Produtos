@@ -34,6 +34,15 @@ class Supply extends Model
     }
 
     /**
+     * Get the items associated with the supply.
+     */
+
+    public function items()
+    {
+        return $this->hasMany(Item::class, 'supply_id');
+    }
+
+    /**
      * Scope a query to search supplies by name.
      */
     public function scopeSearchByName($query, $search)
@@ -41,7 +50,7 @@ class Supply extends Model
         $search = trim((string) $search);
 
         return $query->when($search !== '', function ($query) use ($search) {
-            $query->where('name', 'like', $search.'%');
+            $query->where('name', 'like', $search . '%');
         });
     }
 }

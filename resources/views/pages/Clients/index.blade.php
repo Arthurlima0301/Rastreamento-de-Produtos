@@ -12,6 +12,7 @@
 </x-card>
 
 <x-success-message></x-success-message>
+<x-error-message></x-error-message>
 
 <livewire:clients.client-table />
 @endsection

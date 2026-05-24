@@ -58,6 +58,10 @@ class ClientController extends Controller
      */
     public function destroy(Client $client)
     {
+        if($client->supplies()->exists()) {
+            return redirect()->route('clients.index')->with('error', 'Não é possível deletar um cliente que possui insumos associados.');
+        }
+        
         $client->delete();
 
         return redirect()->route('clients.index')->with('success', 'Cliente deletado com sucesso.');
