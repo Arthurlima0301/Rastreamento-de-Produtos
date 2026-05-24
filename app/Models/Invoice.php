@@ -26,9 +26,9 @@ class Invoice extends Model
     /**
      * Accessor to format the 'issued_at' attribute as 'd/m/Y' when accessed.
      */
-    public function getIssuedAtAttribute($value): string
+    public function getFormattedIssuedAtAttribute(): string
     {
-        return date('d/m/Y', strtotime($value));
+        return date('d/m/Y', strtotime($this->issued_at));
     }
 
     /**

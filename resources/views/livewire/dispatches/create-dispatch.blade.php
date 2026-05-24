@@ -28,7 +28,7 @@
                             <flux:table.cell align="center">{{ $item->formatted_quantity }}</flux:table.cell>
                             <flux:table.cell align="center">{{ $item->invoice->formatted_invoice_code }}
                             </flux:table.cell>
-                            <flux:table.cell align="center">{{ $item->invoice->issued_at }}</flux:table.cell>
+                            <flux:table.cell align="center">{{ $item->invoice->formatted_issued_at }}</flux:table.cell>
                             <flux:table.cell align="center">{{ $item->formatted_balance }}</flux:table.cell>
                             <flux:table.cell align="center">
                                 <x-dispatches.select-item-button :item-id="$item->id" :supply-name="$item->supply->name" />

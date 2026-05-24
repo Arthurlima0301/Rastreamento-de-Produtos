@@ -24,7 +24,7 @@
                 <flux:table.row wire:key="invoice-{{ $invoice->id }}">
                     <flux:table.cell align="center">{{ $invoice->id }}</flux:table.cell>
                     <flux:table.cell align="center">{{ $invoice->formatted_invoice_code }}</flux:table.cell>
-                    <flux:table.cell align="center">{{ $invoice->issued_at }}</flux:table.cell>
+                    <flux:table.cell align="center">{{ $invoice->formatted_issued_at }}</flux:table.cell>
                     <flux:table.cell align="center">{{ $invoice->items_count }}</flux:table.cell>
                     <flux:table.cell align="center">
                         <x-button href="{{ route('invoices.show', $invoice->id) }}" variant="ghost" icon="eye" />

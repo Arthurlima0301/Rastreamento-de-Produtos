@@ -8,7 +8,7 @@
     <x-card title="Detalhes da Nota Fiscal">
         <x-slot name="slot">
             <p><strong>Código:</strong> {{ $invoice->formatted_invoice_code }}</p>
-            <p><strong>Data de Emissão:</strong> {{ $invoice->issued_at }}</p>
+            <p><strong>Data de Emissão:</strong> {{ $invoice->formatted_issued_at }}</p>
             <p><strong>Quantidade de Itens:</strong> {{ $invoice->items_count }}</p>
         </x-slot>
     </x-card>
