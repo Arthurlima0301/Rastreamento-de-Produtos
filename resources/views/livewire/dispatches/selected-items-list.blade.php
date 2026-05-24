@@ -39,12 +39,14 @@
             <flux:heading size="lg">Confirmar Saída</flux:heading>
             <p>Tem certeza que deseja salvar esta saída?</p>
 
-            <div class="flex justify-between gap-2">
-                <x-button type="button" variant="primary" color="red" class="w-full"
-                    x-on:click="$flux.modal('confirm').close()">Cancelar</x-button>
+            <div class="flex justify-end gap-2">
+                <flux:modal.close>
+                    <x-button variant="ghost">
+                        Cancelar
+                    </x-button>
+                </flux:modal.close>
 
-                <x-button type="submit" variant="primary"
-                    x-on:click="$flux.modal('confirm').close()">Confirmar</x-button>
+                <x-button type="submit" variant="primary" x-on:click="$flux.modal('confirm').close()">Salvar</x-button>
             </div>
         </form>
     </flux:modal>
