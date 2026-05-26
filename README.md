@@ -66,6 +66,18 @@ Fluxo principal:
 - Histórico de saídas.
 - Detalhamento dos itens vinculados a cada saída.
 
+### Pedidos
+
+- Base inicial para integrar pedidos ao controle de materiais.
+- Vinculo entre pedido e cliente.
+- Codigo unico por pedido.
+
+### Materiais
+
+- Base inicial para registrar materiais vinculados a pedidos.
+- Controle de item, envio, rolo, medidas, gramatura, expedicao, papel, lote, pacotes e pesos.
+- Relacionamento direto com pedidos para futuras etapas de integracao.
+
 ## Regras de negócio
 
 - Uma nota fiscal não pode ser importada mais de uma vez.
@@ -95,6 +107,8 @@ app/
 │   ├── Items/
 │   └── Supplies/
 ├── Models/
+│   ├── Materials/
+│   └── Orders/
 ├── Rules/
 │   └── Invoices/
 └── Services/
@@ -117,6 +131,8 @@ app/
 * `Item`: representa um item de uma nota fiscal.
 * `Dispatch`: representa uma saída de estoque.
 * `DispatchItem`: representa os itens consumidos em uma saída.
+* `Order`: representa um pedido vinculado a um cliente.
+* `Material`: representa um material vinculado a um pedido.
 
 ## Banco de dados
 
@@ -127,8 +143,11 @@ Principais tabelas do sistema:
 * `items`
 * `dispatches`
 * `dispatch_items`
+* `orders`
+* `materials`
 
 As quantidades dos itens e das saídas utilizam campos decimais para suportar valores fracionados vindos do XML da nota fiscal.
+Pedidos se relacionam com clientes por `client_id`; materiais se relacionam com pedidos por `order_id`.
 
 ## Testes
 
@@ -267,6 +286,7 @@ Funcionalidades principais já implementadas:
 * listagem de itens;
 * cálculo de saldo;
 * registro de saídas;
+* estrutura inicial de pedidos e materiais;
 * testes automatizados dos principais fluxos.
   
 ## Autor
@@ -274,5 +294,4 @@ Funcionalidades principais já implementadas:
 Desenvolvido por Arthur Lima.
 
 GitHub: [Arthurlima0301](https://github.com/Arthurlima0301)
-
 

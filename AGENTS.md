@@ -15,9 +15,13 @@ Projeto Laravel 13, Livewire, Tailwind CSS 4 e Vite. Alpine deve ser consumido p
 - `App/Http/Controllers/`: coordena requisicoes HTTP, models, requests, services e retorno das views.
 - `App/Http/Requests/`: valida entrada dos formularios e uploads antes de chegar aos controllers.
 - `App/Services/`: regras de negocio maiores, como importacao de XML e consumo de itens.
-- `App/Models/`: modelos Eloquent e relacionamentos do dominio, como `Insumo`, `NotaFiscal`, `Item`, `Saida` e `SaidaItem`.
-- `database/migrations/`: schema do banco. As tabelas principais sao `insumos`, `nota_fiscal`, `items`, `saidas` e `saidas_items`.
+- `App/Models/`: modelos Eloquent e relacionamentos do dominio, como `Client`, `Supply`, `Invoice`, `Item`, `Dispatch` e `DispatchItem`.
+- `App/Models/Orders/`: modelos do dominio de pedidos.
+- `App/Models/Materials/`: modelos do dominio de materiais.
+- `database/migrations/`: schema do banco. As tabelas principais atuais sao `clients`, `supplies`, `invoices`, `items`, `dispatches` e `dispatch_items`; novas integracoes devem seguir nomes em ingles e plural quando criarem tabelas.
 - `database/seeders/` e `database/factories/`: dados iniciais e fabricas de teste.
+- `database/factories/Orders/`: factories do dominio de pedidos.
+- `database/factories/Materials/`: factories do dominio de materiais.
 - `resources/css/app.css`: entrada do Tailwind, incluindo `@tailwindcss/vite`
 - `resources/js/bootstrap.js`: setup JS auxiliar do Laravel; nao deve iniciar Alpine nem substituir o Alpine fornecido pelo Livewire.
 - `resources/views/pages/`: paginas Blade renderizadas por controllers, organizadas por funcionalidade em pastas como `Supplies/`, `Items/`, `Invoices/` e `Dispatches/`.
@@ -53,6 +57,8 @@ Projeto Laravel 13, Livewire, Tailwind CSS 4 e Vite. Alpine deve ser consumido p
 - Para novas telas, use a mesma abordagem das rotas atuais: `Route::get(..., Controller::class)`.
 - Mantenha nomes de modelos, componentes e views alinhados entre si.
 - Use Eloquent e recursos nativos do Laravel antes de criar camadas extras.
+- Para novos dominios, use pastas por contexto quando o namespace ainda nao existir, por exemplo `App/Models/Orders` e `App/Models/Materials`.
+- Mantenha o codigo-fonte em ingles, alinhado aos dominios existentes (`Client`, `Supply`, `Invoice`, `Dispatch`) e traduza o termo de negocio apenas na interface quando houver tela.
 - Evite comentarios obvios; so deixe comentario quando houver uma regra ou decisao importante.
 
 ## Testing Guidelines
