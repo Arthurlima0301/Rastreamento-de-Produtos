@@ -5,11 +5,16 @@ namespace Tests\Feature;
 use App\Livewire\Clients\ClientTable;
 use App\Livewire\Dispatches\CreateDispatch;
 use App\Livewire\Dispatches\DispatchTable;
+use App\Livewire\MaterialInvoices\MaterialInvoiceTable;
+use App\Livewire\MaterialItems\MaterialItemTable;
 use App\Livewire\Supplies\SupplyTable;
 use App\Livewire\SupplyInvoices\SupplyInvoiceTable;
 use App\Livewire\SupplyItems\SupplyItemTable;
 use App\Models\Client;
 use App\Models\Dispatch;
+use App\Models\Material;
+use App\Models\MaterialInvoice;
+use App\Models\MaterialItem;
 use App\Models\Supply;
 use App\Models\SupplyInvoice;
 use App\Models\SupplyItem;
@@ -115,6 +120,46 @@ class LivewireSearchTest extends TestCase
             ->set('search', '1.234')
             ->assertSee('1.234')
             ->assertDontSee('2.234');
+    }
+
+    public function test_filter_material_invoices_by_search_prefix(): void
+    {
+        MaterialInvoice::factory()->create([
+            'material_invoice_code' => '888100',
+        ]);
+
+        MaterialInvoice::factory()->create([
+            'material_invoice_code' => '888200',
+        ]);
+
+        Livewire::test(MaterialInvoiceTable::class)
+            ->set('search', '8881')
+            ->assertSee('888.100')
+            ->assertDontSee('888.200');
+    }
+
+    public function test_filter_material_items_by_material_paper_prefix(): void
+    {
+        $matchedMaterial = Material::factory()->create([
+            'paper' => 'Papel Cartao',
+        ]);
+
+        $otherMaterial = Material::factory()->create([
+            'paper' => 'Papel Offset',
+        ]);
+
+        MaterialItem::factory()->create([
+            'material_id' => $matchedMaterial->id,
+        ]);
+
+        MaterialItem::factory()->create([
+            'material_id' => $otherMaterial->id,
+        ]);
+
+        Livewire::test(MaterialItemTable::class)
+            ->set('search', 'Papel Cart')
+            ->assertSee('Papel Cartao')
+            ->assertDontSee('Papel Offset');
     }
 
     public function test_filter_dispatches_by_search_prefix(): void

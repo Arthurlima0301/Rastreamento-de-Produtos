@@ -3,6 +3,8 @@
 use App\Http\Controllers\Clients\ClientController;
 use App\Http\Controllers\Dispatches\DispatchController;
 use App\Http\Controllers\Machines\MachineController;
+use App\Http\Controllers\MaterialInvoices\MaterialInvoiceController;
+use App\Http\Controllers\MaterialItems\MaterialItemController;
 use App\Http\Controllers\Orders\OrderController;
 use App\Http\Controllers\Supplies\SupplyController;
 use App\Http\Controllers\SupplyInvoices\SupplyInvoiceController;
@@ -30,6 +32,14 @@ Route::get('/supply-items', [SupplyItemController::class, 'index'])->name('suppl
 // Order routes
 Route::get('/orders', [OrderController::class, 'index'])->name('orders.index');
 Route::get('/orders/{order}', [OrderController::class, 'show'])->name('orders.show');
+
+// Material invoice routes
+Route::get('/material-invoices', [MaterialInvoiceController::class, 'index'])->name('material-invoices.index');
+Route::post('material-invoices/import', [MaterialInvoiceController::class, 'import'])->name('material-invoices.import');
+Route::get('/material-invoices/{materialInvoice}', [MaterialInvoiceController::class, 'show'])->name('material-invoices.show');
+
+// Material item routes
+Route::get('/material-items', [MaterialItemController::class, 'index'])->name('material-items.index');
 
 // Dispatch routes
 Route::get('/dispatches', [DispatchController::class, 'index'])->name('dispatches.index');
