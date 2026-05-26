@@ -107,8 +107,6 @@ app/
 │   ├── Items/
 │   └── Supplies/
 ├── Models/
-│   ├── Materials/
-│   └── Orders/
 ├── Rules/
 │   └── Invoices/
 └── Services/
@@ -294,4 +292,3 @@ Funcionalidades principais já implementadas:
 Desenvolvido por Arthur Lima.
 
 GitHub: [Arthurlima0301](https://github.com/Arthurlima0301)
-
