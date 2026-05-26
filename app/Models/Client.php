@@ -26,6 +26,14 @@ class Client extends Model
     }
 
     /**
+     * Get the orders for the client.
+     */
+    public function orders(): HasMany
+    {
+        return $this->hasMany(Order::class, 'client_id');
+    }
+
+    /**
      * Scope a query to search clients by name.
      */
     public function scopeSearchByName($query, $search)

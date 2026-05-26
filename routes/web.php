@@ -4,6 +4,7 @@ use App\Http\Controllers\Clients\ClientController;
 use App\Http\Controllers\Dispatches\DispatchController;
 use App\Http\Controllers\Invoices\InvoiceController;
 use App\Http\Controllers\Items\ItemController;
+use App\Http\Controllers\Orders\OrderController;
 use App\Http\Controllers\Supplies\SupplyController;
 use App\Livewire\Dispatches\CreateDispatch;
 use Illuminate\Support\Facades\Route;
@@ -21,6 +22,10 @@ Route::get('invoices/{invoice}', [InvoiceController::class, 'show'])->name('invo
 
 // Item routes
 Route::get('/items', [ItemController::class, 'index'])->name('items.index');
+
+// Order routes
+Route::get('/orders', [OrderController::class, 'index'])->name('orders.index');
+Route::get('/orders/{order}', [OrderController::class, 'show'])->name('orders.show');
 
 // Dispatch routes
 Route::get('/dispatches', [DispatchController::class, 'index'])->name('dispatches.index');
