@@ -2,10 +2,10 @@
 
 namespace App\Rules\Dispatches;
 
+use App\Models\SupplyItem;
 use Closure;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Translation\PotentiallyTranslatedString;
-use App\Models\Item;
 
 class ValidateConsumeItems implements ValidationRule
 {
@@ -16,22 +16,19 @@ class ValidateConsumeItems implements ValidationRule
      */
     public function validate(string $attribute, mixed $value, Closure $fail): void
     {
-
-        /**
-         * Verify if each item has sufficient balance for the requested quantity.
-         */
         foreach ($value as $item) {
-            $itemModel = Item::withBalance()
+            $supplyItem = SupplyItem::withBalance()
                 ->lockForUpdate()
                 ->find($item['id']);
 
-            if (!$itemModel) {
-                $fail("O item com ID {$item['id']} não foi encontrado.");
+            if (! $supplyItem) {
+                $fail("O item com ID {$item['id']} nao foi encontrado.");
+
                 continue;
             }
 
-            if ((float) $itemModel->balance < (float) $item['quantity'] || (float) $itemModel->balance <= 0) {
-                $fail("O item {$itemModel->supply->name} não possui saldo suficiente para a saída.");
+            if ((float) $supplyItem->balance < (float) $item['quantity'] || (float) $supplyItem->balance <= 0) {
+                $fail("O item {$supplyItem->supply->name} nao possui saldo suficiente para a saida.");
             }
         }
     }

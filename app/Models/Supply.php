@@ -34,12 +34,11 @@ class Supply extends Model
     }
 
     /**
-     * Get the items associated with the supply.
+     * Get the supply items associated with the supply.
      */
-
-    public function items()
+    public function supplyItems()
     {
-        return $this->hasMany(Item::class, 'supply_id');
+        return $this->hasMany(SupplyItem::class, 'supply_id');
     }
 
     /**
@@ -50,7 +49,7 @@ class Supply extends Model
         $search = trim((string) $search);
 
         return $query->when($search !== '', function ($query) use ($search) {
-            $query->where('name', 'like', $search . '%');
+            $query->where('name', 'like', $search.'%');
         });
     }
 }

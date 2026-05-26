@@ -2,11 +2,10 @@
 
 namespace Tests\Feature;
 
+use App\Models\SupplyItem;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Tests\TestCase;
-
-use App\Models\Item;
 use Livewire\Livewire;
+use Tests\TestCase;
 
 class RegisterDispatchTest extends TestCase
 {
@@ -18,7 +17,7 @@ class RegisterDispatchTest extends TestCase
     public function test_register_dispatch()
     {
         // Create an item with a quantity of 200
-        $item = Item::factory()->create([
+        $item = SupplyItem::factory()->create([
             'quantity' => 200,
         ]);
 
@@ -33,10 +32,9 @@ class RegisterDispatchTest extends TestCase
             ->call('save')
             ->assertRedirect(route('dispatches.index'));
 
-
         $this->assertDatabaseCount('dispatch_items', 1);
         $this->assertDatabaseHas('dispatch_items', [
-            'item_id' => $item->id,
+            'supply_item_id' => $item->id,
             'quantity' => '10',
         ]);
     }
@@ -46,7 +44,7 @@ class RegisterDispatchTest extends TestCase
      */
     public function test_update_item_balance()
     {
-        $item = Item::factory()->create([
+        $item = SupplyItem::factory()->create([
             'quantity' => 100,
         ]);
 
@@ -61,7 +59,7 @@ class RegisterDispatchTest extends TestCase
             ->call('save')
             ->assertRedirect(route('dispatches.index'));
 
-        $this->assertEquals(0.0, (float) Item::withBalance()->find($item->id)->balance);
+        $this->assertEquals(0.0, (float) SupplyItem::withBalance()->find($item->id)->balance);
     }
 
     /**
@@ -69,7 +67,7 @@ class RegisterDispatchTest extends TestCase
      */
     public function test_do_not_allow_consuming_item_with_insufficient_balance()
     {
-        $item = Item::factory()->create([
+        $item = SupplyItem::factory()->create([
             'quantity' => 100,
         ]);
 
@@ -96,7 +94,7 @@ class RegisterDispatchTest extends TestCase
     */
     public function test_allow_consuming_item_with_decimal_quantity()
     {
-        $item = Item::factory()->create();
+        $item = SupplyItem::factory()->create();
 
         Livewire::test('dispatches.selected-items-list')
             ->set(
@@ -114,11 +112,10 @@ class RegisterDispatchTest extends TestCase
 
         $this->assertDatabaseCount('dispatch_items', 1);
         $this->assertDatabaseHas('dispatch_items', [
-            'item_id' => $item->id,
+            'supply_item_id' => $item->id,
             'quantity' => '10.5',
         ]);
     }
-
 
     /**
      * Test register with a nonexistent item.
@@ -131,7 +128,7 @@ class RegisterDispatchTest extends TestCase
                 [
                     0 => [
                         'id' => 999, // Nonexistent item ID
-                        'supply_name' => "nonexistent item",
+                        'supply_name' => 'nonexistent item',
                         'quantity' => '10',
                     ],
                 ],
@@ -148,7 +145,7 @@ class RegisterDispatchTest extends TestCase
      */
     public function test_do_not_allow_consuming_item_with_non_numeric_quantity()
     {
-        $item = Item::factory()->create();
+        $item = SupplyItem::factory()->create();
 
         Livewire::test('dispatches.selected-items-list')
             ->set(

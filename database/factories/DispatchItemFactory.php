@@ -4,7 +4,7 @@ namespace Database\Factories;
 
 use App\Models\Dispatch;
 use App\Models\DispatchItem;
-use App\Models\Item;
+use App\Models\SupplyItem;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -16,7 +16,7 @@ class DispatchItemFactory extends Factory
     {
         return [
             'dispatch_id' => Dispatch::factory(),
-            'item_id' => Item::factory(),
+            'supply_item_id' => SupplyItem::factory(),
             'quantity' => fake()->numberBetween(1, 100),
         ];
     }

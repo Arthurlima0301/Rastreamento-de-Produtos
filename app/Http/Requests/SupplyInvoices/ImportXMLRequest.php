@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Http\Requests\Invoices;
+namespace App\Http\Requests\SupplyInvoices;
 
-use App\Rules\Invoices\ValidXMLInvoice;
+use App\Rules\SupplyInvoices\ValidXMLSupplyInvoice;
 use Illuminate\Foundation\Http\FormRequest;
 
 class ImportXMLRequest extends FormRequest
@@ -18,7 +18,7 @@ class ImportXMLRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'xml_file' => ['required', 'file', 'max:5120', new ValidXMLInvoice],
+            'xml_file' => ['required', 'file', 'max:5120', new ValidXMLSupplyInvoice],
         ];
     }
 

@@ -6,20 +6,20 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class Invoice extends Model
+class SupplyInvoice extends Model
 {
     use HasFactory;
 
     /**
      * The table associated with the model.
      */
-    protected $table = 'invoices';
+    protected $table = 'supply_invoices';
 
     /**
      * The attributes that are mass assignable.
      */
     protected $fillable = [
-        'invoice_code',
+        'supply_invoice_code',
         'issued_at',
     ];
 
@@ -32,30 +32,30 @@ class Invoice extends Model
     }
 
     /**
-     * Get the formatted invoice code.
+     * Get the formatted supply invoice code.
      */
-    protected function getFormattedInvoiceCodeAttribute(): string
+    protected function getFormattedSupplyInvoiceCodeAttribute(): string
     {
-        return number_format($this->invoice_code, 0, '', '.');
+        return number_format($this->supply_invoice_code, 0, '', '.');
     }
 
     /**
-     * Get the items for the invoice.
+     * Get the supply items for the supply invoice.
      */
-    public function items(): HasMany
+    public function supplyItems(): HasMany
     {
-        return $this->hasMany(Item::class, 'invoice_id');
+        return $this->hasMany(SupplyItem::class, 'supply_invoice_id');
     }
 
     /**
-     * Scope a query to search invoices by invoice code.
+     * Scope a query to search supply invoices by code.
      */
-    public function scopeSearchByInvoiceCode($query, $search)
+    public function scopeSearchBySupplyInvoiceCode($query, $search)
     {
         $search = trim(str_replace('.', '', (string) $search));
 
         return $query->when($search !== '', function ($query) use ($search) {
-            $query->where('invoice_code', 'like', $search.'%');
+            $query->where('supply_invoice_code', 'like', $search.'%');
         });
     }
 }
