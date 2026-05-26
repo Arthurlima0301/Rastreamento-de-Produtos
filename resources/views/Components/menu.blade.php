@@ -4,15 +4,12 @@
     <flux:navmenu>
         <flux:menu.group heading="Geral">
             <flux:navmenu.item href="{{ route('clients.index') }}" icon="user">Clientes</flux:navmenu.item>
+            <flux:navmenu.item href="{{ route('machines.index') }}" icon="cog-6-tooth">Máquinas</flux:navmenu.item>
         </flux:menu.group>
-
-
 
         <flux:menu.group heading="Bobinas e Materiais">
             <flux:navmenu.item href="{{ route('orders.index') }}" icon="clipboard-document-list">Ordem de Corte</flux:navmenu.item>
         </flux:menu.group>
-
-
 
         <flux:menu.group heading="Insumos">
             <flux:navmenu.item href="{{ route('invoices.index') }}" icon="document-text">Notas Fiscais</flux:navmenu.item>

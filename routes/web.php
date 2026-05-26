@@ -4,6 +4,7 @@ use App\Http\Controllers\Clients\ClientController;
 use App\Http\Controllers\Dispatches\DispatchController;
 use App\Http\Controllers\Invoices\InvoiceController;
 use App\Http\Controllers\Items\ItemController;
+use App\Http\Controllers\Machines\MachineController;
 use App\Http\Controllers\Orders\OrderController;
 use App\Http\Controllers\Supplies\SupplyController;
 use App\Livewire\Dispatches\CreateDispatch;
@@ -11,6 +12,9 @@ use Illuminate\Support\Facades\Route;
 
 // Client routes
 Route::resource('clients', ClientController::class)->except(['show']);
+
+// Machine routes
+Route::resource('machines', MachineController::class);
 
 // Supply routes
 Route::resource('supplies', SupplyController::class);
