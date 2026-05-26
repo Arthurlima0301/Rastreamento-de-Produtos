@@ -2,18 +2,18 @@
 
 namespace Database\Factories;
 
-use App\Models\Invoice;
+use App\Models\SupplyInvoice;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends Factory<Invoice>
+ * @extends Factory<SupplyInvoice>
  */
-class InvoiceFactory extends Factory
+class SupplyInvoiceFactory extends Factory
 {
     public function definition(): array
     {
         return [
-            'invoice_code' => fake()->unique()->numerify('######'),
+            'supply_invoice_code' => fake()->unique()->numerify('######'),
             'issued_at' => fake()->dateTimeBetween('-1 year'),
         ];
     }

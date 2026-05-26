@@ -1,28 +1,27 @@
 <?php
 
-namespace App\Livewire\Items;
+namespace App\Livewire\SupplyItems;
 
-use App\Models\Item;
+use App\Models\SupplyItem;
 use Livewire\Component;
 use Livewire\WithPagination;
 
-class ItemTable extends Component
+class SupplyItemTable extends Component
 {
     use WithPagination;
 
     public string $search = '';
-    
-    public bool $available = false; 
 
+    public bool $available = false;
 
     public function render()
     {
 
-        $items = Item::withBalance()
+        $supplyItems = SupplyItem::withBalance()
             ->filterBalance($this->available)
             ->searchBySupplyName($this->search)
             ->paginate(50);
 
-        return view('livewire.items.item-table', compact('items'));
+        return view('livewire.supply-items.supply-item-table', compact('supplyItems'));
     }
 }

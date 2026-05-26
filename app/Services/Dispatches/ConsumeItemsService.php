@@ -8,28 +8,28 @@ use Illuminate\Support\Facades\DB;
 class ConsumeItemsService
 {
     /**
-     * Consume a list of items and create a Dispatch record.
+     * Consume a list of supply items and create a Dispatch record.
      */
-    public function consume(array $items)
+    public function consume(array $supplyItems)
     {
-        DB::transaction(function () use ($items) {
-            $this->createDispatchRecord($items);
+        DB::transaction(function () use ($supplyItems) {
+            $this->createDispatchRecord($supplyItems);
         });
     }
 
     /**
-     * Create a Dispatch record with the provided items.
+     * Create a Dispatch record with the provided supply items.
      */
-    private function createDispatchRecord(array $items)
+    private function createDispatchRecord(array $supplyItems)
     {
         $dispatch = Dispatch::create([
             'dispatched_at' => now(),
         ]);
 
-        foreach ($items as $item) {
+        foreach ($supplyItems as $supplyItem) {
             $dispatch->items()->create([
-                'item_id' => $item['id'],
-                'quantity' => $item['quantity'],
+                'supply_item_id' => $supplyItem['id'],
+                'quantity' => $supplyItem['quantity'],
             ]);
         }
     }

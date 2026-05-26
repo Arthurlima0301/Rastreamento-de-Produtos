@@ -18,7 +18,7 @@ class ImportXMLTest extends TestCase
     {
         Supply::factory()->create(['supply_code' => '1001']);
 
-        $response = $this->post('invoices/import', [
+        $response = $this->post('supply-invoices/import', [
             'xml_file' => new UploadedFile(
                 base_path('tests/Fixtures/nota_fiscal_valida.xml'),
                 'nota_fiscal_valida.xml',
@@ -28,7 +28,7 @@ class ImportXMLTest extends TestCase
             ),
         ]);
 
-        $response->assertRedirect(route('invoices.index'));
+        $response->assertRedirect(route('supply-invoices.index'));
         $response->assertSessionHas('success');
     }
 
@@ -37,7 +37,7 @@ class ImportXMLTest extends TestCase
     */
     public function test_do_not_import_invalid_xml()
     {
-        $response = $this->from(route('invoices.index'))->post('invoices/import', [
+        $response = $this->from(route('supply-invoices.index'))->post('supply-invoices/import', [
             'xml_file' => new UploadedFile(
                 base_path('tests/Fixtures/nota_fiscal_invalida.xml'),
                 'nota_fiscal_invalida.xml',
@@ -47,7 +47,7 @@ class ImportXMLTest extends TestCase
             ),
         ]);
 
-        $response->assertRedirect(route('invoices.index'));
+        $response->assertRedirect(route('supply-invoices.index'));
         $response->assertSessionHasErrors('xml_file');
     }
 
@@ -58,7 +58,7 @@ class ImportXMLTest extends TestCase
     {
         Supply::factory()->create(['supply_code' => '1001']);
 
-        $this->post('invoices/import', [
+        $this->post('supply-invoices/import', [
             'xml_file' => new UploadedFile(
                 base_path('tests/Fixtures/nota_fiscal_valida.xml'),
                 'nota_fiscal_valida.xml',
@@ -68,7 +68,7 @@ class ImportXMLTest extends TestCase
             ),
         ]);
 
-        $response = $this->from(route('invoices.index'))->post('invoices/import', [
+        $response = $this->from(route('supply-invoices.index'))->post('supply-invoices/import', [
             'xml_file' => new UploadedFile(
                 base_path('tests/Fixtures/nota_fiscal_valida.xml'),
                 'nota_fiscal_valida.xml',
@@ -78,7 +78,7 @@ class ImportXMLTest extends TestCase
             ),
         ]);
 
-        $response->assertRedirect(route('invoices.index'));
+        $response->assertRedirect(route('supply-invoices.index'));
         $response->assertSessionHasErrors('xml_file');
     }
 
@@ -87,7 +87,7 @@ class ImportXMLTest extends TestCase
      */
     public function test_do_not_import_xml_if_product_code_is_not_registered()
     {
-        $response = $this->from(route('invoices.index'))->post('invoices/import', [
+        $response = $this->from(route('supply-invoices.index'))->post('supply-invoices/import', [
             'xml_file' => new UploadedFile(
                 base_path('tests/Fixtures/nota_fiscal_valida.xml'),
                 'nota_fiscal_valida.xml',
@@ -97,7 +97,7 @@ class ImportXMLTest extends TestCase
             ),
         ]);
 
-        $response->assertRedirect(route('invoices.index'));
+        $response->assertRedirect(route('supply-invoices.index'));
         $response->assertSessionHasErrors('xml_file');
     }
 }

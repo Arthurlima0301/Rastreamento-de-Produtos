@@ -2,11 +2,11 @@
 
 use App\Http\Controllers\Clients\ClientController;
 use App\Http\Controllers\Dispatches\DispatchController;
-use App\Http\Controllers\Invoices\InvoiceController;
-use App\Http\Controllers\Items\ItemController;
 use App\Http\Controllers\Machines\MachineController;
 use App\Http\Controllers\Orders\OrderController;
 use App\Http\Controllers\Supplies\SupplyController;
+use App\Http\Controllers\SupplyInvoices\SupplyInvoiceController;
+use App\Http\Controllers\SupplyItems\SupplyItemController;
 use App\Livewire\Dispatches\CreateDispatch;
 use Illuminate\Support\Facades\Route;
 
@@ -19,13 +19,13 @@ Route::resource('machines', MachineController::class);
 // Supply routes
 Route::resource('supplies', SupplyController::class);
 
-// Invoice routes
-Route::get('/invoices', [InvoiceController::class, 'index'])->name('invoices.index');
-Route::post('invoices/import', [InvoiceController::class, 'import'])->name('invoices.import');
-Route::get('invoices/{invoice}', [InvoiceController::class, 'show'])->name('invoices.show');
+// Supply invoice routes
+Route::get('/supply-invoices', [SupplyInvoiceController::class, 'index'])->name('supply-invoices.index');
+Route::post('supply-invoices/import', [SupplyInvoiceController::class, 'import'])->name('supply-invoices.import');
+Route::get('supply-invoices/{supplyInvoice}', [SupplyInvoiceController::class, 'show'])->name('supply-invoices.show');
 
-// Item routes
-Route::get('/items', [ItemController::class, 'index'])->name('items.index');
+// Supply item routes
+Route::get('/supply-items', [SupplyItemController::class, 'index'])->name('supply-items.index');
 
 // Order routes
 Route::get('/orders', [OrderController::class, 'index'])->name('orders.index');

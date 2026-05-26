@@ -8,25 +8,24 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Facades\DB;
 
-class Item extends Model
+class SupplyItem extends Model
 {
     use HasFactory;
 
     /**
      * The table associated with the model.
      */
-    protected $table = 'items';
+    protected $table = 'supply_items';
 
     /**
      * The attributes that are mass assignable.
      */
     protected $fillable = [
         'number',
-        'invoice_id',
+        'supply_invoice_id',
         'supply_id',
         'quantity',
     ];
-
 
     /**
      * Formatter quantity attribute accessor.
@@ -45,11 +44,11 @@ class Item extends Model
     }
 
     /**
-     * Get the invoice that owns the item.
+     * Get the supply invoice that owns the supply item.
      */
-    public function invoice(): BelongsTo
+    public function supplyInvoice(): BelongsTo
     {
-        return $this->belongsTo(Invoice::class, 'invoice_id');
+        return $this->belongsTo(SupplyInvoice::class, 'supply_invoice_id');
     }
 
     /**
@@ -61,15 +60,15 @@ class Item extends Model
     }
 
     /**
-     * Get the dispatch items for the item.
+     * Get the dispatch items for the supply item.
      */
     public function dispatchItems(): HasMany
     {
-        return $this->hasMany(DispatchItem::class, 'item_id');
+        return $this->hasMany(DispatchItem::class, 'supply_item_id');
     }
 
     /**
-     * Scope a query to search items by supply name.
+     * Scope a query to search supply items by supply name.
      */
     public function scopeSearchBySupplyName($query, $search)
     {
@@ -77,32 +76,32 @@ class Item extends Model
 
         return $query->when($search !== '', function ($query) use ($search) {
             $query->whereHas('supply', function ($query) use ($search) {
-                $query->where('name', 'like', $search . '%');
+                $query->where('name', 'like', $search.'%');
             });
         });
     }
 
     /**
-     * Scope a query to calculate item balance.
+     * Scope a query to calculate supply item balance.
      */
     public function scopeWithBalance($query)
     {
         return $query
             ->select(
-                'items.id',
-                'items.number',
-                'items.supply_id',
-                'items.invoice_id',
-                'items.quantity',
+                'supply_items.id',
+                'supply_items.number',
+                'supply_items.supply_id',
+                'supply_items.supply_invoice_id',
+                'supply_items.quantity',
                 'supplies.name as supply_name',
-                DB::raw('items.quantity - COALESCE(SUM(dispatch_items.quantity), 0) as balance')
+                DB::raw('supply_items.quantity - COALESCE(SUM(dispatch_items.quantity), 0) as balance')
             )
-            ->join('supplies', 'supplies.id', '=', 'items.supply_id')
-            ->join('invoices', 'invoices.id', '=', 'items.invoice_id')
-            ->leftJoin('dispatch_items', 'dispatch_items.item_id', '=', 'items.id')
+            ->join('supplies', 'supplies.id', '=', 'supply_items.supply_id')
+            ->join('supply_invoices', 'supply_invoices.id', '=', 'supply_items.supply_invoice_id')
+            ->leftJoin('dispatch_items', 'dispatch_items.supply_item_id', '=', 'supply_items.id')
             ->groupBy(
-                'items.id',
-                'items.quantity',
+                'supply_items.id',
+                'supply_items.quantity',
                 'supplies.name'
             );
     }

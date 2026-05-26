@@ -1,12 +1,11 @@
 @extends('Layout.layout')
 
-@section('title', 'Notas Fiscais')
+@section('title', 'Notas Fiscais de Insumo')
 
 @section('content')
-    <x-card title="Notas Fiscais">
-        <x-button variant="primary" icon="arrow-up-tray" >
-
-            <form action="{{ route('invoices.import') }}" method="POST" enctype="multipart/form-data">
+    <x-card title="Notas Fiscais de Insumo">
+        <x-button variant="primary" icon="arrow-up-tray">
+            <form action="{{ route('supply-invoices.import') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <label for="xml_file">Importar XML</label>
 
@@ -19,5 +18,5 @@
     <x-success-message></x-success-message>
     <x-error-message></x-error-message>
 
-    <livewire:invoices.invoice-table />
+    <livewire:supply-invoices.supply-invoice-table />
 @endsection

@@ -1,13 +1,13 @@
 @extends('Layout.layout')
 
-@section('title', 'Items')
+@section('title', 'Itens de Insumo')
 
 @section('content')
-    <x-card title="Items">
+    <x-card title="Itens de Insumo">
         <x-slot name="slot">
             <!-- action slot left intentionally empty -->
         </x-slot>
     </x-card>
 
-    <livewire:items.item-table />
+    <livewire:supply-items.supply-item-table />
 @endsection

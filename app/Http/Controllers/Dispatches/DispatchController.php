@@ -7,7 +7,6 @@ use App\Models\Dispatch;
 
 class DispatchController extends Controller
 {
-
     /**
      * Display a listing of the resource.
      */
@@ -21,7 +20,8 @@ class DispatchController extends Controller
      */
     public function show(Dispatch $dispatch)
     {
-        $dispatch = Dispatch::with('items.item.supply', 'items.item.invoice')->find($dispatch->id);
+        $dispatch = Dispatch::with('items.supplyItem.supply', 'items.supplyItem.supplyInvoice')->find($dispatch->id);
+
         return view('pages.Dispatches.show', compact('dispatch'));
     }
 }
