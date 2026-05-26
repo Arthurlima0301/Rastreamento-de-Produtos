@@ -9,6 +9,7 @@ Projeto Laravel 13, Livewire, Tailwind CSS 4 e Vite. Alpine deve ser consumido p
 - Nao introduza novas dependencias sem justificativa clara.
 - Preserve a estrutura padrao do Laravel
 - Quando a mudanca afetar UI, mantenha o alinhamento com `resources/views/Layout/layout.blade.php`
+- Nunca altere migrations originais ja existentes; crie uma nova migration para qualquer ajuste de schema.
 
 ## Project Structure
 - `routes/web.php`: ponto central das rotas da aplicacao; os fluxos principais chamam controllers por nome ou com `Route::resource`.
