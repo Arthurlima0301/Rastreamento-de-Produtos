@@ -4,6 +4,8 @@ namespace Tests\Feature;
 
 use App\Models\Client;
 use App\Models\Material;
+use App\Models\MaterialInvoice;
+use App\Models\MaterialItem;
 use App\Models\Order;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Schema;
@@ -42,9 +44,26 @@ class OrderMaterialModelTest extends TestCase
             'created_at',
             'updated_at',
         ]));
+
+        $this->assertTrue(Schema::hasColumns('material_invoices', [
+            'id',
+            'material_invoice_code',
+            'created_at',
+            'updated_at',
+        ]));
+
+        $this->assertTrue(Schema::hasColumns('material_items', [
+            'id',
+            'material_id',
+            'material_invoice_id',
+            'roll_quantity',
+            'weight',
+            'created_at',
+            'updated_at',
+        ]));
     }
 
-    public function test_order_and_material_factories_create_relationships()
+    public function test_order_material_invoice_and_material_item_factories_create_relationships()
     {
         $client = Client::factory()->create();
         $order = Order::factory()->create([
@@ -52,6 +71,11 @@ class OrderMaterialModelTest extends TestCase
         ]);
         $material = Material::factory()->create([
             'order_id' => $order->id,
+        ]);
+        $materialInvoice = MaterialInvoice::factory()->create();
+        $materialItem = MaterialItem::factory()->create([
+            'material_id' => $material->id,
+            'material_invoice_id' => $materialInvoice->id,
         ]);
 
         $this->assertDatabaseHas('orders', [
@@ -62,10 +86,22 @@ class OrderMaterialModelTest extends TestCase
             'id' => $material->id,
             'order_id' => $order->id,
         ]);
+        $this->assertDatabaseHas('material_invoices', [
+            'id' => $materialInvoice->id,
+        ]);
+        $this->assertDatabaseHas('material_items', [
+            'id' => $materialItem->id,
+            'material_id' => $material->id,
+            'material_invoice_id' => $materialInvoice->id,
+        ]);
 
         $this->assertTrue($order->client->is($client));
         $this->assertTrue($client->orders()->whereKey($order->id)->exists());
         $this->assertTrue($order->materials()->whereKey($material->id)->exists());
         $this->assertTrue($material->order->is($order));
+        $this->assertTrue($material->materialItems()->whereKey($materialItem->id)->exists());
+        $this->assertTrue($materialInvoice->materialItems()->whereKey($materialItem->id)->exists());
+        $this->assertTrue($materialItem->material->is($material));
+        $this->assertTrue($materialItem->materialInvoice->is($materialInvoice));
     }
 }
