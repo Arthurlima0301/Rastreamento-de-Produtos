@@ -2,9 +2,12 @@
 
 namespace Tests\Feature;
 
+use App\Livewire\Supplies\SupplyForm;
+use App\Livewire\Supplies\SupplyTable;
 use App\Models\Client;
 use App\Models\Supply;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Livewire\Livewire;
 use Tests\TestCase;
 
 class SupplyCrudTest extends TestCase
@@ -22,9 +25,14 @@ class SupplyCrudTest extends TestCase
             'client_id' => $client->id,
         ]);
 
-        $response = $this->post('/supplies', $attributes);
+        Livewire::test(SupplyForm::class)
+            ->set('supply_code', $attributes['supply_code'])
+            ->set('name', $attributes['name'])
+            ->set('unit_of_measure', $attributes['unit_of_measure'])
+            ->set('client_id', $attributes['client_id'])
+            ->call('save')
+            ->assertRedirect(route('supplies.index'));
 
-        $response->assertStatus(302);
         $this->assertDatabaseHas('supplies', [
             'supply_code' => 'ABC123',
             'client_id' => $client->id,
@@ -33,14 +41,13 @@ class SupplyCrudTest extends TestCase
 
     public function test_do_not_create_supply_with_invalid_data()
     {
-        $response = $this->post('/supplies', [
-            'supply_code' => '',
-            'name' => '',
-            'unit_of_measure' => '',
-            'client_id' => '',
-        ]);
-
-        $response->assertSessionHasErrors(['supply_code', 'name', 'unit_of_measure', 'client_id']);
+        Livewire::test(SupplyForm::class)
+            ->set('supply_code', '')
+            ->set('name', '')
+            ->set('unit_of_measure', '')
+            ->set('client_id', null)
+            ->call('save')
+            ->assertHasErrors(['supply_code', 'name', 'unit_of_measure', 'client_id']);
     }
 
     public function test_list_supplies()
@@ -66,14 +73,14 @@ class SupplyCrudTest extends TestCase
             'unit_of_measure' => 'kg',
         ]);
 
-        $response = $this->put("/supplies/{$supply->id}", [
-            'supply_code' => 'UPD1',
-            'name' => 'Novo',
-            'unit_of_measure' => 'kg',
-            'client_id' => $client->id,
-        ]);
+        Livewire::test(SupplyForm::class, ['supplyId' => $supply->id])
+            ->set('supply_code', 'UPD1')
+            ->set('name', 'Novo')
+            ->set('unit_of_measure', 'kg')
+            ->set('client_id', $client->id)
+            ->call('save')
+            ->assertRedirect(route('supplies.index'));
 
-        $response->assertStatus(302);
         $this->assertDatabaseHas('supplies', [
             'id' => $supply->id,
             'name' => 'Novo',
@@ -100,8 +107,10 @@ class SupplyCrudTest extends TestCase
             'unit_of_measure' => 'kg',
         ]);
 
-        $response = $this->delete("/supplies/{$supply->id}");
-        $response->assertStatus(302);
+        Livewire::test(SupplyTable::class)
+            ->call('destroy', $supply->id)
+            ->assertRedirect(route('supplies.index'));
+
         $this->assertDatabaseMissing('supplies', ['id' => $supply->id]);
     }
 }

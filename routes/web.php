@@ -3,11 +3,14 @@
 use App\Http\Controllers\Dispatches\DispatchController;
 use App\Http\Controllers\Invoices\InvoiceController;
 use App\Http\Controllers\Items\ItemController;
-use App\Http\Controllers\Supplies\SupplyController;
 use App\Livewire\Clients\ClientCreate;
 use App\Livewire\Clients\ClientEdit;
 use App\Livewire\Clients\ClientIndex;
 use App\Livewire\Dispatches\CreateDispatch;
+use App\Livewire\Supplies\SupplyCreate;
+use App\Livewire\Supplies\SupplyEdit;
+use App\Livewire\Supplies\SupplyIndex;
+use App\Livewire\Supplies\SupplyShow;
 use Illuminate\Support\Facades\Route;
 
 // Client routes
@@ -16,7 +19,10 @@ Route::get('/clients/create', ClientCreate::class)->name('clients.create');
 Route::get('/clients/{client}/edit', ClientEdit::class)->name('clients.edit');
 
 // Supply routes
-Route::resource('supplies', SupplyController::class);
+Route::get('/supplies', SupplyIndex::class)->name('supplies.index');
+Route::get('/supplies/create', SupplyCreate::class)->name('supplies.create');
+Route::get('/supplies/{supply}', SupplyShow::class)->name('supplies.show');
+Route::get('/supplies/{supply}/edit', SupplyEdit::class)->name('supplies.edit');
 
 // Invoice routes
 Route::get('/invoices', [InvoiceController::class, 'index'])->name('invoices.index');

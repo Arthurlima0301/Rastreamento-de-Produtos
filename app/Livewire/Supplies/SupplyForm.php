@@ -1,0 +1,69 @@
+<?php
+
+namespace App\Livewire\Supplies;
+
+use App\Models\Client;
+use App\Models\Supply;
+use Illuminate\Validation\Rule;
+use Livewire\Component;
+
+class SupplyForm extends Component
+{
+    public ?int $supplyId = null;
+
+    public string $supply_code = '';
+
+    public string $name = '';
+
+    public string $unit_of_measure = '';
+
+    public ?int $client_id = null;
+
+    public function mount(?int $supplyId = null): void
+    {
+        $this->supplyId = $supplyId;
+
+        if ($this->supplyId) {
+            $supply = Supply::findOrFail($this->supplyId);
+            $this->supply_code = $supply->supply_code;
+            $this->name = $supply->name;
+            $this->unit_of_measure = $supply->unit_of_measure;
+            $this->client_id = $supply->client_id;
+        }
+    }
+
+    public function save()
+    {
+        $validated = $this->validate([
+            'supply_code' => ['required', 'string', Rule::unique('supplies', 'supply_code')->ignore($this->supplyId)],
+            'name' => 'required|string',
+            'unit_of_measure' => 'required|string',
+            'client_id' => 'required|exists:clients,id',
+        ], [
+            'supply_code.required' => 'O campo código do insumo é obrigatório.',
+            'supply_code.unique' => 'O código do insumo já existe. Por favor, escolha outro.',
+            'name.required' => 'O campo nome é obrigatório.',
+            'unit_of_measure.required' => 'O campo unidade de medida é obrigatório.',
+            'unit_of_measure.string' => 'O campo unidade de medida deve ser uma string.',
+            'client_id.required' => 'O campo cliente é obrigatório.',
+            'client_id.exists' => 'O cliente informado é inválido.',
+        ]);
+
+        if ($this->supplyId) {
+            Supply::findOrFail($this->supplyId)->update($validated);
+
+            return redirect()->route('supplies.index')->with('success', 'Insumo atualizado com sucesso.');
+        }
+
+        Supply::create($validated);
+
+        return redirect()->route('supplies.index')->with('success', 'Insumo criado com sucesso.');
+    }
+
+    public function render()
+    {
+        $clients = Client::orderBy('name', 'asc')->get();
+
+        return view('livewire.supplies.supply-form', compact('clients'));
+    }
+}
