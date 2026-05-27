@@ -21,4 +21,17 @@ class ClientTable extends Component
 
         return view('livewire.clients.client-table', compact('clients'));
     }
+
+    public function destroy(int $clientId)
+    {
+        $client = Client::findOrFail($clientId);
+
+        if ($client->supplies()->exists()) {
+            return redirect()->route('clients.index')->with('error', 'NÃ£o Ã© possÃ­vel deletar um cliente que possui insumos associados.');
+        }
+
+        $client->delete();
+
+        return redirect()->route('clients.index')->with('success', 'Cliente deletado com sucesso.');
+    }
 }

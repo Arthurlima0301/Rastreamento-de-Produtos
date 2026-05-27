@@ -1,15 +1,19 @@
 <?php
 
-use App\Http\Controllers\Clients\ClientController;
 use App\Http\Controllers\Dispatches\DispatchController;
 use App\Http\Controllers\Invoices\InvoiceController;
 use App\Http\Controllers\Items\ItemController;
 use App\Http\Controllers\Supplies\SupplyController;
+use App\Livewire\Clients\ClientCreate;
+use App\Livewire\Clients\ClientEdit;
+use App\Livewire\Clients\ClientIndex;
 use App\Livewire\Dispatches\CreateDispatch;
 use Illuminate\Support\Facades\Route;
 
 // Client routes
-Route::resource('clients', ClientController::class)->except(['show']);
+Route::get('/clients', ClientIndex::class)->name('clients.index');
+Route::get('/clients/create', ClientCreate::class)->name('clients.create');
+Route::get('/clients/{client}/edit', ClientEdit::class)->name('clients.edit');
 
 // Supply routes
 Route::resource('supplies', SupplyController::class);
