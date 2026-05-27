@@ -1,8 +1,4 @@
-@extends('Layout.layout')
-
-@section('title', 'Items')
-
-@section('content')
+<div class="w-full">
     <x-card title="Items">
         <x-slot name="slot">
             <!-- action slot left intentionally empty -->
@@ -10,4 +6,4 @@
     </x-card>
 
     <livewire:items.item-table />
-@endsection
+</div>

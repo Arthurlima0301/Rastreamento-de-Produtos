@@ -1,13 +1,13 @@
 <?php
 
 use App\Http\Controllers\Dispatches\DispatchController;
-use App\Http\Controllers\Items\ItemController;
 use App\Livewire\Clients\ClientCreate;
 use App\Livewire\Clients\ClientEdit;
 use App\Livewire\Clients\ClientIndex;
 use App\Livewire\Dispatches\CreateDispatch;
 use App\Livewire\Invoices\InvoiceIndex;
 use App\Livewire\Invoices\InvoiceShow;
+use App\Livewire\Items\ItemIndex;
 use App\Livewire\Supplies\SupplyCreate;
 use App\Livewire\Supplies\SupplyEdit;
 use App\Livewire\Supplies\SupplyIndex;
@@ -30,7 +30,7 @@ Route::get('/invoices', InvoiceIndex::class)->name('invoices.index');
 Route::get('invoices/{invoice}', InvoiceShow::class)->name('invoices.show');
 
 // Item routes
-Route::get('/items', [ItemController::class, 'index'])->name('items.index');
+Route::get('/items', ItemIndex::class)->name('items.index');
 
 // Dispatch routes
 Route::get('/dispatches', [DispatchController::class, 'index'])->name('dispatches.index');
