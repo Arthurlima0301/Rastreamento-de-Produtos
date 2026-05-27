@@ -3,7 +3,6 @@
 namespace App\Livewire\Dispatches;
 
 use App\Models\Dispatch;
-use Flux\Flux;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -12,6 +11,7 @@ class DispatchTable extends Component
     use WithPagination;
 
     public string $search = '';
+
     public string $parameter = 'desc';
 
     public function render()
@@ -31,6 +31,7 @@ class DispatchTable extends Component
     public function destroy(Dispatch $dispatch)
     {
         $dispatch->delete();
+
         return redirect()->route('dispatches.index')->with('success', 'Saída excluída com sucesso!');
     }
 }

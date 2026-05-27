@@ -22,11 +22,7 @@
                             <x-button href="{{ route('supplies.show', $supply->id) }}" variant="ghost" icon="eye" />
                             <x-button href="{{ route('supplies.edit', $supply->id) }}" variant="ghost" icon="pencil" />
 
-                            <form action="{{ route('supplies.destroy', $supply->id) }}" method="POST">
-                                @csrf
-                                @method('DELETE')
-                                <x-button type="submit" variant="danger" icon="trash" />
-                            </form>
+                            <x-button type="button" variant="danger" icon="trash" wire:click="destroy({{ $supply->id }})" />
                         </div>
                     </flux:table.cell>
                 </flux:table.row>

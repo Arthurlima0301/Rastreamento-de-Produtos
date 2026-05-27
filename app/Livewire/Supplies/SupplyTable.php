@@ -22,4 +22,17 @@ class SupplyTable extends Component
 
         return view('livewire.supplies.supply-table', compact('supplies'));
     }
+
+    public function destroy(int $supplyId)
+    {
+        $supply = Supply::findOrFail($supplyId);
+
+        if ($supply->items()->exists()) {
+            return redirect()->route('supplies.index')->with('error', 'Não é possível deletar um insumo que possui itens associados.');
+        }
+
+        $supply->delete();
+
+        return redirect()->route('supplies.index')->with('success', 'Insumo deletado com sucesso.');
+    }
 }

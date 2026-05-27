@@ -18,7 +18,6 @@
                     <flux:menu.radio value="true">Disponíveis</flux:menu.radio>
                 </x-sort>
             </flux:table.column>
-
         </x-slot:header>
 
         <x-slot:rows>

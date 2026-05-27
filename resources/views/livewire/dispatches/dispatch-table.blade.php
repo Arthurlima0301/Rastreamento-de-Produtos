@@ -26,8 +26,6 @@
                         <flux:modal.trigger :name="'confirm-'.$dispatch->id">
                             <x-button variant="primary" color="red" icon="trash" />
                         </flux:modal.trigger>
-
-
                     </flux:table.cell>
                 </flux:table.row>
 
@@ -46,12 +44,10 @@
                             <x-button wire:click="destroy({{ $dispatch->id }})" variant="primary">
                                 Continuar
                             </x-button>
-
                         </div>
+                    </div>
                 </flux:modal>
             @endforeach
         </x-slot:rows>
     </x-table>
-
-
 </div>

@@ -1,6 +1,6 @@
 # Controle de Insumos
 
-Sistema web desenvolvido em Laravel para controle de insumos, notas fiscais, itens importados por XML e registro de saídas de estoque.
+Sistema web desenvolvido em Laravel + Livewire para controle de insumos, notas fiscais, itens importados por XML e registro de saídas de estoque.
 
 O projeto foi criado para resolver um fluxo interno de controle de materiais: cadastrar insumos, importar notas fiscais, consultar saldo disponível e registrar o consumo dos itens com base nas quantidades disponíveis.
 
@@ -10,7 +10,7 @@ O objetivo do sistema é centralizar o controle de entrada e saída de insumos, 
 
 Fluxo principal:
 
-1. Cadastrar insumos no sistema.
+1. Cadastrar clientes e insumos no sistema.
 2. Importar XML de nota fiscal.
 3. Validar se os produtos da nota existem como insumos cadastrados.
 4. Registrar os itens da nota fiscal.
@@ -23,13 +23,40 @@ Fluxo principal:
 - PHP 8.3
 - Laravel 13
 - Livewire 4
+- Flux UI
 - MySQL
 - Blade
-- Tailwind CSS
+- Tailwind CSS 4
 - Vite
 - PHPUnit
 
+## Arquitetura
+
+A interface segue o padrão:
+
+```txt
+Routes
+-> Livewire full-page components
+-> Livewire child components
+-> Services/Actions
+-> Models/Rules
+```
+
+As rotas web apontam diretamente para full-page components Livewire. Controllers não são usados para telas internas que apenas renderizam views ou chamam services.
+
+Services continuam concentrando regras maiores e operações coordenadas, como importação de XML e consumo de itens. Rules concentram validações reutilizáveis.
+
+Controllers devem ficar reservados para API, webhooks, downloads/exports, callbacks externos, streams de arquivo ou rotas públicas tradicionais independentes da interface Livewire.
+
 ## Funcionalidades
+
+### Clientes
+
+- Cadastro de clientes.
+- Listagem de clientes.
+- Busca por nome.
+- Edição e exclusão.
+- Bloqueio de exclusão quando há insumos associados.
 
 ### Insumos
 
@@ -37,11 +64,12 @@ Fluxo principal:
 - Listagem de insumos.
 - Busca por nome.
 - Validação de dados no cadastro.
-- Relacionamento entre insumos e itens de notas fiscais.
+- Relacionamento entre cliente, insumo e itens de notas fiscais.
+- Bloqueio de exclusão quando há itens associados.
 
 ### Notas fiscais
 
-- Importação de XML de NF-e.
+- Importação de XML de NF-e por componente Livewire.
 - Validação da estrutura do XML.
 - Validação de nota fiscal duplicada.
 - Validação de existência dos insumos antes da importação.
@@ -64,6 +92,7 @@ Fluxo principal:
 - Validação de saldo disponível.
 - Registro dos itens consumidos.
 - Histórico de saídas.
+- Edição dos dados principais da saída.
 - Detalhamento dos itens vinculados a cada saída.
 
 ## Regras de negócio
@@ -80,53 +109,74 @@ Fluxo principal:
 ```txt
 app/
 ├── Http/
-│   ├── Controllers/
-│   │   ├── Dispatches/
-│   │   ├── Invoices/
-│   │   ├── Items/
-│   │   └── Supplies/
-│   └── Requests/
-│       ├── Dispatches/
-│       ├── Invoices/
-│       └── Supplies/
+│   └── Controllers/
+│       └── Controller.php
 ├── Livewire/
+│   ├── Clients/
 │   ├── Dispatches/
 │   ├── Invoices/
 │   ├── Items/
 │   └── Supplies/
 ├── Models/
 ├── Rules/
+│   ├── Dispatches/
 │   └── Invoices/
 └── Services/
     ├── Dispatches/
     └── Invoices/
-````
+
+resources/
+└── views/
+    ├── Components/
+    ├── Layout/
+    └── livewire/
+        ├── clients/
+        ├── dispatches/
+        ├── invoices/
+        ├── items/
+        └── supplies/
+```
 
 ## Principais classes do domínio
 
+### Livewire
+
+- `ClientIndex`, `ClientCreate`, `ClientEdit`, `ClientForm`, `ClientTable`
+- `SupplyIndex`, `SupplyCreate`, `SupplyShow`, `SupplyEdit`, `SupplyForm`, `SupplyTable`
+- `InvoiceIndex`, `InvoiceShow`, `InvoiceImportForm`, `InvoiceTable`
+- `ItemIndex`, `ItemTable`
+- `DispatchIndex`, `DispatchCreate`, `DispatchShow`, `DispatchTable`, `SelectedItemsList`, `EditDispatch`
+
 ### Services
 
-* `ImportInvoiceFromXMLService`: responsável por importar a nota fiscal a partir do XML.
-* `ExtractItems`: responsável por extrair e registrar os itens da nota fiscal.
-* `ConsumeItemsService`: responsável por registrar o consumo dos itens em uma saída.
+- `ImportInvoiceFromXMLService`: responsável por importar a nota fiscal a partir do XML.
+- `ExtractItems`: responsável por extrair e registrar os itens da nota fiscal.
+- `ConsumeItemsService`: responsável por registrar o consumo dos itens em uma saída.
+
+### Rules
+
+- `ValidXMLInvoice`: valida estrutura da NF-e, duplicidade e existência dos insumos.
+- `ValidateConsumeItems`: valida saldo disponível para consumo.
 
 ### Models
 
-* `Supply`: representa um insumo cadastrado.
-* `Invoice`: representa uma nota fiscal importada.
-* `Item`: representa um item de uma nota fiscal.
-* `Dispatch`: representa uma saída de estoque.
-* `DispatchItem`: representa os itens consumidos em uma saída.
+- `Client`: representa um cliente.
+- `Supply`: representa um insumo cadastrado.
+- `Invoice`: representa uma nota fiscal importada.
+- `Item`: representa um item de uma nota fiscal.
+- `Dispatch`: representa uma saída de estoque.
+- `DispatchItem`: representa os itens consumidos em uma saída.
 
 ## Banco de dados
 
 Principais tabelas do sistema:
 
-* `supplies`
-* `invoices`
-* `items`
-* `dispatches`
-* `dispatch_items`
+- `clients`
+- `supplies`
+- `invoices`
+- `items`
+- `dispatches`
+- `dispatch_items`
 
 As quantidades dos itens e das saídas utilizam campos decimais para suportar valores fracionados vindos do XML da nota fiscal.
 
@@ -134,16 +184,17 @@ As quantidades dos itens e das saídas utilizam campos decimais para suportar va
 
 O projeto possui testes automatizados cobrindo fluxos principais, como:
 
-* importação de XML válido;
-* bloqueio de XML inválido;
-* bloqueio de nota fiscal duplicada;
-* bloqueio de XML com insumo inexistente;
-* registro de saída;
-* bloqueio de saída sem saldo suficiente;
-* consumo com quantidade decimal;
-* busca com Livewire;
-* edição de nota fiscal;
-* CRUD de insumos.
+- importação de XML válido;
+- bloqueio de XML inválido;
+- bloqueio de nota fiscal duplicada;
+- bloqueio de XML com insumo inexistente;
+- registro de saída;
+- bloqueio de saída sem saldo suficiente;
+- consumo com quantidade decimal;
+- busca com Livewire;
+- edição de nota fiscal da saída;
+- CRUD de clientes;
+- CRUD de insumos.
 
 Para executar os testes:
 
@@ -260,19 +311,18 @@ Projeto em desenvolvimento.
 
 Funcionalidades principais já implementadas:
 
-* cadastro de insumos;
-* importação de XML;
-* validação de nota fiscal;
-* listagem de notas;
-* listagem de itens;
-* cálculo de saldo;
-* registro de saídas;
-* testes automatizados dos principais fluxos.
-  
+- cadastro de clientes;
+- cadastro de insumos;
+- importação de XML;
+- validação de nota fiscal;
+- listagem de notas;
+- listagem de itens;
+- cálculo de saldo;
+- registro de saídas;
+- testes automatizados dos principais fluxos.
+
 ## Autor
 
 Desenvolvido por Arthur Lima.
 
 GitHub: [Arthurlima0301](https://github.com/Arthurlima0301)
-
-

@@ -2,9 +2,12 @@
 
 namespace Tests\Feature;
 
+use App\Livewire\Clients\ClientForm;
+use App\Livewire\Clients\ClientTable;
 use App\Models\Client;
 use App\Models\Supply;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Livewire\Livewire;
 use Tests\TestCase;
 
 class ClientCrudTest extends TestCase
@@ -13,21 +16,20 @@ class ClientCrudTest extends TestCase
 
     public function test_create_client_with_valid_data()
     {
-        $response = $this->post('/clients', [
-            'name' => 'Cliente Teste',
-        ]);
+        Livewire::test(ClientForm::class)
+            ->set('name', 'Cliente Teste')
+            ->call('save')
+            ->assertRedirect(route('clients.index'));
 
-        $response->assertStatus(302);
         $this->assertDatabaseHas('clients', ['name' => 'Cliente Teste']);
     }
 
     public function test_do_not_create_client_with_invalid_data()
     {
-        $response = $this->post('/clients', [
-            'name' => '',
-        ]);
-
-        $response->assertSessionHasErrors(['name']);
+        Livewire::test(ClientForm::class)
+            ->set('name', '')
+            ->call('save')
+            ->assertHasErrors(['name' => 'required']);
     }
 
     public function test_list_clients()
@@ -68,11 +70,11 @@ class ClientCrudTest extends TestCase
             'name' => 'Cliente Antigo',
         ]);
 
-        $response = $this->put("/clients/{$client->id}", [
-            'name' => 'Cliente Novo',
-        ]);
+        Livewire::test(ClientForm::class, ['clientId' => $client->id])
+            ->set('name', 'Cliente Novo')
+            ->call('save')
+            ->assertRedirect(route('clients.index'));
 
-        $response->assertStatus(302);
         $this->assertDatabaseHas('clients', ['id' => $client->id, 'name' => 'Cliente Novo']);
     }
 
@@ -82,9 +84,10 @@ class ClientCrudTest extends TestCase
             'name' => 'Cliente Deleta',
         ]);
 
-        $response = $this->delete("/clients/{$client->id}");
+        Livewire::test(ClientTable::class)
+            ->call('destroy', $client->id)
+            ->assertRedirect(route('clients.index'));
 
-        $response->assertStatus(302);
         $this->assertDatabaseMissing('clients', ['id' => $client->id]);
     }
 

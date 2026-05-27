@@ -2,15 +2,17 @@
 
 namespace App\Livewire\Dispatches;
 
-use Livewire\Component;
 use App\Models\Dispatch;
+use Livewire\Component;
 
 class EditDispatch extends Component
 {
     public Dispatch $dispatch;
 
     public bool $isEdited = false;
+
     public string $invoice;
+
     public string $dispatched_at;
 
     public function edit()
@@ -47,11 +49,8 @@ class EditDispatch extends Component
 
     public function mount($dispatchId)
     {
-        $this->dispatch = Dispatch::find($dispatchId);
+        $this->dispatch = Dispatch::findOrFail($dispatchId);
         $this->invoice = $this->dispatch->invoice ?? 'N/A';
-        
-        
-
         $this->dispatched_at = $this->dispatch->dispatched_at ? $this->dispatch->dispatched_at->format('Y-m-d') : '';
     }
 

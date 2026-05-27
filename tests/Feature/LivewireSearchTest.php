@@ -3,7 +3,7 @@
 namespace Tests\Feature;
 
 use App\Livewire\Clients\ClientTable;
-use App\Livewire\Dispatches\CreateDispatch;
+use App\Livewire\Dispatches\DispatchCreate;
 use App\Livewire\Dispatches\DispatchTable;
 use App\Livewire\Invoices\InvoiceTable;
 use App\Livewire\Items\ItemTable;
@@ -155,7 +155,7 @@ class LivewireSearchTest extends TestCase
             'supply_id' => $otherSupply->id,
         ]);
 
-        Livewire::test(CreateDispatch::class)
+        Livewire::test(DispatchCreate::class)
             ->set('search', 'Bri')
             ->assertSee('Brita')
             ->assertDontSee('Cal');

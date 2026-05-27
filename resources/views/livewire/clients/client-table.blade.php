@@ -15,11 +15,7 @@
                         <div class="flex justify-center gap-2">
                             <x-button href="{{ route('clients.edit', $client->id) }}" variant="ghost" icon="pencil" />
 
-                            <form action="{{ route('clients.destroy', $client->id) }}" method="POST">
-                                @csrf
-                                @method('DELETE')
-                                <x-button type="submit" variant="danger" icon="trash" />
-                            </form>
+                            <x-button type="button" variant="danger" icon="trash" wire:click="destroy({{ $client->id }})" />
                         </div>
                     </flux:table.cell>
                 </flux:table.row>
