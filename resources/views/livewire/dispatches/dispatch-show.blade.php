@@ -1,9 +1,5 @@
-@extends('Layout.layout')
-
-@section('title', 'Saídas')
-
-@section('content')
-    <x-error-message></x-error-message>
+<div class="w-full">
+    <x-error-message />
 
     <x-card title="Detalhes da Saída">
         <x-slot name="slot">
@@ -34,4 +30,4 @@
             @endforeach
         </x-slot:rows>
     </x-table>
-@endsection
+</div>

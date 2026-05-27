@@ -2,10 +2,10 @@
 
 namespace App\Rules\Dispatches;
 
+use App\Models\Item;
 use Closure;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Translation\PotentiallyTranslatedString;
-use App\Models\Item;
 
 class ValidateConsumeItems implements ValidationRule
 {
@@ -16,7 +16,6 @@ class ValidateConsumeItems implements ValidationRule
      */
     public function validate(string $attribute, mixed $value, Closure $fail): void
     {
-
         /**
          * Verify if each item has sufficient balance for the requested quantity.
          */
@@ -25,8 +24,9 @@ class ValidateConsumeItems implements ValidationRule
                 ->lockForUpdate()
                 ->find($item['id']);
 
-            if (!$itemModel) {
+            if (! $itemModel) {
                 $fail("O item com ID {$item['id']} não foi encontrado.");
+
                 continue;
             }
 

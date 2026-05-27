@@ -8,7 +8,7 @@ use Livewire\Component;
 use Livewire\WithPagination;
 
 #[Layout('Layout.layout')]
-class CreateDispatch extends Component
+class DispatchCreate extends Component
 {
     use WithPagination;
 
@@ -27,6 +27,6 @@ class CreateDispatch extends Component
             ->orderBy('balance', 'asc')
             ->paginate(50);
 
-        return view('livewire.dispatches.create-dispatch', compact('items'));
+        return view('livewire.dispatches.dispatch-create', compact('items'));
     }
 }

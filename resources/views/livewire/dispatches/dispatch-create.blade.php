@@ -26,8 +26,7 @@
                             <flux:table.cell align="center">{{ $item->number }}</flux:table.cell>
                             <flux:table.cell align="center">{{ $item->supply->unit_of_measure }}</flux:table.cell>
                             <flux:table.cell align="center">{{ $item->formatted_quantity }}</flux:table.cell>
-                            <flux:table.cell align="center">{{ $item->invoice->formatted_invoice_code }}
-                            </flux:table.cell>
+                            <flux:table.cell align="center">{{ $item->invoice->formatted_invoice_code }}</flux:table.cell>
                             <flux:table.cell align="center">{{ $item->invoice->formatted_issued_at }}</flux:table.cell>
                             <flux:table.cell align="center">{{ $item->formatted_balance }}</flux:table.cell>
                             <flux:table.cell align="center">

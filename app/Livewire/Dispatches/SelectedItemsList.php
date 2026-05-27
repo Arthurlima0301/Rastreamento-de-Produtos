@@ -11,7 +11,6 @@ class SelectedItemsList extends Component
 {
     public array $selectedItems = [];
 
-
     public function render()
     {
         return view('livewire.dispatches.selected-items-list');
@@ -35,7 +34,6 @@ class SelectedItemsList extends Component
             'quantity' => null,
         ];
     }
-
 
     /**
      * Remove an item from the selected items list based on its ID. If the item exists in the list, it will be removed.
@@ -67,7 +65,6 @@ class SelectedItemsList extends Component
         $this->selectedItems = [];
     }
 
-
     public function openModal($modalName)
     {
         $this->dispatch('open-modal', name: $modalName);
@@ -93,8 +90,7 @@ class SelectedItemsList extends Component
 
             return redirect()->route('dispatches.index')->with('success', 'Saída processada com sucesso!');
         } catch (\Exception $e) {
-
-            $this->addError('selectedItems', 'Ocorreu um erro ao processar a saída: ' . $e->getMessage());
+            $this->addError('selectedItems', 'Ocorreu um erro ao processar a saída: '.$e->getMessage());
         }
     }
 }

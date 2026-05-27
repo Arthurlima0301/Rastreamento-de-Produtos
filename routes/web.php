@@ -1,10 +1,11 @@
 <?php
 
-use App\Http\Controllers\Dispatches\DispatchController;
 use App\Livewire\Clients\ClientCreate;
 use App\Livewire\Clients\ClientEdit;
 use App\Livewire\Clients\ClientIndex;
-use App\Livewire\Dispatches\CreateDispatch;
+use App\Livewire\Dispatches\DispatchCreate;
+use App\Livewire\Dispatches\DispatchIndex;
+use App\Livewire\Dispatches\DispatchShow;
 use App\Livewire\Invoices\InvoiceIndex;
 use App\Livewire\Invoices\InvoiceShow;
 use App\Livewire\Items\ItemIndex;
@@ -33,6 +34,6 @@ Route::get('invoices/{invoice}', InvoiceShow::class)->name('invoices.show');
 Route::get('/items', ItemIndex::class)->name('items.index');
 
 // Dispatch routes
-Route::get('/dispatches', [DispatchController::class, 'index'])->name('dispatches.index');
-Route::get('/dispatches/create', CreateDispatch::class)->name('dispatches.create');
-Route::get('/dispatches/{dispatch}', [DispatchController::class, 'show'])->name('dispatches.show');
+Route::get('/dispatches', DispatchIndex::class)->name('dispatches.index');
+Route::get('/dispatches/create', DispatchCreate::class)->name('dispatches.create');
+Route::get('/dispatches/{dispatch}', DispatchShow::class)->name('dispatches.show');
