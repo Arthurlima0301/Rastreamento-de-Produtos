@@ -1,12 +1,13 @@
 <?php
 
 use App\Http\Controllers\Dispatches\DispatchController;
-use App\Http\Controllers\Invoices\InvoiceController;
 use App\Http\Controllers\Items\ItemController;
 use App\Livewire\Clients\ClientCreate;
 use App\Livewire\Clients\ClientEdit;
 use App\Livewire\Clients\ClientIndex;
 use App\Livewire\Dispatches\CreateDispatch;
+use App\Livewire\Invoices\InvoiceIndex;
+use App\Livewire\Invoices\InvoiceShow;
 use App\Livewire\Supplies\SupplyCreate;
 use App\Livewire\Supplies\SupplyEdit;
 use App\Livewire\Supplies\SupplyIndex;
@@ -25,9 +26,8 @@ Route::get('/supplies/{supply}', SupplyShow::class)->name('supplies.show');
 Route::get('/supplies/{supply}/edit', SupplyEdit::class)->name('supplies.edit');
 
 // Invoice routes
-Route::get('/invoices', [InvoiceController::class, 'index'])->name('invoices.index');
-Route::post('invoices/import', [InvoiceController::class, 'import'])->name('invoices.import');
-Route::get('invoices/{invoice}', [InvoiceController::class, 'show'])->name('invoices.show');
+Route::get('/invoices', InvoiceIndex::class)->name('invoices.index');
+Route::get('invoices/{invoice}', InvoiceShow::class)->name('invoices.show');
 
 // Item routes
 Route::get('/items', [ItemController::class, 'index'])->name('items.index');

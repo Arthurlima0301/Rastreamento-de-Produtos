@@ -2,9 +2,11 @@
 
 namespace Tests\Feature;
 
+use App\Livewire\Invoices\InvoiceImportForm;
 use App\Models\Supply;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\UploadedFile;
+use Livewire\Livewire;
 use Tests\TestCase;
 
 class ImportXMLTest extends TestCase
@@ -18,18 +20,12 @@ class ImportXMLTest extends TestCase
     {
         Supply::factory()->create(['supply_code' => '1001']);
 
-        $response = $this->post('invoices/import', [
-            'xml_file' => new UploadedFile(
-                base_path('tests/Fixtures/nota_fiscal_valida.xml'),
-                'nota_fiscal_valida.xml',
-                'text/xml',
-                null,
-                true
-            ),
-        ]);
+        Livewire::test(InvoiceImportForm::class)
+            ->set('xml_file', $this->xmlUpload('nota_fiscal_valida.xml'))
+            ->call('import')
+            ->assertRedirect(route('invoices.index'));
 
-        $response->assertRedirect(route('invoices.index'));
-        $response->assertSessionHas('success');
+        $this->assertDatabaseHas('invoices', ['invoice_code' => '367935']);
     }
 
     /*
@@ -37,18 +33,10 @@ class ImportXMLTest extends TestCase
     */
     public function test_do_not_import_invalid_xml()
     {
-        $response = $this->from(route('invoices.index'))->post('invoices/import', [
-            'xml_file' => new UploadedFile(
-                base_path('tests/Fixtures/nota_fiscal_invalida.xml'),
-                'nota_fiscal_invalida.xml',
-                'text/xml',
-                null,
-                true
-            ),
-        ]);
-
-        $response->assertRedirect(route('invoices.index'));
-        $response->assertSessionHasErrors('xml_file');
+        Livewire::test(InvoiceImportForm::class)
+            ->set('xml_file', $this->xmlUpload('nota_fiscal_invalida.xml'))
+            ->call('import')
+            ->assertHasErrors('xml_file');
     }
 
     /**
@@ -58,28 +46,14 @@ class ImportXMLTest extends TestCase
     {
         Supply::factory()->create(['supply_code' => '1001']);
 
-        $this->post('invoices/import', [
-            'xml_file' => new UploadedFile(
-                base_path('tests/Fixtures/nota_fiscal_valida.xml'),
-                'nota_fiscal_valida.xml',
-                'text/xml',
-                null,
-                true
-            ),
-        ]);
+        Livewire::test(InvoiceImportForm::class)
+            ->set('xml_file', $this->xmlUpload('nota_fiscal_valida.xml'))
+            ->call('import');
 
-        $response = $this->from(route('invoices.index'))->post('invoices/import', [
-            'xml_file' => new UploadedFile(
-                base_path('tests/Fixtures/nota_fiscal_valida.xml'),
-                'nota_fiscal_valida.xml',
-                'text/xml',
-                null,
-                true
-            ),
-        ]);
-
-        $response->assertRedirect(route('invoices.index'));
-        $response->assertSessionHasErrors('xml_file');
+        Livewire::test(InvoiceImportForm::class)
+            ->set('xml_file', $this->xmlUpload('nota_fiscal_valida.xml'))
+            ->call('import')
+            ->assertHasErrors('xml_file');
     }
 
     /**
@@ -87,17 +61,17 @@ class ImportXMLTest extends TestCase
      */
     public function test_do_not_import_xml_if_product_code_is_not_registered()
     {
-        $response = $this->from(route('invoices.index'))->post('invoices/import', [
-            'xml_file' => new UploadedFile(
-                base_path('tests/Fixtures/nota_fiscal_valida.xml'),
-                'nota_fiscal_valida.xml',
-                'text/xml',
-                null,
-                true
-            ),
-        ]);
+        Livewire::test(InvoiceImportForm::class)
+            ->set('xml_file', $this->xmlUpload('nota_fiscal_valida.xml'))
+            ->call('import')
+            ->assertHasErrors('xml_file');
+    }
 
-        $response->assertRedirect(route('invoices.index'));
-        $response->assertSessionHasErrors('xml_file');
+    private function xmlUpload(string $filename): UploadedFile
+    {
+        return UploadedFile::fake()->createWithContent(
+            $filename,
+            file_get_contents(base_path("tests/Fixtures/{$filename}"))
+        );
     }
 }

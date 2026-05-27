@@ -1,9 +1,5 @@
-@extends('Layout.layout')
-
-@section('title', 'Nota Fiscal - Detalhes')
-
-@section('content')
-    <x-error-message></x-error-message>
+<div class="w-full">
+    <x-error-message />
 
     <x-card title="Detalhes da Nota Fiscal">
         <x-slot name="slot">
@@ -32,4 +28,4 @@
             @endforeach
         </x-slot:rows>
     </x-table>
-@endsection
+</div>
