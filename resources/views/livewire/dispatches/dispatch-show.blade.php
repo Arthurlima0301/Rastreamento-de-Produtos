@@ -18,14 +18,14 @@
         </x-slot:header>
 
         <x-slot:rows>
-            @foreach ($dispatch->items as $dispatchItem)
+            @foreach ($dispatch->dispatchItems as $dispatchItem)
                 <flux:table.row>
                     <flux:table.cell align="center">{{ $dispatchItem->formatted_quantity }}</flux:table.cell>
-                    <flux:table.cell align="center">{{ $dispatchItem->item->supply->unit_of_measure }}</flux:table.cell>
-                    <flux:table.cell align="center">{{ $dispatchItem->item->supply->supply_code }}</flux:table.cell>
-                    <flux:table.cell align="center">{{ $dispatchItem->item->supply->name }}</flux:table.cell>
-                    <flux:table.cell align="center">{{ $dispatchItem->item->invoice->formatted_invoice_code }}</flux:table.cell>
-                    <flux:table.cell align="center">{{ $dispatchItem->item->number }}</flux:table.cell>
+                    <flux:table.cell align="center">{{ $dispatchItem->supplyItem->supply->unit_of_measure }}</flux:table.cell>
+                    <flux:table.cell align="center">{{ $dispatchItem->supplyItem->supply->supply_code }}</flux:table.cell>
+                    <flux:table.cell align="center">{{ $dispatchItem->supplyItem->supply->name }}</flux:table.cell>
+                    <flux:table.cell align="center">{{ $dispatchItem->supplyItem->supplyInvoice->formatted_supply_invoice_code }}</flux:table.cell>
+                    <flux:table.cell align="center">{{ $dispatchItem->supplyItem->number }}</flux:table.cell>
                 </flux:table.row>
             @endforeach
         </x-slot:rows>

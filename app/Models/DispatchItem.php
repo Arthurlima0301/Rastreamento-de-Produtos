@@ -26,7 +26,7 @@ class DispatchItem extends Model
      */
     protected $fillable = [
         'dispatch_id',
-        'item_id',
+        'supply_item_id',
         'quantity',
     ];
 
@@ -47,10 +47,10 @@ class DispatchItem extends Model
     }
 
     /**
-     * Get the item that owns the dispatch item.
+     * Get the supply item that owns the dispatch item.
      */
-    public function item(): BelongsTo
+    public function supplyItem(): BelongsTo
     {
-        return $this->belongsTo(Item::class, 'item_id');
+        return $this->belongsTo(SupplyItem::class, 'supply_item_id');
     }
 }

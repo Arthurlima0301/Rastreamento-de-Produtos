@@ -37,9 +37,9 @@ class Dispatch extends Model
     }
 
     /**
-     * Get the items for the dispatch.
+     * Get the dispatch items for the dispatch.
      */
-    public function items(): HasMany
+    public function dispatchItems(): HasMany
     {
         return $this->hasMany(DispatchItem::class, 'dispatch_id');
     }

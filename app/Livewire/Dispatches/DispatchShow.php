@@ -20,7 +20,7 @@ class DispatchShow extends Component
 
     public function render()
     {
-        $dispatch = Dispatch::with('items.item.supply', 'items.item.invoice')
+        $dispatch = Dispatch::with('dispatchItems.supplyItem.supply', 'dispatchItems.supplyItem.supplyInvoice')
             ->findOrFail($this->dispatchId);
 
         return view('livewire.dispatches.dispatch-show', compact('dispatch'));

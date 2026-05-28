@@ -5,13 +5,13 @@ namespace Tests\Feature;
 use App\Livewire\Clients\ClientTable;
 use App\Livewire\Dispatches\DispatchCreate;
 use App\Livewire\Dispatches\DispatchTable;
-use App\Livewire\Invoices\InvoiceTable;
-use App\Livewire\Items\ItemTable;
+use App\Livewire\SupplyInvoices\SupplyInvoiceTable;
+use App\Livewire\SupplyItems\SupplyItemTable;
 use App\Livewire\Supplies\SupplyTable;
 use App\Models\Client;
 use App\Models\Dispatch;
-use App\Models\Invoice;
-use App\Models\Item;
+use App\Models\SupplyInvoice;
+use App\Models\SupplyItem;
 use App\Models\Supply;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Livewire\Livewire;
@@ -57,7 +57,7 @@ class LivewireSearchTest extends TestCase
             ->assertDontSee('XYZ123');
     }
 
-    public function test_filter_items_by_search_prefix(): void
+    public function test_filter_supply_items_by_search_prefix(): void
     {
         $matchedSupply = Supply::factory()->create([
             'supply_code' => 'SUP100',
@@ -69,49 +69,49 @@ class LivewireSearchTest extends TestCase
             'name' => 'Cal',
         ]);
 
-        Item::factory()->create([
+        SupplyItem::factory()->create([
             'number' => 10,
             'supply_id' => $matchedSupply->id,
         ]);
 
-        Item::factory()->create([
+        SupplyItem::factory()->create([
             'number' => 20,
             'supply_id' => $otherSupply->id,
         ]);
 
-        Livewire::test(ItemTable::class)
+        Livewire::test(SupplyItemTable::class)
             ->set('search', 'Bri')
             ->assertSee('Brita')
             ->assertDontSee('Cal');
     }
 
-    public function test_filter_invoices_by_search_prefix(): void
+    public function test_filter_supply_invoices_by_search_prefix(): void
     {
-        Invoice::factory()->create([
-            'invoice_code' => '999100',
+        SupplyInvoice::factory()->create([
+            'supply_invoice_code' => '999100',
         ]);
 
-        Invoice::factory()->create([
-            'invoice_code' => '999200',
+        SupplyInvoice::factory()->create([
+            'supply_invoice_code' => '999200',
         ]);
 
-        Livewire::test(InvoiceTable::class)
+        Livewire::test(SupplyInvoiceTable::class)
             ->set('search', '9991')
             ->assertSee('999.100')
             ->assertDontSee('999.200');
     }
 
-    public function test_filter_invoices_by_formatted_numeric_code_prefix(): void
+    public function test_filter_supply_invoices_by_formatted_numeric_code_prefix(): void
     {
-        Invoice::factory()->create([
-            'invoice_code' => '1234',
+        SupplyInvoice::factory()->create([
+            'supply_invoice_code' => '1234',
         ]);
 
-        Invoice::factory()->create([
-            'invoice_code' => '2234',
+        SupplyInvoice::factory()->create([
+            'supply_invoice_code' => '2234',
         ]);
 
-        Livewire::test(InvoiceTable::class)
+        Livewire::test(SupplyInvoiceTable::class)
             ->set('search', '1.234')
             ->assertSee('1.234')
             ->assertDontSee('2.234');
@@ -133,7 +133,7 @@ class LivewireSearchTest extends TestCase
             ->assertDontSee('NF200');
     }
 
-    public function test_filter_dispatch_creation_items_by_search_prefix(): void
+    public function test_filter_dispatch_creation_supply_items_by_search_prefix(): void
     {
         $matchedSupply = Supply::factory()->create([
             'supply_code' => 'SUP100',
@@ -145,12 +145,12 @@ class LivewireSearchTest extends TestCase
             'name' => 'Cal',
         ]);
 
-        Item::factory()->create([
+        SupplyItem::factory()->create([
             'number' => 10,
             'supply_id' => $matchedSupply->id,
         ]);
 
-        Item::factory()->create([
+        SupplyItem::factory()->create([
             'number' => 20,
             'supply_id' => $otherSupply->id,
         ]);

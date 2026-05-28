@@ -34,12 +34,12 @@ class Supply extends Model
     }
 
     /**
-     * Get the items associated with the supply.
+     * Get the supply items associated with the supply.
      */
 
-    public function items()
+    public function supplyItems()
     {
-        return $this->hasMany(Item::class, 'supply_id');
+        return $this->hasMany(SupplyItem::class, 'supply_id');
     }
 
     /**
