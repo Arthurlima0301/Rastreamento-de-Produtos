@@ -22,7 +22,7 @@
                         placeholder="Quantidade" />
 
                     <x-button variant="ghost" icon="x-mark" class="p-4"
-                        wire:click="removeItem({{ $supplyItem['id'] }})" />
+                        wire:click="removeSupplyItem({{ $supplyItem['id'] }})" />
                 </div>
             @endforeach
 
