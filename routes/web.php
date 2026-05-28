@@ -6,9 +6,9 @@ use App\Livewire\Clients\ClientIndex;
 use App\Livewire\Dispatches\DispatchCreate;
 use App\Livewire\Dispatches\DispatchIndex;
 use App\Livewire\Dispatches\DispatchShow;
-use App\Livewire\Invoices\InvoiceIndex;
-use App\Livewire\Invoices\InvoiceShow;
-use App\Livewire\Items\ItemIndex;
+use App\Livewire\SupplyInvoices\SupplyInvoiceIndex;
+use App\Livewire\SupplyInvoices\SupplyInvoiceShow;
+use App\Livewire\SupplyItems\SupplyItemIndex;
 use App\Livewire\Supplies\SupplyCreate;
 use App\Livewire\Supplies\SupplyEdit;
 use App\Livewire\Supplies\SupplyIndex;
@@ -26,12 +26,12 @@ Route::get('/supplies/create', SupplyCreate::class)->name('supplies.create');
 Route::get('/supplies/{supply}', SupplyShow::class)->name('supplies.show');
 Route::get('/supplies/{supply}/edit', SupplyEdit::class)->name('supplies.edit');
 
-// Invoice routes
-Route::get('/invoices', InvoiceIndex::class)->name('invoices.index');
-Route::get('invoices/{invoice}', InvoiceShow::class)->name('invoices.show');
+// Supply invoice routes
+Route::get('/supply-invoices', SupplyInvoiceIndex::class)->name('supply-invoices.index');
+Route::get('supply-invoices/{supplyInvoice}', SupplyInvoiceShow::class)->name('supply-invoices.show');
 
-// Item routes
-Route::get('/items', ItemIndex::class)->name('items.index');
+// Supply item routes
+Route::get('/supply-items', SupplyItemIndex::class)->name('supply-items.index');
 
 // Dispatch routes
 Route::get('/dispatches', DispatchIndex::class)->name('dispatches.index');

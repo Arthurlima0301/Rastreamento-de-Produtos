@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Livewire\Invoices;
+namespace App\Livewire\SupplyInvoices;
 
-use App\Models\Invoice;
+use App\Models\SupplyInvoice;
 use Livewire\Component;
 use Livewire\WithPagination;
 
-class InvoiceTable extends Component
+class SupplyInvoiceTable extends Component
 {
     use WithPagination;
 
@@ -20,12 +20,12 @@ class InvoiceTable extends Component
             'parameter' => 'in:asc,desc',
         ]);
 
-        $invoices = Invoice::query()
-            ->searchByInvoiceCode($this->search)
+        $supplyInvoices = SupplyInvoice::query()
+            ->searchBySupplyInvoiceCode($this->search)
             ->orderBy('issued_at', $this->parameter)
-            ->withCount('items')
+            ->withCount('supplyItems')
             ->paginate(50);
 
-        return view('livewire.invoices.invoice-table', compact('invoices'));
+        return view('livewire.supply-invoices.supply-invoice-table', compact('supplyInvoices'));
     }
 }

@@ -27,7 +27,7 @@ class SupplyTable extends Component
     {
         $supply = Supply::findOrFail($supplyId);
 
-        if ($supply->items()->exists()) {
+        if ($supply->supplyItems()->exists()) {
             return redirect()->route('supplies.index')->with('error', 'Não é possível deletar um insumo que possui itens associados.');
         }
 

@@ -2,21 +2,21 @@
 
 namespace Database\Factories;
 
-use App\Models\Invoice;
-use App\Models\Item;
+use App\Models\SupplyInvoice;
+use App\Models\SupplyItem;
 use App\Models\Supply;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends Factory<Item>
+ * @extends Factory<SupplyItem>
  */
-class ItemFactory extends Factory
+class SupplyItemFactory extends Factory
 {
     public function definition(): array
     {
         return [
             'number' => fake()->numberBetween(1, 999),
-            'invoice_id' => Invoice::factory(),
+            'supply_invoice_id' => SupplyInvoice::factory(),
             'supply_id' => Supply::factory(),
             'quantity' => fake()->numberBetween(1, 500),
         ];

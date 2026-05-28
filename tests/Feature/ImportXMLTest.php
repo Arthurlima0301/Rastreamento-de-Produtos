@@ -2,7 +2,7 @@
 
 namespace Tests\Feature;
 
-use App\Livewire\Invoices\InvoiceImportForm;
+use App\Livewire\SupplyInvoices\SupplyInvoiceImportForm;
 use App\Models\Supply;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\UploadedFile;
@@ -20,12 +20,12 @@ class ImportXMLTest extends TestCase
     {
         Supply::factory()->create(['supply_code' => '1001']);
 
-        Livewire::test(InvoiceImportForm::class)
+        Livewire::test(SupplyInvoiceImportForm::class)
             ->set('xml_file', $this->xmlUpload('nota_fiscal_valida.xml'))
             ->call('import')
-            ->assertRedirect(route('invoices.index'));
+            ->assertRedirect(route('supply-invoices.index'));
 
-        $this->assertDatabaseHas('invoices', ['invoice_code' => '367935']);
+        $this->assertDatabaseHas('supply_invoices', ['supply_invoice_code' => '367935']);
     }
 
     /*
@@ -33,7 +33,7 @@ class ImportXMLTest extends TestCase
     */
     public function test_do_not_import_invalid_xml()
     {
-        Livewire::test(InvoiceImportForm::class)
+        Livewire::test(SupplyInvoiceImportForm::class)
             ->set('xml_file', $this->xmlUpload('nota_fiscal_invalida.xml'))
             ->call('import')
             ->assertHasErrors('xml_file');
@@ -46,22 +46,22 @@ class ImportXMLTest extends TestCase
     {
         Supply::factory()->create(['supply_code' => '1001']);
 
-        Livewire::test(InvoiceImportForm::class)
+        Livewire::test(SupplyInvoiceImportForm::class)
             ->set('xml_file', $this->xmlUpload('nota_fiscal_valida.xml'))
             ->call('import');
 
-        Livewire::test(InvoiceImportForm::class)
+        Livewire::test(SupplyInvoiceImportForm::class)
             ->set('xml_file', $this->xmlUpload('nota_fiscal_valida.xml'))
             ->call('import')
             ->assertHasErrors('xml_file');
     }
 
     /**
-     * Test that XML is not imported if the item product code is not registered.
+     * Test that XML is not imported if the supply item product code is not registered.
      */
     public function test_do_not_import_xml_if_product_code_is_not_registered()
     {
-        Livewire::test(InvoiceImportForm::class)
+        Livewire::test(SupplyInvoiceImportForm::class)
             ->set('xml_file', $this->xmlUpload('nota_fiscal_valida.xml'))
             ->call('import')
             ->assertHasErrors('xml_file');

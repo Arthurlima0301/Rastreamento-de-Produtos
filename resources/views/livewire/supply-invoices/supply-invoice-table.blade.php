@@ -1,7 +1,7 @@
 <div class="w-full space-y-4">
     <x-search-input />
 
-    <x-table :paginate="$invoices">
+    <x-table :paginate="$supplyInvoices">
         <x-slot:header>
             <flux:table.column align="center">ID</flux:table.column>
             <flux:table.column align="center">Código da Nota</flux:table.column>
@@ -20,14 +20,14 @@
         </x-slot:header>
 
         <x-slot:rows>
-            @foreach ($invoices as $invoice)
-                <flux:table.row wire:key="invoice-{{ $invoice->id }}">
-                    <flux:table.cell align="center">{{ $invoice->id }}</flux:table.cell>
-                    <flux:table.cell align="center">{{ $invoice->formatted_invoice_code }}</flux:table.cell>
-                    <flux:table.cell align="center">{{ $invoice->formatted_issued_at }}</flux:table.cell>
-                    <flux:table.cell align="center">{{ $invoice->items_count }}</flux:table.cell>
+            @foreach ($supplyInvoices as $supplyInvoice)
+                <flux:table.row wire:key="supply-invoice-{{ $supplyInvoice->id }}">
+                    <flux:table.cell align="center">{{ $supplyInvoice->id }}</flux:table.cell>
+                    <flux:table.cell align="center">{{ $supplyInvoice->formatted_supply_invoice_code }}</flux:table.cell>
+                    <flux:table.cell align="center">{{ $supplyInvoice->formatted_issued_at }}</flux:table.cell>
+                    <flux:table.cell align="center">{{ $supplyInvoice->supply_items_count }}</flux:table.cell>
                     <flux:table.cell align="center">
-                        <x-button href="{{ route('invoices.show', $invoice->id) }}" variant="ghost" icon="eye" />
+                        <x-button href="{{ route('supply-invoices.show', $supplyInvoice->id) }}" variant="ghost" icon="eye" />
                     </flux:table.cell>
                 </flux:table.row>
             @endforeach

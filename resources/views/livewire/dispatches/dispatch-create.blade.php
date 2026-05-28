@@ -5,7 +5,7 @@
         <div class="">
             <x-search-input />
 
-            <x-table :paginate="$items">
+            <x-table :paginate="$supplyItems">
                 <x-slot:header>
                     <flux:table.column align="center">Código</flux:table.column>
                     <flux:table.column align="center">Descrição</flux:table.column>
@@ -19,18 +19,18 @@
                 </x-slot:header>
 
                 <x-slot:rows>
-                    @foreach ($items as $item)
-                        <flux:table.row wire:key="dispatch-item-{{ $item->id }}">
-                            <flux:table.cell align="center">{{ $item->supply->supply_code }}</flux:table.cell>
-                            <flux:table.cell align="center">{{ $item->supply->name }}</flux:table.cell>
-                            <flux:table.cell align="center">{{ $item->number }}</flux:table.cell>
-                            <flux:table.cell align="center">{{ $item->supply->unit_of_measure }}</flux:table.cell>
-                            <flux:table.cell align="center">{{ $item->formatted_quantity }}</flux:table.cell>
-                            <flux:table.cell align="center">{{ $item->invoice->formatted_invoice_code }}</flux:table.cell>
-                            <flux:table.cell align="center">{{ $item->invoice->formatted_issued_at }}</flux:table.cell>
-                            <flux:table.cell align="center">{{ $item->formatted_balance }}</flux:table.cell>
+                    @foreach ($supplyItems as $supplyItem)
+                        <flux:table.row wire:key="dispatch-supply-item-{{ $supplyItem->id }}">
+                            <flux:table.cell align="center">{{ $supplyItem->supply->supply_code }}</flux:table.cell>
+                            <flux:table.cell align="center">{{ $supplyItem->supply->name }}</flux:table.cell>
+                            <flux:table.cell align="center">{{ $supplyItem->number }}</flux:table.cell>
+                            <flux:table.cell align="center">{{ $supplyItem->supply->unit_of_measure }}</flux:table.cell>
+                            <flux:table.cell align="center">{{ $supplyItem->formatted_quantity }}</flux:table.cell>
+                            <flux:table.cell align="center">{{ $supplyItem->supplyInvoice->formatted_supply_invoice_code }}</flux:table.cell>
+                            <flux:table.cell align="center">{{ $supplyItem->supplyInvoice->formatted_issued_at }}</flux:table.cell>
+                            <flux:table.cell align="center">{{ $supplyItem->formatted_balance }}</flux:table.cell>
                             <flux:table.cell align="center">
-                                <x-dispatches.select-item-button :item-id="$item->id" :supply-name="$item->supply->name" />
+                                <x-dispatches.select-supply-item-button :supply-item-id="$supplyItem->id" :supply-name="$supplyItem->supply->name" />
                             </flux:table.cell>
                         </flux:table.row>
                     @endforeach
@@ -38,6 +38,6 @@
             </x-table>
         </div>
 
-        <livewire:dispatches.selected-items-list :key="'dispatch-selected-items-list'" />
+        <livewire:dispatches.selected-supply-items-list :key="'dispatch-selected-supply-items-list'" />
     </section>
 </div>
