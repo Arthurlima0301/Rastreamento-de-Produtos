@@ -2,7 +2,7 @@
     'title',
 ])
 
-<flux:card {{ $attributes->class('w-full') }}>
+<flux:card {{ $attributes->class('w-full mb-3') }}>
     <div class="flex items-center justify-between gap-4">
         <div class="flex items-center gap-3">
             
