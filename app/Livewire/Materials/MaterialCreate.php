@@ -14,7 +14,7 @@ class MaterialCreate extends Component
 {
     public Order $order;
 
-    public int $inputMaterial = 0;
+    public int $inputMaterial = 1;
 
     public array $materials = [];
 
@@ -88,7 +88,7 @@ class MaterialCreate extends Component
             'materials.*.width' => 'required|numeric',
             'materials.*.length' => 'required|numeric',
             'materials.*.sheets' => 'required|integer',
-            'materials.*.grammage' => 'required|numeric',
+            'materials.*.grammage' => 'required|numeric|max:999.99',
             'materials.*.expedition_code' => 'required|string|unique:materials,expedition_code',
             'materials.*.paper' => 'required|string',
             'materials.*.return_batch' => 'required|string',
@@ -113,6 +113,7 @@ class MaterialCreate extends Component
             'materials.*.length.required' => 'O campo "Comprimento" é obrigatório.',
             'materials.*.sheets.required' => 'O campo "Folhas" é obrigatório.',
             'materials.*.grammage.required' => 'O campo "Gramatura" é obrigatório.',
+            'materials.*.grammage.max' => 'O campo "Gramatura" não pode ser maior que 999.99.',
             'materials.*.expedition_code.required' => 'O campo "Código de Expedição" é obrigatório.',
             'materials.*.expedition_code.unique' => 'O código de expedição já existe.',
             'materials.*.paper.required' => 'O campo "Papel" é obrigatório.',
