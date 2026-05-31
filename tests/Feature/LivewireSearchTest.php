@@ -5,14 +5,16 @@ namespace Tests\Feature;
 use App\Livewire\Clients\ClientTable;
 use App\Livewire\Dispatches\DispatchCreate;
 use App\Livewire\Dispatches\DispatchTable;
+use App\Livewire\Orders\OrderTable;
+use App\Livewire\Supplies\SupplyTable;
 use App\Livewire\SupplyInvoices\SupplyInvoiceTable;
 use App\Livewire\SupplyItems\SupplyItemTable;
-use App\Livewire\Supplies\SupplyTable;
 use App\Models\Client;
 use App\Models\Dispatch;
+use App\Models\Order;
+use App\Models\Supply;
 use App\Models\SupplyInvoice;
 use App\Models\SupplyItem;
-use App\Models\Supply;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Livewire\Livewire;
 use Tests\TestCase;
@@ -131,6 +133,22 @@ class LivewireSearchTest extends TestCase
             ->set('search', 'NF1')
             ->assertSee('NF100')
             ->assertDontSee('NF200');
+    }
+
+    public function test_filter_orders_by_search_prefix(): void
+    {
+        Order::factory()->create([
+            'order_code' => 'CUT100',
+        ]);
+
+        Order::factory()->create([
+            'order_code' => 'CUT200',
+        ]);
+
+        Livewire::test(OrderTable::class)
+            ->set('search', 'CUT1')
+            ->assertSee('CUT100')
+            ->assertDontSee('CUT200');
     }
 
     public function test_filter_dispatch_creation_supply_items_by_search_prefix(): void
