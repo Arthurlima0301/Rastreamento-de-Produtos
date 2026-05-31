@@ -10,7 +10,7 @@
 
 
 
-    <flux:card class=" overflow-y-auto">
+    <flux:card  >
 
         <div class="flex items-center justify-between gap-6 mb-4">
             <div class="flex items-center gap-4">
@@ -23,37 +23,57 @@
             </x-button>
         </div>
 
-        <form wire:submit.prevent="saveAll" class="h-[65vh]">
+        <form wire:submit.prevent="saveAll">
             @if ($errors->any())
                 <p class="text-red-500 text-sm my-4">
                     {{ $errors->first() }}
                 </p>
             @endif
 
-            @for ($i = 0; $i < $inputMaterial; $i++)
-                <div class="flex items-center gap-2 mb-4" wire:key="materials-{{ $i }}">
-                    <x-input wire:model="materials.{{ $i }}.item_number" />
-                    <x-input wire:model="materials.{{ $i }}.shipment_code" />
-                    <x-input wire:model="materials.{{ $i }}.roll" />
-                    <x-input wire:model="materials.{{ $i }}.width" />
-                    <x-input wire:model="materials.{{ $i }}.length" />
-                    <x-input wire:model="materials.{{ $i }}.sheets" />
-                    <x-input wire:model="materials.{{ $i }}.grammage" />
-                    <x-input wire:model="materials.{{ $i }}.expedition_code" />
-                    <x-input wire:model="materials.{{ $i }}.paper" />
-                    <x-input wire:model="materials.{{ $i }}.return_batch" />
-                    <x-input wire:model="materials.{{ $i }}.packages" />
-                    <x-input wire:model="materials.{{ $i }}.package_net_weight" />
-                    <x-input wire:model="materials.{{ $i }}.package_gross_weight" />
 
-                    <x-button type="button" wire:click="removeMaterialInput({{ $i }})" variant="ghost"
-                        size="sm" icon="x-mark" />
+            <div class="min-w-auto overflow-x-auto">
+                <div
+                    class="grid grid-cols-[4rem_7rem_4rem_5rem_8rem_5rem_6rem_8rem_10rem_7rem_5rem_7rem_8rem_2.5rem] gap-2 mb-2 text-xs">
+                    <span>Item</span>
+                    <span>Cod. Envio</span>
+                    <span>Rolo</span>
+                    <span>Largura</span>
+                    <span>Comprimento</span>
+                    <span>Folhas</span>
+                    <span>Gramatura</span>
+                    <span>Cod. Expedicao</span>
+                    <span>Papel</span>
+                    <span>Lote Retorno</span>
+                    <span>Pacotes</span>
+                    <span>Peso Liq. P</span>
+                    <span>Peso Bruto P</span>
+                    <span></span>
                 </div>
-            @endfor
 
-            <x-button type="submit" variant="primary" class="w-full mt-4">
-                Salvar Materiais
-            </x-button>
+                @for ($i = 0; $i < $inputMaterial; $i++)
+                    <div class="grid grid-cols-[4rem_7rem_4rem_5rem_8rem_5rem_6rem_8rem_10rem_7rem_5rem_7rem_8rem_2.5rem] items-start gap-2 mb-4"
+                        wire:key="materials-{{ $i }}">
+                        <x-input wire:model="materials.{{ $i }}.item_number" placeholder="Item" />
+                        <x-input wire:model="materials.{{ $i }}.shipment_code" placeholder="Cod. Envio" />
+                        <x-input wire:model="materials.{{ $i }}.roll" placeholder="Rolo" />
+                        <x-input wire:model="materials.{{ $i }}.width" placeholder="Largura" />
+                        <x-input wire:model="materials.{{ $i }}.length" placeholder="Comprimento" />
+                        <x-input wire:model="materials.{{ $i }}.sheets" placeholder="Folhas" />
+                        <x-input wire:model="materials.{{ $i }}.grammage" placeholder="Gramatura" />
+                        <x-input wire:model="materials.{{ $i }}.expedition_code" placeholder="Cod. Expedicao" />
+                        <x-input wire:model="materials.{{ $i }}.paper" placeholder="Papel" />
+                        <x-input wire:model="materials.{{ $i }}.return_batch" placeholder="Lote Retorno" />
+                        <x-input wire:model="materials.{{ $i }}.packages" placeholder="Pacotes" />
+                        <x-input wire:model="materials.{{ $i }}.package_net_weight" placeholder="Peso Liq. P" />
+                        <x-input wire:model="materials.{{ $i }}.package_gross_weight" placeholder="Peso Bruto P" />
+
+                        <x-button type="button" wire:click="removeMaterialInput({{ $i }})" variant="ghost" size="sm" icon="x-mark" />
+                    </div>
+                @endfor
+                <x-button type="submit" variant="primary" class="w-full mt-4">
+                    Salvar Materiais
+                </x-button>
+            </div>
         </form>
     </flux:card>
 </div>
