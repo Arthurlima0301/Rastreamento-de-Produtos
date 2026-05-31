@@ -6,6 +6,7 @@ use App\Livewire\Clients\ClientIndex;
 use App\Livewire\Dispatches\DispatchCreate;
 use App\Livewire\Dispatches\DispatchIndex;
 use App\Livewire\Dispatches\DispatchShow;
+use App\Livewire\Materials\MaterialCreate;
 use App\Livewire\Orders\OrderCreate;
 use App\Livewire\Orders\OrderEdit;
 use App\Livewire\Orders\OrderIndex;
@@ -42,6 +43,7 @@ Route::get('/orders', OrderIndex::class)->name('orders.index');
 Route::get('/orders/create', OrderCreate::class)->name('orders.create');
 Route::get('/orders/{order}', OrderShow::class)->name('orders.show');
 Route::get('/orders/{order}/edit', OrderEdit::class)->name('orders.edit');
+Route::get('/orders/{order}/materials-create', MaterialCreate::class)->name('materials.create');
 
 // Dispatch routes
 Route::get('/dispatches', DispatchIndex::class)->name('dispatches.index');
