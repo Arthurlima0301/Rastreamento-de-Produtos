@@ -6,13 +6,18 @@ use App\Livewire\Clients\ClientIndex;
 use App\Livewire\Dispatches\DispatchCreate;
 use App\Livewire\Dispatches\DispatchIndex;
 use App\Livewire\Dispatches\DispatchShow;
-use App\Livewire\SupplyInvoices\SupplyInvoiceIndex;
-use App\Livewire\SupplyInvoices\SupplyInvoiceShow;
-use App\Livewire\SupplyItems\SupplyItemIndex;
+use App\Livewire\Materials\MaterialCreate;
+use App\Livewire\Orders\OrderCreate;
+use App\Livewire\Orders\OrderEdit;
+use App\Livewire\Orders\OrderIndex;
+use App\Livewire\Orders\OrderShow;
 use App\Livewire\Supplies\SupplyCreate;
 use App\Livewire\Supplies\SupplyEdit;
 use App\Livewire\Supplies\SupplyIndex;
 use App\Livewire\Supplies\SupplyShow;
+use App\Livewire\SupplyInvoices\SupplyInvoiceIndex;
+use App\Livewire\SupplyInvoices\SupplyInvoiceShow;
+use App\Livewire\SupplyItems\SupplyItemIndex;
 use Illuminate\Support\Facades\Route;
 
 // Client routes
@@ -32,6 +37,13 @@ Route::get('supply-invoices/{supplyInvoice}', SupplyInvoiceShow::class)->name('s
 
 // Supply item routes
 Route::get('/supply-items', SupplyItemIndex::class)->name('supply-items.index');
+
+// Order routes
+Route::get('/orders', OrderIndex::class)->name('orders.index');
+Route::get('/orders/create', OrderCreate::class)->name('orders.create');
+Route::get('/orders/{order}', OrderShow::class)->name('orders.show');
+Route::get('/orders/{order}/edit', OrderEdit::class)->name('orders.edit');
+Route::get('/orders/{order}/materials-create', MaterialCreate::class)->name('materials.create');
 
 // Dispatch routes
 Route::get('/dispatches', DispatchIndex::class)->name('dispatches.index');
