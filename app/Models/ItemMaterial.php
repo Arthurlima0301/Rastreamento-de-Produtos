@@ -16,18 +16,45 @@ class ItemMaterial extends Model
         'number',
         'material_id',
         'material_invoice_id',
+        'total_weight',
     ];
 
+    /**
+     * Get Formatted Total Weight Attribute
+     */
+    public function getFormattedTotalWeightAttribute(): string
+    {
+        return number_format((float) $this->total_weight, 2, ',', '.');
+    }
+
+    /**
+     * Get the material associated with the item material.
+     */
     public function material(): BelongsTo
     {
         return $this->belongsTo(Material::class, 'material_id');
     }
 
+    /**
+     * Get the material invoice associated with the item material.
+     */
     public function materialInvoice(): BelongsTo
     {
         return $this->belongsTo(MaterialInvoice::class, 'material_invoice_id');
     }
 
+    /**
+     * Get the rolls associated with the item material.
+     */
+    public function rolls()
+    {
+        return $this->hasMany(Roll::class, 'item_material_id');
+    }
+
+
+    /**
+     * Scope a query to search item materials by material paper.
+     */
     public function scopeSearchByMaterialPaper($query, $search)
     {
         $search = trim((string) $search);
