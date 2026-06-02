@@ -3,7 +3,7 @@
         x-data
         variant="success"
         icon="check-circle"
-        class="w-full m-3"
+        class="w-full my-3"
         @click.outside="$el.remove()"
     >
         <flux:callout.text>{{ session('success') }}</flux:callout.text>

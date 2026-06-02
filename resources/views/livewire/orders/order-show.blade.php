@@ -1,17 +1,17 @@
 <div class="w-full">
-    <x-error-message />
-
     <x-card title="Detalhes da Ordem de Corte">
         <x-slot name="slot">
             <div class="flex items-center gap-4">
                 <p><strong>Codigo:</strong> {{ $order->order_code }}</p>
                 <p><strong>Cliente:</strong> {{ $order->client->name }}</p>
                 <p><strong>Quantidade de Materiais:</strong> {{ $order->materials->count() }}</p>
-                <x-button href="{{ route('materials.create', ['order' => $order->id]) }}" variant="primary" icon="plus" size="sm"></x-button>
+                <x-button href="{{ route('materials.create', ['order' => $order->id]) }}" variant="primary" icon="plus"
+                    size="sm"></x-button>
             </div>
         </x-slot>
     </x-card>
 
+    <x-error-message />
     <x-success-message />
 
     <x-table>
