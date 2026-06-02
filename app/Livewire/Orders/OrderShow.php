@@ -40,7 +40,12 @@ class OrderShow extends Component
 
     public function removeMaterial(Material $material): void
     {
-        $material->delete();
+        if (!$material->itemMaterials()->exists()) {
+            $material->delete();
+            session()->flash('success', 'Material removido com sucesso.');
+        } else {
+            session()->flash('error', 'Não é possível remover um material que possui itens associados.');
+        }
 
         $this->activeEdit = 0;
     }
