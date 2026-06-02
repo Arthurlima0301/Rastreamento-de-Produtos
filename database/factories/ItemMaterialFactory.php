@@ -18,6 +18,7 @@ class ItemMaterialFactory extends Factory
             'number' => fake()->numberBetween(1, 999),
             'material_id' => Material::factory(),
             'material_invoice_id' => MaterialInvoice::factory(),
+            'total_weight' => fake()->randomFloat(2, 0, 1000),
         ];
     }
 }

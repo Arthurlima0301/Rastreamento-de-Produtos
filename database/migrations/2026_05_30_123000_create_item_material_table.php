@@ -13,6 +13,7 @@ return new class extends Migration
             $table->integer('number');
             $table->foreignId('material_id')->constrained('materials');
             $table->foreignId('material_invoice_id')->constrained('material_invoice')->cascadeOnDelete();
+            $table->decimal('total_weight', 10, 2)->default(0);
             $table->timestamps();
         });
     }

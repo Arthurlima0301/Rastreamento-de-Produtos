@@ -16,6 +16,7 @@ class ItemMaterialTable extends Component
     {
         $itemMaterials = ItemMaterial::query()
             ->with(['material.order.client', 'materialInvoice'])
+            ->orderBy('created_at', 'desc')
             ->searchByMaterialPaper($this->search)
             ->paginate(50);
 

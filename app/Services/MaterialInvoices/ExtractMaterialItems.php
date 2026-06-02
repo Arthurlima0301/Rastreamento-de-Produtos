@@ -27,6 +27,7 @@ class ExtractMaterialItems
                 'number' => $materialItem['nItem'] ?? $materialItem->nItem,
                 'material_invoice_id' => $materialInvoiceId,
                 'material_id' => $material->id,
+                'total_weight' => (float) ($materialItem->prod->qCom ?? 0),
             ]);
         }
     }
