@@ -6,6 +6,8 @@ use App\Livewire\Clients\ClientIndex;
 use App\Livewire\Dispatches\DispatchCreate;
 use App\Livewire\Dispatches\DispatchIndex;
 use App\Livewire\Dispatches\DispatchShow;
+use App\Livewire\MaterialInvoices\MaterialInvoiceIndex;
+use App\Livewire\MaterialInvoices\MaterialInvoiceShow;
 use App\Livewire\Materials\MaterialCreate;
 use App\Livewire\Orders\OrderCreate;
 use App\Livewire\Orders\OrderEdit;
@@ -37,6 +39,10 @@ Route::get('supply-invoices/{supplyInvoice}', SupplyInvoiceShow::class)->name('s
 
 // Supply item routes
 Route::get('/supply-items', SupplyItemIndex::class)->name('supply-items.index');
+
+// Material invoice routes
+Route::get('/material-invoices', MaterialInvoiceIndex::class)->name('material-invoices.index');
+Route::get('/material-invoices/{materialInvoice}', MaterialInvoiceShow::class)->name('material-invoices.show');
 
 // Order routes
 Route::get('/orders', OrderIndex::class)->name('orders.index');
