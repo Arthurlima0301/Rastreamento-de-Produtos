@@ -7,7 +7,7 @@
         x-data
         variant="danger"
         icon="x-circle"
-        class="w-full m-3"
+        class="w-full my-3"
         @click.outside="$el.remove()"
     >
         <flux:callout.text>{{ $errorMessage }}</flux:callout.text>

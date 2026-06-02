@@ -7,6 +7,10 @@
         </flux:menu.group>
         <flux:menu.group heading="Material e Bobinas">
             <flux:menu.item href="{{ route('orders.index') }}" icon="clipboard">Ordens de Corte</flux:menu.item>
+            <flux:menu.item href="{{ route('material-invoices.index') }}" icon="document-text">Notas Fiscais de Materiais
+            </flux:menu.item>
+            <flux:menu.item href="{{ route('item-materials.index') }}" icon="rectangle-stack">Itens de Material
+            </flux:menu.item>
         </flux:menu.group>
         <flux:menu.group heading="Insumos">
             <flux:menu.item href="{{ route('supply-invoices.index') }}" icon="document-text">Notas Fiscais de Insumos

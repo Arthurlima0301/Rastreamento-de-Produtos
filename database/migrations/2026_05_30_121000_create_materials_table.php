@@ -20,7 +20,7 @@ return new class extends Migration
             $table->decimal('grammage', 6, 2);
             $table->integer('expedition_code')->unique();
             $table->string('paper', 100);
-            $table->integer('return_batch');
+            $table->string('return_batch');
             $table->integer('packages');
             $table->decimal('package_net_weight', 8, 2);
             $table->decimal('package_gross_weight', 8, 2);

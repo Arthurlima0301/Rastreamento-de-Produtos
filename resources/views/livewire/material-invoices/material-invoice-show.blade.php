@@ -1,22 +1,19 @@
 <div class="w-full">
-    <x-card title="Detalhes da Ordem de Corte">
+    <x-error-message />
+
+    <x-card title="Detalhes da Nota Fiscal de Material">
         <x-slot name="slot">
-            <div class="flex items-center gap-4">
-                <p><strong>Codigo:</strong> {{ $order->order_code }}</p>
-                <p><strong>Cliente:</strong> {{ $order->client->name }}</p>
-                <p><strong>Quantidade de Materiais:</strong> {{ $order->materials->count() }}</p>
-                <x-button href="{{ route('materials.create', ['order' => $order->id]) }}" variant="primary" icon="plus"
-                    size="sm"></x-button>
-            </div>
+            <p><strong>Codigo:</strong> {{ $materialInvoice->formatted_invoice_code }}</p>
+            <p><strong>Data de Emissao:</strong> {{ $materialInvoice->formatted_issued_at }}</p>
+            <p><strong>Quantidade de Itens:</strong> {{ $materialInvoice->item_materials_count }}</p>
         </x-slot>
     </x-card>
-
-    <x-error-message />
-    <x-success-message />
 
     <x-table>
         <x-slot:header>
             <flux:table.column align="center">Item</flux:table.column>
+            <flux:table.column align="center">Ordem</flux:table.column>
+            <flux:table.column align="center">Cliente</flux:table.column>
             <flux:table.column align="center">Cod. Envio</flux:table.column>
             <flux:table.column align="center">Rolo</flux:table.column>
             <flux:table.column align="center">Largura</flux:table.column>
@@ -29,13 +26,16 @@
             <flux:table.column align="center">Pacotes</flux:table.column>
             <flux:table.column align="center">Peso Liq. P</flux:table.column>
             <flux:table.column align="center">Peso Bruto P</flux:table.column>
-            <flux:table.column align="center">Acoes</flux:table.column>
         </x-slot:header>
 
         <x-slot:rows>
-            @foreach ($order->materials as $material)
-                <flux:table.row wire:key="material-{{ $material->id }}">
+            @foreach ($materialInvoice->itemMaterials as $itemMaterial)
+                <flux:table.row wire:key="item-material-{{ $itemMaterial->id }}">
+                    @php($material = $itemMaterial->material)
+
                     <flux:table.cell align="center">{{ $material->item_number }}</flux:table.cell>
+                    <flux:table.cell align="center">{{ $material->order->order_code }}</flux:table.cell>
+                    <flux:table.cell align="center">{{ $material->order->client->name }}</flux:table.cell>
                     <flux:table.cell align="center">{{ $material->shipment_code }}</flux:table.cell>
                     <flux:table.cell align="center">{{ $material->roll }}</flux:table.cell>
                     <flux:table.cell align="center">{{ $material->width }}</flux:table.cell>
@@ -48,16 +48,6 @@
                     <flux:table.cell align="center">{{ $material->packages }}</flux:table.cell>
                     <flux:table.cell align="center">{{ $material->formatted_package_net_weight }}</flux:table.cell>
                     <flux:table.cell align="center">{{ $material->formatted_package_gross_weight }}</flux:table.cell>
-                    <flux:table.cell align="center">
-                        @if ($this->activeEdit === $material->id)
-                            <x-button wire:click="removeMaterial({{ $material->id }})" variant="ghost" icon="trash"
-                                size="sm" />
-                            <x-button wire:click="cancelEdit()" variant="ghost" icon="x-mark" size="sm" />
-                        @else
-                            <x-button wire:click="editMaterial({{ $material->id }})" variant="primary" icon="pencil"
-                                size="sm" />
-                        @endif
-                    </flux:table.cell>
                 </flux:table.row>
             @endforeach
         </x-slot:rows>

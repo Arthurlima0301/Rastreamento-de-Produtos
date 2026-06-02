@@ -5,12 +5,17 @@ namespace Tests\Feature;
 use App\Livewire\Clients\ClientTable;
 use App\Livewire\Dispatches\DispatchCreate;
 use App\Livewire\Dispatches\DispatchTable;
+use App\Livewire\ItemMaterials\ItemMaterialTable;
+use App\Livewire\MaterialInvoices\MaterialInvoiceTable;
 use App\Livewire\Orders\OrderTable;
 use App\Livewire\Supplies\SupplyTable;
 use App\Livewire\SupplyInvoices\SupplyInvoiceTable;
 use App\Livewire\SupplyItems\SupplyItemTable;
 use App\Models\Client;
 use App\Models\Dispatch;
+use App\Models\ItemMaterial;
+use App\Models\Material;
+use App\Models\MaterialInvoice;
 use App\Models\Order;
 use App\Models\Supply;
 use App\Models\SupplyInvoice;
@@ -149,6 +154,48 @@ class LivewireSearchTest extends TestCase
             ->set('search', 'CUT1')
             ->assertSee('CUT100')
             ->assertDontSee('CUT200');
+    }
+
+    public function test_filter_material_invoices_by_search_prefix(): void
+    {
+        MaterialInvoice::factory()->create([
+            'invoice_code' => '888100',
+        ]);
+
+        MaterialInvoice::factory()->create([
+            'invoice_code' => '888200',
+        ]);
+
+        Livewire::test(MaterialInvoiceTable::class)
+            ->set('search', '8881')
+            ->assertSee('888.100')
+            ->assertDontSee('888.200');
+    }
+
+    public function test_filter_item_materials_by_search_prefix(): void
+    {
+        $matchedMaterial = Material::factory()->create([
+            'paper' => 'Cartao',
+        ]);
+
+        $otherMaterial = Material::factory()->create([
+            'paper' => 'Offset',
+        ]);
+
+        ItemMaterial::factory()->create([
+            'number' => 10,
+            'material_id' => $matchedMaterial->id,
+        ]);
+
+        ItemMaterial::factory()->create([
+            'number' => 20,
+            'material_id' => $otherMaterial->id,
+        ]);
+
+        Livewire::test(ItemMaterialTable::class)
+            ->set('search', 'Car')
+            ->assertSee('Cartao')
+            ->assertDontSee('Offset');
     }
 
     public function test_filter_dispatch_creation_supply_items_by_search_prefix(): void
