@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class MaterialInvoice extends Model
 {
@@ -34,6 +35,11 @@ class MaterialInvoice extends Model
         }
 
         return number_format((float) $this->invoice_code, 0, '', '.');
+    }
+
+    public function itemMaterials(): HasMany
+    {
+        return $this->hasMany(ItemMaterial::class, 'material_invoice_id');
     }
 
     public function scopeSearchByInvoiceCode($query, $search)
