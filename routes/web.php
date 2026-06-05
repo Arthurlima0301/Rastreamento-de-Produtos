@@ -8,8 +8,6 @@ use App\Livewire\Dispatches\DispatchIndex;
 use App\Livewire\Dispatches\DispatchShow;
 use App\Livewire\ItemMaterials\ItemMaterialIndex;
 use App\Livewire\ItemMaterials\ItemMaterialShow;
-use App\Livewire\Rolls\RollsCreate;
-use App\Livewire\Rolls\RollIndex;
 use App\Livewire\MaterialInvoices\MaterialInvoiceIndex;
 use App\Livewire\MaterialInvoices\MaterialInvoiceShow;
 use App\Livewire\Materials\MaterialCreate;
@@ -17,6 +15,9 @@ use App\Livewire\Orders\OrderCreate;
 use App\Livewire\Orders\OrderEdit;
 use App\Livewire\Orders\OrderIndex;
 use App\Livewire\Orders\OrderShow;
+use App\Livewire\Rolls\RollEdit;
+use App\Livewire\Rolls\RollIndex;
+use App\Livewire\Rolls\RollsCreate;
 use App\Livewire\Supplies\SupplyCreate;
 use App\Livewire\Supplies\SupplyEdit;
 use App\Livewire\Supplies\SupplyIndex;
@@ -53,7 +54,6 @@ Route::get('/item-materials', ItemMaterialIndex::class)->name('item-materials.in
 Route::get('/item-materials/{itemMaterial}', ItemMaterialShow::class)->name('item-materials.show');
 Route::get('/item-materials/{itemMaterial}/roll-create', RollsCreate::class)->name('roll.create');
 
-
 // Order routes
 Route::get('/orders', OrderIndex::class)->name('orders.index');
 Route::get('/orders/create', OrderCreate::class)->name('orders.create');
@@ -63,6 +63,7 @@ Route::get('/orders/{order}/materials-create', MaterialCreate::class)->name('mat
 
 // Rolls Routes
 Route::get('/rolls', RollIndex::class)->name('rolls.index');
+Route::get('/rolls/{roll}/edit', RollEdit::class)->name('rolls.edit');
 
 // Dispatch routes
 Route::get('/dispatches', DispatchIndex::class)->name('dispatches.index');

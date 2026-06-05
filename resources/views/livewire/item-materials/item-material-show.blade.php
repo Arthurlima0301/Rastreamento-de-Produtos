@@ -46,7 +46,10 @@
                     <flux:table.cell align="center">{{ $roll->formatted_weight }}</flux:table.cell>
                     <flux:table.cell align="center">{{ $roll->status }}</flux:table.cell>
                     <flux:table.cell align="center">
-                                <x-button icon="trash" variant="primary" color="red" wire:click="deleteRoll({{ $roll->id }})" />
+                        <div class="flex justify-center gap-2">
+                            <x-button icon="pencil" variant="primary" href="{{ route('rolls.edit', $roll) }}" />
+                            <x-button icon="trash" variant="primary" color="red" wire:click="deleteRoll({{ $roll->id }})" />
+                        </div>
                     </flux:table.cell>
                 </flux:table.row>
             @endforeach

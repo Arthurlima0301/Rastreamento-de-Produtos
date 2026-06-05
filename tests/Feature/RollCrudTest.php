@@ -3,6 +3,7 @@
 namespace Tests\Feature;
 
 use App\Livewire\ItemMaterials\ItemMaterialShow;
+use App\Livewire\Rolls\RollEdit;
 use App\Livewire\Rolls\RollsCreate;
 use App\Models\ItemMaterial;
 use App\Models\Roll;
@@ -82,6 +83,67 @@ class RollCrudTest extends TestCase
 
         $response->assertStatus(200);
         $response->assertSee('Adicionar Bobinas');
+    }
+
+    public function test_access_roll_edit_page(): void
+    {
+        $roll = Roll::factory()->create([
+            'label' => '007202026-0004',
+            'weight' => 100,
+        ]);
+
+        $response = $this->get(route('rolls.edit', $roll));
+
+        $response->assertStatus(200);
+        $response->assertSee('Editar Bobina');
+        $response->assertSee('007202026-0004');
+    }
+
+    public function test_update_roll(): void
+    {
+        $roll = Roll::factory()->create([
+            'label' => '007202026-0004',
+            'weight' => 100,
+            'status' => 'EM_ESTOQUE',
+        ]);
+
+        Livewire::test(RollEdit::class, ['roll' => $roll])
+            ->set('roll_label', '007202027-0005')
+            ->set('roll_weight', 120)
+            ->call('save')
+            ->assertHasNoErrors();
+
+        $this->assertDatabaseHas('rolls', [
+            'id' => $roll->id,
+            'label' => '007202027-0005',
+            'weight' => 120,
+            'status' => 'EM_ESTOQUE',
+        ]);
+    }
+
+    public function test_do_not_update_roll_with_duplicate_label(): void
+    {
+        Roll::factory()->create([
+            'label' => '007202026-0004',
+        ]);
+
+        $roll = Roll::factory()->create([
+            'label' => '007202026-0005',
+            'weight' => 100,
+        ]);
+
+        Livewire::test(RollEdit::class, ['roll' => $roll])
+            ->set('roll_label', '007202026-0004')
+            ->set('roll_weight', 100)
+            ->call('save')
+            ->assertHasErrors([
+                'roll_label' => 'unique',
+            ]);
+
+        $this->assertDatabaseHas('rolls', [
+            'id' => $roll->id,
+            'label' => '007202026-0005',
+        ]);
     }
 
     public function test_filter_rolls_by_status(): void
