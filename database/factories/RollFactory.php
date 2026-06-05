@@ -19,7 +19,7 @@ class RollFactory extends Factory
     public function definition(): array
     {
         return [
-            'label' => $this->faker->word(),
+            'label' => $this->faker->unique()->numerify('ROL-##########'),
             'weight' => $this->faker->randomFloat(2, 0, 100),
             'status' => $this->faker->randomElement(['EM_ESTOQUE', 'CORTADA']),
             'item_material_id' => ItemMaterial::factory(),

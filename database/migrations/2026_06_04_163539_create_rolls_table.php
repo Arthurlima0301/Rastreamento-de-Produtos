@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('rolls', function (Blueprint $table) {
             $table->id();
-            $table->string('label', 100);
+            $table->string('label', 100)->unique();
             $table->decimal('weight', 10, 2);
             $table->enum('status', ['EM_ESTOQUE', 'CORTADA']);
             $table->foreignId('item_material_id')->constrained('item_material')->onDelete('cascade');
