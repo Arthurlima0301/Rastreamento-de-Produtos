@@ -42,4 +42,26 @@ class Roll extends Model
     {
         return $this->belongsTo(ItemMaterial::class);
     }
+
+    /**
+     * Scope a query to search rolls by label.
+     */
+    public function scopeSearchByLabel($query, $search)
+    {
+        $search = trim($search);
+
+        return $query->when($search !== '', function ($query) use ($search) {
+            $query->where('label', 'like', $search . '%');
+        });
+    }
+
+    /**
+     * Scope a query to filter rolls by status.
+     */
+    public function scopeFilterByStatus($query, $status)
+    {
+        return $query->when($status !== '', function ($query) use ($status) {
+            $query->where('status', $status);
+        });
+    }
 }

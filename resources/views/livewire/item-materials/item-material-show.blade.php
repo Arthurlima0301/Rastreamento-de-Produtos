@@ -12,11 +12,18 @@
     </x-card>
 
 
+    <x-search-input />
     <x-table>
         <x-slot:header>
             <flux:table.column align="center">Código</flux:table.column>
             <flux:table.column align="center">Peso</flux:table.column>
-            <flux:table.column align="center">Status</flux:table.column>
+            <flux:table.column align="center">
+                <x-sort collumnTitle="Status" model="filter_status">
+                    <flux:menu.radio value="">Todas</flux:menu.radio>
+                    <flux:menu.radio value="EM_ESTOQUE">Em Estoque</flux:menu.radio>
+                    <flux:menu.radio value="CORTADA">Cortada</flux:menu.radio>
+                </x-sort>
+            </flux:table.column>
         </x-slot:header>
 
         <x-slot:rows>
