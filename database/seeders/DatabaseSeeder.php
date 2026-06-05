@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\ItemMaterial;
+use App\Models\Machine;
 use App\Models\Roll;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -23,5 +24,7 @@ class DatabaseSeeder extends Seeder
         Roll::factory(50)->create([
             'item_material_id' => $itemMaterial->id,
         ]);
+
+        Machine::factory(10)->create();
     }
 }

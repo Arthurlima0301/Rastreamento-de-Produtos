@@ -4,6 +4,7 @@
     <flux:menu>
         <flux:menu.group heading="Geral">
             <flux:menu.item href="{{ route('clients.index') }}" icon="user">Clientes</flux:menu.item>
+            <flux:menu.item href="{{ route('machines.index') }}" icon="cog">Máquinas</flux:menu.item>
         </flux:menu.group>
         <flux:menu.group heading="Material e Bobinas">
             <flux:menu.item href="{{ route('orders.index') }}" icon="clipboard">Ordens de Corte</flux:menu.item>
