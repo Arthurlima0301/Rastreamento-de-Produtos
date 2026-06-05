@@ -125,4 +125,22 @@ class RollCrudTest extends TestCase
             ->assertSee('007202026-0001')
             ->assertDontSee('007202026-0002');
     }
+
+    public function test_delete_roll(): void
+    {
+        $itemMaterial = ItemMaterial::factory()->create();
+
+        $roll = Roll::factory()->create([
+            'label' => '007202026-0001',
+            'item_material_id' => $itemMaterial->id,
+        ]);
+
+        Livewire::test(ItemMaterialShow::class, ['itemMaterial' => $itemMaterial])
+            ->call('deleteRoll', $roll->id)
+            ->assertHasNoErrors();
+
+        $this->assertDatabaseMissing('rolls', [
+            'id' => $roll->id,
+        ]);
+    }
 }
