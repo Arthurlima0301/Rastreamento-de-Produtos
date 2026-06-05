@@ -21,6 +21,8 @@
         </x-slot>
     </x-card>
 
+    <x-error-message />
+    <x-success-message />
 
     <x-search-input />
     <x-table>
@@ -34,6 +36,7 @@
                     <flux:menu.radio value="CORTADA">Cortada</flux:menu.radio>
                 </x-sort>
             </flux:table.column>
+            <flux:table.column align="center">Ações</flux:table.column>
         </x-slot:header>
 
         <x-slot:rows>
@@ -42,6 +45,9 @@
                     <flux:table.cell align="center">{{ $roll->label }}</flux:table.cell>
                     <flux:table.cell align="center">{{ $roll->formatted_weight }}</flux:table.cell>
                     <flux:table.cell align="center">{{ $roll->status }}</flux:table.cell>
+                    <flux:table.cell align="center">
+                                <x-button icon="trash" variant="primary" color="red" wire:click="deleteRoll({{ $roll->id }})" />
+                    </flux:table.cell>
                 </flux:table.row>
             @endforeach
         </x-slot:rows>

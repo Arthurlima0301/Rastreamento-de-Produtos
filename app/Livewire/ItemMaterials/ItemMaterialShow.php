@@ -38,5 +38,18 @@ class ItemMaterialShow extends Component
         return view('livewire.item-materials.item-material-show', compact('rolls'));
     }
 
+    /**
+     * Delete rolls related to the item material.
+     */
+    public function deleteRoll(Roll $roll)
+    {
+        // Futuramente pode ser necessário adicionar uma condção para verificar se o roll pertence a uma carga
+        $roll->delete();
+
+        session()->flash('success', 'Bobina deletada com sucesso.');
+    }
+
+
+  
 
 }
