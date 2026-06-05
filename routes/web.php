@@ -8,6 +8,7 @@ use App\Livewire\Dispatches\DispatchIndex;
 use App\Livewire\Dispatches\DispatchShow;
 use App\Livewire\ItemMaterials\ItemMaterialIndex;
 use App\Livewire\ItemMaterials\ItemMaterialShow;
+use App\Livewire\Machines\MachineIndex;
 use App\Livewire\MaterialInvoices\MaterialInvoiceIndex;
 use App\Livewire\MaterialInvoices\MaterialInvoiceShow;
 use App\Livewire\Materials\MaterialCreate;
@@ -31,6 +32,9 @@ use Illuminate\Support\Facades\Route;
 Route::get('/clients', ClientIndex::class)->name('clients.index');
 Route::get('/clients/create', ClientCreate::class)->name('clients.create');
 Route::get('/clients/{client}/edit', ClientEdit::class)->name('clients.edit');
+
+// Machine routes
+Route::get('/machines', MachineIndex::class)->name('machines.index');
 
 // Supply routes
 Route::get('/supplies', SupplyIndex::class)->name('supplies.index');
