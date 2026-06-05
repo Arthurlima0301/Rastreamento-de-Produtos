@@ -1,12 +1,22 @@
 <div class="w-full">
     <x-card title="Detalhes do Material do Item">
         <x-slot name="slot">
-            <div class="flex gap-3"> 
+            <div class="flex items-center gap-3">
                 <p><strong>NF: </strong> {{ $itemMaterial->materialInvoice->formatted_invoice_code }}</p>
                 <p><strong>Item: </strong> {{ $itemMaterial->number }}</p>
                 <p><strong>Papel: </strong> {{ $itemMaterial->material->paper }}</p>
                 <p><strong>Gramatura: </strong> {{ $itemMaterial->material->formatted_grammage }}</p>
                 <p><strong>Rolo: </strong> {{ $itemMaterial->material->roll }}</p>
+
+                <flux:dropdown label="Ações">
+                    <flux:button icon:trailing="ellipsis-horizontal"></flux:button>
+
+                    <flux:navmenu>
+                        <flux:navmenu.item icon="plus-circle" href="{{ route('roll.create', $itemMaterial) }}">
+                            Adicionar Bobina(s)
+                        </flux:navmenu.item>
+                    </flux:navmenu>
+                </flux:dropdown>
             </div>
         </x-slot>
     </x-card>
