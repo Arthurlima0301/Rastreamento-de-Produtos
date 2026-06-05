@@ -5,6 +5,7 @@ namespace Tests\Feature;
 use App\Livewire\Clients\ClientTable;
 use App\Livewire\Dispatches\DispatchCreate;
 use App\Livewire\Dispatches\DispatchTable;
+use App\Livewire\ItemMaterials\ItemMaterialShow;
 use App\Livewire\ItemMaterials\ItemMaterialTable;
 use App\Livewire\MaterialInvoices\MaterialInvoiceTable;
 use App\Livewire\Orders\OrderTable;
@@ -17,6 +18,7 @@ use App\Models\ItemMaterial;
 use App\Models\Material;
 use App\Models\MaterialInvoice;
 use App\Models\Order;
+use App\Models\Roll;
 use App\Models\Supply;
 use App\Models\SupplyInvoice;
 use App\Models\SupplyItem;
@@ -224,5 +226,25 @@ class LivewireSearchTest extends TestCase
             ->set('search', 'Bri')
             ->assertSee('Brita')
             ->assertDontSee('Cal');
+    }
+
+    public function test_filter_rolls_by_search_prefix(): void
+    {
+        $itemMaterial = ItemMaterial::factory()->create();
+
+        Roll::factory()->create([
+            'label' => '123456789-0001',
+            'item_material_id' => $itemMaterial->id,
+        ]);
+
+        Roll::factory()->create([
+            'label' => '123456789-0002',
+            'item_material_id' => $itemMaterial->id,
+        ]);
+
+        Livewire::test(ItemMaterialShow::class, ['itemMaterial' => $itemMaterial])
+            ->set('search', '123456789-0001')
+            ->assertSee('123456789-0001')
+            ->assertDontSee('123456789-0002');
     }
 }
