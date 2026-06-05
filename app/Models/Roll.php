@@ -2,19 +2,17 @@
 
 namespace App\Models;
 
+use Database\Factories\RollFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Roll extends Model
 {
-    /** @use HasFactory<\Database\Factories\RollFactory> */
+    /** @use HasFactory<RollFactory> */
     use HasFactory;
 
     protected $table = 'rolls';
 
-    /**
-     * 
-     */
     protected $fillable = [
         'label',
         'weight',
@@ -22,6 +20,20 @@ class Roll extends Model
         'item_material_id',
     ];
 
+    /**
+     * The attributes that should be cast to native types.
+     */
+    protected $casts = [
+        'weight' => 'float',
+    ];
+
+    /**
+     * Formatted weight attribute accessor.
+     */
+    public function getFormattedWeightAttribute()
+    {
+        return number_format($this->weight, 0, ',', '.');
+    }
 
     /**
      * Get the item material that owns the roll.
@@ -30,5 +42,4 @@ class Roll extends Model
     {
         return $this->belongsTo(ItemMaterial::class);
     }
-
 }

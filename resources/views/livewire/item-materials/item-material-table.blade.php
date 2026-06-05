@@ -2,13 +2,15 @@
     <x-search-input />
 
     <x-table :paginate="$itemMaterials">
-        <x-slot:header>
+        <x-slot name="header">
             <flux:table.column align="center">Papel</flux:table.column>
             <flux:table.column align="center">Data</flux:table.column>
-            <flux:table.column align="center">ID</flux:table.column>
+            <flux:table.column align="center">Cod. Envio</flux:table.column>
             <flux:table.column align="center">Nota Fiscal</flux:table.column>
             <flux:table.column align="center">Gramatura</flux:table.column>
             <flux:table.column align="center">Peso</flux:table.column>
+            <flux:table.column align="center">Peso Liquido</flux:table.column>
+            <flux:table.column align="center">Peso Bruto</flux:table.column>
 
             <flux:table.column align="center">Cod. Expedicao</flux:table.column>
             <flux:table.column align="center">Lote Retorno</flux:table.column>
@@ -20,21 +22,29 @@
             <flux:table.column align="center">Pacotes</flux:table.column>
         </x-slot:header>
 
-        <x-slot:rows>
+        <x-slot name="rows">
             @foreach ($itemMaterials as $itemMaterial)
                 <flux:table.row wire:key="item-material-{{ $itemMaterial->id }}">
-                    <flux:table.cell align="center">{{ $itemMaterial->material->paper }}</flux:table.cell>
-                    <flux:table.cell align="center">{{ $itemMaterial->materialInvoice->formatted_issued_at }}</flux:table.cell>
-                    <flux:table.cell align="center">{{ $itemMaterial->number }}</flux:table.cell>
+                    <flux:table.cell align="center">
+                        <a href="{{ route('item-materials.show', $itemMaterial) }}" class="hover:underline">
+                            {{ $itemMaterial->material->paper }}
+                        </a>
+                    </flux:table.cell>
+                    <flux:table.cell align="center">{{ $itemMaterial->materialInvoice->formatted_issued_at }}
+                    </flux:table.cell>
+                    <flux:table.cell align="center">{{ $itemMaterial->material->shipment_code }}</flux:table.cell>
 
-                    <flux:table.cell align="center"> 
-                        <a href="{{ route('material-invoices.show', $itemMaterial->materialInvoice->id) }}" class="hover:underline">
+                    <flux:table.cell align="center">
+                        <a href="{{ route('material-invoices.show', $itemMaterial->materialInvoice->id) }}"
+                            class="hover:underline">
                             {{ $itemMaterial->materialInvoice->formatted_invoice_code }}
                         </a>
                     </flux:table.cell>
 
                     <flux:table.cell align="center">{{ $itemMaterial->material->formatted_grammage }}</flux:table.cell>
                     <flux:table.cell align="center">{{ $itemMaterial->formatted_total_weight }}</flux:table.cell>
+                    <flux:table.cell align="center">{{ $itemMaterial->material->formatted_package_net_weight }}</flux:table.cell>
+                    <flux:table.cell align="center">{{ $itemMaterial->material->formatted_package_gross_weight }}</flux:table.cell>
                     <flux:table.cell align="center">{{ $itemMaterial->material->expedition_code }}</flux:table.cell>
                     <flux:table.cell align="center">{{ $itemMaterial->material->return_batch }}</flux:table.cell>
                     <flux:table.cell align="center">{{ $itemMaterial->material->item_number }}</flux:table.cell>
@@ -45,6 +55,6 @@
                     <flux:table.cell align="center">{{ $itemMaterial->material->packages }}</flux:table.cell>
                 </flux:table.row>
             @endforeach
-        </x-slot:rows>
+        </x-slot>
     </x-table>
 </div>
