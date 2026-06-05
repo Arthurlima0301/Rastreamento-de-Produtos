@@ -2,9 +2,8 @@
 
 namespace Database\Seeders;
 
-use App\Models\Material;
-use App\Models\Order;
-use App\Models\User;
+use App\Models\ItemMaterial;
+use App\Models\Roll;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -19,10 +18,10 @@ class DatabaseSeeder extends Seeder
     {
         // User::factory(10)->create();
 
-        $order = Order::factory()->create();
+        $itemMaterial = ItemMaterial::factory()->create();
 
-        Material::factory()->count(10)->create([
-            'order_id' => $order->id,
+        Roll::factory(50)->create([
+            'item_material_id' => $itemMaterial->id,
         ]);
     }
 }

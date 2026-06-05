@@ -16,7 +16,10 @@
             <flux:table.column align="center">Rolo</flux:table.column>
             <flux:table.column align="center">Cod. Envio</flux:table.column>
             <flux:table.column align="center">Cod. Expedição</flux:table.column>
+            <flux:table.column align="center">Lote Retorno</flux:table.column>
             <flux:table.column align="center">Peso Total</flux:table.column>
+            <flux:table.column align="center">Peso Liquido</flux:table.column>
+            <flux:table.column align="center">Peso Bruto</flux:table.column>
             <flux:table.column align="center">Ações</flux:table.column>
 
         </x-slot:header>
@@ -29,9 +32,12 @@
                     <flux:table.cell align="center">{{ $itemMaterial->material->roll }}</flux:table.cell>
                     <flux:table.cell align="center">{{ $itemMaterial->material->shipment_code }}</flux:table.cell>
                     <flux:table.cell align="center">{{ $itemMaterial->material->expedition_code }}</flux:table.cell>
+                    <flux:table.cell align="center">{{ $itemMaterial->material->return_batch }}</flux:table.cell>
                     <flux:table.cell align="center">{{ $itemMaterial->formatted_total_weight }}</flux:table.cell>
+                    <flux:table.cell align="center">{{ $itemMaterial->material->formatted_package_net_weight }}</flux:table.cell>
+                    <flux:table.cell align="center">{{ $itemMaterial->material->formatted_package_gross_weight }}</flux:table.cell>
                     <flux:table.cell align="center">
-                        <x-button href="#" icon="eye"></x-button>
+                        <x-button href="{{ route('item-materials.show', $itemMaterial) }}" icon="eye"></x-button>
                     </flux:table.cell>
                 </flux:table.row>
             @endforeach
