@@ -38,7 +38,7 @@ class Roll extends Model
     /**
      * Get the item material that owns the roll.
      */
-    public function item_material()
+    public function itemMaterial()
     {
         return $this->belongsTo(ItemMaterial::class);
     }

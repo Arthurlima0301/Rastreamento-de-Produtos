@@ -11,6 +11,8 @@
             </flux:menu.item>
             <flux:menu.item href="{{ route('item-materials.index') }}" icon="rectangle-stack">Itens
             </flux:menu.item>
+            <flux:menu.item href="{{ route('rolls.index') }}" icon="circle-stack">Todas as Bobinas
+            </flux:menu.item>
         </flux:menu.group>
         <flux:menu.group heading="Insumos">
             <flux:menu.item href="{{ route('supplies.index') }}" icon="cube">Insumos</flux:menu.item>
