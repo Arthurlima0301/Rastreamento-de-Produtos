@@ -21,4 +21,11 @@ class MachineTable extends Component
 
         return view('livewire.machines.machine-table', compact('machines'));
     }
+
+    public function destroy(int $machineId)
+    {
+        Machine::findOrFail($machineId)->delete();
+
+        return redirect()->route('machines.index')->with('success', 'Máquina deletada com sucesso.');
+    }
 }

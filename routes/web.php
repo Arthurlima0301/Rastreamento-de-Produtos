@@ -8,6 +8,8 @@ use App\Livewire\Dispatches\DispatchIndex;
 use App\Livewire\Dispatches\DispatchShow;
 use App\Livewire\ItemMaterials\ItemMaterialIndex;
 use App\Livewire\ItemMaterials\ItemMaterialShow;
+use App\Livewire\Machines\MachineCreate;
+use App\Livewire\Machines\MachineEdit;
 use App\Livewire\Machines\MachineIndex;
 use App\Livewire\MaterialInvoices\MaterialInvoiceIndex;
 use App\Livewire\MaterialInvoices\MaterialInvoiceShow;
@@ -35,6 +37,8 @@ Route::get('/clients/{client}/edit', ClientEdit::class)->name('clients.edit');
 
 // Machine routes
 Route::get('/machines', MachineIndex::class)->name('machines.index');
+Route::get('/machines/create', MachineCreate::class)->name('machines.create');
+Route::get('/machines/{machine}/edit', MachineEdit::class)->name('machines.edit');
 
 // Supply routes
 Route::get('/supplies', SupplyIndex::class)->name('supplies.index');
