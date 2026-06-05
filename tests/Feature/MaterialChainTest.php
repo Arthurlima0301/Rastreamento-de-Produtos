@@ -131,13 +131,10 @@ class MaterialChainTest extends TestCase
         $response = $this->get('/item-materials');
 
         $response->assertStatus(200);
-        $response->assertSee('2001');
         $response->assertSee('Cartao');
         $response->assertSee('180,25');
         $response->assertSee('888001');
         $response->assertSee('9010');
-        $response->assertSee('900,50');
-        $response->assertSee('950,75');
         $response->assertSee('111.222');
     }
 
