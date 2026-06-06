@@ -18,6 +18,14 @@ class Machine extends Model
     ];
 
     /**
+     * Get the loads for the machine.
+     */
+    public function loads()
+    {
+        return $this->hasMany(Load::class, 'machine_id');
+    }
+
+    /**
      * Search by name.
      */
     public function scopeSearchByName($query, $search)

@@ -44,6 +44,14 @@ class Roll extends Model
     }
 
     /**
+     * Get the load that owns the roll.
+     */
+    public function cutLoad()
+    {
+        return $this->belongsTo(Load::class, 'load_id');
+    }
+
+    /**
      * Scope a query to search rolls by label.
      */
     public function scopeSearchByLabel($query, $search)
