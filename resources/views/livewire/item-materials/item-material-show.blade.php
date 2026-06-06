@@ -47,9 +47,11 @@
                     <flux:table.cell align="center">{{ $roll->formatted_weight }}</flux:table.cell>
                     <flux:table.cell align="center">{{ $roll->status }}</flux:table.cell>
                     <flux:table.cell align="center">
-                        <a class="hover:underline cursor-pointer">
-                            {{ $roll->cutLoad->machine->abbreviation ?? '' }} - {{ $roll->cutLoad->number ?? '' }}
-                        </a>
+                        @if ($roll->cutLoad)
+                            <a href="{{ route('loads.show', $roll->cutLoad) }}" class="hover:underline cursor-pointer">
+                                {{ $roll->cutLoad->machine->abbreviation }} - {{ $roll->cutLoad->number }}
+                            </a>
+                        @endif
                     </flux:table.cell>
                     <flux:table.cell align="center">
                         <div class="flex justify-center gap-2">

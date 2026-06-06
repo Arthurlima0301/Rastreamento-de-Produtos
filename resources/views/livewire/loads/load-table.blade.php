@@ -18,7 +18,7 @@
                     <flux:table.cell align="center">{{ $load->machine->name }}</flux:table.cell>
                     <flux:table.cell align="center">{{ $load->rolls_count }}</flux:table.cell>
                     <flux:table.cell align="center">
-                        <x-button icon="eye" variant="ghost" />
+                        <x-button icon="eye" variant="ghost" href="{{ route('loads.show', $load) }}" />
                         <x-button icon="pencil" variant="ghost" />
                         <x-button icon="trash" variant="ghost" />
                     </flux:table.cell>

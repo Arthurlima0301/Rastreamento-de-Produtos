@@ -9,6 +9,7 @@ use App\Livewire\Dispatches\DispatchShow;
 use App\Livewire\ItemMaterials\ItemMaterialIndex;
 use App\Livewire\ItemMaterials\ItemMaterialShow;
 use App\Livewire\Loads\LoadIndex;
+use App\Livewire\Loads\LoadShow;
 use App\Livewire\Machines\MachineCreate;
 use App\Livewire\Machines\MachineEdit;
 use App\Livewire\Machines\MachineIndex;
@@ -72,6 +73,7 @@ Route::get('/orders/{order}/materials-create', MaterialCreate::class)->name('mat
 
 // Rolls Routes
 Route::get('/loads', LoadIndex::class)->name('loads.index');
+Route::get('/loads/{load}', LoadShow::class)->name('loads.show');
 Route::get('/rolls', RollIndex::class)->name('rolls.index');
 Route::get('/rolls/{roll}/edit', RollEdit::class)->name('rolls.edit');
 
