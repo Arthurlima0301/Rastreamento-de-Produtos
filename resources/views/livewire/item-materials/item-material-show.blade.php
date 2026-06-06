@@ -36,6 +36,7 @@
                     <flux:menu.radio value="CORTADA">Cortada</flux:menu.radio>
                 </x-sort>
             </flux:table.column>
+            <flux:table.column align="center">Carga</flux:table.column>
             <flux:table.column align="center">Ações</flux:table.column>
         </x-slot:header>
 
@@ -45,6 +46,11 @@
                     <flux:table.cell align="center">{{ $roll->label }}</flux:table.cell>
                     <flux:table.cell align="center">{{ $roll->formatted_weight }}</flux:table.cell>
                     <flux:table.cell align="center">{{ $roll->status }}</flux:table.cell>
+                    <flux:table.cell align="center">
+                        <a class="hover:underline cursor-pointer">
+                            {{ $roll->cutLoad->machine->abbreviation ?? '' }} - {{ $roll->cutLoad->number ?? '' }}
+                        </a>
+                    </flux:table.cell>
                     <flux:table.cell align="center">
                         <div class="flex justify-center gap-2">
                             <x-button icon="pencil" variant="primary" href="{{ route('rolls.edit', $roll) }}" />
