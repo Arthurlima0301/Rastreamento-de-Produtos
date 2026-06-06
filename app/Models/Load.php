@@ -28,11 +28,18 @@ class Load extends Model
     ];
 
     /**
+     * The attributes that should be cast to native types.
+     */
+    protected $casts = [
+        'cutted_at' => 'date',
+    ];
+
+    /**
      * Formatted cutted_at
      */
-    public function getFormattedCuttedAtAtributte()
+    public function getFormattedCuttedAtAttribute()
     {
-        return date('d/m/Y', strtotime($this->cutted_at));
+        return $this->cutted_at?->format('d/m/Y');
     }
 
     /**
@@ -50,9 +57,4 @@ class Load extends Model
     {
         return $this->hasMany(Roll::class, 'load_id');
     }
-
-    /**
-     * Scope a query to search loads.
-     */
-
 }
