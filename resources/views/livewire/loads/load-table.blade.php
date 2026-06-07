@@ -12,7 +12,7 @@
         <x-slot:rows>
             @foreach ($loads as $load)
                 <flux:table.row wire:key="load-{{ $load->id }}">
-                    <flux:table.cell align="center">{{ $load->number}}-{{ $load->machine->abbreviation }}</flux:table.cell>
+                    <flux:table.cell align="center">{{ $load->id }}-{{ $load->machine->abbreviation }}</flux:table.cell>
                     <flux:table.cell align="center">{{ $load->formatted_cutted_at }}</flux:table.cell>
                     <flux:table.cell align="center">{{ $load->turn }}</flux:table.cell>
                     <flux:table.cell align="center">{{ $load->machine->name }}</flux:table.cell>

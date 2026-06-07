@@ -13,7 +13,6 @@ return new class extends Migration
     {
         Schema::create('loads', function (Blueprint $table) {
             $table->id();
-            $table->integer('number');
             $table->date('cutted_at');
             $table->enum('turn', ['DIURNO', 'VESPERTINO', 'NOTURNO']);
             $table->text('observation')->nullable();
@@ -31,6 +30,10 @@ return new class extends Migration
      */
     public function down(): void
     {
+        Schema::table('rolls', function (Blueprint $table) {
+            $table->dropConstrainedForeignId('load_id');
+        });
+
         Schema::dropIfExists('loads');
     }
 };

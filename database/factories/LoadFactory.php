@@ -19,7 +19,6 @@ class LoadFactory extends Factory
     public function definition(): array
     {
         return [
-            'number' => $this->faker->numberBetween(1, 100),
             'cutted_at' => $this->faker->date(),
             'turn' => $this->faker->randomElement(['DIURNO', 'VESPERTINO', 'NOTURNO']),
             'observation' => $this->faker->sentence(),

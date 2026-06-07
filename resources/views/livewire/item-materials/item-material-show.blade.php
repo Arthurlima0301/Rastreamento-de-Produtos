@@ -49,7 +49,7 @@
                     <flux:table.cell align="center">
                         @if ($roll->cutLoad)
                             <a href="{{ route('loads.show', $roll->cutLoad) }}" class="hover:underline cursor-pointer">
-                                {{ $roll->cutLoad->machine->abbreviation }} - {{ $roll->cutLoad->number }}
+                                {{ $roll->cutLoad->machine->abbreviation }}-{{ $roll->cutLoad->id }}
                             </a>
                         @endif
                     </flux:table.cell>

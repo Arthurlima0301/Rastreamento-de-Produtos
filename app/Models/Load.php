@@ -2,29 +2,25 @@
 
 namespace App\Models;
 
+use Database\Factories\LoadFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Load extends Model
 {
-    /** @use HasFactory<\Database\Factories\LoadFactory> */
+    /** @use HasFactory<LoadFactory> */
     use HasFactory;
 
-
-    /**
-     * The attributes that are mass assignable.
-     */
     protected $table = 'loads';
 
     /**
      * The attributes that are mass assignable.
      */
     protected $fillable = [
-           'number',
-           'cutted_at',
-           'turn',
-           'observation',
-           'machine_id'
+        'cutted_at',
+        'turn',
+        'observation',
+        'machine_id',
     ];
 
     /**

@@ -2,7 +2,7 @@
     <x-card title="Detalhes da Carga">
         <x-slot name="slot">
             <div class="flex flex-wrap items-center gap-3">
-                <p><strong>Código: </strong> {{ $load->number }}-{{ $load->machine->abbreviation }}</p>
+                <p><strong>Código: </strong> {{ $load->id }}-{{ $load->machine->abbreviation }}</p>
                 <p><strong>Data de Corte: </strong> {{ $load->formatted_cutted_at }}</p>
                 <p><strong>Turno: </strong> {{ $load->turn }}</p>
                 <p><strong>Máquina: </strong> {{ $load->machine->name }}</p>
