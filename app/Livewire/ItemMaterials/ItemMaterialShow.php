@@ -32,6 +32,7 @@ class ItemMaterialShow extends Component
     {
         $rolls = Roll::with('cutLoad.machine')
         ->where('item_material_id', $this->itemMaterial->id)
+        ->orderBy('label')
         ->searchByLabel($this->search)
         ->filterByStatus($this->filter_status)
         ->get();

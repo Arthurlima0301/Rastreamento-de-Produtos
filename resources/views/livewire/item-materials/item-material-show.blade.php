@@ -7,6 +7,8 @@
                 <p><strong>Papel: </strong> {{ $itemMaterial->material->paper }}</p>
                 <p><strong>Gramatura: </strong> {{ $itemMaterial->material->formatted_grammage }}</p>
                 <p><strong>Rolo: </strong> {{ $itemMaterial->material->roll }}</p>
+                <p><strong>Total de Bobinas: </strong> {{ $itemMaterial->rolls->count() }}</p>
+                <p><strong>Soma dos Pesos: </strong> {{ $itemMaterial->rolls->sum('formatted_weight') }}</p>
 
                 <flux:dropdown label="Ações">
                     <flux:button icon:trailing="ellipsis-horizontal"></flux:button>
@@ -51,6 +53,8 @@
                             <a href="{{ route('loads.show', $roll->cutLoad) }}" class="hover:underline cursor-pointer">
                                 {{ $roll->cutLoad->machine->abbreviation }}-{{ $roll->cutLoad->id }}
                             </a>
+                        @else
+                             <p>-</p>
                         @endif
                     </flux:table.cell>
                     <flux:table.cell align="center">
