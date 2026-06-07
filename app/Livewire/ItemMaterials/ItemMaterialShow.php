@@ -30,7 +30,9 @@ class ItemMaterialShow extends Component
      */
     public function render()
     {
-        $rolls = Roll::where('item_material_id', $this->itemMaterial->id)
+        $rolls = Roll::with('cutLoad.machine')
+        ->where('item_material_id', $this->itemMaterial->id)
+        ->orderBy('label')
         ->searchByLabel($this->search)
         ->filterByStatus($this->filter_status)
         ->get();
@@ -43,7 +45,11 @@ class ItemMaterialShow extends Component
      */
     public function deleteRoll(Roll $roll)
     {
-        // Futuramente pode ser necessário adicionar uma condção para verificar se o roll pertence a uma carga
+        if  ($roll->cutLoad) {
+            session()->flash('error', 'Não é possível deletar uma bobina que pertence a uma carga.');
+            return;
+        }
+
         $roll->delete();
 
         session()->flash('success', 'Bobina deletada com sucesso.');
