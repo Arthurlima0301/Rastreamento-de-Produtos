@@ -29,7 +29,7 @@ class LoadTable extends Component
      */
     public function deleteLoad(Load $load)
     {
-        $load->rolls()->update(['load_id' => null]); // Desassocia as bobinas da carga
+        $load->rolls()->update(['load_id' => null, 'status' => 'EM_ESTOQUE']); // Desassocia as bobinas da carga
         $load->delete();
 
         return redirect()->route('loads.index')->with('success', 'Carga deletada com sucesso.');
