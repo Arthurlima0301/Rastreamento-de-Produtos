@@ -21,7 +21,7 @@
                     <flux:table.cell align="center">{{ number_format($load->rolls_sum_weight, 2, ',', '.') }}</flux:table.cell>
                     <flux:table.cell align="center">
                         <x-button icon="eye" variant="ghost" href="{{ route('loads.show', $load) }}" />
-                        <x-button icon="trash" variant="ghost" />
+                        <x-button icon="trash" variant="ghost" wire:click="deleteLoad({{ $load->id }})" />
                     </flux:table.cell>
                 </flux:table.row>
             @endforeach

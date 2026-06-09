@@ -20,4 +20,15 @@ class LoadTable extends Component
 
         return view('livewire.loads.load-table', compact('loads'));
     }
+
+    /**
+     * Delete a load and its associated rolls.
+     */
+    public function deleteLoad(Load $load)
+    {
+        $load->rolls()->update(['load_id' => null]); // Desassocia as bobinas da carga
+        $load->delete();
+
+        return redirect()->route('loads.index')->with('success', 'Carga deletada com sucesso.');
+    }
 }

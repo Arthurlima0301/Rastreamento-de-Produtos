@@ -3,6 +3,7 @@
 namespace Tests\Feature;
 
 use App\Livewire\Loads\LoadCreate;
+use App\Livewire\Loads\LoadTable;
 use App\Livewire\Loads\SelectedRollsList;
 use App\Models\ItemMaterial;
 use App\Models\Load;
@@ -124,5 +125,23 @@ class RegisterLoadTest extends TestCase
             ]);
 
         $this->assertDatabaseCount('loads', 0);
+    }
+
+    public function test_delete_load(): void
+    {
+        $load = Load::factory()->create();
+        $roll = Roll::factory()->create([
+            'load_id' => $load->id,
+        ]);
+
+        Livewire::test(LoadTable::class)
+            ->call('deleteLoad', $load)
+            ->assertRedirect(route('loads.index'));
+
+        $this->assertDatabaseCount('loads', 0);
+        $this->assertDatabaseHas('rolls', [
+            'id' => $roll->id,
+            'load_id' => null,
+        ]);
     }
 }
