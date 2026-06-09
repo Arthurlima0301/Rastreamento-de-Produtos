@@ -6,6 +6,7 @@
             <flux:table.column align="center">Turno</flux:table.column>
             <flux:table.column align="center">Máquina</flux:table.column>
             <flux:table.column align="center">Bobinas</flux:table.column>
+            <flux:table.column align="center">Peso da Carga</flux:table.column>
             <flux:table.column align="center">Ações</flux:table.column>
         </x-slot:header>
 
@@ -17,9 +18,9 @@
                     <flux:table.cell align="center">{{ $load->turn }}</flux:table.cell>
                     <flux:table.cell align="center">{{ $load->machine->name }}</flux:table.cell>
                     <flux:table.cell align="center">{{ $load->rolls_count }}</flux:table.cell>
+                    <flux:table.cell align="center">{{ number_format($load->rolls_sum_weight, 2, ',', '.') }}</flux:table.cell>
                     <flux:table.cell align="center">
                         <x-button icon="eye" variant="ghost" href="{{ route('loads.show', $load) }}" />
-                        <x-button icon="pencil" variant="ghost" />
                         <x-button icon="trash" variant="ghost" />
                     </flux:table.cell>
                 </flux:table.row>

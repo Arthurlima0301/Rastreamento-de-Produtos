@@ -35,7 +35,6 @@
                     </flux:table.cell>
                     <flux:table.cell align="center">
                         <x-button icon="eye" variant="ghost" href="{{ route('loads.show', $load) }}" />
-                        <x-button icon="pencil" variant="ghost" href="{{ route('loads.edit', $load) }}" />
                     </flux:table.cell>
                 </flux:table.row>
             @endforeach
