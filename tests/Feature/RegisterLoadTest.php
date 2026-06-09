@@ -138,12 +138,76 @@ class RegisterLoadTest extends TestCase
         Livewire::test(LoadTable::class)
             ->call('deleteLoad', $load)
             ->assertRedirect(route('loads.index'));
-        
+
         $this->assertDatabaseCount('loads', 0);
         $this->assertDatabaseHas('rolls', [
             'id' => $roll->id,
             'load_id' => null,
             'status' => 'EM_ESTOQUE',
+        ]);
+    }
+
+    public function test_delete_load_with_defect_roll(): void
+    {
+        $load = Load::factory()->create();
+        $roll = Roll::factory()->create([
+            'load_id' => $load->id,
+            'status' => 'CORTADA',
+            'defect' => 'Rasgo',
+            'defect_weight' => 50,
+        ]);
+
+        Livewire::test(LoadTable::class)
+            ->call('deleteLoad', $load)
+            ->assertRedirect(route('loads.index'));
+
+        $this->assertDatabaseCount('loads', 0);
+        $this->assertDatabaseHas('rolls', [
+            'id' => $roll->id,
+            'load_id' => null,
+            'status' => 'EM_ESTOQUE',
+            'defect' => null,
+            'defect_weight' => null,
+        ]);
+    }
+
+    public function test_add_defect_roll_to_load(): void
+    {
+        $machine = Machine::factory()->create();
+        $roll = Roll::factory()->create([
+            'defect' => null,
+            'defect_weight' => null,
+        ]);
+
+        Livewire::test(SelectedRollsList::class)
+            ->set('selectedRolls', [$roll->id => [
+                'id' => $roll->id,
+                'label' => $roll->label,
+                'weight' => $roll->weight,
+                'defect' => 'Rasgo',
+                'defect_weight' => 50,
+            ]])
+            ->set('selectedCuttedAt', '2026-06-06')
+            ->set('selectedTurn', 'DIURNO')
+            ->set('selectedMachineId', $machine->id)
+            ->call('save')
+            ->assertHasNoErrors()
+            ->assertRedirect(route('loads.index'));
+
+
+        $this->assertDatabaseCount('loads', 1);
+
+        $this->assertDatabaseHas('loads', [
+            'cutted_at' => '2026-06-06 00:00:00',
+            'turn' => 'DIURNO',
+            'machine_id' => $machine->id,
+        ]);
+
+        $this->assertDatabaseHas('rolls', [
+            'id' => $roll->id,
+            'status' => 'CORTADA',
+            'defect' => 'Rasgo',
+            'defect_weight' => 50,
         ]);
     }
 }

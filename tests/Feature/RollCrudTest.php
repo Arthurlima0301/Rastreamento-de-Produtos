@@ -105,6 +105,8 @@ class RollCrudTest extends TestCase
             'label' => '007202026-0004',
             'weight' => 100,
             'status' => 'EM_ESTOQUE',
+            'status' => 'EM_ESTOQUE',
+            'status' => 'EM_ESTOQUE',
         ]);
 
         Livewire::test(RollEdit::class, ['roll' => $roll])

@@ -22,6 +22,8 @@ class RollFactory extends Factory
             'label' => $this->faker->unique()->numerify('ROL-##########'),
             'weight' => $this->faker->randomFloat(2, 0, 100),
             'status' => $this->faker->randomElement(['EM_ESTOQUE', 'CORTADA']),
+            'defect' => $this->faker->word(),
+            'defect_weight' => $this->faker->numberBetween(0, 100),
             'item_material_id' => ItemMaterial::factory(),
         ];
     }
