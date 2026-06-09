@@ -53,4 +53,17 @@ class Load extends Model
     {
         return $this->hasMany(Roll::class, 'load_id');
     }
+
+    /**
+     * Scope a search by machine abbreviation + id.
+     */
+    public function scopeSearchByCode($query, $search)
+    {
+        $search = trim(str_replace('-', '', $search));
+
+        return $query->when($search !== '', function ($q) use ($search) {
+            $q->join('machines', 'loads.machine_id', '=', 'machines.id')
+                ->whereRaw("CONCAT(machines.abbreviation, loads.id) LIKE ?", ["%{$search}%"]);
+        });
+    }
 }

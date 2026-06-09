@@ -13,6 +13,7 @@ use Livewire\Component;
 class MachineShow extends Component
 {
     public Machine $machine;
+    public string $search = '';
 
     public function mount(Machine $machine)
     {
@@ -25,6 +26,7 @@ class MachineShow extends Component
         ->withCount('rolls')
         ->orderBy('cutted_at', 'desc')
         ->where('machine_id', $this->machine->id)
+        ->searchByCode($this->search)
         ->paginate(50);
         return view('livewire.machines.machine-show', compact('loads'));
     }

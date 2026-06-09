@@ -8,6 +8,7 @@
         </x-slot>
     </x-card>
 
+    <x-search-input />
 
     <x-table :paginate="$loads">
         <x-slot:header>

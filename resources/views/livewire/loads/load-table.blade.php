@@ -1,4 +1,6 @@
 <div class="w-full space-y-4">
+    <x-search-input />
+
     <x-table :paginate="$loads">
         <x-slot:header>
             <flux:table.column align="center">Código</flux:table.column>
