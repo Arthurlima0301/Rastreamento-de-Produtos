@@ -132,16 +132,18 @@ class RegisterLoadTest extends TestCase
         $load = Load::factory()->create();
         $roll = Roll::factory()->create([
             'load_id' => $load->id,
+            'status' => 'CORTADA',
         ]);
 
         Livewire::test(LoadTable::class)
             ->call('deleteLoad', $load)
             ->assertRedirect(route('loads.index'));
-
+        
         $this->assertDatabaseCount('loads', 0);
         $this->assertDatabaseHas('rolls', [
             'id' => $roll->id,
             'load_id' => null,
+            'status' => 'EM_ESTOQUE',
         ]);
     }
 }
