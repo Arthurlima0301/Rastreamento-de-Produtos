@@ -38,6 +38,8 @@
                     <flux:menu.radio value="CORTADA">Cortada</flux:menu.radio>
                 </x-sort>
             </flux:table.column>
+            <flux:table.column align="center">Defeito</flux:table.column>
+            <flux:table.column align="center">Peso do Defeito</flux:table.column>
             <flux:table.column align="center">Carga</flux:table.column>
             <flux:table.column align="center">Ações</flux:table.column>
         </x-slot:header>
@@ -48,6 +50,8 @@
                     <flux:table.cell align="center">{{ $roll->label }}</flux:table.cell>
                     <flux:table.cell align="center">{{ $roll->formatted_weight }}</flux:table.cell>
                     <flux:table.cell align="center">{{ $roll->status }}</flux:table.cell>
+                    <flux:table.cell align="center">{{ $roll->defect ?? '-' }}</flux:table.cell>
+                    <flux:table.cell align="center">{{ $roll->formatted_defect_weight ?? '-' }}</flux:table.cell>
                     <flux:table.cell align="center">
                         @if ($roll->cutLoad)
                             <a href="{{ route('loads.show', $roll->cutLoad) }}" class="hover:underline cursor-pointer">

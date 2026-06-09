@@ -29,6 +29,8 @@
             <flux:table.column align="center">Folhas</flux:table.column>
             <flux:table.column align="center">Cod. Expedição</flux:table.column>
             <flux:table.column align="center">Lote de Retorno</flux:table.column>
+            <flux:table.column align="center">Defeito</flux:table.column>
+            <flux:table.column align="center">Peso do Defeito</flux:table.column>
         </x-slot:header>
 
         <x-slot:rows>
@@ -52,6 +54,8 @@
                     <flux:table.cell align="center">{{ $roll->itemMaterial->material->packages }}</flux:table.cell>
                     <flux:table.cell align="center">{{ $roll->itemMaterial->material->expedition_code }}</flux:table.cell>
                     <flux:table.cell align="center">{{ $roll->itemMaterial->material->return_batch }}</flux:table.cell>
+                    <flux:table.cell align="center">{{ $roll->defect ?? '-' }}</flux:table.cell>
+                    <flux:table.cell align="center">{{ $roll->formatted_defect_weight ?? '-' }}</flux:table.cell>
                 </flux:table.row>
             @endforeach
         </x-slot:rows>

@@ -5,5 +5,8 @@
         </x-slot>
     </x-card>
 
+    <x-success-message/>
+    <x-error-message/>
+
     <livewire:loads.load-table />
 </div>

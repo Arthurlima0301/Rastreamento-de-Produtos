@@ -1,4 +1,4 @@
-<div>
+<div class="w-full">
     <flux:card class="space-y-2">
         <div class="flex items-center justify-between">
             <flux:heading size="xl">Detalhe da Carga</flux:heading>
@@ -23,21 +23,25 @@
                 <flux:select.option value="NOTURNO">Noturno</flux:select.option>
             </x-select>
 
-            <x-input class="w-[150px]" type="date" wire:model="selectedCuttedAt" />
+            <x-input class="w-[150px]" type="date" wire:model="selectedCuttedAt"    />
         </div>
 
         @if ($errors->any())
             <p class="text-center text-red-500">{{ $errors->first() }}</p>
         @endif
 
-        <div class="px-4">
+        <div class="space-y-2">
             @if (empty($selectedRolls))
                 <p class="text-center text-gray-500">Nenhuma bobina selecionada.</p>
             @else
                 @foreach ($selectedRolls as $roll)
-                    <div class="flex items-center justify-between" wire:key="selected-roll-{{ $roll['id'] }}">
+                    <div class="flex items-center space-x-4 w-full" wire:key="selected-roll-{{ $roll['id'] }}">
                         <p class="text-lg">{{ $roll['label'] }}</p>
                         <p class="text-lg">{{ $roll['weight'] }}</p>
+
+                        <x-input class="!w-1/3" placeholder="Defeito" wire:model="selectedRolls.{{ $roll['id'] }}.{{'defect'}}" />
+                        <x-input class="!w-[120px]" placeholder="Peso" wire:model="selectedRolls.{{ $roll['id'] }}.{{'defect_weight'}}" />
+
                         <x-button variant="ghost" icon="x-mark" wire:click="removeRoll({{ $roll['id'] }})" />
                     </div>
                 @endforeach
