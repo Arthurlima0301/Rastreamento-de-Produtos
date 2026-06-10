@@ -14,6 +14,8 @@ class OrderForm extends Component
 
     public ?int $client_id = null;
 
+    public string $status = '';
+
     public function mount(?int $orderId = null): void
     {
         $this->orderId = $orderId;
@@ -30,12 +32,14 @@ class OrderForm extends Component
         $validated = $this->validate([
             'order_code' => 'required|string|max:150|unique:orders,order_code,'.$this->orderId,
             'client_id' => 'required|exists:clients,id',
+            'status' => 'required|in:FINALIZADA,ATIVA',
         ], [
             'order_code.required' => 'O campo codigo da ordem e obrigatorio.',
             'order_code.max' => 'O campo codigo da ordem deve ter no maximo 150 caracteres.',
             'order_code.unique' => 'O codigo da ordem já está em uso.',
             'client_id.required' => 'O campo cliente e obrigatorio.',
             'client_id.exists' => 'O cliente informado e invalido.',
+            'status.required' => 'O Status do pedido deve ser informado.',
         ]);
 
         if ($this->orderId) {
