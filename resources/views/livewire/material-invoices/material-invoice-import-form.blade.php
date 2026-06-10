@@ -1,4 +1,4 @@
-<div class="flex flex-col items-end gap-2 w-full">
+<div class="flex  items-end gap-2 w-full">
     <x-button
         variant="primary"
         icon="arrow-up-tray"
@@ -20,6 +20,7 @@
             x-on:livewire-upload-finish="$wire.import()"
         >
     </x-button>
+
 
     @error('xml_file')
         <span class="text-sm text-red-500">{{ $message }}</span>
