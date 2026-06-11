@@ -14,6 +14,7 @@ use App\Livewire\Loads\LoadShow;
 use App\Livewire\Machines\MachineCreate;
 use App\Livewire\Machines\MachineEdit;
 use App\Livewire\Machines\MachineIndex;
+use App\Livewire\Machines\MachineShow;
 use App\Livewire\MaterialInvoices\MaterialInvoiceIndex;
 use App\Livewire\MaterialInvoices\MaterialInvoiceShow;
 use App\Livewire\Materials\MaterialCreate;
@@ -42,6 +43,7 @@ Route::get('/clients/{client}/edit', ClientEdit::class)->name('clients.edit');
 Route::get('/machines', MachineIndex::class)->name('machines.index');
 Route::get('/machines/create', MachineCreate::class)->name('machines.create');
 Route::get('/machines/{machine}/edit', MachineEdit::class)->name('machines.edit');
+Route::get('/machines/{machine}/show', MachineShow::class)->name('machines.show');
 
 // Supply routes
 Route::get('/supplies', SupplyIndex::class)->name('supplies.index');
@@ -51,7 +53,7 @@ Route::get('/supplies/{supply}/edit', SupplyEdit::class)->name('supplies.edit');
 
 // Supply invoice routes
 Route::get('/supply-invoices', SupplyInvoiceIndex::class)->name('supply-invoices.index');
-Route::get('supply-invoices/{supplyInvoice}', SupplyInvoiceShow::class)->name('supply-invoices.show');
+Route::get('/supply-invoices/{supplyInvoice}', SupplyInvoiceShow::class)->name('supply-invoices.show');
 
 // Supply item routes
 Route::get('/supply-items', SupplyItemIndex::class)->name('supply-items.index');

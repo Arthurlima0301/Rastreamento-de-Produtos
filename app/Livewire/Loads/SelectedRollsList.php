@@ -69,6 +69,8 @@ class SelectedRollsList extends Component
             'id' => $rollId,
             'label' => $rollLabel,
             'weight' => $rollWeight,
+            'defect' => null,
+            'defect_weight' => null,
         ];
     }
 
@@ -77,6 +79,7 @@ class SelectedRollsList extends Component
      */
     public function save(CreateLoadService $loadService)
     {
+
         $this->validate();
 
         try {
@@ -85,7 +88,7 @@ class SelectedRollsList extends Component
             return redirect()->route('loads.index')->with('success', 'Carga criada com sucesso!');
         } catch (\Exception $e) {
 
-            session()->flash('error', 'Ocorreu um erro ao criar a carga: '.$e->getMessage());
+            session()->flash('error', 'Ocorreu um erro ao criar a carga: ' . $e->getMessage());
         }
     }
 
@@ -101,6 +104,8 @@ class SelectedRollsList extends Component
                 'selectedCuttedAt' => 'required|date',
                 'selectedRolls' => 'required|array|min:1|max:6',
                 'selectedRolls.*.id' => 'required|exists:rolls,id',
+                'selectedRolls.*.defect' => 'nullable|string|max:255',
+                'selectedRolls.*.defect_weight' => 'nullable|integer|min:0',
             ];
     }
 
@@ -119,6 +124,10 @@ class SelectedRollsList extends Component
             'selectedRolls.min' => 'Selecione pelo menos uma bobina.',
             'selectedRolls.max' => 'O limite de 6 bobinas foi atingido.',
             'selectedRolls.*.id.exists' => 'Uma das bobinas selecionadas é inválida.',
+            'selectedRolls.*.defect.string' => 'O campo "Defeito" deve ser uma string.',
+            'selectedRolls.*.defect.max' => 'O campo "Defeito" deve ter no máximo 255 caracteres.',
+            'selectedRolls.*.defect_weight.integer' => 'O campo "Peso do Defeito" deve ser um número inteiro.',
+            'selectedRolls.*.defect_weight.min' => 'O campo "Peso do Defeito" deve ser um número positivo.',
         ];
     }
 }

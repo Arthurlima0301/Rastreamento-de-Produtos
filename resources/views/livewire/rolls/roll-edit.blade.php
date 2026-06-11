@@ -25,6 +25,16 @@
                 <p class="text-sm text-red-500">{{ $message }}</p>
             @enderror
 
+            <x-input label="Defeito" placeholder="Digite o defeito da bobina" wire:model="roll_defect" />
+            @error('roll_defect')
+                <p class="text-sm text-red-500">{{ $message }}</p>
+            @enderror
+
+            <x-input label="Peso do Defeito" placeholder="Digite o peso do defeito da bobina" wire:model="roll_defect_weight" />
+            @error('roll_defect_weight')
+                <p class="text-sm text-red-500">{{ $message }}</p>
+            @enderror
+
             <x-button type="submit" variant="primary">Salvar</x-button>
         </form>
     </flux:card>

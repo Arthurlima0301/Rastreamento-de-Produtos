@@ -41,11 +41,13 @@ class CreateLoadService
     public function attachRollsToLoad(array $rolls, int $loadId): void
     {
         foreach ($rolls as $roll) {
-            $roll = Roll::findOrFail($roll['id']);
+            $rollModel = Roll::findOrFail($roll['id']);
 
-            $roll->load_id = $loadId;
-            $roll->status = 'CORTADA';
-            $roll->save();
+            $rollModel->load_id = $loadId;
+            $rollModel->defect = $roll['defect'] ?? null;
+            $rollModel->defect_weight = $roll['defect_weight'] ?? null;
+            $rollModel->status = 'CORTADA';
+            $rollModel->save();
         }
     }
 }

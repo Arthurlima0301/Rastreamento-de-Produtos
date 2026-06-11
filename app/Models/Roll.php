@@ -17,6 +17,8 @@ class Roll extends Model
         'label',
         'weight',
         'status',
+        'defect',
+        'defect_weight',
         'item_material_id',
     ];
 
@@ -25,6 +27,7 @@ class Roll extends Model
      */
     protected $casts = [
         'weight' => 'float',
+        'defect_weight' => 'float',
     ];
 
     /**
@@ -33,6 +36,14 @@ class Roll extends Model
     public function getFormattedWeightAttribute()
     {
         return number_format($this->weight, 0, ',', '.');
+    }
+
+    /**
+     * Formatted defect weight attribute accessor.
+     */
+    public function getFormattedDefectWeightAttribute()
+    {
+        return number_format($this->defect_weight, 0, ',', '.');
     }
 
     /**

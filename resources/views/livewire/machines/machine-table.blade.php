@@ -11,7 +11,11 @@
         <x-slot:rows>
             @foreach ($machines as $machine)
                 <flux:table.row wire:key="machine-{{ $machine->id }}">
-                    <flux:table.cell align="center">{{ $machine->name }}</flux:table.cell>
+                    <flux:table.cell align="center">
+                        <a href="{{ route('machines.show', $machine->id) }}" class="hover:underline">
+                            {{ $machine->name }}
+                        </a>
+                    </flux:table.cell>
                     <flux:table.cell align="center">{{ $machine->abbreviation }}</flux:table.cell>
                     <flux:table.cell align="center">
                         <div class="flex justify-center gap-2">
