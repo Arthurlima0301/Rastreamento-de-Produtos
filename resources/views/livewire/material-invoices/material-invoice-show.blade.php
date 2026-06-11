@@ -38,6 +38,7 @@
                     <flux:table.cell align="center">{{ $itemMaterial->material->formatted_package_gross_weight }}</flux:table.cell>
                     <flux:table.cell align="center">
                         <x-button href="{{ route('item-materials.show', $itemMaterial) }}" icon="eye"></x-button>
+                        <x-button href="{{ route('item-materials.edit', $itemMaterial) }}" icon="arrow-path-rounded-square"/>
                     </flux:table.cell>
                 </flux:table.row>
             @endforeach

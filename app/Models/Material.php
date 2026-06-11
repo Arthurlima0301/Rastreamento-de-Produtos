@@ -63,4 +63,14 @@ class Material extends Model
     {
         return number_format((float) $value, 2, ',', '.');
     }
+
+    public function scopeSearchByPaper($query, $search)
+    {
+        $search = trim($search);
+        if ($search) {
+            $query->where('paper', 'like', '%' . $search . '%');
+        }
+
+        return $query;
+    }
 }
