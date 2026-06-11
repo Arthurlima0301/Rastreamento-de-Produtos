@@ -16,6 +16,7 @@ class OrderFactory extends Factory
         return [
             'order_code' => fake()->unique()->numerify('ORD-#####'),
             'client_id' => Client::factory(),
+            'status' => fake()->randomElement(['ATIVA','FINALIZADA']),
         ];
     }
 }
