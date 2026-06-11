@@ -28,4 +28,24 @@ class MaterialInvoiceTable extends Component
 
         return view('livewire.material-invoices.material-invoice-table', compact('materialInvoices'));
     }
+
+    /**
+     * Delete the invoice from Material
+     */
+    public function delete(MaterialInvoice $materialInvoice)
+    {
+        $hasRolls = $materialInvoice
+        ->itemMaterials()
+        ->whereHas('rolls.cutLoad')
+        ->exists();
+
+        if($hasRolls){
+            session()->flash('error','Algum dos items da Nota Fiscal possui bobinas com cargas associadas');
+            return redirect()->route('material-invoices.index');
+        }
+
+        $materialInvoice->delete();
+        return redirect()->route('material-invoices.index')->with('success','Nota Fiscal Deletada com Sucesso');
+        
+    }
 }

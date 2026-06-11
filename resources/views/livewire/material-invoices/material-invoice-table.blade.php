@@ -26,6 +26,13 @@
                     <flux:table.cell align="center">{{ $materialInvoice->item_materials_count }}</flux:table.cell>
                     <flux:table.cell align="center">
                         <x-button href="{{ route('material-invoices.show', $materialInvoice->id) }}" variant="ghost" icon="eye" />
+                            <x-button 
+                                wire:click="delete({{ $materialInvoice->id }})"    
+                                wire:loading.attr="disabled"
+                                wire:target="delete({{ $materialInvoice->id }})"
+                                variant="ghost" 
+                                icon="trash" 
+                            />
                     </flux:table.cell>
                 </flux:table.row>
             @endforeach
