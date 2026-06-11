@@ -4,6 +4,7 @@ namespace Tests\Feature;
 
 use App\Livewire\MaterialInvoices\MaterialInvoiceImportForm;
 use App\Models\Material;
+use App\Models\Order;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\UploadedFile;
 use Livewire\Livewire;
@@ -15,7 +16,12 @@ class ImportMaterialXMLTest extends TestCase
 
     public function test_import_valid_material_xml(): void
     {
-        Material::factory()->create(['shipment_code' => '1001']);
+        $order = Order::factory()->create([
+            'order_code' => 'CUT-300',
+            'status' => 'ATIVA',
+        ]);
+
+        Material::factory()->create(['shipment_code' => '1001','order_id' => $order->id]);
 
         Livewire::test(MaterialInvoiceImportForm::class)
             ->set('xml_file', $this->xmlUpload('nota_fiscal_valida.xml'))
