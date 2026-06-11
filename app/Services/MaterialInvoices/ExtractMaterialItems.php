@@ -21,10 +21,12 @@ class ExtractMaterialItems
     private function saveMaterialItems(array $materialItems, int $materialInvoiceId): void
     {
         foreach ($materialItems as $materialItem) {
-            $material = Material::where('shipment_code', (int) $materialItem->prod->cProd)
-                ->join('orders','orders.id','=','materials.order_id')
-                ->where('orders.status','ATIVA')
-                ->orderBy('created_at','desc')
+            $material = Material::query()
+                ->select('materials.id')
+                ->join('orders', 'orders.id', '=', 'materials.order_id')
+                ->orderBy('orders.created_at','desc')
+                ->where('orders.status', 'ATIVA')
+                ->where('materials.shipment_code', (int) $materialItem->prod->cProd)
                 ->first();
 
             ItemMaterial::create([
