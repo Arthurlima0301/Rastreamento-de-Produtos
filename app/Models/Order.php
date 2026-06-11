@@ -14,6 +14,7 @@ class Order extends Model
     protected $fillable = [
         'order_code',
         'client_id',
+        'status',
     ];
 
     public function client(): BelongsTo

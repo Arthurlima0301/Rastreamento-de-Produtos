@@ -2,9 +2,10 @@
 
 namespace App\Rules\MaterialInvoices;
 
+use Closure;
 use App\Models\Material;
 use App\Models\MaterialInvoice;
-use Closure;
+use App\Models\Order;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Translation\PotentiallyTranslatedString;
 
@@ -47,6 +48,11 @@ class ValidXMLMaterialInvoice implements ValidationRule
             $fail('Nota fiscal já existe.');
 
             return;
+        }
+
+        if(!Order::where('status','ATIVA')->exists())
+        {
+            $fail('Não existe ordens ativas no momento');
         }
 
         foreach ($xml->NFe->infNFe->det as $materialItem) {

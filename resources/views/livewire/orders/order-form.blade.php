@@ -11,6 +11,12 @@
                     <option value="{{ $client->id }}">{{ $client->name }}</option>
                 @endforeach
             </flux:select>
+
+            <flux:select label="Status" wire:model.live="status" class="min-w-[300px]" required>
+                    <option value="">Status</option>
+                    <option value="ATIVA">Ativa</option>
+                    <option value="FINALIZADA">Finalizada</option>
+            </flux:select>
         </div>
 
         <x-button type="submit" variant="primary" class="min-w-[300px]">
