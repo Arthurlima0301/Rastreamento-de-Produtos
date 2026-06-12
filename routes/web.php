@@ -6,6 +6,7 @@ use App\Livewire\Clients\ClientIndex;
 use App\Livewire\Dispatches\DispatchCreate;
 use App\Livewire\Dispatches\DispatchIndex;
 use App\Livewire\Dispatches\DispatchShow;
+use App\Livewire\ItemMaterials\ItemMaterialEdit;
 use App\Livewire\ItemMaterials\ItemMaterialIndex;
 use App\Livewire\ItemMaterials\ItemMaterialShow;
 use App\Livewire\Loads\LoadCreate;
@@ -65,6 +66,7 @@ Route::get('/material-invoices/{materialInvoice}', MaterialInvoiceShow::class)->
 // Item material routes
 Route::get('/item-materials', ItemMaterialIndex::class)->name('item-materials.index');
 Route::get('/item-materials/{itemMaterial}', ItemMaterialShow::class)->name('item-materials.show');
+Route::get('/item-materials/{itemMaterial}/edit', ItemMaterialEdit::class)->name('item-materials.edit');
 Route::get('/item-materials/{itemMaterial}/roll-create', RollsCreate::class)->name('roll.create');
 
 // Order routes

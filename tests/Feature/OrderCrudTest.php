@@ -22,12 +22,14 @@ class OrderCrudTest extends TestCase
         Livewire::test(OrderForm::class)
             ->set('order_code', 'CUT-100')
             ->set('client_id', $client->id)
+            ->set('status', 'ATIVA')
             ->call('save')
             ->assertRedirect(route('orders.index'));
 
         $this->assertDatabaseHas('orders', [
             'order_code' => 'CUT-100',
             'client_id' => $client->id,
+            'status' => 'ATIVA',
         ]);
     }
 
@@ -88,6 +90,7 @@ class OrderCrudTest extends TestCase
         Livewire::test(OrderForm::class, ['orderId' => $order->id])
             ->set('order_code', 'CUT-401')
             ->set('client_id', $client->id)
+            ->set('status', 'ATIVA')
             ->call('save')
             ->assertRedirect(route('orders.index'));
 
@@ -95,6 +98,7 @@ class OrderCrudTest extends TestCase
             'id' => $order->id,
             'order_code' => 'CUT-401',
             'client_id' => $client->id,
+            'status' => 'ATIVA',
         ]);
     }
 

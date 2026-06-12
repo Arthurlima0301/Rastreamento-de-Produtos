@@ -1,4 +1,5 @@
 <div class="w-full space-y-4">
+    <x-error-message />
     <x-search-input />
 
     <x-table :paginate="$supplyInvoices">
@@ -28,6 +29,13 @@
                     <flux:table.cell align="center">{{ $supplyInvoice->supply_items_count }}</flux:table.cell>
                     <flux:table.cell align="center">
                         <x-button href="{{ route('supply-invoices.show', $supplyInvoice->id) }}" variant="ghost" icon="eye" />
+                        <x-button 
+                            wire:click="delete({{$supplyInvoice->id}})" 
+                            wire:loading.attr="disabled"
+                            wire:target="delete({{ $supplyInvoice->id }})"
+                            variant="ghost" 
+                            icon="trash" 
+                        />
                     </flux:table.cell>
                 </flux:table.row>
             @endforeach
