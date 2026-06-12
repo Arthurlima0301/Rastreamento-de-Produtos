@@ -44,7 +44,11 @@
                         </a>
                     <flux:table.cell align="center">{{ $roll->itemMaterial->materialInvoice->formatted_issued_at }}</flux:table.cell>
                     </flux:table.cell>
-                    <flux:table.cell align="center">{{ $roll->itemMaterial->material->paper }}</flux:table.cell>
+                    <flux:table.cell align="center">
+                        <a href="{{ route('item-materials.show', $roll->itemMaterial) }}" class="hover:underline">
+                            {{ $roll->itemMaterial->material->paper }}
+                        </a>
+                    </flux:table.cell>
                     <flux:table.cell align="center">{{ $roll->itemMaterial->material->expedition_code }}</flux:table.cell>
                     <flux:table.cell align="center">{{ $roll->itemMaterial->material->formatted_grammage }}</flux:table.cell>
                     <flux:table.cell align="center">{{ $roll->itemMaterial->material->width }}</flux:table.cell>

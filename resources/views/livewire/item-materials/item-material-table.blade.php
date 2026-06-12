@@ -17,6 +17,7 @@
             <flux:table.column align="center">Comprimento</flux:table.column>
             <flux:table.column align="center">Pacotes</flux:table.column>
             <flux:table.column align="center">Peso</flux:table.column>
+            <flux:table.column align="center">Ações</flux:table.column>
         </x-slot:header>
 
         <x-slot name="rows">
@@ -40,12 +41,20 @@
                     <flux:table.cell align="center">{{ $itemMaterial->material->expedition_code }}</flux:table.cell>
                     <flux:table.cell align="center">{{ $itemMaterial->material->return_batch }}</flux:table.cell>
                     <flux:table.cell align="center">{{ $itemMaterial->material->item_number }}</flux:table.cell>
-                    <flux:table.cell align="center">{{ $itemMaterial->material->order->order_code }}</flux:table.cell>
+                    <flux:table.cell align="center">
+                        <a href="{{ route('orders.show', $itemMaterial->material->order) }}" class="hover:underline">
+                            {{ $itemMaterial->material->order->order_code }}
+                        </a>
+                    </flux:table.cell>
                     <flux:table.cell align="center">{{ $itemMaterial->material->roll }}</flux:table.cell>
                     <flux:table.cell align="center">{{ $itemMaterial->material->width }}</flux:table.cell>
                     <flux:table.cell align="center">{{ $itemMaterial->material->length }}</flux:table.cell>
                     <flux:table.cell align="center">{{ $itemMaterial->material->packages }}</flux:table.cell>
                     <flux:table.cell align="center">{{ $itemMaterial->formatted_total_weight }}</flux:table.cell>
+                    <flux:table.cell align="center">
+                        <x-button href="{{ route('item-materials.show', $itemMaterial) }}" icon="arrow-up-right"/>
+                        <x-button href="{{ route('item-materials.edit', $itemMaterial) }}" icon="arrow-path-rounded-square"/>
+                    </flux:table.cell>
                 </flux:table.row>
             @endforeach
         </x-slot>

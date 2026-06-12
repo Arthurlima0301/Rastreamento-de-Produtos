@@ -17,11 +17,15 @@
         <x-slot:rows>
             @foreach ($dispatches as $dispatch)
                 <flux:table.row wire:key="dispatch-{{ $dispatch->id }}">
-                    <flux:table.cell align="center">{{ $dispatch->id }}</flux:table.cell>
+                    <flux:table.cell align="center">
+                        <a href="{{ route('dispatches.show', $dispatch->id) }}" class="hover:underline">
+                            {{ $dispatch->id }}
+                        </a>
+                    </flux:table.cell>
                     <flux:table.cell align="center">{{ $dispatch->formatted_dispatched_at }}</flux:table.cell>
                     <flux:table.cell align="center">{{ $dispatch->invoice ?? 'N/A' }}</flux:table.cell>
                     <flux:table.cell align="center">
-                        <x-button href="{{ route('dispatches.show', $dispatch->id) }}" variant="ghost" icon="eye" />
+                        <x-button href="{{ route('dispatches.show', $dispatch->id) }}" variant="ghost" icon="arrow-up-right" />
 
                         <flux:modal.trigger :name="'confirm-'.$dispatch->id">
                             <x-button variant="primary" color="red" icon="trash" />

@@ -21,18 +21,21 @@
             @foreach ($materialInvoices as $materialInvoice)
                 <flux:table.row wire:key="material-invoice-{{ $materialInvoice->id }}">
                     <flux:table.cell align="center">{{ $materialInvoice->id }}</flux:table.cell>
-                    <flux:table.cell align="center">{{ $materialInvoice->formatted_invoice_code }}</flux:table.cell>
+                    <flux:table.cell align="center">
+                        <a href="{{ route('material-invoices.show', $materialInvoice->id) }}" class="hover:underline">
+                            {{ $materialInvoice->formatted_invoice_code }}
+                        </a>
+                    </flux:table.cell>
                     <flux:table.cell align="center">{{ $materialInvoice->formatted_issued_at }}</flux:table.cell>
                     <flux:table.cell align="center">{{ $materialInvoice->item_materials_count }}</flux:table.cell>
                     <flux:table.cell align="center">
-                        <x-button href="{{ route('material-invoices.show', $materialInvoice->id) }}" variant="ghost" icon="eye" />
-                            <x-button 
-                                wire:click="delete({{ $materialInvoice->id }})"    
-                                wire:loading.attr="disabled"
-                                wire:target="delete({{ $materialInvoice->id }})"
-                                variant="ghost" 
-                                icon="trash" 
-                            />
+                        <x-button 
+                            wire:click="delete({{ $materialInvoice->id }})"    
+                            wire:loading.attr="disabled"
+                            wire:target="delete({{ $materialInvoice->id }})"
+                            variant="ghost" 
+                            icon="trash" 
+                        />
                     </flux:table.cell>
                 </flux:table.row>
             @endforeach

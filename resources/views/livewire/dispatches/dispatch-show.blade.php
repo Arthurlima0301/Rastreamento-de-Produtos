@@ -30,9 +30,17 @@
                     <flux:table.cell align="center">-</flux:table.cell>
                     <flux:table.cell align="center">{{ $dispatchItem->supplyItem->supply->supply_code }}</flux:table.cell>
                     <flux:table.cell align="center">-</flux:table.cell>
-                    <flux:table.cell align="center">{{ $dispatchItem->supplyItem->supply->name }}</flux:table.cell>
+                    <flux:table.cell align="center">
+                        <a href="{{ route('supplies.show', $dispatchItem->supplyItem->supply->id) }}" class="hover:underline">
+                            {{ $dispatchItem->supplyItem->supply->name }}
+                        </a>
+                    </flux:table.cell>
                     <flux:table.cell align="center">-</flux:table.cell>
-                    <flux:table.cell align="center">{{ $dispatchItem->supplyItem->supplyInvoice->formatted_supply_invoice_code }}</flux:table.cell>
+                    <flux:table.cell align="center">
+                        <a href="{{ route('supply-invoices.show', $dispatchItem->supplyItem->supplyInvoice->id) }}" class="hover:underline">
+                            {{ $dispatchItem->supplyItem->supplyInvoice->formatted_supply_invoice_code }}
+                        </a>
+                    </flux:table.cell>
                     <flux:table.cell align="center">(Item {{ $dispatchItem->supplyItem->number }})</flux:table.cell>
                 </flux:table.row>
             @endforeach
