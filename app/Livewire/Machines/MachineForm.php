@@ -31,22 +31,22 @@ class MachineForm extends Component
             'name' => 'required|string|max:100',
             'abbreviation' => ['required', 'string', 'size:1', Rule::unique('machines', 'abbreviation')->ignore($this->machineId)],
         ], [
-            'name.required' => 'O campo nome é obrigatório.',
-            'name.max' => 'O campo nome deve ter no máximo 100 caracteres.',
-            'abbreviation.required' => 'O campo sigla é obrigatório.',
-            'abbreviation.size' => 'O campo sigla deve ter exatamente 1 caractere.',
+            'name.required' => 'O campo "Nome" é obrigatório.',
+            'name.max' => 'O campo "Nome" deve ter no máximo 100 caracteres.',
+            'abbreviation.required' => 'O campo "Sigla" é obrigatório.',
+            'abbreviation.size' => 'O campo "Sigla" deve ter exatamente 1 caractere.',
             'abbreviation.unique' => 'A sigla já existe. Por favor, escolha outra.',
         ]);
 
         if ($this->machineId) {
             Machine::findOrFail($this->machineId)->update($validated);
 
-            return redirect()->route('machines.index')->with('success', 'Máquina atualizada com sucesso.');
+            return redirect()->route('machines.index')->with('success', 'Máquina atualizada com sucesso!');
         }
 
         Machine::create($validated);
 
-        return redirect()->route('machines.index')->with('success', 'Máquina criada com sucesso.');
+        return redirect()->route('machines.index')->with('success', 'Máquina criada com sucesso!');
     }
 
     public function render()

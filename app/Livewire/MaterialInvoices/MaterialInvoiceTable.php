@@ -40,12 +40,12 @@ class MaterialInvoiceTable extends Component
         ->exists();
 
         if($hasRolls){
-            session()->flash('error','Algum dos items da Nota Fiscal possui bobinas com cargas associadas');
+            session()->flash('error','Uma das bobinas pertencentes à essa nota fiscal estão associadas a uma carga');
             return redirect()->route('material-invoices.index');
         }
 
         $materialInvoice->delete();
-        return redirect()->route('material-invoices.index')->with('success','Nota Fiscal Deletada com Sucesso');
+        return redirect()->route('material-invoices.index')->with('success','Nota fiscal deletada com sucesso!');
         
     }
 }

@@ -40,6 +40,6 @@ class LoadTable extends Component
 
         $load->delete();
 
-        return redirect()->route('loads.index')->with('success', 'Carga deletada com sucesso.');
+        return redirect()->route('loads.index')->with('success', 'Carga deletada com sucesso!');
     }
 }

@@ -27,11 +27,11 @@ class ClientTable extends Component
         $client = Client::findOrFail($clientId);
 
         if ($client->supplies()->exists() || $client->orders()->exists()) {
-            return redirect()->route('clients.index')->with('error', 'Não é possível deletar um cliente que possui insumos ou ordens associados.');
+            return redirect()->route('clients.index')->with('error', 'Não é possível deletar um cliente que possui insumos ou ordens associadas.');
         }
 
         $client->delete();
 
-        return redirect()->route('clients.index')->with('success', 'Cliente deletado com sucesso.');
+        return redirect()->route('clients.index')->with('success', 'Cliente deletado com sucesso!');
     }
 }

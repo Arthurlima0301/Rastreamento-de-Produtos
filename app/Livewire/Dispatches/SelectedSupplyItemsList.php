@@ -79,10 +79,10 @@ class SelectedSupplyItemsList extends Component
             'selectedSupplyItems' => ['required', 'array', 'min:1', new ValidateConsumeSupplyItems],
             'selectedSupplyItems.*.quantity' => 'required|numeric|min:0.01',
         ], [
-            'selectedSupplyItems.required' => 'Selecione pelo menos um item para criar a saída.',
+            'selectedSupplyItems.required' => 'Selecione no mínimo um item ao criar uma saída.',
             'selectedSupplyItems.*.quantity.required' => 'A quantidade é obrigatória para cada item selecionado.',
             'selectedSupplyItems.*.quantity.numeric' => 'A quantidade deve ser um número válido.',
-            'selectedSupplyItems.*.quantity.min' => 'A quantidade deve ser pelo menos 0.01.',
+            'selectedSupplyItems.*.quantity.min' => 'A quantidade deve ser no mínimo 0.01.',
         ]);
 
         try {

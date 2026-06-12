@@ -26,18 +26,18 @@ class ClientForm extends Component
         $validated = $this->validate([
             'name' => 'required|string',
         ], [
-            'name.required' => 'O campo nome é obrigatório.',
+            'name.required' => 'O campo "Nome" é obrigatório.',
         ]);
 
         if ($this->clientId) {
             Client::findOrFail($this->clientId)->update($validated);
 
-            return redirect()->route('clients.index')->with('success', 'Cliente atualizado com sucesso.');
+            return redirect()->route('clients.index')->with('success', 'Cliente atualizado com sucesso!');
         }
 
         Client::create($validated);
 
-        return redirect()->route('clients.index')->with('success', 'Cliente criado com sucesso.');
+        return redirect()->route('clients.index')->with('success', 'Cliente criado com sucesso!');
     }
 
     public function render()

@@ -68,7 +68,7 @@ class RollsCreate extends Component
             'status' => 'EM_ESTOQUE',
         ]);
 
-        session()->flash('success', "Bobina  $this->roll_batch-$this->roll_vol  criada com sucesso!");
+        session()->flash('success', "Bobina  $this->roll_batch-$this->roll_vol criada com sucesso!");
         $this->reset(['roll_vol', 'roll_weight']);
         $this->dispatch('focus-roll-vol');
     }

@@ -18,6 +18,8 @@ class DispatchTable extends Component
     {
         $this->validate([
             'parameter' => 'in:asc,desc',
+        ], [
+            'parameter.in' => 'O parâmetro de ordenação deve ser "asc" ou "desc".',
         ]);
 
         $dispatches = Dispatch::query()

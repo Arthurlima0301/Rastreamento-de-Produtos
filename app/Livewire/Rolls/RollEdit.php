@@ -48,7 +48,7 @@ class RollEdit extends Component
 
         return redirect()
             ->route('item-materials.show', $this->roll->item_material_id)
-            ->with('success', 'Bobina atualizada com sucesso.');
+            ->with('success', 'Bobina atualizada com sucesso!');
     }
 
     /**

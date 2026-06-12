@@ -31,6 +31,6 @@ class MachineTable extends Component
         }
 
         $machine->delete();
-        return redirect()->route('machines.index')->with('success', 'Máquina deletada com sucesso.');
+        return redirect()->route('machines.index')->with('success', 'Máquina deletada com sucesso!');
     }
 }

@@ -34,23 +34,23 @@ class OrderForm extends Component
             'client_id' => 'required|exists:clients,id',
             'status' => 'required|in:FINALIZADA,ATIVA',
         ], [
-            'order_code.required' => 'O campo codigo da ordem e obrigatorio.',
-            'order_code.max' => 'O campo codigo da ordem deve ter no maximo 150 caracteres.',
+            'order_code.required' => 'O campo "Código" da ordem e obrigatorio.',
+            'order_code.max' => 'O campo "Código" da ordem deve ter no maximo 150 caracteres.',
             'order_code.unique' => 'O codigo da ordem já está em uso.',
-            'client_id.required' => 'O campo cliente e obrigatorio.',
-            'client_id.exists' => 'O cliente informado e invalido.',
-            'status.required' => 'O Status do pedido deve ser informado.',
+            'client_id.required' => 'O campo "Cliente" é obrigatório.',
+            'client_id.exists' => 'O cliente informado é inválido.',
+            'status.required' => 'O status do pedido deve ser informado.',
         ]);
 
         if ($this->orderId) {
             Order::findOrFail($this->orderId)->update($validated);
 
-            return redirect()->route('orders.index')->with('success', 'Ordem de corte atualizada com sucesso.');
+            return redirect()->route('orders.index')->with('success', 'Ordem de corte atualizada com sucesso!');
         }
 
         Order::create($validated);
 
-        return redirect()->route('orders.index')->with('success', 'Ordem de corte criada com sucesso.');
+        return redirect()->route('orders.index')->with('success', 'Ordem de corte criada com sucesso!');
     }
 
     public function render()

@@ -37,11 +37,11 @@ class SupplyInvoiceTable extends Component
             ->exists();
 
         if ($hasDispatch === true) {
-            session()->flash('error','Algum dos items dessa nota possui saídas vinculadas a ele');
+            session()->flash('error','Um dos items dessa nota possui saídas vinculadas a ele');
             return;
         }
 
         $supplyInvoice->delete();
-        return redirect()->route('supply-invoices.index')->with('success', 'Nota Fiscal Deletada com Sucesso');
+        return redirect()->route('supply-invoices.index')->with('success', 'Nota Fiscal Deletada com Sucesso!');
     }
 }

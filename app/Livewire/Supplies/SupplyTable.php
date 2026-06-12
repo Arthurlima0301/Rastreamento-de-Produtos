@@ -33,6 +33,6 @@ class SupplyTable extends Component
 
         $supply->delete();
 
-        return redirect()->route('supplies.index')->with('success', 'Insumo deletado com sucesso.');
+        return redirect()->route('supplies.index')->with('success', 'Insumo deletado com sucesso!');
     }
 }

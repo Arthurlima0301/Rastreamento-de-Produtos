@@ -18,8 +18,8 @@ class MaterialInvoiceImportForm extends Component
         $this->validate([
             'xml_file' => ['required', 'file', 'max:5120', new ValidXMLMaterialInvoice],
         ], [
-            'xml_file.required' => 'Arquivo XML é obrigatório.',
-            'xml_file.file' => 'Envie um arquivo válido.',
+            'xml_file.required' => 'Um arquivo é obrigatório.',
+            'xml_file.file' => 'Envie um arquivo válido. O formato do arquivo deve ser obrigatoriamente XML.',
             'xml_file.max' => 'O arquivo deve ter no máximo 5MB.',
         ]);
 

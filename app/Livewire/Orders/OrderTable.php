@@ -28,11 +28,11 @@ class OrderTable extends Component
         $order = Order::findOrFail($orderId);
 
         if ($order->materials()->exists()) {
-            return redirect()->route('orders.index')->with('error', 'Nao e possivel deletar uma ordem de corte que possui materiais associados.');
+            return redirect()->route('orders.index')->with('error', 'Não é possível deletar uma ordem de corte que possui materiais associados.');
         }
 
         $order->delete();
 
-        return redirect()->route('orders.index')->with('success', 'Ordem de corte deletada com sucesso.');
+        return redirect()->route('orders.index')->with('success', 'Ordem de corte deletada com sucesso!');
     }
 }

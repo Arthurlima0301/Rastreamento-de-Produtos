@@ -52,7 +52,7 @@ class ItemMaterialShow extends Component
 
         $roll->delete();
 
-        session()->flash('success', 'Bobina deletada com sucesso.');
+        session()->flash('success', 'Bobina deletada com sucesso!');
     }
 
 
