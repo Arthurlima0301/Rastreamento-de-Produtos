@@ -8,7 +8,7 @@ use Livewire\Attributes\Title;
 use Livewire\Component;
 
 #[Layout('Layout.layout')]
-#[Title('Nota Fiscal de Material - Detalhes')]
+#[Title('Detalhes de Nota Fiscal de Material')]
 class MaterialInvoiceShow extends Component
 {
     public int $materialInvoiceId;

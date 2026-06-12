@@ -4,10 +4,10 @@
     <x-table :paginate="$loads">
         <x-slot:header>
             <flux:table.column align="center">Código</flux:table.column>
-            <flux:table.column align="center">Data de Corte</flux:table.column>
+            <flux:table.column align="center">Data do Corte</flux:table.column>
             <flux:table.column align="center">Turno</flux:table.column>
             <flux:table.column align="center">Máquina</flux:table.column>
-            <flux:table.column align="center">Bobinas</flux:table.column>
+            <flux:table.column align="center">Quantidade de Bobinas</flux:table.column>
             <flux:table.column align="center">Peso da Carga</flux:table.column>
             <flux:table.column align="center">Ações</flux:table.column>
         </x-slot:header>

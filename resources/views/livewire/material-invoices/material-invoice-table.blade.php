@@ -4,17 +4,17 @@
     <x-table :paginate="$materialInvoices">
         <x-slot:header>
             <flux:table.column align="center">ID</flux:table.column>
-            <flux:table.column align="center">Codigo da Nota</flux:table.column>
+            <flux:table.column align="center">Código da Nota</flux:table.column>
 
             <flux:table.column align="center">
-                <x-sort collumn-title="Data de Emissao" model="parameter">
+                <x-sort collumn-title="Data de Emissão" model="parameter">
                     <flux:menu.radio value="desc">Mais Recentes</flux:menu.radio>
                     <flux:menu.radio value="asc">Mais Antigos</flux:menu.radio>
                 </x-sort>
             </flux:table.column>
 
             <flux:table.column align="center">Quantidade de Itens</flux:table.column>
-            <flux:table.column align="center">Acoes</flux:table.column>
+            <flux:table.column align="center">Ações</flux:table.column>
         </x-slot:header>
 
         <x-slot:rows>

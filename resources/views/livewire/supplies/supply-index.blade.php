@@ -1,5 +1,5 @@
 <div class="w-full">
-    <x-card title="Lista de Insumos">
+    <x-card title="Insumos">
         <x-button href="{{ route('supplies.create') }}" variant="primary" icon="plus">
             Criar Novo Insumo
         </x-button>

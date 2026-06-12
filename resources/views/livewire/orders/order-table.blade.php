@@ -3,10 +3,10 @@
 
     <x-table :paginate="$orders">
         <x-slot:header>
-            <flux:table.column align="center">Codigo</flux:table.column>
+            <flux:table.column align="center">Código</flux:table.column>
             <flux:table.column align="center">Cliente</flux:table.column>
             <flux:table.column align="center">Status</flux:table.column>
-            <flux:table.column align="center">Acoes</flux:table.column>
+            <flux:table.column align="center">Ações</flux:table.column>
         </x-slot:header>
 
         <x-slot:rows>

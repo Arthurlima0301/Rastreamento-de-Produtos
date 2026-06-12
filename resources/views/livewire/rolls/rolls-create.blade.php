@@ -1,9 +1,9 @@
 <div class="w-full">
-    <x-card title="Adicionar Bobinas">
+    <x-card title="Adicionar Bobina(s)">
         <x-slot name="slot">
             <div class="flex items-center gap-3">
                 <p><strong>NF: </strong> {{ $itemMaterial->materialInvoice->formatted_invoice_code }}</p>
-                <p><strong>Item: </strong> {{ $itemMaterial->number }}</p>
+                <p><strong>Nº do Item: </strong> {{ $itemMaterial->number }}</p>
                 <p><strong>Papel: </strong> {{ $itemMaterial->material->paper }}</p>
                 <p><strong>Gramatura: </strong> {{ $itemMaterial->material->formatted_grammage }}</p>
                 <p><strong>Rolo: </strong> {{ $itemMaterial->material->roll }}</p>
@@ -19,7 +19,7 @@
                 <p class="text-sm text-red-500">{{ $message }}</p>
             @enderror
 
-            <x-input label="Lote da Bobina" placeholder="Digite o código da bobina" wire:model="roll_batch" autofocus />
+            <x-input label="Lote da Bobina" placeholder="Digite o lote da bobina" wire:model="roll_batch" autofocus />
             @error('roll_batch')
                 <p class="text-sm text-red-500">{{ $message }}</p>
             @enderror

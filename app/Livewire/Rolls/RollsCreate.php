@@ -10,7 +10,7 @@ use Livewire\Attributes\Title;
 
 
 #[Layout('Layout.layout')]
-#[Title('Adicionar Bobina')]
+#[Title('Adicionar Bobina(s)')]
 class RollsCreate extends Component
 {
     public ItemMaterial $itemMaterial;

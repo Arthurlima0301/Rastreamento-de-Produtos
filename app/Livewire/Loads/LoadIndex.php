@@ -7,7 +7,7 @@ use Livewire\Attributes\Title;
 use Livewire\Component;
 
 #[Layout('Layout.layout')]
-#[Title('Cargas de Corte')]
+#[Title('Cargas')]
 class LoadIndex extends Component
 {
     public function render()

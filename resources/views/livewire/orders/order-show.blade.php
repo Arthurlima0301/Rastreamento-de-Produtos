@@ -6,7 +6,10 @@
                 <p><strong>Cliente:</strong> {{ $order->client->name }}</p>
                 <p><strong>Quantidade de Materiais:</strong> {{ $order->materials->count() }}</p>
                 <x-button href="{{ route('materials.create', ['order' => $order->id]) }}" variant="primary" icon="plus"
-                    size="sm"></x-button>
+                    size="sm"
+                >
+                    Adicionar Material
+                </x-button>
             </div>
         </x-slot>
     </x-card>
@@ -17,19 +20,19 @@
     <x-table>
         <x-slot:header>
             <flux:table.column align="center">Item</flux:table.column>
-            <flux:table.column align="center">Cod. Envio</flux:table.column>
+            <flux:table.column align="center">Cód. Envio</flux:table.column>
             <flux:table.column align="center">Rolo</flux:table.column>
             <flux:table.column align="center">Largura</flux:table.column>
             <flux:table.column align="center">Comprimento</flux:table.column>
             <flux:table.column align="center">Folhas</flux:table.column>
             <flux:table.column align="center">Gramatura</flux:table.column>
-            <flux:table.column align="center">Cod. Expedicao</flux:table.column>
+            <flux:table.column align="center">Cód. Expedição</flux:table.column>
             <flux:table.column align="center">Papel</flux:table.column>
-            <flux:table.column align="center">Lote Retorno</flux:table.column>
+            <flux:table.column align="center">Lote de Retorno</flux:table.column>
             <flux:table.column align="center">Pacotes</flux:table.column>
-            <flux:table.column align="center">Peso Liq. P</flux:table.column>
-            <flux:table.column align="center">Peso Bruto P</flux:table.column>
-            <flux:table.column align="center">Acoes</flux:table.column>
+            <flux:table.column align="center">Peso Líquido P.</flux:table.column>
+            <flux:table.column align="center">Peso Bruto P.</flux:table.column>
+            <flux:table.column align="center">Ações</flux:table.column>
         </x-slot:header>
 
         <x-slot:rows>

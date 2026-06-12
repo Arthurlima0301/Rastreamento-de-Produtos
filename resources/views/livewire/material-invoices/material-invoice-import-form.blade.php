@@ -1,4 +1,4 @@
-<div class="flex  items-end gap-2 w-full">
+<div class="flex flex-col items-end gap-2 w-full">
     <x-button
         variant="primary"
         icon="arrow-up-tray"

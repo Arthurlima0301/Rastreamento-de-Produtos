@@ -8,7 +8,7 @@ use Livewire\Attributes\Title;
 use Livewire\Component;
 
 #[Layout('Layout.layout')]
-#[Title('Saídas')]
+#[Title('Detalhes da Saída')]
 class DispatchShow extends Component
 {
     public int $dispatchId;

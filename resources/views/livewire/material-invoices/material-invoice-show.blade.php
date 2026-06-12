@@ -1,10 +1,10 @@
 <div class="w-full">
     <x-error-message />
 
-    <x-card title="Detalhes da Nota Fiscal de Material">
+    <x-card title="Detalhes de Nota Fiscal de Material">
         <x-slot name="slot">
-            <p><strong>Codigo:</strong> {{ $materialInvoice->formatted_invoice_code }}</p>
-            <p><strong>Data de Emissao:</strong> {{ $materialInvoice->formatted_issued_at }}</p>
+            <p><strong>Código:</strong> {{ $materialInvoice->formatted_invoice_code }}</p>
+            <p><strong>Data de Emissão:</strong> {{ $materialInvoice->formatted_issued_at }}</p>
             <p><strong>Quantidade de Itens:</strong> {{ $materialInvoice->item_materials_count }}</p>
         </x-slot>
     </x-card>
@@ -14,14 +14,13 @@
             <flux:table.column align="center">Papel</flux:table.column>
             <flux:table.column align="center">Gramatura</flux:table.column>
             <flux:table.column align="center">Rolo</flux:table.column>
-            <flux:table.column align="center">Cod. Envio</flux:table.column>
-            <flux:table.column align="center">Cod. Expedição</flux:table.column>
-            <flux:table.column align="center">Lote Retorno</flux:table.column>
-            <flux:table.column align="center">Peso Total</flux:table.column>
-            <flux:table.column align="center">Peso Liquido</flux:table.column>
-            <flux:table.column align="center">Peso Bruto</flux:table.column>
+            <flux:table.column align="center">Cód. Envio</flux:table.column>
+            <flux:table.column align="center">Cód. Expedição</flux:table.column>
+            <flux:table.column align="center">Lote de Retorno</flux:table.column>
+            <flux:table.column align="center">Peso</flux:table.column>
+            <flux:table.column align="center">Peso Líquido P.</flux:table.column>
+            <flux:table.column align="center">Peso Bruto P.</flux:table.column>
             <flux:table.column align="center">Ações</flux:table.column>
-
         </x-slot:header>
 
         <x-slot:rows>

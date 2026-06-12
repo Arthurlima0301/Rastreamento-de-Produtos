@@ -4,7 +4,7 @@
     <x-table :paginate="$supplyItems">
         <x-slot:header>
             <flux:table.column align="center">Código</flux:table.column>
-            <flux:table.column align="center">Descrição</flux:table.column>
+            <flux:table.column align="center">Insumo</flux:table.column>
             <flux:table.column align="center">Cliente</flux:table.column>
             <flux:table.column align="center">Item</flux:table.column>
             <flux:table.column align="center">Unidade de Medida</flux:table.column>

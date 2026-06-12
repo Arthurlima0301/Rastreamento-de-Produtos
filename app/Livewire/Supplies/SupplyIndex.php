@@ -7,7 +7,7 @@ use Livewire\Attributes\Title;
 use Livewire\Component;
 
 #[Layout('Layout.layout')]
-#[Title('Lista de Insumos')]
+#[Title('Insumos')]
 class SupplyIndex extends Component
 {
     public function render()

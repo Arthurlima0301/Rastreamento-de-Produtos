@@ -9,7 +9,7 @@ use Livewire\Attributes\Title;
 use Livewire\Component;
 
 #[Layout('Layout.layout')]
-#[Title('Detalhes do Material do Item')]
+#[Title('Detalhes do Item Material')]
 class ItemMaterialShow extends Component
 {
     public ItemMaterial $itemMaterial;
