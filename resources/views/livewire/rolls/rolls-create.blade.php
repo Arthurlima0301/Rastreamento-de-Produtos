@@ -1,13 +1,11 @@
 <div class="w-full">
     <x-card title="Adicionar Bobina(s)">
         <x-slot name="slot">
-            <div class="flex items-center gap-3">
-                <p><strong>NF: </strong> {{ $itemMaterial->materialInvoice->formatted_invoice_code }}</p>
-                <p><strong>Nº do Item: </strong> {{ $itemMaterial->number }}</p>
-                <p><strong>Papel: </strong> {{ $itemMaterial->material->paper }}</p>
-                <p><strong>Gramatura: </strong> {{ $itemMaterial->material->formatted_grammage }}</p>
-                <p><strong>Rolo: </strong> {{ $itemMaterial->material->roll }}</p>
-            </div>
+            <p><strong>NF: </strong> {{ $itemMaterial->materialInvoice->formatted_invoice_code }}</p>
+            <p><strong>Nº do Item: </strong> {{ $itemMaterial->number }}</p>
+            <p><strong>Papel: </strong> {{ $itemMaterial->material->paper }}</p>
+            <p><strong>Gramatura: </strong> {{ $itemMaterial->material->formatted_grammage }}</p>
+            <p><strong>Rolo: </strong> {{ $itemMaterial->material->roll }}</p>
         </x-slot>
     </x-card>
 

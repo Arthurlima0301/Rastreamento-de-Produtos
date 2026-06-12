@@ -1,13 +1,11 @@
 <div class="w-full">
     <x-card title="Editar Bobina">
         <x-slot name="slot">
-            <div class="flex items-center gap-3">
                 <p><strong>NF: </strong> {{ $roll->itemMaterial->materialInvoice->formatted_invoice_code }}</p>
                 <p><strong>Item: </strong> {{ $roll->itemMaterial->number }}</p>
                 <p><strong>Papel: </strong> {{ $roll->itemMaterial->material->paper }}</p>
                 <p><strong>Gramatura: </strong> {{ $roll->itemMaterial->material->formatted_grammage }}</p>
                 <p><strong>Rolo: </strong> {{ $roll->itemMaterial->material->roll }}</p>
-            </div>
         </x-slot>
     </x-card>
 

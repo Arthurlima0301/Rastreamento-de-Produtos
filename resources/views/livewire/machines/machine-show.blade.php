@@ -1,10 +1,8 @@
 <div class="w-full">
     <x-card title="Informações da Máquina">
         <x-slot>
-            <div class="flex gap-4">
-                <p><strong>Nome:</strong> {{ $machine->name }}</p>
-                <p><strong>Sigla:</strong> {{ $machine->abbreviation }}</p>
-            </div>
+            <p><strong>Nome:</strong> {{ $machine->name }}</p>
+            <p><strong>Sigla:</strong> {{ $machine->abbreviation }}</p>
         </x-slot>
     </x-card>
 

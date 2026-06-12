@@ -1,16 +1,12 @@
 <div class="w-full">
     <x-card title="Detalhes da Ordem de Corte">
         <x-slot name="slot">
-            <div class="flex items-center gap-4">
-                <p><strong>Codigo:</strong> {{ $order->order_code }}</p>
-                <p><strong>Cliente:</strong> {{ $order->client->name }}</p>
-                <p><strong>Quantidade de Materiais:</strong> {{ $order->materials->count() }}</p>
-                <x-button href="{{ route('materials.create', ['order' => $order->id]) }}" variant="primary" icon="plus"
-                    size="sm"
-                >
-                    Adicionar Material
-                </x-button>
-            </div>
+            <p><strong>Código:</strong> {{ $order->order_code }}</p>
+            <p><strong>Cliente:</strong> {{ $order->client->name }}</p>
+            <p><strong>Quantidade de Materiais:</strong> {{ $order->materials->count() }}</p>
+            <x-button href="{{ route('materials.create', ['order' => $order->id]) }}" variant="primary" icon="plus">
+                Adicionar Material
+            </x-button>
         </x-slot>
     </x-card>
 

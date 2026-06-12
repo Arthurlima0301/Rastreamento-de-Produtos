@@ -1,10 +1,8 @@
 <div class="w-full">
     <x-card title="Substituir Material do Item">
         <x-slot name="slot">
-            <div class="flex space-x-4">
-                <p><strong>Nota Fiscal:</strong> {{ $itemMaterial->materialInvoice->formatted_invoice_code }}</p>
-                <p><strong>Item:</strong> {{ $itemMaterial->number }}</p>
-            </div>
+            <p><strong>Nota Fiscal:</strong> {{ $itemMaterial->materialInvoice->formatted_invoice_code }}</p>
+            <p><strong>Item:</strong> {{ $itemMaterial->number }}</p>
         </x-slot>
 
     </x-card>

@@ -13,7 +13,7 @@
             <flux:heading size="lg">{{ $title }}</flux:heading>
         </div>
 
-        <div>
+        <div class="flex items-center gap-3">
             {{ $slot }}
         </div>
     </div>

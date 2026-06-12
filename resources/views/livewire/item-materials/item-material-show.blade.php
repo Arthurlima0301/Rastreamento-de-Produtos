@@ -1,7 +1,6 @@
 <div class="w-full">
     <x-card title="Detalhes do Item Material">
         <x-slot name="slot">
-            <div class="flex items-center gap-3">
                 <p><strong>NF: </strong> {{ $itemMaterial->materialInvoice->formatted_invoice_code }}</p>
                 <p><strong>Nº do Item: </strong> {{ $itemMaterial->number }}</p>
                 <p><strong>Papel: </strong> {{ $itemMaterial->material->paper }}</p>
@@ -19,7 +18,6 @@
                         </flux:navmenu.item>
                     </flux:navmenu>
                 </flux:dropdown>
-            </div>
         </x-slot>
     </x-card>
 
