@@ -1,6 +1,6 @@
-<header class="flex justify-between items-center w-full p-4" x-data>
+<flux:header class="dark:bg-zinc-900 p-4" x-data>
     <x-menu></x-menu>
-
+    <flux:spacer />
     <flux:dropdown>
         <x-button icon="ellipsis-horizontal" />
 
@@ -14,4 +14,4 @@
             </flux:menu.item>
         </flux:menu>
     </flux:dropdown>
-</header>
+</flux:header>
