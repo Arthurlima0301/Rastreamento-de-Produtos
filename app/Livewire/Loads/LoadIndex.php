@@ -10,6 +10,9 @@ use Livewire\Component;
 #[Title('Cargas')]
 class LoadIndex extends Component
 {
+    /**
+     * Render the load index page.
+     */
     public function render()
     {
         return view('livewire.loads.load-index');

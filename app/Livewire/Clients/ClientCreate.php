@@ -10,6 +10,9 @@ use Livewire\Component;
 #[Title('Criar Cliente')]
 class ClientCreate extends Component
 {
+    /**
+     * Render the client creation page.
+     */
     public function render()
     {
         return view('livewire.clients.client-create');

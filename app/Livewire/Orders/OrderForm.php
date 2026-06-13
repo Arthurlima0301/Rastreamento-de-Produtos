@@ -16,6 +16,9 @@ class OrderForm extends Component
 
     public string $status = '';
 
+    /**
+     * Load the order data when editing.
+     */
     public function mount(?int $orderId = null): void
     {
         $this->orderId = $orderId;
@@ -27,6 +30,9 @@ class OrderForm extends Component
         }
     }
 
+    /**
+     * Validate and save the order.
+     */
     public function save()
     {
         $validated = $this->validate([
@@ -53,6 +59,9 @@ class OrderForm extends Component
         return redirect()->route('orders.index')->with('success', 'Ordem de corte criada com sucesso!');
     }
 
+    /**
+     * Render the order form.
+     */
     public function render()
     {
         $clients = Client::orderBy('name', 'asc')->get();

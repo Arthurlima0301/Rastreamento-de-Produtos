@@ -12,6 +12,9 @@ class LoadTable extends Component
 
     public string $search = '';
 
+    /**
+     * Render the paginated load table.
+     */
     public function render()
     {
         $loads = Load::query()

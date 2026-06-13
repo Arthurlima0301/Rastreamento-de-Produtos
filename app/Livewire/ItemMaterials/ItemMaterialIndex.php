@@ -10,6 +10,9 @@ use Livewire\Component;
 #[Title('Itens de Material')]
 class ItemMaterialIndex extends Component
 {
+    /**
+     * Render the item material index page.
+     */
     public function render()
     {
         return view('livewire.item-materials.item-material-index');

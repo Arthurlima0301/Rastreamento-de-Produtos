@@ -10,6 +10,9 @@ use Livewire\Component;
 #[Title('Criar Ordem de Corte')]
 class OrderCreate extends Component
 {
+    /**
+     * Render the order creation page.
+     */
     public function render()
     {
         return view('livewire.orders.order-create');

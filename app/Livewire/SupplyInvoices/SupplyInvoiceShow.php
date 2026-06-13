@@ -13,11 +13,17 @@ class SupplyInvoiceShow extends Component
 {
     public int $supplyInvoiceId;
 
+    /**
+     * Mount the component with the supply invoice id.
+     */
     public function mount(SupplyInvoice $supplyInvoice): void
     {
         $this->supplyInvoiceId = $supplyInvoice->id;
     }
 
+    /**
+     * Render the supply invoice detail page.
+     */
     public function render()
     {
         $supplyInvoice = SupplyInvoice::with('supplyItems.supply')

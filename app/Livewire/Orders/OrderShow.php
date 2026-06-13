@@ -16,11 +16,17 @@ class OrderShow extends Component
 
     public int $activeEdit = 0;
 
+    /**
+     * Mount the component with the order id.
+     */
     public function mount(Order $order): void
     {
         $this->orderId = $order->id;
     }
 
+    /**
+     * Render the order detail page.
+     */
     public function render()
     {
         $order = Order::with(['client', 'materials'])->findOrFail($this->orderId);
@@ -28,16 +34,25 @@ class OrderShow extends Component
         return view('livewire.orders.order-show', compact('order'));
     }
 
+    /**
+     * Cancel material editing.
+     */
     public function cancelEdit(): void
     {
         $this->activeEdit = 0;
     }
 
+    /**
+     * Select a material for editing.
+     */
     public function editMaterial(int $materialId): void
     {
         $this->activeEdit = $materialId;
     }
 
+    /**
+     * Remove a material when it has no invoice items.
+     */
     public function removeMaterial(Material $material): void
     {
         if (!$material->itemMaterials()->exists()) {

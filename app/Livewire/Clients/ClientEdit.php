@@ -13,11 +13,17 @@ class ClientEdit extends Component
 {
     public int $clientId;
 
+    /**
+     * Mount the component with the client id.
+     */
     public function mount(Client $client): void
     {
         $this->clientId = $client->id;
     }
 
+    /**
+     * Render the client edit page.
+     */
     public function render()
     {
         return view('livewire.clients.client-edit');

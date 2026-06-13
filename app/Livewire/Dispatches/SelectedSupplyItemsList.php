@@ -11,6 +11,9 @@ class SelectedSupplyItemsList extends Component
 {
     public array $selectedSupplyItems = [];
 
+    /**
+     * Render the selected supply items list.
+     */
     public function render()
     {
         return view('livewire.dispatches.selected-supply-items-list');
@@ -65,6 +68,9 @@ class SelectedSupplyItemsList extends Component
         $this->selectedSupplyItems = [];
     }
 
+    /**
+     * Dispatch the event to open a modal.
+     */
     public function openModal($modalName)
     {
         $this->dispatch('open-modal', name: $modalName);

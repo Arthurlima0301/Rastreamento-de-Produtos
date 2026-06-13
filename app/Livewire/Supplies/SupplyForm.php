@@ -19,6 +19,9 @@ class SupplyForm extends Component
 
     public ?int $client_id = null;
 
+    /**
+     * Load the supply data when editing.
+     */
     public function mount(?int $supplyId = null): void
     {
         $this->supplyId = $supplyId;
@@ -32,6 +35,9 @@ class SupplyForm extends Component
         }
     }
 
+    /**
+     * Validate and save the supply.
+     */
     public function save()
     {
         $validated = $this->validate([
@@ -60,6 +66,9 @@ class SupplyForm extends Component
         return redirect()->route('supplies.index')->with('success', 'Insumo criado com sucesso!');
     }
 
+    /**
+     * Render the supply form.
+     */
     public function render()
     {
         $clients = Client::orderBy('name', 'asc')->get();

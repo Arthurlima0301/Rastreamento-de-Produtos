@@ -12,6 +12,9 @@ class MachineTable extends Component
 
     public string $search = '';
 
+    /**
+     * Render the paginated machine table.
+     */
     public function render()
     {
         $machines = Machine::query()
@@ -22,6 +25,9 @@ class MachineTable extends Component
         return view('livewire.machines.machine-table', compact('machines'));
     }
 
+    /**
+     * Delete a machine when it has no loads.
+     */
     public function destroy(Machine $machine)
     {
         if ($machine->loads()->exists()) {

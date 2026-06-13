@@ -13,11 +13,17 @@ class DispatchShow extends Component
 {
     public int $dispatchId;
 
+    /**
+     * Mount the component with the dispatch id.
+     */
     public function mount(Dispatch $dispatch): void
     {
         $this->dispatchId = $dispatch->id;
     }
 
+    /**
+     * Render the dispatch detail page.
+     */
     public function render()
     {
         $dispatch = Dispatch::with('dispatchItems.supplyItem.supply', 'dispatchItems.supplyItem.supplyInvoice')

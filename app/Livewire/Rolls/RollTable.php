@@ -9,6 +9,9 @@ class RollTable extends Component
 {
     public $search = '';
     
+    /**
+     * Render the paginated roll table.
+     */
     public function render()
     {
         $rolls = Roll::query()

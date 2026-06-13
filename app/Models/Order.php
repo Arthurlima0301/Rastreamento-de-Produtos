@@ -11,22 +11,34 @@ class Order extends Model
 {
     use HasFactory;
 
+    /**
+     * The attributes that are mass assignable.
+     */
     protected $fillable = [
         'order_code',
         'client_id',
         'status',
     ];
 
+    /**
+     * Get the client that owns the order.
+     */
     public function client(): BelongsTo
     {
         return $this->belongsTo(Client::class, 'client_id');
     }
 
+    /**
+     * Get the materials for the order.
+     */
     public function materials(): HasMany
     {
         return $this->hasMany(Material::class, 'order_id');
     }
 
+    /**
+     * Scope a query to search orders by code.
+     */
     public function scopeSearchByOrderCode($query, $search)
     {
         $search = trim((string) $search);

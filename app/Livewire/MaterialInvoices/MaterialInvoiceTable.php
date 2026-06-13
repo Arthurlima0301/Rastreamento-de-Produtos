@@ -14,6 +14,9 @@ class MaterialInvoiceTable extends Component
 
     public string $parameter = 'desc';
 
+    /**
+     * Render the paginated material invoice table.
+     */
     public function render()
     {
         $this->validate([

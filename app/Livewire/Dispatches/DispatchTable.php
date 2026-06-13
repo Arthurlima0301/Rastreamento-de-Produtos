@@ -14,6 +14,9 @@ class DispatchTable extends Component
 
     public string $parameter = 'desc';
 
+    /**
+     * Render the paginated dispatch table.
+     */
     public function render()
     {
         $this->validate([
@@ -30,6 +33,9 @@ class DispatchTable extends Component
         return view('livewire.dispatches.dispatch-table', compact('dispatches'));
     }
 
+    /**
+     * Delete a dispatch record.
+     */
     public function destroy(Dispatch $dispatch)
     {
         $dispatch->delete();

@@ -10,6 +10,9 @@ use Livewire\Component;
 #[Title('Saídas')]
 class DispatchIndex extends Component
 {
+    /**
+     * Render the dispatch index page.
+     */
     public function render()
     {
         return view('livewire.dispatches.dispatch-index');

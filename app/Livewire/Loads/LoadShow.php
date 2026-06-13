@@ -18,11 +18,17 @@ class LoadShow extends Component
     public int $loadId;
     public string $search = '';
 
+    /**
+     * Mount the component with the load id.
+     */
     public function mount(Load $load): void
     {
         $this->loadId = $load->id;
     }
 
+    /**
+     * Render the load detail page.
+     */
     public function render()
     {
         $load = Load::query()

@@ -10,6 +10,9 @@ use Livewire\Component;
 #[Title('Criar Insumo')]
 class SupplyCreate extends Component
 {
+    /**
+     * Render the supply creation page.
+     */
     public function render()
     {
         return view('livewire.supplies.supply-create');

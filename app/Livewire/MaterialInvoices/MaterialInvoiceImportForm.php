@@ -13,6 +13,9 @@ class MaterialInvoiceImportForm extends Component
 
     public $xml_file;
 
+    /**
+     * Validate and import a material invoice XML.
+     */
     public function import(ImportMaterialInvoiceFromXMLService $importService)
     {
         $this->validate([
@@ -32,6 +35,9 @@ class MaterialInvoiceImportForm extends Component
         return redirect()->route('material-invoices.index')->with('success', 'Nota fiscal importada com sucesso!');
     }
 
+    /**
+     * Render the material invoice import form.
+     */
     public function render()
     {
         return view('livewire.material-invoices.material-invoice-import-form');

@@ -12,6 +12,9 @@ class SupplyTable extends Component
 
     public string $search = '';
 
+    /**
+     * Render the paginated supply table.
+     */
     public function render()
     {
         $supplies = Supply::query()
@@ -23,6 +26,9 @@ class SupplyTable extends Component
         return view('livewire.supplies.supply-table', compact('supplies'));
     }
 
+    /**
+     * Delete a supply when it has no items.
+     */
     public function destroy(int $supplyId)
     {
         $supply = Supply::findOrFail($supplyId);

@@ -15,6 +15,9 @@ class SupplyInvoiceTable extends Component
     public string $parameter = 'desc';
 
 
+    /**
+     * Render the paginated supply invoice table.
+     */
     public function render()
     {
         $this->validate([
@@ -30,6 +33,9 @@ class SupplyInvoiceTable extends Component
         return view('livewire.supply-invoices.supply-invoice-table', compact('supplyInvoices'));
     }
 
+    /**
+     * Delete a supply invoice when it has no dispatches.
+     */
     public function delete(SupplyInvoice $supplyInvoice)
     {
         $hasDispatch = $supplyInvoice->supplyItems()

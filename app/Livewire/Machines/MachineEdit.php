@@ -13,11 +13,17 @@ class MachineEdit extends Component
 {
     public int $machineId;
 
+    /**
+     * Mount the component with the machine id.
+     */
     public function mount(Machine $machine): void
     {
         $this->machineId = $machine->id;
     }
 
+    /**
+     * Render the machine edit page.
+     */
     public function render()
     {
         return view('livewire.machines.machine-edit');

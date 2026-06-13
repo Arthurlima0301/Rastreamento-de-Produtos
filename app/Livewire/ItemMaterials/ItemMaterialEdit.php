@@ -15,11 +15,17 @@ class ItemMaterialEdit extends Component
     public ItemMaterial $itemMaterial;
     public string $search = '';
 
+    /**
+     * Mount the component with the item material.
+     */
     public function mount(ItemMaterial $itemMaterial)
     {
         $this->itemMaterial = $itemMaterial;
     }
 
+    /**
+     * Render the material replacement page.
+     */
     public function render()
     {   
         $materials = Material::with('order')
@@ -30,6 +36,9 @@ class ItemMaterialEdit extends Component
     }
 
 
+    /**
+     * Replace the material linked to the invoice item.
+     */
     public function replaceMaterial(int $materialId): void
     {
         $this->itemMaterial->material_id = $materialId;

@@ -10,6 +10,9 @@ use Livewire\Attributes\Title;
 #[Title('Bobinas')]
 class RollIndex extends Component
 {
+    /**
+     * Render the roll index page.
+     */
     public function render()
     {
         return view('livewire.rolls.roll-index');

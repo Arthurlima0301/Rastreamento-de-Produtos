@@ -10,6 +10,9 @@ use Livewire\Component;
 #[Title('Lista de Clientes')]
 class ClientIndex extends Component
 {
+    /**
+     * Render the client index page.
+     */
     public function render()
     {
         return view('livewire.clients.client-index');

@@ -13,6 +13,9 @@ class SupplyInvoiceImportForm extends Component
 
     public $xml_file;
 
+    /**
+     * Validate and import a supply invoice XML.
+     */
     public function import(ImportSupplyInvoiceFromXMLService $importService)
     {
         $this->validate([
@@ -32,6 +35,9 @@ class SupplyInvoiceImportForm extends Component
         return redirect()->route('supply-invoices.index')->with('success', 'Nota fiscal importada com sucesso!');
     }
 
+    /**
+     * Render the supply invoice import form.
+     */
     public function render()
     {
         return view('livewire.supply-invoices.supply-invoice-import-form');

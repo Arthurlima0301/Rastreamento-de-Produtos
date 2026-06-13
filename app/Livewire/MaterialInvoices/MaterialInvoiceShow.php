@@ -13,11 +13,17 @@ class MaterialInvoiceShow extends Component
 {
     public int $materialInvoiceId;
 
+    /**
+     * Mount the component with the material invoice id.
+     */
     public function mount(MaterialInvoice $materialInvoice): void
     {
         $this->materialInvoiceId = $materialInvoice->id;
     }
 
+    /**
+     * Render the material invoice detail page.
+     */
     public function render()
     {
         $materialInvoice = MaterialInvoice::with('itemMaterials.material.order.client')

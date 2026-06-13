@@ -12,6 +12,9 @@ class OrderTable extends Component
 
     public string $search = '';
 
+    /**
+     * Render the paginated order table.
+     */
     public function render()
     {
         $orders = Order::query()
@@ -23,6 +26,9 @@ class OrderTable extends Component
         return view('livewire.orders.order-table', compact('orders'));
     }
 
+    /**
+     * Delete an order when it has no materials.
+     */
     public function destroy(int $orderId)
     {
         $order = Order::findOrFail($orderId);

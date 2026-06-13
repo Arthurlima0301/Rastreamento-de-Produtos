@@ -14,6 +14,9 @@ class MachineForm extends Component
 
     public string $abbreviation = '';
 
+    /**
+     * Load the machine data when editing.
+     */
     public function mount(?int $machineId = null): void
     {
         $this->machineId = $machineId;
@@ -25,6 +28,9 @@ class MachineForm extends Component
         }
     }
 
+    /**
+     * Validate and save the machine.
+     */
     public function save()
     {
         $validated = $this->validate([
@@ -49,6 +55,9 @@ class MachineForm extends Component
         return redirect()->route('machines.index')->with('success', 'Máquina criada com sucesso!');
     }
 
+    /**
+     * Render the machine form.
+     */
     public function render()
     {
         return view('livewire.machines.machine-form');

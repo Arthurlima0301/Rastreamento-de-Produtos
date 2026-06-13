@@ -19,6 +19,9 @@ class RollEdit extends Component
     public string $roll_defect;
     public int $roll_defect_weight;
 
+    /**
+     * Mount the component with the roll data.
+     */
     public function mount(Roll $roll): void
     {
         $this->roll = $roll->load('itemMaterial.materialInvoice', 'itemMaterial.material');
@@ -29,11 +32,17 @@ class RollEdit extends Component
         $this->roll_weight = (string) (int) $roll->weight;
     }
 
+    /**
+     * Render the roll edit page.
+     */
     public function render()
     {
         return view('livewire.rolls.roll-edit');
     }
 
+    /**
+     * Validate and save the roll.
+     */
     public function save()
     {
 

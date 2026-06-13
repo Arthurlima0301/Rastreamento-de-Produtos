@@ -7,6 +7,9 @@ use Illuminate\Support\Facades\DB;
 
 class ImportMaterialInvoiceFromXMLService
 {
+    /**
+     * Import a material invoice XML file.
+     */
     public function import($file)
     {
         $xml = simplexml_load_file($file->getRealPath());
@@ -18,6 +21,9 @@ class ImportMaterialInvoiceFromXMLService
         });
     }
 
+    /**
+     * Create the material invoice record.
+     */
     private function createMaterialInvoice($xml): MaterialInvoice
     {
         return MaterialInvoice::create([
@@ -26,6 +32,9 @@ class ImportMaterialInvoiceFromXMLService
         ]);
     }
 
+    /**
+     * Import material items from the XML file.
+     */
     private function importMaterialItems($xml, int $materialInvoiceId): void
     {
         (new ExtractMaterialItems)->extract($xml, $materialInvoiceId);

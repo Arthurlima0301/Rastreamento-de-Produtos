@@ -13,11 +13,17 @@ class OrderEdit extends Component
 {
     public int $orderId;
 
+    /**
+     * Mount the component with the order id.
+     */
     public function mount(Order $order): void
     {
         $this->orderId = $order->id;
     }
 
+    /**
+     * Render the order edit page.
+     */
     public function render()
     {
         return view('livewire.orders.order-edit');

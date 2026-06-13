@@ -15,6 +15,9 @@ class SupplyItemTable extends Component
     public bool $available = false; 
 
 
+    /**
+     * Render the paginated supply item table.
+     */
     public function render()
     {
 

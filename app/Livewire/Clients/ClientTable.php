@@ -12,6 +12,9 @@ class ClientTable extends Component
 
     public string $search = '';
 
+    /**
+     * Render the paginated client table.
+     */
     public function render()
     {
         $clients = Client::query()
@@ -22,6 +25,9 @@ class ClientTable extends Component
         return view('livewire.clients.client-table', compact('clients'));
     }
 
+    /**
+     * Delete a client when it has no related records.
+     */
     public function destroy(int $clientId)
     {
         $client = Client::findOrFail($clientId);

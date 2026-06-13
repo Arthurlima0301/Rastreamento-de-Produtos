@@ -15,11 +15,17 @@ class MachineShow extends Component
     public Machine $machine;
     public string $search = '';
 
+    /**
+     * Mount the component with the machine.
+     */
     public function mount(Machine $machine)
     {
         $this->machine = $machine;
     }
 
+    /**
+     * Render the machine detail page.
+     */
     public function render()
     {
         $loads = Load::withSum('rolls','weight')

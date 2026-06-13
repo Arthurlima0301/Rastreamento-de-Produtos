@@ -12,6 +12,9 @@ class ItemMaterialTable extends Component
 
     public string $search = '';
 
+    /**
+     * Render the paginated item material table.
+     */
     public function render()
     {
         $itemMaterials = ItemMaterial::query()
