@@ -44,7 +44,7 @@ class OrderShow extends Component
             $material->delete();
             session()->flash('success', 'Material removido com sucesso!');
         } else {
-            session()->flash('error', 'Não é possível remover um material que possui itens associados.');
+            session()->flash('error', 'Não é possível remover um material que possui itens associados!');
         }
 
         $this->activeEdit = 0;
