@@ -37,7 +37,9 @@ class ItemMaterialShow extends Component
         ->filterByStatus($this->filter_status)
         ->get();
 
-        return view('livewire.item-materials.item-material-show', compact('rolls'));
+        $totalWeight = $rolls->sum('weight');
+
+        return view('livewire.item-materials.item-material-show', compact('rolls', 'totalWeight'));
     }
 
     /**

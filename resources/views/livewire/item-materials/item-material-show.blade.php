@@ -1,23 +1,37 @@
 <div class="w-full">
     <x-card title="Detalhes do Item Material">
         <x-slot name="slot">
-                <p><strong>NF: </strong> {{ $itemMaterial->materialInvoice->formatted_invoice_code }}</p>
-                <p><strong>Nº do Item: </strong> {{ $itemMaterial->number }}</p>
-                <p><strong>Papel: </strong> {{ $itemMaterial->material->paper }}</p>
-                <p><strong>Gramatura: </strong> {{ $itemMaterial->material->formatted_grammage }}</p>
-                <p><strong>Rolo: </strong> {{ $itemMaterial->material->roll }}</p>
-                <p><strong>Total de Bobinas: </strong> {{ $itemMaterial->rolls->count() }}</p>
-                <p><strong>Soma dos Pesos: </strong> {{ $itemMaterial->rolls->sum('formatted_weight') }}</p>
+            <p><strong>NF: </strong> {{ $itemMaterial->materialInvoice->formatted_invoice_code }}</p>
+            <p><strong>Nº do Item: </strong> {{ $itemMaterial->number }}</p>
+            <p><strong>Papel: </strong> {{ $itemMaterial->material->paper }}</p>
+            <p><strong>Gramatura: </strong> {{ $itemMaterial->material->formatted_grammage }}</p>
+            <p><strong>Rolo: </strong> {{ $itemMaterial->material->roll }}</p>
+            <p><strong>Total de Bobinas: </strong> {{ $itemMaterial->rolls->count() }}</p>
 
-                <flux:dropdown label="Ações">
-                    <flux:button icon:trailing="ellipsis-horizontal"></flux:button>
+            @if ((float) $totalWeight !== (float) $itemMaterial->total_weight)
+                <flux:tooltip 
+                    class="cursor-default"
+                    content="A soma total dos pesos das bobinas é diferente do peso total do item material."
+                    position="bottom"
+                >
+                    <p class="text-red-500"> Peso Total:  {{ number_format($totalWeight, 2, ',', '.') }}</p>
 
-                    <flux:navmenu>
-                        <flux:navmenu.item icon="plus-circle" href="{{ route('roll.create', $itemMaterial) }}">
-                            Adicionar Bobina(s)
-                        </flux:navmenu.item>
-                    </flux:navmenu>
-                </flux:dropdown>
+                </flux:tooltip>
+            @else
+                <p>
+                    <strong>Soma dos Pesos: </strong>
+                    {{ number_format($totalWeight, 2, ',', '.') }}
+                </p>
+            @endif
+            <flux:dropdown label="Ações">
+                <flux:button icon:trailing="ellipsis-horizontal"></flux:button>
+
+                <flux:navmenu>
+                    <flux:navmenu.item icon="plus-circle" href="{{ route('roll.create', $itemMaterial) }}">
+                        Adicionar Bobina(s)
+                    </flux:navmenu.item>
+                </flux:navmenu>
+            </flux:dropdown>
         </x-slot>
     </x-card>
 
@@ -56,13 +70,14 @@
                                 {{ $roll->cutLoad->machine->abbreviation }}-{{ $roll->cutLoad->id }}
                             </a>
                         @else
-                             <p>-</p>
+                            <p>-</p>
                         @endif
                     </flux:table.cell>
                     <flux:table.cell align="center">
                         <div class="flex justify-center gap-2">
                             <x-button icon="pencil" variant="primary" href="{{ route('rolls.edit', $roll) }}" />
-                            <x-button icon="trash" variant="primary" color="red" wire:click="deleteRoll({{ $roll->id }})" />
+                            <x-button icon="trash" variant="primary" color="red"
+                                wire:click="deleteRoll({{ $roll->id }})" />
                         </div>
                     </flux:table.cell>
                 </flux:table.row>
