@@ -13,7 +13,7 @@
             <flux:table.column align="center">Data</flux:table.column>
 
             <flux:table.column align="center">
-                <x-sort collumn-title="Saldo:" model="available">
+                <x-sort column-title="Saldo:" model="available">
                     <flux:menu.radio value="">Todos</flux:menu.radio>
                     <flux:menu.radio value="true">Disponíveis</flux:menu.radio>
                 </x-sort>

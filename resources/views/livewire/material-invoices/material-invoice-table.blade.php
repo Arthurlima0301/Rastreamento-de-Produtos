@@ -7,7 +7,7 @@
             <flux:table.column align="center">Código da Nota</flux:table.column>
 
             <flux:table.column align="center">
-                <x-sort collumn-title="Data de Emissão" model="parameter">
+                <x-sort column-title="Data de Emissão" model="parameter">
                     <flux:menu.radio value="desc">Mais Recentes</flux:menu.radio>
                     <flux:menu.radio value="asc">Mais Antigos</flux:menu.radio>
                 </x-sort>
