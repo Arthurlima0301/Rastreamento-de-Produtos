@@ -21,7 +21,7 @@
                         <div class="flex justify-center gap-2">
                             <x-button href="{{ route('machines.edit', $machine->id) }}" variant="ghost" icon="pencil" />
 
-                            <x-button type="button" variant="danger" icon="trash" wire:click="destroy({{ $machine->id }})" />
+                            <x-button type="button" variant="primary" color="red" icon="trash" wire:click="destroy({{ $machine->id }})" />
                         </div>
                     </flux:table.cell>
                 </flux:table.row>

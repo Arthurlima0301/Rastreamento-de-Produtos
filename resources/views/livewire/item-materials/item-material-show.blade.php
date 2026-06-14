@@ -75,7 +75,7 @@
                     </flux:table.cell>
                     <flux:table.cell align="center">
                         <div class="flex justify-center gap-2">
-                            <x-button icon="pencil" variant="primary" href="{{ route('rolls.edit', $roll) }}" />
+                            <x-button icon="pencil" variant="ghost" href="{{ route('rolls.edit', $roll) }}" />
                             <x-button icon="trash" variant="primary" color="red"
                                 wire:click="deleteRoll({{ $roll->id }})" />
                         </div>

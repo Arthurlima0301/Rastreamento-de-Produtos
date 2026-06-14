@@ -52,8 +52,8 @@
                     <flux:table.cell align="center">{{ $itemMaterial->material->packages }}</flux:table.cell>
                     <flux:table.cell align="center">{{ $itemMaterial->formatted_total_weight }}</flux:table.cell>
                     <flux:table.cell align="center">
-                        <x-button href="{{ route('item-materials.show', $itemMaterial) }}" icon="arrow-up-right"/>
-                        <x-button href="{{ route('item-materials.edit', $itemMaterial) }}" icon="arrow-path-rounded-square"/>
+                        <x-button href="{{ route('item-materials.show', $itemMaterial) }}" icon="arrow-up-right" />
+                        <x-button href="{{ route('item-materials.edit', $itemMaterial) }}" icon="arrow-path-rounded-square" />
                     </flux:table.cell>
                 </flux:table.row>
             @endforeach

@@ -36,7 +36,8 @@
                             wire:click="delete({{$supplyInvoice->id}})" 
                             wire:loading.attr="disabled"
                             wire:target="delete({{ $supplyInvoice->id }})"
-                            variant="ghost" 
+                            variant="primary"
+                            color="red"
                             icon="trash" 
                         />
                     </flux:table.cell>

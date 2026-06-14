@@ -49,11 +49,11 @@
                     <flux:table.cell align="center">{{ $material->formatted_package_gross_weight }}</flux:table.cell>
                     <flux:table.cell align="center">
                         @if ($this->activeEdit === $material->id)
-                            <x-button wire:click="removeMaterial({{ $material->id }})" variant="ghost" icon="trash"
+                            <x-button wire:click="removeMaterial({{ $material->id }})" variant="primary" color="red" icon="trash"
                                 size="sm" />
                             <x-button wire:click="cancelEdit()" variant="ghost" icon="x-mark" size="sm" />
                         @else
-                            <x-button wire:click="editMaterial({{ $material->id }})" variant="primary" icon="pencil"
+                            <x-button wire:click="editMaterial({{ $material->id }})" variant="ghost" icon="pencil"
                                 size="sm" />
                         @endif
                     </flux:table.cell>
