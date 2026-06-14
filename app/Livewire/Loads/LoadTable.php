@@ -38,7 +38,7 @@ class LoadTable extends Component
                 'load_id' => null,
                 'status' => 'EM_ESTOQUE',
                 'defect' => null,
-                'defect_weight' => null
+                'defect_weight' => null,
             ]
         );
 

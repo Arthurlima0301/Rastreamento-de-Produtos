@@ -50,7 +50,7 @@ class Supply extends Model
         $search = trim((string) $search);
 
         return $query->when($search !== '', function ($query) use ($search) {
-            $query->where('name', 'like', $search . '%');
+            $query->where('name', 'like', $search.'%');
         });
     }
 }

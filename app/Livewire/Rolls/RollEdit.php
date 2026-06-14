@@ -16,8 +16,11 @@ class RollEdit extends Component
     public Roll $roll;
 
     public string $roll_weight = '';
+
     public string $roll_label = '';
+
     public string $roll_defect;
+
     public int $roll_defect_weight;
 
     /**
@@ -64,7 +67,7 @@ class RollEdit extends Component
     /**
      *  Get the validation rules that apply to the component's properties.
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             'roll_label' => ['required', 'string', 'min:14', 'max:14', Rule::unique('rolls', 'label')->ignore($this->roll->id)],
@@ -77,7 +80,7 @@ class RollEdit extends Component
     /**
      * Get the validation error messages for the defined validation rules.
      */
-    public function messages()
+    public function messages(): array
     {
         return [
             'roll_label.required' => 'O campo "Rótulo" é obrigatório.',

@@ -60,7 +60,6 @@ class ItemMaterial extends Model
         return $this->hasMany(Roll::class, 'item_material_id');
     }
 
-
     /**
      * Scope a query to search item materials by material paper.
      */

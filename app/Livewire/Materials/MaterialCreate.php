@@ -38,7 +38,7 @@ class MaterialCreate extends Component
     /**
      * Add a new material input field to the form.
      */
-    public function addMaterialInput()
+    public function addMaterialInput(): void
     {
         $this->inputMaterial++;
     }
@@ -46,7 +46,7 @@ class MaterialCreate extends Component
     /**
      * Remove a material input field from the form by its index.
      */
-    public function removeMaterialInput($index)
+    public function removeMaterialInput(int $index): void
     {
         unset($this->materials[$index]);
         $this->materials = array_values($this->materials);
@@ -56,7 +56,7 @@ class MaterialCreate extends Component
     /**
      * Clear all material input fields from the form.
      */
-    public function clearMaterialInput()
+    public function clearMaterialInput(): void
     {
         $this->materials = [];
         $this->inputMaterial = 0;
@@ -79,7 +79,7 @@ class MaterialCreate extends Component
     /**
      * Define validation rules for the materials form.
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             'materials' => 'required|array|min:1',
@@ -102,7 +102,7 @@ class MaterialCreate extends Component
     /**
      * Define custom validation messages for the materials form.
      */
-    public function messages()
+    public function messages(): array
     {
         return [
             'materials.required' => 'Adicione pelo menos um material.',

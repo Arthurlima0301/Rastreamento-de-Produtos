@@ -66,19 +66,19 @@ class Roll extends Model
     /**
      * Scope a query to search rolls by label.
      */
-    public function scopeSearchByLabel($query, $search)
+    public function scopeSearchByLabel($query, string $search)
     {
         $search = trim($search);
 
         return $query->when($search !== '', function ($query) use ($search) {
-            $query->where('label', 'like', $search . '%');
+            $query->where('label', 'like', $search.'%');
         });
     }
 
     /**
      * Scope a query to filter rolls by status.
      */
-    public function scopeFilterByStatus($query, $status)
+    public function scopeFilterByStatus($query, string $status)
     {
         return $query->when($status !== '', function ($query) use ($status) {
             $query->where('status', $status);

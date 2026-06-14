@@ -24,7 +24,7 @@ class SelectedSupplyItemsList extends Component
      * Add a supply item to the selected supply items list with its ID, supply name, and a null quantity for user input.
      */
     #[On('supply-item-selected')]
-    public function selectSupplyItem($supplyItemId, $supplyName)
+    public function selectSupplyItem(int $supplyItemId, string $supplyName): void
     {
         $this->resetErrorBag();
 
@@ -42,7 +42,7 @@ class SelectedSupplyItemsList extends Component
     /**
      * Remove a supply item from the selected supply items list based on its ID. If it exists in the list, it will be removed.
      */
-    public function removeSupplyItem($supplyItemId)
+    public function removeSupplyItem(int $supplyItemId): void
     {
         $this->resetErrorBag();
 
@@ -58,7 +58,7 @@ class SelectedSupplyItemsList extends Component
     /**
      * Clear the selected supply items list, removing all items from the selection.
      */
-    public function clearSelection()
+    public function clearSelection(): void
     {
         $this->resetErrorBag();
 
@@ -67,14 +67,6 @@ class SelectedSupplyItemsList extends Component
         }
 
         $this->selectedSupplyItems = [];
-    }
-
-    /**
-     * Dispatch the event to open a modal.
-     */
-    public function openModal($modalName)
-    {
-        $this->dispatch('open-modal', name: $modalName);
     }
 
     /**
@@ -97,7 +89,7 @@ class SelectedSupplyItemsList extends Component
 
             return redirect()->route('dispatches.index')->with('success', 'Saída processada com sucesso!');
         } catch (\Exception $e) {
-            $this->addError('selectedSupplyItems', 'Ocorreu um erro ao processar a saída: '.$e->getMessage());
+            return redirect()->back()->with('error', 'Ocorreu um erro ao processar a saída.'.$e->getMessage());
         }
     }
 }

@@ -5,6 +5,7 @@ namespace App\Livewire\Rolls;
 use Illuminate\Contracts\View\View;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\Title;
+use Livewire\Component;
 
 #[Layout('Layout.layout')]
 #[Title('Bobinas')]

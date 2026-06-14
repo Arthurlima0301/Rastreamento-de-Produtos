@@ -14,6 +14,7 @@ use Livewire\Component;
 class ItemMaterialEdit extends Component
 {
     public ItemMaterial $itemMaterial;
+
     public string $search = '';
 
     /**
@@ -30,12 +31,11 @@ class ItemMaterialEdit extends Component
     public function render(): View
     {
         $materials = Material::with('order')
-        ->searchByPaper($this->search)
-        ->paginate(50);
+            ->searchByPaper($this->search)
+            ->paginate(50);
 
-        return view('livewire.item-materials.item-material-edit',compact('materials'));
+        return view('livewire.item-materials.item-material-edit', compact('materials'));
     }
-
 
     /**
      * Replace the material linked to the invoice item.

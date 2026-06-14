@@ -8,7 +8,7 @@ use Livewire\Component;
 
 class RollTable extends Component
 {
-    public $search = '';
+    public string $search = '';
 
     /**
      * Render the paginated roll table.
