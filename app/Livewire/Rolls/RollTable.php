@@ -8,14 +8,15 @@ use Livewire\Component;
 class RollTable extends Component
 {
     public $search = '';
-    
+
     /**
      * Render the paginated roll table.
      */
     public function render()
     {
         $rolls = Roll::query()
-            ->with('itemMaterial')
+            ->with('itemMaterial.material.order')
+            ->with('itemMaterial.materialInvoice')
             ->searchByLabel($this->search)
             ->paginate(50);
 

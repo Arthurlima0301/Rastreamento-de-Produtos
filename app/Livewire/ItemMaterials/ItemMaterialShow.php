@@ -15,6 +15,7 @@ class ItemMaterialShow extends Component
     public ItemMaterial $itemMaterial;
 
     public string $search = '';
+
     public string $filter_status = '';
 
     /**
@@ -31,15 +32,16 @@ class ItemMaterialShow extends Component
     public function render()
     {
         $rolls = Roll::with('cutLoad.machine')
-        ->where('item_material_id', $this->itemMaterial->id)
-        ->orderBy('label')
-        ->searchByLabel($this->search)
-        ->filterByStatus($this->filter_status)
-        ->get();
+            ->where('item_material_id', $this->itemMaterial->id)
+            ->orderBy('label')
+            ->searchByLabel($this->search)
+            ->filterByStatus($this->filter_status)
+            ->get();
 
         $totalWeight = $rolls->sum('weight');
+        $totalRolls = $this->itemMaterial->rolls()->count();
 
-        return view('livewire.item-materials.item-material-show', compact('rolls', 'totalWeight'));
+        return view('livewire.item-materials.item-material-show', compact('rolls', 'totalWeight', 'totalRolls'));
     }
 
     /**
@@ -47,17 +49,12 @@ class ItemMaterialShow extends Component
      */
     public function deleteRoll(Roll $roll)
     {
-        if  ($roll->cutLoad) {
-            session()->flash('error', 'Não é possível deletar uma bobina que pertence a uma carga.');
-            return;
+        if (! $roll->cutLoad) {
+            $roll->delete();
+
+            return redirect()->back()->with('success', 'Bobina deletada com sucesso!');
         }
 
-        $roll->delete();
-
-        session()->flash('success', 'Bobina deletada com sucesso!');
+        return redirect()->back()->with('error', 'Não é possível deletar uma bobina que está associada a um corte.');
     }
-
-
-  
-
 }

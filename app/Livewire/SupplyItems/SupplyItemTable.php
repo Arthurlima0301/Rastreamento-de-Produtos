@@ -11,17 +11,17 @@ class SupplyItemTable extends Component
     use WithPagination;
 
     public string $search = '';
-    
-    public bool $available = false; 
 
+    public bool $available = false;
 
     /**
      * Render the paginated supply item table.
      */
     public function render()
     {
-
-        $supplyItems = SupplyItem::withBalance()
+        $supplyItems = SupplyItem::query()
+            ->withBalance()
+            ->with(['supply.client', 'supplyInvoice'])
             ->filterBalance($this->available)
             ->searchBySupplyName($this->search)
             ->paginate(50);

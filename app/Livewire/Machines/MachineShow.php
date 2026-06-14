@@ -13,6 +13,7 @@ use Livewire\Component;
 class MachineShow extends Component
 {
     public Machine $machine;
+
     public string $search = '';
 
     /**
@@ -28,12 +29,14 @@ class MachineShow extends Component
      */
     public function render()
     {
-        $loads = Load::withSum('rolls','weight')
-        ->withCount('rolls')
-        ->orderBy('cutted_at', 'desc')
-        ->where('machine_id', $this->machine->id)
-        ->searchByCode($this->search)
-        ->paginate(50);
+        $loads = Load::query()
+            ->withSum('rolls', 'weight')
+            ->withCount('rolls')
+            ->orderBy('cutted_at', 'desc')
+            ->where('machine_id', $this->machine->id)
+            ->searchByCode($this->search)
+            ->paginate(50);
+
         return view('livewire.machines.machine-show', compact('loads'));
     }
 }

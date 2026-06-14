@@ -6,7 +6,7 @@
             <p><strong>Papel: </strong> {{ $itemMaterial->material->paper }}</p>
             <p><strong>Gramatura: </strong> {{ $itemMaterial->material->formatted_grammage }}</p>
             <p><strong>Rolo: </strong> {{ $itemMaterial->material->roll }}</p>
-            <p><strong>Total de Bobinas: </strong> {{ $itemMaterial->rolls->count() }}</p>
+            <p><strong>Total de Bobinas: </strong> {{ $totalRolls }}</p>
 
             @if ((float) $totalWeight !== (float) $itemMaterial->total_weight)
                 <flux:tooltip 

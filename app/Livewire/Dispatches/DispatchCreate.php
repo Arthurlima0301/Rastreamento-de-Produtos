@@ -20,7 +20,9 @@ class DispatchCreate extends Component
     public function render()
     {
 
-        $supplyItems = SupplyItem::withBalance()
+        $supplyItems = SupplyItem::query()
+            ->withBalance()
+            ->with(['supply.client', 'supplyInvoice'])
             ->filterBalance()
             ->searchBySupplyName($this->search)
             ->orderBy('supply_name', 'asc')
