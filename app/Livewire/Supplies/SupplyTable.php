@@ -29,16 +29,15 @@ class SupplyTable extends Component
     /**
      * Delete a supply when it has no items.
      */
-    public function destroy(int $supplyId)
+    public function destroy(Supply $supply)
     {
-        $supply = Supply::findOrFail($supplyId);
+        if (! $supply->supplyItems()->exists()) {
+            $supply->delete();
 
-        if ($supply->supplyItems()->exists()) {
-            return redirect()->route('supplies.index')->with('error', 'Não é possível deletar um insumo que possui itens associados.');
+            return redirect()->route('supplies.index')->with('success', 'Insumo deletado com sucesso!');
         }
 
-        $supply->delete();
-
-        return redirect()->route('supplies.index')->with('success', 'Insumo deletado com sucesso!');
+        return redirect()->route('supplies.index')
+            ->with('error', 'Não é possível deletar um insumo que possui itens associados.');
     }
 }

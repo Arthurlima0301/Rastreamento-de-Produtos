@@ -30,13 +30,14 @@ class MachineTable extends Component
      */
     public function destroy(Machine $machine)
     {
-        if ($machine->loads()->exists()) {
-            return redirect()
-                ->route('machines.index')
-                ->with('error', 'Não é possível deletar esta máquina, pois ela está associada a um ou mais cargas.');
+        if (! $machine->loads()->exists()) {
+            $machine->delete();
+
+            return redirect()->route('machines.index')->with('success', 'Máquina deletada com sucesso!');
         }
 
-        $machine->delete();
-        return redirect()->route('machines.index')->with('success', 'Máquina deletada com sucesso!');
+        return redirect()
+            ->route('machines.index')
+            ->with('error', 'Não é possível deletar esta máquina, pois ela está associada a um ou mais cargas.');
     }
 }

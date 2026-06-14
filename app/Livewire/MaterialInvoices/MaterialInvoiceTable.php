@@ -38,17 +38,17 @@ class MaterialInvoiceTable extends Component
     public function delete(MaterialInvoice $materialInvoice)
     {
         $hasRolls = $materialInvoice
-        ->itemMaterials()
-        ->whereHas('rolls.cutLoad')
-        ->exists();
+            ->itemMaterials()
+            ->whereHas('rolls.cutLoad')
+            ->exists();
 
-        if($hasRolls){
-            session()->flash('error','Uma das bobinas pertencentes à essa nota fiscal estão associadas a uma carga');
-            return redirect()->route('material-invoices.index');
+        if (! $hasRolls) {
+            $materialInvoice->delete();
+
+            return redirect()->route('material-invoices.index')->with('success', 'Nota fiscal deletada com sucesso!');
         }
 
-        $materialInvoice->delete();
-        return redirect()->route('material-invoices.index')->with('success','Nota fiscal deletada com sucesso!');
-        
+        return redirect()->route('material-invoices.index')
+            ->with('error', 'Não é possível deletar essa nota fiscal, pois uma das bobinas pertencentes à ela está associada a uma carga.');
     }
 }

@@ -29,16 +29,16 @@ class OrderTable extends Component
     /**
      * Delete an order when it has no materials.
      */
-    public function destroy(int $orderId)
+    public function destroy(Order $order)
     {
-        $order = Order::findOrFail($orderId);
+        if (! $order->materials()->exists()) {
+            $order->delete();
 
-        if ($order->materials()->exists()) {
-            return redirect()->route('orders.index')->with('error', 'Não é possível deletar uma ordem de corte que possui materiais associados.');
+            return redirect()->route('orders.index')->with('success', 'Ordem de corte deletada com sucesso!');
         }
 
-        $order->delete();
-
-        return redirect()->route('orders.index')->with('success', 'Ordem de corte deletada com sucesso!');
+        return redirect()
+            ->route('orders.index')
+            ->with('error', 'Não é possível deletar uma ordem de corte que possui materiais associados.');
     }
 }

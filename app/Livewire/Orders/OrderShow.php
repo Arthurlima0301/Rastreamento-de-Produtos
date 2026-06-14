@@ -12,7 +12,7 @@ use Livewire\Component;
 #[Title('Detalhes da Ordem de Corte')]
 class OrderShow extends Component
 {
-    public int $orderId;
+    public Order $order;
 
     public int $activeEdit = 0;
 
@@ -21,7 +21,7 @@ class OrderShow extends Component
      */
     public function mount(Order $order): void
     {
-        $this->orderId = $order->id;
+        $this->order = $order;
     }
 
     /**
@@ -29,17 +29,10 @@ class OrderShow extends Component
      */
     public function render()
     {
-        $order = Order::with(['client', 'materials'])->findOrFail($this->orderId);
+        $order = $this->order
+            ->load(['client', 'materials']);
 
         return view('livewire.orders.order-show', compact('order'));
-    }
-
-    /**
-     * Cancel material editing.
-     */
-    public function cancelEdit(): void
-    {
-        $this->activeEdit = 0;
     }
 
     /**
@@ -51,17 +44,26 @@ class OrderShow extends Component
     }
 
     /**
+     * Cancel material editing.
+     */
+    public function cancelEdit(): void
+    {
+        $this->activeEdit = 0;
+    }
+
+    /**
      * Remove a material when it has no invoice items.
      */
     public function removeMaterial(Material $material): void
     {
-        if (!$material->itemMaterials()->exists()) {
+        if (! $material->itemMaterials()->exists()) {
             $material->delete();
             session()->flash('success', 'Material removido com sucesso!');
-        } else {
-            session()->flash('error', 'Não é possível remover um material que possui itens associados!');
+            $this->activeEdit = 0;
+
+            return;
         }
 
-        $this->activeEdit = 0;
+        session()->flash('error', 'Não é possível remover um material que possui itens associados!');
     }
 }

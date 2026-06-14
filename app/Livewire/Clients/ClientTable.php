@@ -28,16 +28,15 @@ class ClientTable extends Component
     /**
      * Delete a client when it has no related records.
      */
-    public function destroy(int $clientId)
+    public function destroy(Client $client)
     {
-        $client = Client::findOrFail($clientId);
+        if (! $client->supplies()->exists() && ! $client->orders()->exists()) {
+            $client->delete();
 
-        if ($client->supplies()->exists() || $client->orders()->exists()) {
-            return redirect()->route('clients.index')->with('error', 'Não é possível deletar um cliente que possui insumos ou ordens associadas.');
+            return redirect()->route('clients.index')->with('success', 'Cliente deletado com sucesso!');
         }
 
-        $client->delete();
-
-        return redirect()->route('clients.index')->with('success', 'Cliente deletado com sucesso!');
+        return redirect()->route('clients.index')
+            ->with('error', 'Não é possível deletar um cliente que possui insumos ou ordens associadas.');
     }
 }

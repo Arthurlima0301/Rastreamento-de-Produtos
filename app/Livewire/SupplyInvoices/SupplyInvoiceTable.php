@@ -3,7 +3,6 @@
 namespace App\Livewire\SupplyInvoices;
 
 use App\Models\SupplyInvoice;
-use App\Models\SupplyItem;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -12,8 +11,8 @@ class SupplyInvoiceTable extends Component
     use WithPagination;
 
     public string $search = '';
-    public string $parameter = 'desc';
 
+    public string $parameter = 'desc';
 
     /**
      * Render the paginated supply invoice table.
@@ -42,12 +41,12 @@ class SupplyInvoiceTable extends Component
             ->whereHas('dispatchItems')
             ->exists();
 
-        if ($hasDispatch === true) {
-            session()->flash('error','Um dos items dessa nota possui saídas vinculadas a ele');
-            return;
+        if (! $hasDispatch) {
+            $supplyInvoice->delete();
+
+            return redirect()->route('supply-invoices.index')->with('success', 'Nota Fiscal Deletada com Sucesso!');
         }
 
-        $supplyInvoice->delete();
-        return redirect()->route('supply-invoices.index')->with('success', 'Nota Fiscal Deletada com Sucesso!');
+        session()->flash('error', 'Um dos items dessa nota possui saídas vinculadas a ele');
     }
 }
