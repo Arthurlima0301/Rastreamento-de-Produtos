@@ -15,7 +15,7 @@ class MaterialCreate extends Component
 {
     public Order $order;
 
-    public int $inputMaterial = 1;
+    public int $materialInputCount = 1;
 
     public array $materials = [];
 
@@ -38,34 +38,34 @@ class MaterialCreate extends Component
     /**
      * Add a new material input field to the form.
      */
-    public function addMaterialInput(): void
+    public function addMaterialRow(): void
     {
-        $this->inputMaterial++;
+        $this->materialInputCount++;
     }
 
     /**
      * Remove a material input field from the form by its index.
      */
-    public function removeMaterialInput(int $index): void
+    public function removeMaterialRow(int $index): void
     {
         unset($this->materials[$index]);
         $this->materials = array_values($this->materials);
-        $this->inputMaterial--;
+        $this->materialInputCount--;
     }
 
     /**
      * Clear all material input fields from the form.
      */
-    public function clearMaterialInput(): void
+    public function clearMaterialRows(): void
     {
         $this->materials = [];
-        $this->inputMaterial = 0;
+        $this->materialInputCount = 0;
     }
 
     /**
      * Validate the form data and save all materials to the database.
      */
-    public function saveAll()
+    public function saveMaterials()
     {
         $this->validate();
 

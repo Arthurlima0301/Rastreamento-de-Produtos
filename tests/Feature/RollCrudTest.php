@@ -20,9 +20,9 @@ class RollCrudTest extends TestCase
         $itemMaterial = ItemMaterial::factory()->create();
 
         Livewire::test(RollsCreate::class, ['itemMaterial' => $itemMaterial])
-            ->set('roll_batch', '007202026')
-            ->set('roll_vol', '0004')
-            ->set('roll_weight', 100)
+            ->set('rollBatch', '007202026')
+            ->set('rollVolume', '0004')
+            ->set('rollWeight', 100)
             ->call('save')
             ->assertHasNoErrors();
 
@@ -39,14 +39,14 @@ class RollCrudTest extends TestCase
         $itemMaterial = ItemMaterial::factory()->create();
 
         Livewire::test(RollsCreate::class, ['itemMaterial' => $itemMaterial])
-            ->set('roll_batch', '007')
-            ->set('roll_vol', '4')
-            ->set('roll_weight', 99)
+            ->set('rollBatch', '007')
+            ->set('rollVolume', '4')
+            ->set('rollWeight', 99)
             ->call('save')
             ->assertHasErrors([
-                'roll_batch' => 'min',
-                'roll_vol' => 'min',
-                'roll_weight' => 'min',
+                'rollBatch' => 'min',
+                'rollVolume' => 'min',
+                'rollWeight' => 'min',
             ]);
 
         $this->assertDatabaseMissing('rolls', [
@@ -64,12 +64,12 @@ class RollCrudTest extends TestCase
         ]);
 
         Livewire::test(RollsCreate::class, ['itemMaterial' => $itemMaterial])
-            ->set('roll_batch', '007202026')
-            ->set('roll_vol', '0004')
-            ->set('roll_weight', 100)
+            ->set('rollBatch', '007202026')
+            ->set('rollVolume', '0004')
+            ->set('rollWeight', 100)
             ->call('save')
             ->assertHasErrors([
-                'roll_label' => 'unique',
+                'rollLabel' => 'unique',
             ]);
 
         $this->assertDatabaseCount('rolls', 1);
@@ -110,8 +110,8 @@ class RollCrudTest extends TestCase
         ]);
 
         Livewire::test(RollEdit::class, ['roll' => $roll])
-            ->set('roll_label', '007202027-0005')
-            ->set('roll_weight', 120)
+            ->set('rollLabel', '007202027-0005')
+            ->set('rollWeight', 120)
             ->call('save')
             ->assertHasNoErrors();
 
@@ -135,11 +135,11 @@ class RollCrudTest extends TestCase
         ]);
 
         Livewire::test(RollEdit::class, ['roll' => $roll])
-            ->set('roll_label', '007202026-0004')
-            ->set('roll_weight', 100)
+            ->set('rollLabel', '007202026-0004')
+            ->set('rollWeight', 100)
             ->call('save')
             ->assertHasErrors([
-                'roll_label' => 'unique',
+                'rollLabel' => 'unique',
             ]);
 
         $this->assertDatabaseHas('rolls', [
@@ -165,7 +165,7 @@ class RollCrudTest extends TestCase
         ]);
 
         Livewire::test(ItemMaterialShow::class, ['itemMaterial' => $itemMaterial])
-            ->set('filter_status', 'EM_ESTOQUE')
+            ->set('statusFilter', 'EM_ESTOQUE')
             ->assertSee('007202026-0001')
             ->assertDontSee('007202026-0002');
     }

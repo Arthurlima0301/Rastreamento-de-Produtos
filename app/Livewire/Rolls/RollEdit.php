@@ -15,9 +15,9 @@ class RollEdit extends Component
 {
     public Roll $roll;
 
-    public string $roll_weight = '';
+    public string $rollWeight = '';
 
-    public string $roll_label = '';
+    public string $rollLabel = '';
 
     public string $roll_defect;
 
@@ -30,10 +30,10 @@ class RollEdit extends Component
     {
         $this->roll = $roll->load('itemMaterial.materialInvoice', 'itemMaterial.material');
 
-        $this->roll_label = $roll->label;
+        $this->rollLabel = $roll->label;
         $this->roll_defect = (string) $roll->defect;
         $this->roll_defect_weight = (int) $roll->defect_weight;
-        $this->roll_weight = (string) (int) $roll->weight;
+        $this->rollWeight = (string) (int) $roll->weight;
     }
 
     /**
@@ -53,8 +53,8 @@ class RollEdit extends Component
         $this->validate();
 
         $this->roll->update([
-            'label' => $this->roll_label,
-            'weight' => $this->roll_weight,
+            'label' => $this->rollLabel,
+            'weight' => $this->rollWeight,
             'defect' => $this->roll_defect == '' ? null : $this->roll_defect,
             'defect_weight' => $this->roll_defect_weight ?? null,
         ]);
@@ -70,8 +70,8 @@ class RollEdit extends Component
     public function rules(): array
     {
         return [
-            'roll_label' => ['required', 'string', 'min:14', 'max:14', Rule::unique('rolls', 'label')->ignore($this->roll->id)],
-            'roll_weight' => 'required|integer|min:100|max:5000',
+            'rollLabel' => ['required', 'string', 'min:14', 'max:14', Rule::unique('rolls', 'label')->ignore($this->roll->id)],
+            'rollWeight' => 'required|integer|min:100|max:5000',
             'roll_defect' => 'nullable|string|max:255',
             'roll_defect_weight' => 'nullable|integer|min:0|max:5000',
         ];
@@ -83,14 +83,14 @@ class RollEdit extends Component
     public function messages(): array
     {
         return [
-            'roll_label.required' => 'O campo "Rótulo" é obrigatório.',
-            'roll_label.min' => 'O campo "Rótulo" deve ter no mínimo 14 caracteres.',
-            'roll_label.max' => 'O campo "Rótulo" deve ter no máximo 14 caracteres.',
-            'roll_label.unique' => 'O Rótulo já foi cadastrado.',
-            'roll_weight.required' => 'O campo "Peso" é obrigatório.',
-            'roll_weight.integer' => 'O campo "Peso" deve ser um número inteiro.',
-            'roll_weight.min' => 'O campo "Peso" deve ser no mínimo 100.',
-            'roll_weight.max' => 'O campo "Peso" deve ser no máximo 5000.',
+            'rollLabel.required' => 'O campo "Rótulo" é obrigatório.',
+            'rollLabel.min' => 'O campo "Rótulo" deve ter no mínimo 14 caracteres.',
+            'rollLabel.max' => 'O campo "Rótulo" deve ter no máximo 14 caracteres.',
+            'rollLabel.unique' => 'O Rótulo já foi cadastrado.',
+            'rollWeight.required' => 'O campo "Peso" é obrigatório.',
+            'rollWeight.integer' => 'O campo "Peso" deve ser um número inteiro.',
+            'rollWeight.min' => 'O campo "Peso" deve ser no mínimo 100.',
+            'rollWeight.max' => 'O campo "Peso" deve ser no máximo 5000.',
             'roll_defect_weight.integer' => 'O campo "Peso do Defeito" deve ser um número inteiro.',
             'roll_defect_weight.min' => 'O campo "Peso do Defeito" deve ser no mínimo 0.',
             'roll_defect_weight.max' => 'O campo "Peso do Defeito" deve ser no máximo 5000.',

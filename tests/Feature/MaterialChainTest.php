@@ -21,7 +21,7 @@ class MaterialChainTest extends TestCase
 
         Livewire::test(MaterialCreate::class, ['order' => $order])
             ->set('materials', [$this->validMaterialData()])
-            ->call('saveAll')
+            ->call('saveMaterials')
             ->assertHasNoErrors()
             ->assertRedirect(route('orders.show', $order));
 
@@ -38,7 +38,7 @@ class MaterialChainTest extends TestCase
 
         Livewire::test(MaterialCreate::class, ['order' => $order])
             ->set('materials', [[]])
-            ->call('saveAll')
+            ->call('saveMaterials')
             ->assertHasErrors([
                 'materials.0.item_number',
                 'materials.0.shipment_code',

@@ -15,13 +15,13 @@ class RollsCreate extends Component
 {
     public ItemMaterial $itemMaterial;
 
-    public string $roll_batch;
+    public string $rollBatch;
 
-    public string $roll_vol;
+    public string $rollVolume;
 
-    public int $roll_weight;
+    public int $rollWeight;
 
-    public string $roll_label = '000000000-0000';
+    public string $rollLabel = '000000000-0000';
 
     /**
      * Mount the item-material.
@@ -44,36 +44,36 @@ class RollsCreate extends Component
      */
     public function save()
     {
-        $this->roll_label = "$this->roll_batch-$this->roll_vol";
+        $this->rollLabel = "$this->rollBatch-$this->rollVolume";
 
         $this->validate([
-            'roll_batch' => 'required|string|min:9|max:9',
-            'roll_label' => 'unique:rolls,label',
-            'roll_vol' => 'required|string|min:4|max:4',
-            'roll_weight' => 'required|integer|min:100|max:5000',
+            'rollBatch' => 'required|string|min:9|max:9',
+            'rollLabel' => 'unique:rolls,label',
+            'rollVolume' => 'required|string|min:4|max:4',
+            'rollWeight' => 'required|integer|min:100|max:5000',
         ], [
-            'roll_batch.required' => 'O campo "Lote" é obrigatório.',
-            'roll_batch.min' => 'O campo "Lote" deve ter no mínimo 9 caracteres.',
-            'roll_batch.max' => 'O campo "Lote" deve ter no máximo 9 caracteres.',
-            'roll_label.unique' => 'O Rótulo já foi cadastrado.',
-            'roll_vol.required' => 'O campo "Volume" é obrigatório.',
-            'roll_vol.min' => 'O campo "Volume" deve ter no mínimo 4 caracteres.',
-            'roll_vol.max' => 'O campo "Volume" deve ter no máximo 4 caracteres.',
-            'roll_weight.required' => 'O campo "Peso" é obrigatório.',
-            'roll_weight.integer' => 'O campo "Peso" deve ser um número inteiro.',
-            'roll_weight.min' => 'O campo "Peso" deve ser no mínimo 100.',
-            'roll_weight.max' => 'O campo "Peso" deve ser no máximo 5000.',
+            'rollBatch.required' => 'O campo "Lote" é obrigatório.',
+            'rollBatch.min' => 'O campo "Lote" deve ter no mínimo 9 caracteres.',
+            'rollBatch.max' => 'O campo "Lote" deve ter no máximo 9 caracteres.',
+            'rollLabel.unique' => 'O Rótulo já foi cadastrado.',
+            'rollVolume.required' => 'O campo "Volume" é obrigatório.',
+            'rollVolume.min' => 'O campo "Volume" deve ter no mínimo 4 caracteres.',
+            'rollVolume.max' => 'O campo "Volume" deve ter no máximo 4 caracteres.',
+            'rollWeight.required' => 'O campo "Peso" é obrigatório.',
+            'rollWeight.integer' => 'O campo "Peso" deve ser um número inteiro.',
+            'rollWeight.min' => 'O campo "Peso" deve ser no mínimo 100.',
+            'rollWeight.max' => 'O campo "Peso" deve ser no máximo 5000.',
         ]);
 
         Roll::create([
             'item_material_id' => $this->itemMaterial->id,
-            'label' => "$this->roll_batch-$this->roll_vol",
-            'weight' => $this->roll_weight,
+            'label' => "$this->rollBatch-$this->rollVolume",
+            'weight' => $this->rollWeight,
             'status' => 'EM_ESTOQUE',
         ]);
 
-        session()->flash('success', "Bobina  $this->roll_batch-$this->roll_vol criada com sucesso!");
-        $this->reset(['roll_vol', 'roll_weight']);
+        session()->flash('success', "Bobina  $this->rollBatch-$this->rollVolume criada com sucesso!");
+        $this->reset(['rollVolume', 'rollWeight']);
         $this->dispatch('focus-roll-vol');
     }
 }
