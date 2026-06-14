@@ -20,6 +20,14 @@ class ItemMaterial extends Model
     ];
 
     /**
+     * Cast attributes to specific types.
+     */
+    protected $casts = [
+        'number' => 'integer',
+        'total_weight' => 'float',
+    ];
+
+    /**
      * Get Formatted Total Weight Attribute
      */
     public function getFormattedTotalWeightAttribute(): string

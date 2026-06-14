@@ -24,17 +24,18 @@ class MaterialInvoice extends Model
     ];
 
     /**
+     * The attributes that should be cast to native types.
+     */
+    protected $casts = [
+        'issued_at' => 'date',
+    ];
+
+    /**
      * Format the issued date attribute.
      */
     public function getFormattedIssuedAtAttribute(): string
     {
-        $timestamp = strtotime((string) $this->issued_at);
-
-        if ($timestamp === false) {
-            return (string) $this->issued_at;
-        }
-
-        return date('d/m/Y', $timestamp);
+        return  $this->issued_at->format('d/m/Y');
     }
 
     /**

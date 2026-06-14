@@ -27,6 +27,13 @@ class SupplyItem extends Model
         'quantity',
     ];
 
+    /**
+     * The attributes that should be cast to native types.
+     */
+    protected $casts = [
+        'quantity' => 'float',
+    ];
+
 
     /**
      * Formatter quantity attribute accessor.

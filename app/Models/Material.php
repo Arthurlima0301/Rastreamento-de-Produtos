@@ -65,6 +65,14 @@ class Material extends Model
     }
 
     /**
+     * Format a decimal value for display.
+     */
+    private function formatDecimal($value): string
+    {
+        return number_format((float) $value, 2, ',', '.');
+    }
+
+    /**
      * Get the order that owns the material.
      */
     public function order(): BelongsTo
@@ -78,14 +86,6 @@ class Material extends Model
     public function itemMaterials(): HasMany
     {
         return $this->hasMany(ItemMaterial::class, 'material_id');
-    }
-
-    /**
-     * Format a decimal value for display.
-     */
-    private function formatDecimal($value): string
-    {
-        return number_format((float) $value, 2, ',', '.');
     }
 
     /**

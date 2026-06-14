@@ -24,17 +24,24 @@ class SupplyInvoice extends Model
     ];
 
     /**
+     * The attributes that should be cast to native types.
+     */
+    protected $casts = [
+        'issued_at' => 'datetime',
+    ];
+
+    /**
      * Accessor to format the 'issued_at' attribute as 'd/m/Y' when accessed.
      */
     public function getFormattedIssuedAtAttribute(): string
     {
-        return date('d/m/Y', strtotime($this->issued_at));
+        return $this->issued_at->format('d/m/Y');
     }
 
     /**
      * Get the formatted invoice code.
      */
-    protected function getFormattedSupplyInvoiceCodeAttribute(): string
+    public function getFormattedSupplyInvoiceCodeAttribute(): string
     {
         return number_format($this->supply_invoice_code, 0, '', '.');
     }
