@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Supplies;
 
+use Illuminate\Contracts\View\View;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\Title;
 use Livewire\Component;
@@ -13,7 +14,7 @@ class SupplyCreate extends Component
     /**
      * Render the supply creation page.
      */
-    public function render()
+    public function render(): View
     {
         return view('livewire.supplies.supply-create');
     }

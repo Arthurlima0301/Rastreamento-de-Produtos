@@ -5,6 +5,7 @@ namespace App\Models;
 use Database\Factories\RollFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Roll extends Model
 {
@@ -49,7 +50,7 @@ class Roll extends Model
     /**
      * Get the item material that owns the roll.
      */
-    public function itemMaterial()
+    public function itemMaterial(): BelongsTo
     {
         return $this->belongsTo(ItemMaterial::class);
     }
@@ -57,7 +58,7 @@ class Roll extends Model
     /**
      * Get the load that owns the roll.
      */
-    public function cutLoad()
+    public function cutLoad(): BelongsTo
     {
         return $this->belongsTo(Load::class, 'load_id');
     }

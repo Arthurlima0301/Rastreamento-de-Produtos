@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Loads;
 
+use Illuminate\Contracts\View\View;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\Title;
 use Livewire\Component;
@@ -13,7 +14,7 @@ class LoadIndex extends Component
     /**
      * Render the load index page.
      */
-    public function render()
+    public function render(): View
     {
         return view('livewire.loads.load-index');
     }

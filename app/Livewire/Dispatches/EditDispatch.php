@@ -3,6 +3,7 @@
 namespace App\Livewire\Dispatches;
 
 use App\Models\Dispatch;
+use Illuminate\Contracts\View\View;
 use Livewire\Component;
 
 class EditDispatch extends Component
@@ -69,7 +70,7 @@ class EditDispatch extends Component
     /**
      * Render the dispatch edit component.
      */
-    public function render()
+    public function render(): View
     {
         return view('livewire.dispatches.edit-dispatch');
     }

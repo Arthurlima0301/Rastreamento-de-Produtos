@@ -4,6 +4,7 @@ namespace App\Livewire\Materials;
 
 use App\Models\Material;
 use App\Models\Order;
+use Illuminate\Contracts\View\View;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\Title;
 use Livewire\Component;
@@ -29,7 +30,7 @@ class MaterialCreate extends Component
     /**
      * Render the component.
      */
-    public function render()
+    public function render(): View
     {
         return view('livewire.materials.material-create');
     }

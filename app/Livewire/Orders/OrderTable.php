@@ -3,6 +3,7 @@
 namespace App\Livewire\Orders;
 
 use App\Models\Order;
+use Illuminate\Contracts\View\View;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -15,7 +16,7 @@ class OrderTable extends Component
     /**
      * Render the paginated order table.
      */
-    public function render()
+    public function render(): View
     {
         $orders = Order::query()
             ->with('client')

@@ -3,6 +3,7 @@
 namespace App\Livewire\Dispatches;
 
 use App\Models\Dispatch;
+use Illuminate\Contracts\View\View;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\Title;
 use Livewire\Component;
@@ -24,7 +25,7 @@ class DispatchShow extends Component
     /**
      * Render the dispatch detail page.
      */
-    public function render()
+    public function render(): View
     {
         $dispatch = Dispatch::with('dispatchItems.supplyItem.supply', 'dispatchItems.supplyItem.supplyInvoice')
             ->findOrFail($this->dispatchId);

@@ -3,6 +3,7 @@
 namespace App\Livewire\Loads;
 
 use App\Models\Load;
+use Illuminate\Contracts\View\View;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -15,7 +16,7 @@ class LoadTable extends Component
     /**
      * Render the paginated load table.
      */
-    public function render()
+    public function render(): View
     {
         $loads = Load::query()
             ->with('machine')

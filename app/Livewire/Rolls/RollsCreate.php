@@ -4,6 +4,7 @@ namespace App\Livewire\Rolls;
 
 use App\Models\ItemMaterial;
 use App\Models\Roll;
+use Illuminate\Contracts\View\View;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\Title;
 use Livewire\Component;
@@ -33,7 +34,7 @@ class RollsCreate extends Component
     /**
      * Render the component view.
      */
-    public function render()
+    public function render(): View
     {
         return view('livewire.rolls.rolls-create');
     }

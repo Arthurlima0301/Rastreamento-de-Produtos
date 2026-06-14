@@ -4,6 +4,7 @@ namespace App\Livewire\Loads;
 
 use App\Models\Load;
 use App\Models\Roll;
+use Illuminate\Contracts\View\View;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\Title;
 use Livewire\Component;
@@ -30,7 +31,7 @@ class LoadShow extends Component
     /**
      * Render the load detail page.
      */
-    public function render()
+    public function render(): View
     {
         $rolls = Roll::query()
             ->with([

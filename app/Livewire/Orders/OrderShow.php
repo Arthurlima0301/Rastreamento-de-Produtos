@@ -4,6 +4,7 @@ namespace App\Livewire\Orders;
 
 use App\Models\Material;
 use App\Models\Order;
+use Illuminate\Contracts\View\View;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\Title;
 use Livewire\Component;
@@ -27,7 +28,7 @@ class OrderShow extends Component
     /**
      * Render the order detail page.
      */
-    public function render()
+    public function render(): View
     {
         $order = $this->order
             ->load(['client', 'materials']);

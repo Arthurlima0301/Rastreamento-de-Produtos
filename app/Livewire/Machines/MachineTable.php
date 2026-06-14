@@ -3,6 +3,7 @@
 namespace App\Livewire\Machines;
 
 use App\Models\Machine;
+use Illuminate\Contracts\View\View;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -15,7 +16,7 @@ class MachineTable extends Component
     /**
      * Render the paginated machine table.
      */
-    public function render()
+    public function render(): View
     {
         $machines = Machine::query()
             ->searchByName($this->search)

@@ -3,6 +3,7 @@
 namespace App\Livewire\Clients;
 
 use App\Models\Client;
+use Illuminate\Contracts\View\View;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\Title;
 use Livewire\Component;
@@ -24,7 +25,7 @@ class ClientEdit extends Component
     /**
      * Render the client edit page.
      */
-    public function render()
+    public function render(): View
     {
         return view('livewire.clients.client-edit');
     }

@@ -3,6 +3,7 @@
 namespace App\Livewire\Rolls;
 
 use App\Models\Roll;
+use Illuminate\Contracts\View\View;
 use Livewire\Component;
 
 class RollTable extends Component
@@ -12,7 +13,7 @@ class RollTable extends Component
     /**
      * Render the paginated roll table.
      */
-    public function render()
+    public function render(): View
     {
         $rolls = Roll::query()
             ->with('itemMaterial.material.order')

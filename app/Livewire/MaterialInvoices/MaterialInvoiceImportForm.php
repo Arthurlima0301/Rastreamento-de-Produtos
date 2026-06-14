@@ -4,6 +4,7 @@ namespace App\Livewire\MaterialInvoices;
 
 use App\Rules\MaterialInvoices\ValidXMLMaterialInvoice;
 use App\Services\MaterialInvoices\ImportMaterialInvoiceFromXMLService;
+use Illuminate\Contracts\View\View;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 
@@ -38,7 +39,7 @@ class MaterialInvoiceImportForm extends Component
     /**
      * Render the material invoice import form.
      */
-    public function render()
+    public function render(): View
     {
         return view('livewire.material-invoices.material-invoice-import-form');
     }

@@ -3,6 +3,7 @@
 namespace App\Livewire\Machines;
 
 use App\Models\Machine;
+use Illuminate\Contracts\View\View;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\Title;
 use Livewire\Component;
@@ -24,7 +25,7 @@ class MachineEdit extends Component
     /**
      * Render the machine edit page.
      */
-    public function render()
+    public function render(): View
     {
         return view('livewire.machines.machine-edit');
     }

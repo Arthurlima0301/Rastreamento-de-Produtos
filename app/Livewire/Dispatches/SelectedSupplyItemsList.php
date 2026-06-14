@@ -4,6 +4,7 @@ namespace App\Livewire\Dispatches;
 
 use App\Rules\Dispatches\ValidateConsumeSupplyItems;
 use App\Services\Dispatches\ConsumeSupplyItemsService;
+use Illuminate\Contracts\View\View;
 use Livewire\Attributes\On;
 use Livewire\Component;
 
@@ -14,7 +15,7 @@ class SelectedSupplyItemsList extends Component
     /**
      * Render the selected supply items list.
      */
-    public function render()
+    public function render(): View
     {
         return view('livewire.dispatches.selected-supply-items-list');
     }

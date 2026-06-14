@@ -4,6 +4,7 @@ namespace App\Livewire\Supplies;
 
 use App\Models\Client;
 use App\Models\Supply;
+use Illuminate\Contracts\View\View;
 use Illuminate\Validation\Rule;
 use Livewire\Component;
 
@@ -69,7 +70,7 @@ class SupplyForm extends Component
     /**
      * Render the supply form.
      */
-    public function render()
+    public function render(): View
     {
         $clients = Client::orderBy('name', 'asc')->get();
 

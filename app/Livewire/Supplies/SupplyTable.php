@@ -3,6 +3,7 @@
 namespace App\Livewire\Supplies;
 
 use App\Models\Supply;
+use Illuminate\Contracts\View\View;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -15,7 +16,7 @@ class SupplyTable extends Component
     /**
      * Render the paginated supply table.
      */
-    public function render()
+    public function render(): View
     {
         $supplies = Supply::query()
             ->with('client')

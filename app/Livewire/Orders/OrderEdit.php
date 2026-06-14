@@ -3,6 +3,7 @@
 namespace App\Livewire\Orders;
 
 use App\Models\Order;
+use Illuminate\Contracts\View\View;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\Title;
 use Livewire\Component;
@@ -24,7 +25,7 @@ class OrderEdit extends Component
     /**
      * Render the order edit page.
      */
-    public function render()
+    public function render(): View
     {
         return view('livewire.orders.order-edit');
     }

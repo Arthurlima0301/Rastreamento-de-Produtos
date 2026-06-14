@@ -3,6 +3,7 @@
 namespace App\Livewire\MaterialInvoices;
 
 use App\Models\MaterialInvoice;
+use Illuminate\Contracts\View\View;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -17,7 +18,7 @@ class MaterialInvoiceTable extends Component
     /**
      * Render the paginated material invoice table.
      */
-    public function render()
+    public function render(): View
     {
         $this->validate([
             'parameter' => 'in:asc,desc',

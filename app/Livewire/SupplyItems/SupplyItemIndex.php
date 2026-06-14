@@ -2,6 +2,7 @@
 
 namespace App\Livewire\SupplyItems;
 
+use Illuminate\Contracts\View\View;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\Title;
 use Livewire\Component;
@@ -13,7 +14,7 @@ class SupplyItemIndex extends Component
     /**
      * Render the supply item index page.
      */
-    public function render()
+    public function render(): View
     {
         return view('livewire.supply-items.supply-item-index');
     }

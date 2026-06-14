@@ -3,6 +3,7 @@
 namespace App\Livewire\Rolls;
 
 use App\Models\Roll;
+use Illuminate\Contracts\View\View;
 use Illuminate\Validation\Rule;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\Title;
@@ -35,7 +36,7 @@ class RollEdit extends Component
     /**
      * Render the roll edit page.
      */
-    public function render()
+    public function render(): View
     {
         return view('livewire.rolls.roll-edit');
     }

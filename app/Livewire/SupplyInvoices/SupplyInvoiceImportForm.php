@@ -4,6 +4,7 @@ namespace App\Livewire\SupplyInvoices;
 
 use App\Rules\SupplyInvoices\ValidXMLSupplyInvoice;
 use App\Services\SupplyInvoices\ImportSupplyInvoiceFromXMLService;
+use Illuminate\Contracts\View\View;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 
@@ -38,7 +39,7 @@ class SupplyInvoiceImportForm extends Component
     /**
      * Render the supply invoice import form.
      */
-    public function render()
+    public function render(): View
     {
         return view('livewire.supply-invoices.supply-invoice-import-form');
     }

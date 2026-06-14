@@ -4,6 +4,7 @@ namespace App\Livewire\Orders;
 
 use App\Models\Client;
 use App\Models\Order;
+use Illuminate\Contracts\View\View;
 use Livewire\Component;
 
 class OrderForm extends Component
@@ -62,7 +63,7 @@ class OrderForm extends Component
     /**
      * Render the order form.
      */
-    public function render()
+    public function render(): View
     {
         $clients = Client::orderBy('name', 'asc')->get();
 

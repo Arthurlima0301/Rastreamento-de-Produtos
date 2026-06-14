@@ -3,6 +3,7 @@
 namespace App\Livewire\Clients;
 
 use App\Models\Client;
+use Illuminate\Contracts\View\View;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -15,7 +16,7 @@ class ClientTable extends Component
     /**
      * Render the paginated client table.
      */
-    public function render()
+    public function render(): View
     {
         $clients = Client::query()
             ->searchByName($this->search)

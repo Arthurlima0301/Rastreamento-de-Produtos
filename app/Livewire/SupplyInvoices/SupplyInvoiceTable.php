@@ -3,6 +3,7 @@
 namespace App\Livewire\SupplyInvoices;
 
 use App\Models\SupplyInvoice;
+use Illuminate\Contracts\View\View;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -17,7 +18,7 @@ class SupplyInvoiceTable extends Component
     /**
      * Render the paginated supply invoice table.
      */
-    public function render()
+    public function render(): View
     {
         $this->validate([
             'parameter' => 'in:asc,desc',

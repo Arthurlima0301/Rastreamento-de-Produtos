@@ -3,6 +3,7 @@
 namespace App\Livewire\MaterialInvoices;
 
 use App\Models\MaterialInvoice;
+use Illuminate\Contracts\View\View;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\Title;
 use Livewire\Component;
@@ -24,7 +25,7 @@ class MaterialInvoiceShow extends Component
     /**
      * Render the material invoice detail page.
      */
-    public function render()
+    public function render(): View
     {
         $materialInvoice = $this->materialInvoice
             ->load('itemMaterials.material.order.client')

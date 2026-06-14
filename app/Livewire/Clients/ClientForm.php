@@ -3,6 +3,7 @@
 namespace App\Livewire\Clients;
 
 use App\Models\Client;
+use Illuminate\Contracts\View\View;
 use Livewire\Component;
 
 class ClientForm extends Component
@@ -49,7 +50,7 @@ class ClientForm extends Component
     /**
      * Render the client form.
      */
-    public function render()
+    public function render(): View
     {
         return view('livewire.clients.client-form');
     }

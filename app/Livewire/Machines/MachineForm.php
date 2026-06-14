@@ -3,6 +3,7 @@
 namespace App\Livewire\Machines;
 
 use App\Models\Machine;
+use Illuminate\Contracts\View\View;
 use Illuminate\Validation\Rule;
 use Livewire\Component;
 
@@ -58,7 +59,7 @@ class MachineForm extends Component
     /**
      * Render the machine form.
      */
-    public function render()
+    public function render(): View
     {
         return view('livewire.machines.machine-form');
     }

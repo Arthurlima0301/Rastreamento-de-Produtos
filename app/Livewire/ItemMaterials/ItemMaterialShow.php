@@ -4,6 +4,7 @@ namespace App\Livewire\ItemMaterials;
 
 use App\Models\ItemMaterial;
 use App\Models\Roll;
+use Illuminate\Contracts\View\View;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\Title;
 use Livewire\Component;
@@ -29,7 +30,7 @@ class ItemMaterialShow extends Component
     /**
      * Render the component view with the rolls related to the item material.
      */
-    public function render()
+    public function render(): View
     {
         $rolls = Roll::with('cutLoad.machine')
             ->where('item_material_id', $this->itemMaterial->id)

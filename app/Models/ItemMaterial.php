@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class ItemMaterial extends Model
 {
@@ -54,7 +55,7 @@ class ItemMaterial extends Model
     /**
      * Get the rolls associated with the item material.
      */
-    public function rolls()
+    public function rolls(): HasMany
     {
         return $this->hasMany(Roll::class, 'item_material_id');
     }

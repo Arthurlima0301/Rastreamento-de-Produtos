@@ -4,6 +4,7 @@ namespace App\Livewire\Loads;
 
 use App\Models\Machine;
 use App\Services\Loads\CreateLoadService;
+use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Collection;
 use Livewire\Attributes\On;
 use Livewire\Component;
@@ -31,7 +32,7 @@ class SelectedRollsList extends Component
     /**
      * Render the component view for displaying the list of selected rolls.
      */
-    public function render()
+    public function render(): View
     {
         return view('livewire.loads.selected-rolls-list');
     }

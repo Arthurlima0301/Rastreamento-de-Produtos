@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Supply extends Model
 {
@@ -36,8 +37,7 @@ class Supply extends Model
     /**
      * Get the supply items associated with the supply.
      */
-
-    public function supplyItems()
+    public function supplyItems(): HasMany
     {
         return $this->hasMany(SupplyItem::class, 'supply_id');
     }

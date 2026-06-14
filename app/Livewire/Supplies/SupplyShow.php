@@ -3,6 +3,7 @@
 namespace App\Livewire\Supplies;
 
 use App\Models\Supply;
+use Illuminate\Contracts\View\View;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\Title;
 use Livewire\Component;
@@ -24,7 +25,7 @@ class SupplyShow extends Component
     /**
      * Render the supply detail page.
      */
-    public function render()
+    public function render(): View
     {
         $supply = $this->supply->load('client', 'supplyItems');
 

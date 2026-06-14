@@ -3,6 +3,7 @@
 namespace App\Livewire\Dispatches;
 
 use App\Models\Dispatch;
+use Illuminate\Contracts\View\View;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -17,7 +18,7 @@ class DispatchTable extends Component
     /**
      * Render the paginated dispatch table.
      */
-    public function render()
+    public function render(): View
     {
         $this->validate([
             'parameter' => 'in:asc,desc',

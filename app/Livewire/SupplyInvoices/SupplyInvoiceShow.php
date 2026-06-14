@@ -3,6 +3,7 @@
 namespace App\Livewire\SupplyInvoices;
 
 use App\Models\SupplyInvoice;
+use Illuminate\Contracts\View\View;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\Title;
 use Livewire\Component;
@@ -24,7 +25,7 @@ class SupplyInvoiceShow extends Component
     /**
      * Render the supply invoice detail page.
      */
-    public function render()
+    public function render(): View
     {
         $supplyInvoice = $this->supplyInvoice
             ->load('supplyItems.supply')

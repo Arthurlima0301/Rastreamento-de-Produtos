@@ -4,6 +4,7 @@ namespace App\Livewire\Machines;
 
 use App\Models\Load;
 use App\Models\Machine;
+use Illuminate\Contracts\View\View;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\Title;
 use Livewire\Component;
@@ -27,7 +28,7 @@ class MachineShow extends Component
     /**
      * Render the machine detail page.
      */
-    public function render()
+    public function render(): View
     {
         $loads = Load::query()
             ->withSum('rolls', 'weight')
