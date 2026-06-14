@@ -23,12 +23,12 @@
 
                             <flux:table.cell>{{ $roll->label }}</flux:table.cell>
                             <flux:table.cell>{{ $roll->weight }}</flux:table.cell>
-                            <flux:table.cell align="center">{{ $roll->ItemMaterial->material->paper }}</flux:table.cell>
-                            <flux:table.cell align="center">{{ $roll->ItemMaterial->material->formatted_grammage }}</flux:table.cell>
-                            <flux:table.cell align="center">{{ $roll->ItemMaterial->material->roll }}</flux:table.cell>
-                            <flux:table.cell align="center">{{ $roll->ItemMaterial->material->shipment_code }}</flux:table.cell>
-                            <flux:table.cell align="center">{{ $roll->ItemMaterial->material->expedition_code }}</flux:table.cell>
-                            <flux:table.cell align="center">{{ $roll->ItemMaterial->material->return_batch }}</flux:table.cell>
+                            <flux:table.cell align="center">{{ $roll->itemMaterial->material->paper }}</flux:table.cell>
+                            <flux:table.cell align="center">{{ $roll->itemMaterial->material->formatted_grammage }}</flux:table.cell>
+                            <flux:table.cell align="center">{{ $roll->itemMaterial->material->roll }}</flux:table.cell>
+                            <flux:table.cell align="center">{{ $roll->itemMaterial->material->shipment_code }}</flux:table.cell>
+                            <flux:table.cell align="center">{{ $roll->itemMaterial->material->expedition_code }}</flux:table.cell>
+                            <flux:table.cell align="center">{{ $roll->itemMaterial->material->return_batch }}</flux:table.cell>
 
                             <flux:table.cell>
                                 <x-button variant="ghost" icon="plus" 

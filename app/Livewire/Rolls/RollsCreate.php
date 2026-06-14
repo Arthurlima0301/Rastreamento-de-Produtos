@@ -4,19 +4,22 @@ namespace App\Livewire\Rolls;
 
 use App\Models\ItemMaterial;
 use App\Models\Roll;
-use Livewire\Component;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\Title;
-
+use Livewire\Component;
 
 #[Layout('Layout.layout')]
-#[Title('Adicionar Bobina(s)')]
+#[Title('Adicionar Bobinas')]
 class RollsCreate extends Component
 {
     public ItemMaterial $itemMaterial;
+
     public string $roll_batch;
+
     public string $roll_vol;
+
     public int $roll_weight;
+
     public string $roll_label = '000000000-0000';
 
     /**

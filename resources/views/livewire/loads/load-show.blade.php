@@ -5,7 +5,6 @@
             <p><strong>Data de Corte: </strong> {{ $load->formatted_cutted_at }}</p>
             <p><strong>Turno: </strong> {{ $load->turn }}</p>
             <p><strong>Máquina: </strong> {{ $load->machine->name }}</p>
-            <p><strong>Bobinas: </strong> {{ $load->rolls_count }}</p>
         </x-slot>
     </x-card>
 
@@ -42,8 +41,8 @@
                         <a href="{{ route('material-invoices.show', $roll->itemMaterial->materialInvoice) }}" class="hover:underline">
                             {{ $roll->itemMaterial->materialInvoice->formatted_invoice_code }}
                         </a>
-                    <flux:table.cell align="center">{{ $roll->itemMaterial->materialInvoice->formatted_issued_at }}</flux:table.cell>
                     </flux:table.cell>
+                    <flux:table.cell align="center">{{ $roll->itemMaterial->materialInvoice->formatted_issued_at }}</flux:table.cell>
                     <flux:table.cell align="center">
                         <a href="{{ route('item-materials.show', $roll->itemMaterial) }}" class="hover:underline">
                             {{ $roll->itemMaterial->material->paper }}

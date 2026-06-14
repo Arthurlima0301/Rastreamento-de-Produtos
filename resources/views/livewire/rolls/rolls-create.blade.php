@@ -1,5 +1,5 @@
 <div class="w-full">
-    <x-card title="Adicionar Bobina(s)">
+    <x-card title="Adicionar Bobinas">
         <x-slot name="slot">
             <p><strong>NF: </strong> {{ $itemMaterial->materialInvoice->formatted_invoice_code }}</p>
             <p><strong>Nº do Item: </strong> {{ $itemMaterial->number }}</p>
