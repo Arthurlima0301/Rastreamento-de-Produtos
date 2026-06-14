@@ -13,7 +13,7 @@ class DispatchTable extends Component
 
     public string $search = '';
 
-    public string $parameter = 'desc';
+    public string $sortDirection = 'desc';
 
     /**
      * Render the paginated dispatch table.
@@ -21,14 +21,14 @@ class DispatchTable extends Component
     public function render(): View
     {
         $this->validate([
-            'parameter' => 'in:asc,desc',
+            'sortDirection' => 'in:asc,desc',
         ], [
-            'parameter.in' => 'O parâmetro de ordenação deve ser "asc" ou "desc".',
+            'sortDirection.in' => 'O parâmetro de ordenação deve ser "asc" ou "desc".',
         ]);
 
         $dispatches = Dispatch::query()
             ->searchByInvoice($this->search)
-            ->orderBy('dispatched_at', $this->parameter)
+            ->orderBy('dispatched_at', $this->sortDirection)
             ->paginate(50);
 
         return view('livewire.dispatches.dispatch-table', compact('dispatches'));

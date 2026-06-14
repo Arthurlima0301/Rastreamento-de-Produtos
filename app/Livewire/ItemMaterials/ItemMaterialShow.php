@@ -17,7 +17,7 @@ class ItemMaterialShow extends Component
 
     public string $search = '';
 
-    public string $filter_status = '';
+    public string $statusFilter = '';
 
     /**
      * Mount the component with the given item material.
@@ -36,7 +36,7 @@ class ItemMaterialShow extends Component
             ->where('item_material_id', $this->itemMaterial->id)
             ->orderBy('label')
             ->searchByLabel($this->search)
-            ->filterByStatus($this->filter_status)
+            ->filterByStatus($this->statusFilter)
             ->get();
 
         $totalWeight = $rolls->sum('weight');

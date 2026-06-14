@@ -13,7 +13,7 @@ class MaterialInvoiceTable extends Component
 
     public string $search = '';
 
-    public string $parameter = 'desc';
+    public string $sortDirection = 'desc';
 
     /**
      * Render the paginated material invoice table.
@@ -21,12 +21,12 @@ class MaterialInvoiceTable extends Component
     public function render(): View
     {
         $this->validate([
-            'parameter' => 'in:asc,desc',
+            'sortDirection' => 'in:asc,desc',
         ]);
 
         $materialInvoices = MaterialInvoice::query()
             ->searchByInvoiceCode($this->search)
-            ->orderBy('issued_at', $this->parameter)
+            ->orderBy('issued_at', $this->sortDirection)
             ->withCount('itemMaterials')
             ->paginate(50);
 

@@ -18,12 +18,12 @@
         </x-slot:header>
 
         <x-slot:rows>
-            @foreach ($supplyInvoice->supplyItems as $supplyInvoiceItem)
+            @foreach ($supplyInvoice->supplyItems as $supplyItem)
                 <flux:table.row>
-                    <flux:table.cell align="center">{{ $supplyInvoiceItem->number }}</flux:table.cell>
-                    <flux:table.cell align="center">{{ $supplyInvoiceItem->supply->name }}</flux:table.cell>
-                    <flux:table.cell align="center">{{ $supplyInvoiceItem->formatted_quantity }}</flux:table.cell>
-                    <flux:table.cell align="center">{{ $supplyInvoiceItem->supply->unit_of_measure }}</flux:table.cell>
+                    <flux:table.cell align="center">{{ $supplyItem->number }}</flux:table.cell>
+                    <flux:table.cell align="center">{{ $supplyItem->supply->name }}</flux:table.cell>
+                    <flux:table.cell align="center">{{ $supplyItem->formatted_quantity }}</flux:table.cell>
+                    <flux:table.cell align="center">{{ $supplyItem->supply->unit_of_measure }}</flux:table.cell>
                 </flux:table.row>
             @endforeach
         </x-slot:rows>

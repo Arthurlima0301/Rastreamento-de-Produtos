@@ -13,7 +13,7 @@ class SupplyInvoiceTable extends Component
 
     public string $search = '';
 
-    public string $parameter = 'desc';
+    public string $sortDirection = 'desc';
 
     /**
      * Render the paginated supply invoice table.
@@ -21,12 +21,12 @@ class SupplyInvoiceTable extends Component
     public function render(): View
     {
         $this->validate([
-            'parameter' => 'in:asc,desc',
+            'sortDirection' => 'in:asc,desc',
         ]);
 
         $supplyInvoices = SupplyInvoice::query()
             ->searchBySupplyInvoiceCode($this->search)
-            ->orderBy('issued_at', $this->parameter)
+            ->orderBy('issued_at', $this->sortDirection)
             ->withCount('supplyItems')
             ->paginate(50);
 

@@ -44,7 +44,7 @@
             <flux:table.column align="center">Código</flux:table.column>
             <flux:table.column align="center">Peso</flux:table.column>
             <flux:table.column align="center">
-                <x-sort column-title="Status" model="filter_status">
+                <x-sort column-title="Status" model="statusFilter">
                     <flux:menu.radio value="">Todas</flux:menu.radio>
                     <flux:menu.radio value="EM_ESTOQUE">Em Estoque</flux:menu.radio>
                     <flux:menu.radio value="CORTADA">Cortada</flux:menu.radio>
