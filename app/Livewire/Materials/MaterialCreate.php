@@ -4,6 +4,7 @@ namespace App\Livewire\Materials;
 
 use App\Models\Material;
 use App\Models\Order;
+use Illuminate\Contracts\View\View;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\Title;
 use Livewire\Component;
@@ -14,7 +15,7 @@ class MaterialCreate extends Component
 {
     public Order $order;
 
-    public int $inputMaterial = 1;
+    public int $materialInputCount = 1;
 
     public array $materials = [];
 
@@ -29,7 +30,7 @@ class MaterialCreate extends Component
     /**
      * Render the component.
      */
-    public function render()
+    public function render(): View
     {
         return view('livewire.materials.material-create');
     }
@@ -37,34 +38,34 @@ class MaterialCreate extends Component
     /**
      * Add a new material input field to the form.
      */
-    public function addMaterialInput()
+    public function addMaterialRow(): void
     {
-        $this->inputMaterial++;
+        $this->materialInputCount++;
     }
 
     /**
      * Remove a material input field from the form by its index.
      */
-    public function removeMaterialInput($index)
+    public function removeMaterialRow(int $index): void
     {
         unset($this->materials[$index]);
         $this->materials = array_values($this->materials);
-        $this->inputMaterial--;
+        $this->materialInputCount--;
     }
 
     /**
      * Clear all material input fields from the form.
      */
-    public function clearMaterialInput()
+    public function clearMaterialRows(): void
     {
         $this->materials = [];
-        $this->inputMaterial = 0;
+        $this->materialInputCount = 0;
     }
 
     /**
      * Validate the form data and save all materials to the database.
      */
-    public function saveAll()
+    public function saveMaterials()
     {
         $this->validate();
 
@@ -78,7 +79,7 @@ class MaterialCreate extends Component
     /**
      * Define validation rules for the materials form.
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             'materials' => 'required|array|min:1',
@@ -101,7 +102,7 @@ class MaterialCreate extends Component
     /**
      * Define custom validation messages for the materials form.
      */
-    public function messages()
+    public function messages(): array
     {
         return [
             'materials.required' => 'Adicione pelo menos um material.',

@@ -22,7 +22,6 @@ class DispatchItem extends Model
 
     /**
      * The attributes that are mass assignable.
-     * @return array<string, string, float>
      */
     protected $fillable = [
         'dispatch_id',
@@ -30,9 +29,16 @@ class DispatchItem extends Model
         'quantity',
     ];
 
-    /*
-    * Formatter quantity attribute accessor.
-    */
+    /**
+     * The attributes that should be cast to native types.
+     */
+    protected $casts = [
+        'quantity' => 'float',
+    ];
+
+    /**
+     * Format the quantity attribute.
+     */
     public function getFormattedQuantityAttribute(): string
     {
         return number_format($this->quantity,2,',','.');

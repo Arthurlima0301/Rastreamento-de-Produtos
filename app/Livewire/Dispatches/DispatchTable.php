@@ -3,6 +3,7 @@
 namespace App\Livewire\Dispatches;
 
 use App\Models\Dispatch;
+use Illuminate\Contracts\View\View;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -12,22 +13,30 @@ class DispatchTable extends Component
 
     public string $search = '';
 
-    public string $parameter = 'desc';
+    public string $sortDirection = 'desc';
 
-    public function render()
+    /**
+     * Render the paginated dispatch table.
+     */
+    public function render(): View
     {
         $this->validate([
-            'parameter' => 'in:asc,desc',
+            'sortDirection' => 'in:asc,desc',
+        ], [
+            'sortDirection.in' => 'O parâmetro de ordenação deve ser "asc" ou "desc".',
         ]);
 
         $dispatches = Dispatch::query()
             ->searchByInvoice($this->search)
-            ->orderBy('dispatched_at', $this->parameter)
+            ->orderBy('dispatched_at', $this->sortDirection)
             ->paginate(50);
 
         return view('livewire.dispatches.dispatch-table', compact('dispatches'));
     }
 
+    /**
+     * Delete a dispatch record.
+     */
     public function destroy(Dispatch $dispatch)
     {
         $dispatch->delete();

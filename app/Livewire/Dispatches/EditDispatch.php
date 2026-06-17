@@ -3,6 +3,7 @@
 namespace App\Livewire\Dispatches;
 
 use App\Models\Dispatch;
+use Illuminate\Contracts\View\View;
 use Livewire\Component;
 
 class EditDispatch extends Component
@@ -15,11 +16,17 @@ class EditDispatch extends Component
 
     public string $dispatched_at;
 
+    /**
+     * Enable dispatch editing.
+     */
     public function edit()
     {
         $this->isEdited = true;
     }
 
+    /**
+     * Cancel editing and restore dispatch data.
+     */
     public function cancel()
     {
         $this->invoice = $this->dispatch->invoice ?? 'N/A';
@@ -27,6 +34,9 @@ class EditDispatch extends Component
         $this->isEdited = false;
     }
 
+    /**
+     * Validate and save dispatch changes.
+     */
     public function save()
     {
         $this->validate(
@@ -47,6 +57,9 @@ class EditDispatch extends Component
         $this->isEdited = false;
     }
 
+    /**
+     * Load the dispatch data for editing.
+     */
     public function mount($dispatchId)
     {
         $this->dispatch = Dispatch::findOrFail($dispatchId);
@@ -54,7 +67,10 @@ class EditDispatch extends Component
         $this->dispatched_at = $this->dispatch->dispatched_at ? $this->dispatch->dispatched_at->format('Y-m-d') : '';
     }
 
-    public function render()
+    /**
+     * Render the dispatch edit component.
+     */
+    public function render(): View
     {
         return view('livewire.dispatches.edit-dispatch');
     }

@@ -2,15 +2,19 @@
 
 namespace App\Livewire\Rolls;
 
-use Livewire\Component;
+use Illuminate\Contracts\View\View;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\Title;
+use Livewire\Component;
 
 #[Layout('Layout.layout')]
 #[Title('Bobinas')]
 class RollIndex extends Component
 {
-    public function render()
+    /**
+     * Render the roll index page.
+     */
+    public function render(): View
     {
         return view('livewire.rolls.roll-index');
     }

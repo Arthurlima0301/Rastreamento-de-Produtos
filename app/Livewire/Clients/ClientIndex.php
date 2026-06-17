@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Clients;
 
+use Illuminate\Contracts\View\View;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\Title;
 use Livewire\Component;
@@ -10,7 +11,10 @@ use Livewire\Component;
 #[Title('Lista de Clientes')]
 class ClientIndex extends Component
 {
-    public function render()
+    /**
+     * Render the client index page.
+     */
+    public function render(): View
     {
         return view('livewire.clients.client-index');
     }

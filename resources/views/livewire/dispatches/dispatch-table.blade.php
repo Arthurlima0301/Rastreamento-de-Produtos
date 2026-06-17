@@ -5,7 +5,7 @@
         <x-slot:header>
             <flux:table.column align="center">ID</flux:table.column>
             <flux:table.column align="center">
-                <x-sort collumn-title="Data de Emissão" model="parameter">
+                <x-sort column-title="Data de Emissão" model="sortDirection">
                     <flux:menu.radio value="desc">Mais Recentes</flux:menu.radio>
                     <flux:menu.radio value="asc">Mais Antigos</flux:menu.radio>
                 </x-sort>
@@ -17,11 +17,15 @@
         <x-slot:rows>
             @foreach ($dispatches as $dispatch)
                 <flux:table.row wire:key="dispatch-{{ $dispatch->id }}">
-                    <flux:table.cell align="center">{{ $dispatch->id }}</flux:table.cell>
+                    <flux:table.cell align="center">
+                        <a href="{{ route('dispatches.show', $dispatch->id) }}" class="hover:underline">
+                            {{ $dispatch->id }}
+                        </a>
+                    </flux:table.cell>
                     <flux:table.cell align="center">{{ $dispatch->formatted_dispatched_at }}</flux:table.cell>
                     <flux:table.cell align="center">{{ $dispatch->invoice ?? 'N/A' }}</flux:table.cell>
                     <flux:table.cell align="center">
-                        <x-button href="{{ route('dispatches.show', $dispatch->id) }}" variant="ghost" icon="eye" />
+                        <x-button href="{{ route('dispatches.show', $dispatch->id) }}" icon="arrow-up-right" />
 
                         <flux:modal.trigger :name="'confirm-'.$dispatch->id">
                             <x-button variant="primary" color="red" icon="trash" />
@@ -41,7 +45,7 @@
                                 </x-button>
                             </flux:modal.close>
 
-                            <x-button wire:click="destroy({{ $dispatch->id }})" variant="primary">
+                            <x-button wire:click="destroy({{ $dispatch->id }})" variant="primary" color="red" icon="trash">
                                 Continuar
                             </x-button>
                         </div>

@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Dispatches;
 
+use Illuminate\Contracts\View\View;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\Title;
 use Livewire\Component;
@@ -10,7 +11,10 @@ use Livewire\Component;
 #[Title('Saídas')]
 class DispatchIndex extends Component
 {
-    public function render()
+    /**
+     * Render the dispatch index page.
+     */
+    public function render(): View
     {
         return view('livewire.dispatches.dispatch-index');
     }

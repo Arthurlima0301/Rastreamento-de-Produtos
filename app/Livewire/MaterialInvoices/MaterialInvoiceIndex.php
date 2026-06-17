@@ -2,6 +2,7 @@
 
 namespace App\Livewire\MaterialInvoices;
 
+use Illuminate\Contracts\View\View;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\Title;
 use Livewire\Component;
@@ -10,7 +11,10 @@ use Livewire\Component;
 #[Title('Notas Fiscais de Materiais')]
 class MaterialInvoiceIndex extends Component
 {
-    public function render()
+    /**
+     * Render the material invoice index page.
+     */
+    public function render(): View
     {
         return view('livewire.material-invoices.material-invoice-index');
     }

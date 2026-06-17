@@ -3,6 +3,7 @@
 namespace App\Livewire\ItemMaterials;
 
 use App\Models\ItemMaterial;
+use Illuminate\Contracts\View\View;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -12,7 +13,10 @@ class ItemMaterialTable extends Component
 
     public string $search = '';
 
-    public function render()
+    /**
+     * Render the paginated item material table.
+     */
+    public function render(): View
     {
         $itemMaterials = ItemMaterial::query()
             ->with(['material.order.client', 'materialInvoice'])

@@ -5,6 +5,8 @@ namespace App\Models;
 use Database\Factories\LoadFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Load extends Model
 {
@@ -41,7 +43,7 @@ class Load extends Model
     /**
      * Get the machine that owns the load.
      */
-    public function machine()
+    public function machine(): BelongsTo
     {
         return $this->belongsTo(Machine::class, 'machine_id');
     }
@@ -49,7 +51,7 @@ class Load extends Model
     /**
      * Get the rolls for the load.
      */
-    public function rolls()
+    public function rolls(): HasMany
     {
         return $this->hasMany(Roll::class, 'load_id');
     }
@@ -57,13 +59,13 @@ class Load extends Model
     /**
      * Scope a search by machine abbreviation + id.
      */
-    public function scopeSearchByCode($query, $search)
+    public function scopeSearchByCode($query, string $search)
     {
         $search = trim(str_replace('-', '', $search));
 
         return $query->when($search !== '', function ($q) use ($search) {
             $q->join('machines', 'loads.machine_id', '=', 'machines.id')
-                ->whereRaw("CONCAT(machines.abbreviation, loads.id) LIKE ?", ["%{$search}%"]);
+                ->whereRaw('CONCAT(machines.abbreviation, loads.id) LIKE ?', ["%{$search}%"]);
         });
     }
 }

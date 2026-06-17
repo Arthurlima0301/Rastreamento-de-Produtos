@@ -4,6 +4,7 @@ namespace App\Livewire\Supplies;
 
 use App\Models\Client;
 use App\Models\Supply;
+use Illuminate\Contracts\View\View;
 use Illuminate\Validation\Rule;
 use Livewire\Component;
 
@@ -19,6 +20,9 @@ class SupplyForm extends Component
 
     public ?int $client_id = null;
 
+    /**
+     * Load the supply data when editing.
+     */
     public function mount(?int $supplyId = null): void
     {
         $this->supplyId = $supplyId;
@@ -32,6 +36,9 @@ class SupplyForm extends Component
         }
     }
 
+    /**
+     * Validate and save the supply.
+     */
     public function save()
     {
         $validated = $this->validate([
@@ -40,27 +47,30 @@ class SupplyForm extends Component
             'unit_of_measure' => 'required|string',
             'client_id' => 'required|exists:clients,id',
         ], [
-            'supply_code.required' => 'O campo código do insumo é obrigatório.',
+            'supply_code.required' => 'O campo "Código do Insumo" é obrigatório.',
             'supply_code.unique' => 'O código do insumo já existe. Por favor, escolha outro.',
-            'name.required' => 'O campo nome é obrigatório.',
-            'unit_of_measure.required' => 'O campo unidade de medida é obrigatório.',
-            'unit_of_measure.string' => 'O campo unidade de medida deve ser uma string.',
-            'client_id.required' => 'O campo cliente é obrigatório.',
+            'name.required' => 'O campo "Nome" é obrigatório.',
+            'unit_of_measure.required' => 'O campo "Unidade de Medida" é obrigatório.',
+            'unit_of_measure.string' => 'O campo "Unidade de Medida" deve ser um texto.',
+            'client_id.required' => 'O campo "Cliente" é obrigatório.',
             'client_id.exists' => 'O cliente informado é inválido.',
         ]);
 
         if ($this->supplyId) {
             Supply::findOrFail($this->supplyId)->update($validated);
 
-            return redirect()->route('supplies.index')->with('success', 'Insumo atualizado com sucesso.');
+            return redirect()->route('supplies.index')->with('success', 'Insumo atualizado com sucesso!');
         }
 
         Supply::create($validated);
 
-        return redirect()->route('supplies.index')->with('success', 'Insumo criado com sucesso.');
+        return redirect()->route('supplies.index')->with('success', 'Insumo criado com sucesso!');
     }
 
-    public function render()
+    /**
+     * Render the supply form.
+     */
+    public function render(): View
     {
         $clients = Client::orderBy('name', 'asc')->get();
 

@@ -4,6 +4,7 @@ namespace App\Livewire\Orders;
 
 use App\Models\Material;
 use App\Models\Order;
+use Illuminate\Contracts\View\View;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\Title;
 use Livewire\Component;
@@ -12,41 +13,58 @@ use Livewire\Component;
 #[Title('Detalhes da Ordem de Corte')]
 class OrderShow extends Component
 {
-    public int $orderId;
+    public Order $order;
 
     public int $activeEdit = 0;
 
+    /**
+     * Mount the component with the order id.
+     */
     public function mount(Order $order): void
     {
-        $this->orderId = $order->id;
+        $this->order = $order;
     }
 
-    public function render()
+    /**
+     * Render the order detail page.
+     */
+    public function render(): View
     {
-        $order = Order::with(['client', 'materials'])->findOrFail($this->orderId);
+        $order = $this->order
+            ->load(['client', 'materials']);
 
         return view('livewire.orders.order-show', compact('order'));
     }
 
-    public function cancelEdit(): void
-    {
-        $this->activeEdit = 0;
-    }
-
+    /**
+     * Select a material for editing.
+     */
     public function editMaterial(int $materialId): void
     {
         $this->activeEdit = $materialId;
     }
 
+    /**
+     * Cancel material editing.
+     */
+    public function cancelEdit(): void
+    {
+        $this->activeEdit = 0;
+    }
+
+    /**
+     * Remove a material when it has no invoice items.
+     */
     public function removeMaterial(Material $material): void
     {
-        if (!$material->itemMaterials()->exists()) {
+        if (! $material->itemMaterials()->exists()) {
             $material->delete();
-            session()->flash('success', 'Material removido com sucesso.');
-        } else {
-            session()->flash('error', 'Não é possível remover um material que possui itens associados.');
+            session()->flash('success', 'Material removido com sucesso!');
+            $this->activeEdit = 0;
+
+            return;
         }
 
-        $this->activeEdit = 0;
+        session()->flash('error', 'Não é possível remover um material que possui itens associados!');
     }
 }

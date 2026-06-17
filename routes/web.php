@@ -1,89 +1,92 @@
 <?php
 
-use App\Livewire\Clients\ClientCreate;
-use App\Livewire\Clients\ClientEdit;
-use App\Livewire\Clients\ClientIndex;
-use App\Livewire\Dispatches\DispatchCreate;
-use App\Livewire\Dispatches\DispatchIndex;
-use App\Livewire\Dispatches\DispatchShow;
-use App\Livewire\ItemMaterials\ItemMaterialEdit;
-use App\Livewire\ItemMaterials\ItemMaterialIndex;
-use App\Livewire\ItemMaterials\ItemMaterialShow;
-use App\Livewire\Loads\LoadCreate;
-use App\Livewire\Loads\LoadIndex;
-use App\Livewire\Loads\LoadShow;
-use App\Livewire\Machines\MachineCreate;
-use App\Livewire\Machines\MachineEdit;
-use App\Livewire\Machines\MachineIndex;
-use App\Livewire\Machines\MachineShow;
-use App\Livewire\MaterialInvoices\MaterialInvoiceIndex;
-use App\Livewire\MaterialInvoices\MaterialInvoiceShow;
-use App\Livewire\Materials\MaterialCreate;
-use App\Livewire\Orders\OrderCreate;
-use App\Livewire\Orders\OrderEdit;
-use App\Livewire\Orders\OrderIndex;
-use App\Livewire\Orders\OrderShow;
-use App\Livewire\Rolls\RollEdit;
-use App\Livewire\Rolls\RollIndex;
-use App\Livewire\Rolls\RollsCreate;
-use App\Livewire\Supplies\SupplyCreate;
-use App\Livewire\Supplies\SupplyEdit;
-use App\Livewire\Supplies\SupplyIndex;
-use App\Livewire\Supplies\SupplyShow;
-use App\Livewire\SupplyInvoices\SupplyInvoiceIndex;
-use App\Livewire\SupplyInvoices\SupplyInvoiceShow;
-use App\Livewire\SupplyItems\SupplyItemIndex;
 use Illuminate\Support\Facades\Route;
+use App\Livewire\Clients\{ClientCreate, ClientEdit, ClientIndex};
+use App\Livewire\Machines\{MachineCreate, MachineEdit, MachineIndex, MachineShow};
+use App\Livewire\Supplies\{SupplyCreate, SupplyEdit, SupplyIndex, SupplyShow};
+use App\Livewire\SupplyInvoices\{SupplyInvoiceIndex, SupplyInvoiceShow};
+use App\Livewire\SupplyItems\{SupplyItemIndex};
+use App\Livewire\Orders\{OrderCreate, OrderEdit, OrderIndex, OrderShow};
+use App\Livewire\Materials\{MaterialCreate};
+use App\Livewire\MaterialInvoices\{MaterialInvoiceIndex, MaterialInvoiceShow};
+use App\Livewire\ItemMaterials\{ItemMaterialEdit, ItemMaterialIndex, ItemMaterialShow};
+use App\Livewire\Rolls\{RollEdit, RollIndex, RollsCreate};
+use App\Livewire\Loads\{LoadCreate, LoadIndex, LoadShow};
+use App\Livewire\Dispatches\{DispatchCreate, DispatchIndex, DispatchShow};
 
 // Client routes
-Route::get('/clients', ClientIndex::class)->name('clients.index');
-Route::get('/clients/create', ClientCreate::class)->name('clients.create');
-Route::get('/clients/{client}/edit', ClientEdit::class)->name('clients.edit');
+Route::prefix('clients')->group(function () {
+    Route::get('/', ClientIndex::class)->name('clients.index');
+    Route::get('/create', ClientCreate::class)->name('clients.create');
+    Route::get('/{client}/edit', ClientEdit::class)->name('clients.edit');
+});
 
 // Machine routes
-Route::get('/machines', MachineIndex::class)->name('machines.index');
-Route::get('/machines/create', MachineCreate::class)->name('machines.create');
-Route::get('/machines/{machine}/edit', MachineEdit::class)->name('machines.edit');
-Route::get('/machines/{machine}/show', MachineShow::class)->name('machines.show');
+Route::prefix('machines')->group(function () {
+    Route::get('/', MachineIndex::class)->name('machines.index');
+    Route::get('/create', MachineCreate::class)->name('machines.create');
+    Route::get('/{machine}/edit', MachineEdit::class)->name('machines.edit');
+    Route::get('/{machine}/show', MachineShow::class)->name('machines.show');
+});
 
 // Supply routes
-Route::get('/supplies', SupplyIndex::class)->name('supplies.index');
-Route::get('/supplies/create', SupplyCreate::class)->name('supplies.create');
-Route::get('/supplies/{supply}', SupplyShow::class)->name('supplies.show');
-Route::get('/supplies/{supply}/edit', SupplyEdit::class)->name('supplies.edit');
+Route::prefix('supplies')->group(function () {
+    Route::get('/', SupplyIndex::class)->name('supplies.index');
+    Route::get('/create', SupplyCreate::class)->name('supplies.create');
+    Route::get('/{supply}', SupplyShow::class)->name('supplies.show');
+    Route::get('/{supply}/edit', SupplyEdit::class)->name('supplies.edit');
+});
 
 // Supply invoice routes
-Route::get('/supply-invoices', SupplyInvoiceIndex::class)->name('supply-invoices.index');
-Route::get('/supply-invoices/{supplyInvoice}', SupplyInvoiceShow::class)->name('supply-invoices.show');
+Route::prefix('supply-invoices')->group(function () {
+    Route::get('/', SupplyInvoiceIndex::class)->name('supply-invoices.index');
+    Route::get('/{supplyInvoice}', SupplyInvoiceShow::class)->name('supply-invoices.show');
+});
 
 // Supply item routes
-Route::get('/supply-items', SupplyItemIndex::class)->name('supply-items.index');
-
-// Material invoice routes
-Route::get('/material-invoices', MaterialInvoiceIndex::class)->name('material-invoices.index');
-Route::get('/material-invoices/{materialInvoice}', MaterialInvoiceShow::class)->name('material-invoices.show');
-
-// Item material routes
-Route::get('/item-materials', ItemMaterialIndex::class)->name('item-materials.index');
-Route::get('/item-materials/{itemMaterial}', ItemMaterialShow::class)->name('item-materials.show');
-Route::get('/item-materials/{itemMaterial}/edit', ItemMaterialEdit::class)->name('item-materials.edit');
-Route::get('/item-materials/{itemMaterial}/roll-create', RollsCreate::class)->name('roll.create');
+Route::prefix('supply-items')->group(function () {
+    Route::get('/', SupplyItemIndex::class)->name('supply-items.index');
+});
 
 // Order routes
-Route::get('/orders', OrderIndex::class)->name('orders.index');
-Route::get('/orders/create', OrderCreate::class)->name('orders.create');
-Route::get('/orders/{order}', OrderShow::class)->name('orders.show');
-Route::get('/orders/{order}/edit', OrderEdit::class)->name('orders.edit');
-Route::get('/orders/{order}/materials-create', MaterialCreate::class)->name('materials.create');
+Route::prefix('orders')->group(function () {
+    Route::get('/', OrderIndex::class)->name('orders.index');
+    Route::get('/create', OrderCreate::class)->name('orders.create');
+    Route::get('/{order}', OrderShow::class)->name('orders.show');
+    Route::get('/{order}/edit', OrderEdit::class)->name('orders.edit');
+    Route::get('/{order}/materials-create', MaterialCreate::class)->name('materials.create');
+});
 
-// Rolls Routes
-Route::get('/loads', LoadIndex::class)->name('loads.index');
-Route::get('/loads/create', LoadCreate::class)->name('loads.create');
-Route::get('/loads/{load}', LoadShow::class)->name('loads.show');
-Route::get('/rolls', RollIndex::class)->name('rolls.index');
-Route::get('/rolls/{roll}/edit', RollEdit::class)->name('rolls.edit');
+// Material invoice routes
+Route::prefix('material-invoices')->group(function () {
+    Route::get('/', MaterialInvoiceIndex::class)->name('material-invoices.index');
+    Route::get('/{materialInvoice}', MaterialInvoiceShow::class)->name('material-invoices.show');
+});
+
+// Item material routes
+Route::prefix('item-materials')->group(function () {
+    Route::get('/', ItemMaterialIndex::class)->name('item-materials.index');
+    Route::get('/{itemMaterial}', ItemMaterialShow::class)->name('item-materials.show');
+    Route::get('/{itemMaterial}/edit', ItemMaterialEdit::class)->name('item-materials.edit');
+    Route::get('/{itemMaterial}/roll-create', RollsCreate::class)->name('roll.create');
+});
+
+// Roll routes
+Route::prefix('rolls')->group(function () {
+    Route::get('/', RollIndex::class)->name('rolls.index');
+    Route::get('/{roll}/edit', RollEdit::class)->name('rolls.edit');
+});
+
+// Load routes
+Route::prefix('loads')->group(function () {
+    Route::get('/', LoadIndex::class)->name('loads.index');
+    Route::get('/create', LoadCreate::class)->name('loads.create');
+    Route::get('/{load}', LoadShow::class)->name('loads.show');
+});
 
 // Dispatch routes
-Route::get('/dispatches', DispatchIndex::class)->name('dispatches.index');
-Route::get('/dispatches/create', DispatchCreate::class)->name('dispatches.create');
-Route::get('/dispatches/{dispatch}', DispatchShow::class)->name('dispatches.show');
+Route::prefix('dispatches')->group(function () {
+    Route::get('/', DispatchIndex::class)->name('dispatches.index');
+    Route::get('/create', DispatchCreate::class)->name('dispatches.create');
+    Route::get('/{dispatch}', DispatchShow::class)->name('dispatches.show');
+});

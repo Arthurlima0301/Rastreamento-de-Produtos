@@ -4,6 +4,7 @@ namespace App\Livewire\Dispatches;
 
 use App\Rules\Dispatches\ValidateConsumeSupplyItems;
 use App\Services\Dispatches\ConsumeSupplyItemsService;
+use Illuminate\Contracts\View\View;
 use Livewire\Attributes\On;
 use Livewire\Component;
 
@@ -11,7 +12,10 @@ class SelectedSupplyItemsList extends Component
 {
     public array $selectedSupplyItems = [];
 
-    public function render()
+    /**
+     * Render the selected supply items list.
+     */
+    public function render(): View
     {
         return view('livewire.dispatches.selected-supply-items-list');
     }
@@ -20,7 +24,7 @@ class SelectedSupplyItemsList extends Component
      * Add a supply item to the selected supply items list with its ID, supply name, and a null quantity for user input.
      */
     #[On('supply-item-selected')]
-    public function selectSupplyItem($supplyItemId, $supplyName)
+    public function selectSupplyItem(int $supplyItemId, string $supplyName): void
     {
         $this->resetErrorBag();
 
@@ -38,7 +42,7 @@ class SelectedSupplyItemsList extends Component
     /**
      * Remove a supply item from the selected supply items list based on its ID. If it exists in the list, it will be removed.
      */
-    public function removeSupplyItem($supplyItemId)
+    public function removeSupplyItem(int $supplyItemId): void
     {
         $this->resetErrorBag();
 
@@ -54,7 +58,7 @@ class SelectedSupplyItemsList extends Component
     /**
      * Clear the selected supply items list, removing all items from the selection.
      */
-    public function clearSelection()
+    public function clearSelection(): void
     {
         $this->resetErrorBag();
 
@@ -63,11 +67,6 @@ class SelectedSupplyItemsList extends Component
         }
 
         $this->selectedSupplyItems = [];
-    }
-
-    public function openModal($modalName)
-    {
-        $this->dispatch('open-modal', name: $modalName);
     }
 
     /**
@@ -79,10 +78,10 @@ class SelectedSupplyItemsList extends Component
             'selectedSupplyItems' => ['required', 'array', 'min:1', new ValidateConsumeSupplyItems],
             'selectedSupplyItems.*.quantity' => 'required|numeric|min:0.01',
         ], [
-            'selectedSupplyItems.required' => 'Selecione pelo menos um item para criar a saída.',
+            'selectedSupplyItems.required' => 'Selecione no mínimo um item ao criar uma saída.',
             'selectedSupplyItems.*.quantity.required' => 'A quantidade é obrigatória para cada item selecionado.',
             'selectedSupplyItems.*.quantity.numeric' => 'A quantidade deve ser um número válido.',
-            'selectedSupplyItems.*.quantity.min' => 'A quantidade deve ser pelo menos 0.01.',
+            'selectedSupplyItems.*.quantity.min' => 'A quantidade deve ser no mínimo 0.01.',
         ]);
 
         try {
@@ -90,7 +89,7 @@ class SelectedSupplyItemsList extends Component
 
             return redirect()->route('dispatches.index')->with('success', 'Saída processada com sucesso!');
         } catch (\Exception $e) {
-            $this->addError('selectedSupplyItems', 'Ocorreu um erro ao processar a saída: '.$e->getMessage());
+            return redirect()->back()->with('error', 'Ocorreu um erro ao processar a saída.'.$e->getMessage());
         }
     }
 }

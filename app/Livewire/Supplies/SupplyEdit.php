@@ -3,6 +3,7 @@
 namespace App\Livewire\Supplies;
 
 use App\Models\Supply;
+use Illuminate\Contracts\View\View;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\Title;
 use Livewire\Component;
@@ -13,12 +14,18 @@ class SupplyEdit extends Component
 {
     public int $supplyId;
 
+    /**
+     * Mount the component with the supply id.
+     */
     public function mount(Supply $supply): void
     {
         $this->supplyId = $supply->id;
     }
 
-    public function render()
+    /**
+     * Render the supply edit page.
+     */
+    public function render(): View
     {
         return view('livewire.supplies.supply-edit');
     }

@@ -2,6 +2,7 @@
 
 namespace App\Livewire\ItemMaterials;
 
+use Illuminate\Contracts\View\View;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\Title;
 use Livewire\Component;
@@ -10,7 +11,10 @@ use Livewire\Component;
 #[Title('Itens de Material')]
 class ItemMaterialIndex extends Component
 {
-    public function render()
+    /**
+     * Render the item material index page.
+     */
+    public function render(): View
     {
         return view('livewire.item-materials.item-material-index');
     }

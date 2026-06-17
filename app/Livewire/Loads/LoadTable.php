@@ -3,6 +3,7 @@
 namespace App\Livewire\Loads;
 
 use App\Models\Load;
+use Illuminate\Contracts\View\View;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -12,7 +13,10 @@ class LoadTable extends Component
 
     public string $search = '';
 
-    public function render()
+    /**
+     * Render the paginated load table.
+     */
+    public function render(): View
     {
         $loads = Load::query()
             ->with('machine')
@@ -34,12 +38,12 @@ class LoadTable extends Component
                 'load_id' => null,
                 'status' => 'EM_ESTOQUE',
                 'defect' => null,
-                'defect_weight' => null
+                'defect_weight' => null,
             ]
         );
 
         $load->delete();
 
-        return redirect()->route('loads.index')->with('success', 'Carga deletada com sucesso.');
+        return redirect()->route('loads.index')->with('success', 'Carga deletada com sucesso!');
     }
 }

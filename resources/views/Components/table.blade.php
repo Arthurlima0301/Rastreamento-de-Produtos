@@ -7,7 +7,13 @@
         {{ $header }}
     </flux:table.columns>
 
-    <flux:table.rows>
-        {{ $rows }}
-    </flux:table.rows>
+    @if ($paginate !== null && $paginate->isEmpty())
+        <flux:table.cell align="center" colspan="100%" class="py-4">
+            <p class="text-sm text-gray-500">Nenhum resultado encontrado.</p>
+        </flux:table.cell>
+    @else
+        <flux:table.rows>
+            {{ $rows }}
+        </flux:table.rows>
+    @endif
 </flux:table>

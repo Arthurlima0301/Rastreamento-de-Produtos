@@ -3,6 +3,7 @@
 namespace App\Livewire\Clients;
 
 use App\Models\Client;
+use Illuminate\Contracts\View\View;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -12,7 +13,10 @@ class ClientTable extends Component
 
     public string $search = '';
 
-    public function render()
+    /**
+     * Render the paginated client table.
+     */
+    public function render(): View
     {
         $clients = Client::query()
             ->searchByName($this->search)
@@ -22,16 +26,18 @@ class ClientTable extends Component
         return view('livewire.clients.client-table', compact('clients'));
     }
 
-    public function destroy(int $clientId)
+    /**
+     * Delete a client when it has no related records.
+     */
+    public function destroy(Client $client)
     {
-        $client = Client::findOrFail($clientId);
+        if (! $client->supplies()->exists() && ! $client->orders()->exists()) {
+            $client->delete();
 
-        if ($client->supplies()->exists() || $client->orders()->exists()) {
-            return redirect()->route('clients.index')->with('error', 'Não é possível deletar um cliente que possui insumos ou ordens associados.');
+            return redirect()->route('clients.index')->with('success', 'Cliente deletado com sucesso!');
         }
 
-        $client->delete();
-
-        return redirect()->route('clients.index')->with('success', 'Cliente deletado com sucesso.');
+        return redirect()->route('clients.index')
+            ->with('error', 'Não é possível deletar um cliente que possui insumos ou ordens associadas.');
     }
 }

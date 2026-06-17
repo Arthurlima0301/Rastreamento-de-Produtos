@@ -3,16 +3,21 @@
 namespace App\Livewire\Rolls;
 
 use App\Models\Roll;
+use Illuminate\Contracts\View\View;
 use Livewire\Component;
 
 class RollTable extends Component
 {
-    public $search = '';
-    
-    public function render()
+    public string $search = '';
+
+    /**
+     * Render the paginated roll table.
+     */
+    public function render(): View
     {
         $rolls = Roll::query()
-            ->with('itemMaterial')
+            ->with('itemMaterial.material.order')
+            ->with('itemMaterial.materialInvoice')
             ->searchByLabel($this->search)
             ->paginate(50);
 

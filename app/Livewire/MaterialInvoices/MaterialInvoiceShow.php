@@ -3,26 +3,33 @@
 namespace App\Livewire\MaterialInvoices;
 
 use App\Models\MaterialInvoice;
+use Illuminate\Contracts\View\View;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\Title;
 use Livewire\Component;
 
 #[Layout('Layout.layout')]
-#[Title('Nota Fiscal de Material - Detalhes')]
+#[Title('Detalhes de Nota Fiscal de Material')]
 class MaterialInvoiceShow extends Component
 {
-    public int $materialInvoiceId;
+    public MaterialInvoice $materialInvoice;
 
+    /**
+     * Mount the component with the material invoice id.
+     */
     public function mount(MaterialInvoice $materialInvoice): void
     {
-        $this->materialInvoiceId = $materialInvoice->id;
+        $this->materialInvoice = $materialInvoice;
     }
 
-    public function render()
+    /**
+     * Render the material invoice detail page.
+     */
+    public function render(): View
     {
-        $materialInvoice = MaterialInvoice::with('itemMaterials.material.order.client')
-            ->withCount('itemMaterials')
-            ->findOrFail($this->materialInvoiceId);
+        $materialInvoice = $this->materialInvoice
+            ->load('itemMaterials.material.order.client')
+            ->loadCount('itemMaterials');
 
         return view('livewire.material-invoices.material-invoice-show', compact('materialInvoice'));
     }

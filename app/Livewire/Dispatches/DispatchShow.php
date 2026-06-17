@@ -3,22 +3,29 @@
 namespace App\Livewire\Dispatches;
 
 use App\Models\Dispatch;
+use Illuminate\Contracts\View\View;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\Title;
 use Livewire\Component;
 
 #[Layout('Layout.layout')]
-#[Title('Saídas')]
+#[Title('Detalhes da Saída')]
 class DispatchShow extends Component
 {
     public int $dispatchId;
 
+    /**
+     * Mount the component with the dispatch id.
+     */
     public function mount(Dispatch $dispatch): void
     {
         $this->dispatchId = $dispatch->id;
     }
 
-    public function render()
+    /**
+     * Render the dispatch detail page.
+     */
+    public function render(): View
     {
         $dispatch = Dispatch::with('dispatchItems.supplyItem.supply', 'dispatchItems.supplyItem.supplyInvoice')
             ->findOrFail($this->dispatchId);

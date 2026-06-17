@@ -1,9 +1,5 @@
 <div class="w-full">
-    <x-card title="Editar Cliente">
-        <x-slot name="slot">
-            <!-- action slot left intentionally empty -->
-        </x-slot>
-    </x-card>
+    <x-card title="Editar Cliente" />
 
     <livewire:clients.client-form :client-id="$clientId" />
 </div>

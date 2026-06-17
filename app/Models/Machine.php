@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Machine extends Model
 {
@@ -20,7 +21,7 @@ class Machine extends Model
     /**
      * Get the loads for the machine.
      */
-    public function loads()
+    public function loads(): HasMany
     {
         return $this->hasMany(Load::class, 'machine_id');
     }

@@ -3,6 +3,7 @@
 namespace App\Livewire\Supplies;
 
 use App\Models\Supply;
+use Illuminate\Contracts\View\View;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\Title;
 use Livewire\Component;
@@ -11,16 +12,22 @@ use Livewire\Component;
 #[Title('Detalhes do Insumo')]
 class SupplyShow extends Component
 {
-    public int $supplyId;
+    public Supply $supply;
 
+    /**
+     * Mount the component with the supply id.
+     */
     public function mount(Supply $supply): void
     {
-        $this->supplyId = $supply->id;
+        $this->supply = $supply;
     }
 
-    public function render()
+    /**
+     * Render the supply detail page.
+     */
+    public function render(): View
     {
-        $supply = Supply::with('client')->findOrFail($this->supplyId);
+        $supply = $this->supply->load('client', 'supplyItems');
 
         return view('livewire.supplies.supply-show', compact('supply'));
     }

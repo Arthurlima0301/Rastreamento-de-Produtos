@@ -3,6 +3,7 @@
 namespace App\Livewire\Supplies;
 
 use App\Models\Supply;
+use Illuminate\Contracts\View\View;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -12,7 +13,10 @@ class SupplyTable extends Component
 
     public string $search = '';
 
-    public function render()
+    /**
+     * Render the paginated supply table.
+     */
+    public function render(): View
     {
         $supplies = Supply::query()
             ->with('client')
@@ -23,16 +27,18 @@ class SupplyTable extends Component
         return view('livewire.supplies.supply-table', compact('supplies'));
     }
 
-    public function destroy(int $supplyId)
+    /**
+     * Delete a supply when it has no items.
+     */
+    public function destroy(Supply $supply)
     {
-        $supply = Supply::findOrFail($supplyId);
+        if (! $supply->supplyItems()->exists()) {
+            $supply->delete();
 
-        if ($supply->supplyItems()->exists()) {
-            return redirect()->route('supplies.index')->with('error', 'Não é possível deletar um insumo que possui itens associados.');
+            return redirect()->route('supplies.index')->with('success', 'Insumo deletado com sucesso!');
         }
 
-        $supply->delete();
-
-        return redirect()->route('supplies.index')->with('success', 'Insumo deletado com sucesso.');
+        return redirect()->route('supplies.index')
+            ->with('error', 'Não é possível deletar um insumo que possui itens associados.');
     }
 }

@@ -3,6 +3,7 @@
 namespace App\Livewire\Loads;
 
 use App\Models\Roll;
+use Illuminate\Contracts\View\View;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\Title;
 use Livewire\Component;
@@ -19,7 +20,7 @@ class LoadCreate extends Component
     /**
      * Render the component view with paginated rolls filtered by search term and available status.
      */
-    public function render()
+    public function render(): View
     {
         $rolls = Roll::query()
             ->with('itemMaterial.material')

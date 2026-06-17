@@ -10,24 +10,37 @@ class MaterialInvoice extends Model
 {
     use HasFactory;
 
+    /**
+     * The table associated with the model.
+     */
     protected $table = 'material_invoice';
 
+    /**
+     * The attributes that are mass assignable.
+     */
     protected $fillable = [
         'invoice_code',
         'issued_at',
     ];
 
+    /**
+     * The attributes that should be cast to native types.
+     */
+    protected $casts = [
+        'issued_at' => 'date',
+    ];
+
+    /**
+     * Format the issued date attribute.
+     */
     public function getFormattedIssuedAtAttribute(): string
     {
-        $timestamp = strtotime((string) $this->issued_at);
-
-        if ($timestamp === false) {
-            return (string) $this->issued_at;
-        }
-
-        return date('d/m/Y', $timestamp);
+        return  $this->issued_at->format('d/m/Y');
     }
 
+    /**
+     * Format the invoice code attribute.
+     */
     public function getFormattedInvoiceCodeAttribute(): string
     {
         if (! is_numeric($this->invoice_code)) {
@@ -37,11 +50,17 @@ class MaterialInvoice extends Model
         return number_format((float) $this->invoice_code, 0, '', '.');
     }
 
+    /**
+     * Get the item materials for the invoice.
+     */
     public function itemMaterials(): HasMany
     {
         return $this->hasMany(ItemMaterial::class, 'material_invoice_id');
     }
 
+    /**
+     * Scope a query to search invoices by code.
+     */
     public function scopeSearchByInvoiceCode($query, $search)
     {
         $search = trim(str_replace('.', '', (string) $search));

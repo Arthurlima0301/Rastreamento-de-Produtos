@@ -3,6 +3,7 @@
 namespace App\Livewire\Orders;
 
 use App\Models\Order;
+use Illuminate\Contracts\View\View;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -12,7 +13,10 @@ class OrderTable extends Component
 
     public string $search = '';
 
-    public function render()
+    /**
+     * Render the paginated order table.
+     */
+    public function render(): View
     {
         $orders = Order::query()
             ->with('client')
@@ -23,16 +27,19 @@ class OrderTable extends Component
         return view('livewire.orders.order-table', compact('orders'));
     }
 
-    public function destroy(int $orderId)
+    /**
+     * Delete an order when it has no materials.
+     */
+    public function destroy(Order $order)
     {
-        $order = Order::findOrFail($orderId);
+        if (! $order->materials()->exists()) {
+            $order->delete();
 
-        if ($order->materials()->exists()) {
-            return redirect()->route('orders.index')->with('error', 'Nao e possivel deletar uma ordem de corte que possui materiais associados.');
+            return redirect()->route('orders.index')->with('success', 'Ordem de corte deletada com sucesso!');
         }
 
-        $order->delete();
-
-        return redirect()->route('orders.index')->with('success', 'Ordem de corte deletada com sucesso.');
+        return redirect()
+            ->route('orders.index')
+            ->with('error', 'Não é possível deletar uma ordem de corte que possui materiais associados.');
     }
 }

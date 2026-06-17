@@ -3,6 +3,7 @@
 namespace App\Livewire\Dispatches;
 
 use App\Models\SupplyItem;
+use Illuminate\Contracts\View\View;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -17,10 +18,12 @@ class DispatchCreate extends Component
     /**
      * Render the component view with paginated supply items filtered by search term and balance.
      */
-    public function render()
+    public function render(): View
     {
 
-        $supplyItems = SupplyItem::withBalance()
+        $supplyItems = SupplyItem::query()
+            ->withBalance()
+            ->with(['supply.client', 'supplyInvoice'])
             ->filterBalance()
             ->searchBySupplyName($this->search)
             ->orderBy('supply_name', 'asc')

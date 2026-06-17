@@ -4,18 +4,20 @@ namespace App\Livewire\ItemMaterials;
 
 use App\Models\ItemMaterial;
 use App\Models\Roll;
+use Illuminate\Contracts\View\View;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\Title;
 use Livewire\Component;
 
 #[Layout('Layout.layout')]
-#[Title('Detalhes do Material do Item')]
+#[Title('Detalhes do Item Material')]
 class ItemMaterialShow extends Component
 {
     public ItemMaterial $itemMaterial;
 
     public string $search = '';
-    public string $filter_status = '';
+
+    public string $statusFilter = '';
 
     /**
      * Mount the component with the given item material.
@@ -28,16 +30,19 @@ class ItemMaterialShow extends Component
     /**
      * Render the component view with the rolls related to the item material.
      */
-    public function render()
+    public function render(): View
     {
         $rolls = Roll::with('cutLoad.machine')
-        ->where('item_material_id', $this->itemMaterial->id)
-        ->orderBy('label')
-        ->searchByLabel($this->search)
-        ->filterByStatus($this->filter_status)
-        ->get();
+            ->where('item_material_id', $this->itemMaterial->id)
+            ->orderBy('label')
+            ->searchByLabel($this->search)
+            ->filterByStatus($this->statusFilter)
+            ->get();
 
-        return view('livewire.item-materials.item-material-show', compact('rolls'));
+        $totalWeight = $rolls->sum('weight');
+        $totalRolls = $this->itemMaterial->rolls()->count();
+
+        return view('livewire.item-materials.item-material-show', compact('rolls', 'totalWeight', 'totalRolls'));
     }
 
     /**
@@ -45,17 +50,12 @@ class ItemMaterialShow extends Component
      */
     public function deleteRoll(Roll $roll)
     {
-        if  ($roll->cutLoad) {
-            session()->flash('error', 'Não é possível deletar uma bobina que pertence a uma carga.');
-            return;
+        if (! $roll->cutLoad) {
+            $roll->delete();
+
+            return redirect()->back()->with('success', 'Bobina deletada com sucesso!');
         }
 
-        $roll->delete();
-
-        session()->flash('success', 'Bobina deletada com sucesso.');
+        return redirect()->back()->with('error', 'Não é possível deletar uma bobina que está associada a um corte.');
     }
-
-
-  
-
 }

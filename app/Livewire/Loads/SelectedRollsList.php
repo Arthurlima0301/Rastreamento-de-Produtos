@@ -4,27 +4,37 @@ namespace App\Livewire\Loads;
 
 use App\Models\Machine;
 use App\Services\Loads\CreateLoadService;
+use Illuminate\Contracts\View\View;
+use Illuminate\Database\Eloquent\Collection;
 use Livewire\Attributes\On;
 use Livewire\Component;
 
 class SelectedRollsList extends Component
 {
-    public array $selectedRolls = [];
-
     public ?int $selectedMachineId = null;
 
     public ?string $selectedTurn = null;
 
     public ?string $selectedCuttedAt = null;
 
+    public Collection $machines;
+
+    public array $selectedRolls = [];
+
+    public function mount()
+    {
+        $this->machines = Machine::query()
+            ->select('id', 'name')
+            ->orderBy('name')
+            ->get();
+    }
+
     /**
      * Render the component view for displaying the list of selected rolls.
      */
-    public function render()
+    public function render(): View
     {
-        $machines = Machine::all();
-
-        return view('livewire.loads.selected-rolls-list', compact('machines'));
+        return view('livewire.loads.selected-rolls-list');
     }
 
     /**
@@ -51,14 +61,14 @@ class SelectedRollsList extends Component
     #[On('add-roll')]
     public function addRoll($rollId, $rollLabel, $rollWeight)
     {
-        if (isset($this->selectedRolls[$rollId])) {
-            $this->addError('selectedRolls', "A bobina $rollLabel já está selecionada");
+        if (count($this->selectedRolls) >= 6) {
+            $this->addError('selectedRolls', 'O limite de 6 bobinas foi atingido.');
 
             return;
         }
 
-        if (count($this->selectedRolls) >= 6) {
-            $this->addError('selectedRolls', 'O limite de 6 bobinas foi atingido.');
+        if (isset($this->selectedRolls[$rollId])) {
+            $this->addError('selectedRolls', "A bobina $rollLabel já está selecionada");
 
             return;
         }
@@ -79,16 +89,15 @@ class SelectedRollsList extends Component
      */
     public function save(CreateLoadService $loadService)
     {
-
         $this->validate();
 
         try {
             $loadService->create($this->selectedMachineId, $this->selectedTurn, $this->selectedRolls, $this->selectedCuttedAt);
 
             return redirect()->route('loads.index')->with('success', 'Carga criada com sucesso!');
-        } catch (\Exception $e) {
 
-            session()->flash('error', 'Ocorreu um erro ao criar a carga: ' . $e->getMessage());
+        } catch (\Exception $e) {
+            session()->flash('error', 'Ocorreu um erro ao criar a carga: '.$e->getMessage());
         }
     }
 
