@@ -14,6 +14,7 @@ class DispatchCreate extends Component
     use WithPagination;
 
     public string $search = '';
+    public bool $orderByFrequency = false;
 
     /**
      * Render the component view with paginated supply items filtered by search term and balance.
@@ -22,14 +23,22 @@ class DispatchCreate extends Component
     {
 
         $supplyItems = SupplyItem::query()
-            ->withBalance()
             ->with(['supply.client', 'supplyInvoice'])
+            ->withBalance()
             ->filterBalance()
             ->searchBySupplyName($this->search)
-            ->orderBy('supply_name', 'asc')
-            ->orderBy('balance', 'asc')
+            ->when($this->orderByFrequency, fn ($query) => $query->withFrequency())
+            ->orderBy('supplies.name','asc')
             ->paginate(50);
 
         return view('livewire.dispatches.dispatch-create', compact('supplyItems'));
+    }
+
+    /**
+     *  Toggle ordering by most used supply items.
+     */
+    public function orderByMostUssed() : void
+    {
+        $this->orderByFrequency = !$this->orderByFrequency;
     }
 }

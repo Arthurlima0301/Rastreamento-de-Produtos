@@ -15,6 +15,9 @@
                     <flux:table.column align="center">Nota Fiscal</flux:table.column>
                     <flux:table.column align="center">Data</flux:table.column>
                     <flux:table.column align="center">Saldo</flux:table.column>
+                    <flux:table.column align="center">
+                        <x-button wire:click="orderByMostUssed" :icon="$orderByFrequency ? 'chevron-double-up' : ''">Mais Usados</x-button>
+                    </flux:table.column>
                     <flux:table.column align="center">Ações</flux:table.column>
                 </x-slot:header>
 
@@ -29,6 +32,7 @@
                             <flux:table.cell align="center">{{ $supplyItem->supplyInvoice->formatted_supply_invoice_code }}</flux:table.cell>
                             <flux:table.cell align="center">{{ $supplyItem->supplyInvoice->formatted_issued_at }}</flux:table.cell>
                             <flux:table.cell align="center">{{ $supplyItem->formatted_balance }}</flux:table.cell>
+                            <flux:table.cell align="center">{{ $supplyItem->frequence ?? '-'}}</flux:table.cell>
                             <flux:table.cell align="center">
                                 <x-dispatches.select-supply-item-button :supply-item-id="$supplyItem->id" :supply-name="$supplyItem->supply->name" />
                             </flux:table.cell>
