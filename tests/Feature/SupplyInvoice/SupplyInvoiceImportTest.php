@@ -1,37 +1,53 @@
 <?php
 
-namespace Tests\Feature;
-
 use App\Livewire\SupplyInvoices\SupplyInvoiceImportForm;
 use App\Models\Supply;
+use App\Models\SupplyInvoice;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\UploadedFile;
 use Livewire\Livewire;
 use Tests\TestCase;
 
-class ImportXMLTest extends TestCase
+class SupplyInvoiceImportTest extends TestCase
 {
     use RefreshDatabase;
 
-    /*
-    * Test a valid XML import
-    */
-    public function test_import_valid_xml()
+    public function test_supply_invoice_import_page_can_be_rendered()
     {
-        Supply::factory()->create(['supply_code' => '1001']);
+        $response = $this->get(route('supply-invoices.index'));
+
+        $response->assertStatus(200);
+        $response->assertSee('Importar XML');
+    }
+
+    public function test_supply_invoice_can_be_imported_from_xml_fixture()
+    {
+        $supply = Supply::factory()->create([
+            'supply_code' => '1001',
+            'name' => 'Pallete de Madeira',
+            'unit_of_measure' => 'PC',
+        ]);
 
         Livewire::test(SupplyInvoiceImportForm::class)
             ->set('xml_file', $this->xmlUpload('nota_fiscal_valida.xml'))
             ->call('import')
+            ->assertHasNoErrors()
             ->assertRedirect(route('supply-invoices.index'));
 
-        $this->assertDatabaseHas('supply_invoices', ['supply_invoice_code' => '367935']);
+        $supplyInvoice = SupplyInvoice::query()->firstOrFail();
+
+        $this->assertEquals('367935', $supplyInvoice->supply_invoice_code);
+        $this->assertSame('17/12/2025', $supplyInvoice->formatted_issued_at);
+
+        $this->assertDatabaseHas('supply_items', [
+            'number' => 1,
+            'supply_invoice_id' => $supplyInvoice->id,
+            'supply_id' => $supply->id,
+            'quantity' => 24,
+        ]);
     }
 
-    /*
-    * Test an invalid XML import
-    */
-    public function test_do_not_import_invalid_xml()
+    public function test_supply_invoice_rule_rejects_invalid_xml()
     {
         Livewire::test(SupplyInvoiceImportForm::class)
             ->set('xml_file', $this->xmlUpload('nota_fiscal_invalida.xml'))
@@ -39,12 +55,11 @@ class ImportXMLTest extends TestCase
             ->assertHasErrors('xml_file');
     }
 
-    /**
-     * Test that duplicate fiscal notes are not imported.
-     */
-    public function test_do_not_import_duplicate_invoice()
+    public function test_supply_invoice_rule_rejects_duplicate_invoice()
     {
-        Supply::factory()->create(['supply_code' => '1001']);
+        Supply::factory()->create([
+            'supply_code' => '1001',
+        ]);
 
         Livewire::test(SupplyInvoiceImportForm::class)
             ->set('xml_file', $this->xmlUpload('nota_fiscal_valida.xml'))
@@ -56,10 +71,7 @@ class ImportXMLTest extends TestCase
             ->assertHasErrors('xml_file');
     }
 
-    /**
-     * Test that XML is not imported if the supply item product code is not registered.
-     */
-    public function test_do_not_import_xml_if_product_code_is_not_registered()
+    public function test_supply_invoice_rule_rejects_unregistered_supply_code()
     {
         Livewire::test(SupplyInvoiceImportForm::class)
             ->set('xml_file', $this->xmlUpload('nota_fiscal_valida.xml'))
