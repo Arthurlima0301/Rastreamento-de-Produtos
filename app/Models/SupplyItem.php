@@ -115,6 +115,18 @@ class SupplyItem extends Model
     }
 
     /**
+     * Scope a query to calculate supply item frequence.
+     */
+    public function scopewithFrequency($query)
+    {
+        return $query
+            ->addSelect(
+                DB::raw('COUNT(dispatch_items.supply_item_id) as frequence')
+            )
+            ->orderBy('frequence','desc');
+    }
+
+    /**
      * Scope a query to calculate supply item balance.
      */
     public function scopeFilterBalance($query, $available = true)
