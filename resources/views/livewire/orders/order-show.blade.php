@@ -49,8 +49,9 @@
                     <flux:table.cell align="center">{{ $material->formatted_package_gross_weight }}</flux:table.cell>
                     <flux:table.cell align="center">
                         @if ($this->activeEdit === $material->id)
-                            <x-button wire:click="removeMaterial({{ $material->id }})" variant="primary" color="red" icon="trash"
-                                size="sm" />
+                            <x-button href="{{ route('materials.edit', $material->id) }}" variant="ghost" icon="tag" size="sm" />
+                            <x-button wire:click="removeMaterial({{ $material->id }})" variant="primary" color="red"
+                                icon="trash" size="sm" />
                             <x-button wire:click="cancelEdit()" variant="ghost" icon="x-mark" size="sm" />
                         @else
                             <x-button wire:click="editMaterial({{ $material->id }})" variant="ghost" icon="pencil"

@@ -7,7 +7,7 @@ use App\Livewire\Supplies\{SupplyCreate, SupplyEdit, SupplyIndex, SupplyShow};
 use App\Livewire\SupplyInvoices\{SupplyInvoiceIndex, SupplyInvoiceShow};
 use App\Livewire\SupplyItems\{SupplyItemIndex};
 use App\Livewire\Orders\{OrderCreate, OrderEdit, OrderIndex, OrderShow};
-use App\Livewire\Materials\{MaterialCreate};
+use App\Livewire\Materials\{MaterialCreate, MaterialEdit};
 use App\Livewire\MaterialInvoices\{MaterialInvoiceIndex, MaterialInvoiceShow};
 use App\Livewire\ItemMaterials\{ItemMaterialEdit, ItemMaterialIndex, ItemMaterialShow};
 use App\Livewire\Rolls\{RollEdit, RollIndex, RollsCreate};
@@ -56,6 +56,9 @@ Route::prefix('orders')->group(function () {
     Route::get('/{order}/edit', OrderEdit::class)->name('orders.edit');
     Route::get('/{order}/materials-create', MaterialCreate::class)->name('materials.create');
 });
+
+Route::get('material/{material}/edit', MaterialEdit::class)->name('materials.edit');
+
 
 // Material invoice routes
 Route::prefix('material-invoices')->group(function () {
