@@ -1,12 +1,11 @@
 <div class="w-full">
     <x-card title="Detalhes da Carga">
         <x-slot name="slot">
-            <p><strong>Código: </strong>{{ $load->machine->abbreviation }}-{{ $load->id }}</p>
-            <p><strong>Data de Corte: </strong> {{ $load->formatted_cutted_at }}</p>
-            <p><strong>Turno: </strong> {{ $load->turn }}</p>
-            <p><strong>Máquina: </strong> {{ $load->machine->name }}</p>
+            <livewire:loads.edit-load :load="$load" />
         </x-slot>
     </x-card>
+
+    <x-success-message />
 
     <x-search-input />
 
