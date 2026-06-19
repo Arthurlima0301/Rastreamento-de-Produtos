@@ -27,13 +27,18 @@
             <flux:table.column align="center">Lote de Retorno</flux:table.column>
             <flux:table.column align="center">Defeito</flux:table.column>
             <flux:table.column align="center">Peso do Defeito</flux:table.column>
+            <flux:table.column align="center">Ações</flux:table.column>
         </x-slot:header>
 
         <x-slot:rows>
             @foreach ($rolls as $roll)
                 <flux:table.row wire:key="load-roll-{{ $roll->id }}">
                     <flux:table.cell align="center">{{ $roll->itemMaterial->number }}</flux:table.cell>
-                    <flux:table.cell align="center">{{ $roll->label }}</flux:table.cell>
+                    <flux:table.cell align="center">
+                        <a href="{{ route('rolls.edit', $roll) }}" class="hover:underline">
+                            {{ $roll->label }}
+                        </a>
+                    </flux:table.cell>
                     <flux:table.cell align="center">{{ $roll->formatted_weight }}</flux:table.cell>
                     <flux:table.cell align="center">{{ $roll->status }}</flux:table.cell>
                     <flux:table.cell align="center">
@@ -56,6 +61,14 @@
                     <flux:table.cell align="center">{{ $roll->itemMaterial->material->return_batch }}</flux:table.cell>
                     <flux:table.cell align="center">{{ $roll->defect ?? '-' }}</flux:table.cell>
                     <flux:table.cell align="center">{{ $roll->formatted_defect_weight ?? '-' }}</flux:table.cell>
+                    <flux:table.cell align="center">
+                        @if($isEditable == $roll->id)
+                            <x-button icon="trash" size="sm" variant="primary" color="red" wire:click="removeRoll({{ $roll->id }})" />
+                            <x-button icon="x-mark" size="sm" variant="ghost" wire:click="cancelEditRoll" />
+                        @else
+                            <x-button wire:click="editRoll({{ $roll->id }})" variant="ghost" icon="pencil" size="sm" />
+                        @endif
+                    </flux:table.cell>
                 </flux:table.row>
             @endforeach
         </x-slot:rows>

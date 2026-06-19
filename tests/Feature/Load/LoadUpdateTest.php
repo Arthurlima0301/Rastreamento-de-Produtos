@@ -1,13 +1,15 @@
 <?php
 
 use App\Livewire\Loads\EditLoad;
+use App\Livewire\Loads\LoadShow;
 use App\Models\Load;
 use App\Models\Machine;
+use App\Models\Roll;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Livewire\Livewire;
 use Tests\TestCase;
 
-class LoadEditTest extends TestCase
+class LoadUpdateTest extends TestCase
 {
     use RefreshDatabase;
 
@@ -78,7 +80,7 @@ class LoadEditTest extends TestCase
     }
 
     // Test that invalid load updates are rejected.
-    public function test_load_edit_rejects_invalid_data()
+    public function test_load_update_rejects_invalid_data()
     {
         $machine = Machine::factory()->create([
             'abbreviation' => 'M',
@@ -113,5 +115,44 @@ class LoadEditTest extends TestCase
                 'cutted_at' => '2026-06-26 00:00:00',
             ]
         );
+    }
+
+    // Test remove roll functionality in edit load component.
+    public function test_load_roll_can_be_removed()
+    {
+        $machine = Machine::factory()->create([
+            'abbreviation' => 'M',
+        ]);
+
+        $load = Load::factory()->create([
+            'id' => 1,
+            'turn' => 'DIURNO',
+            'machine_id' => $machine->id,
+            'cutted_at' => '2026-06-26',
+        ]);
+
+        $roll = Roll::factory()->create([
+            'id' => 1,
+            'label' => 'Rolo 1',
+            'weight' => 1000,
+            'status' => 'CORTADA',
+            'load_id' => $load->id,
+            'defect' => 'Rasgo',
+            'defect_weight' => 50,
+        ]);
+
+        Livewire::test(LoadShow::class, ['load' => $load])
+            ->call('removeRoll', $roll->id)
+            ->assertHasNoErrors()
+            ->assertDontSee('Rolo 1');
+
+        $this->assertDatabaseHas('rolls', [
+            'id' => $roll->id,
+            'label' => 'Rolo 1',
+            'status' => 'EM_ESTOQUE',
+            'load_id' => null,
+            'defect' => 'Rasgo',
+            'defect_weight' => 50,
+        ]);
     }
 }
