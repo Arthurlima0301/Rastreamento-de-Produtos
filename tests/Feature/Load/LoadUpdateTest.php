@@ -1,6 +1,7 @@
 <?php
 
 use App\Livewire\Loads\EditLoad;
+use App\Livewire\Loads\LoadAddRolls;
 use App\Livewire\Loads\LoadShow;
 use App\Models\Load;
 use App\Models\Machine;
@@ -154,5 +155,60 @@ class LoadUpdateTest extends TestCase
             'defect' => 'Rasgo',
             'defect_weight' => 50,
         ]);
+    }
+
+    // Test that an available roll can be added to an existing load.
+    public function test_load_roll_can_be_added()
+    {
+        $load = Load::factory()->create();
+
+        $roll = Roll::factory()->create([
+            'label' => 'Rolo 2',
+            'status' => 'EM_ESTOQUE',
+            'load_id' => null,
+        ]);
+
+        Livewire::test(LoadAddRolls::class, ['load' => $load])
+            ->call('addRoll', $roll->id)
+            ->assertHasNoErrors()
+            ->assertSee('Bobina adicionada');
+
+        $this->assertDatabaseHas('rolls', [
+            'id' => $roll->id,
+            'label' => 'Rolo 2',
+            'status' => 'CORTADA',
+            'load_id' => $load->id,
+        ]);
+    }
+
+    // Test that a roll cannot be added when the load already has six rolls.
+    public function test_load_roll_cannot_be_added_when_load_limit_is_reached()
+    {
+        $load = Load::factory()->create();
+
+        Roll::factory()->count(6)->create([
+            'status' => 'CORTADA',
+            'load_id' => $load->id,
+        ]);
+
+        $roll = Roll::factory()->create([
+            'label' => 'Rolo excedente',
+            'status' => 'EM_ESTOQUE',
+            'load_id' => null,
+        ]);
+
+        Livewire::test(LoadAddRolls::class, ['load' => $load])
+            ->call('addRoll', $roll->id)
+            ->assertHasNoErrors()
+            ->assertSee('Limite de 6 bobinas');
+
+        $this->assertDatabaseHas('rolls', [
+            'id' => $roll->id,
+            'label' => 'Rolo excedente',
+            'status' => 'EM_ESTOQUE',
+            'load_id' => null,
+        ]);
+
+        $this->assertSame(6, $load->rolls()->count());
     }
 }

@@ -2,6 +2,15 @@
     <x-card title="Detalhes da Carga">
         <x-slot name="slot">
             <livewire:loads.edit-load :load="$load" />
+
+            <flux:dropdown>
+                <x-button variant="ghost" icon="ellipsis-horizontal" size="sm" />
+
+                <flux:menu>
+                    <flux:menu.item href="{{ route('loads.add-rolls', $load) }}" icon="plus">Adicionar Bobina(s)</flux:menu.item>
+                </flux:menu>
+            </flux:dropdown>
+
         </x-slot>
     </x-card>
 
@@ -42,31 +51,38 @@
                     <flux:table.cell align="center">{{ $roll->formatted_weight }}</flux:table.cell>
                     <flux:table.cell align="center">{{ $roll->status }}</flux:table.cell>
                     <flux:table.cell align="center">
-                        <a href="{{ route('material-invoices.show', $roll->itemMaterial->materialInvoice) }}" class="hover:underline">
+                        <a href="{{ route('material-invoices.show', $roll->itemMaterial->materialInvoice) }}"
+                            class="hover:underline">
                             {{ $roll->itemMaterial->materialInvoice->formatted_invoice_code }}
                         </a>
                     </flux:table.cell>
-                    <flux:table.cell align="center">{{ $roll->itemMaterial->materialInvoice->formatted_issued_at }}</flux:table.cell>
+                    <flux:table.cell align="center">{{ $roll->itemMaterial->materialInvoice->formatted_issued_at }}
+                    </flux:table.cell>
                     <flux:table.cell align="center">
                         <a href="{{ route('item-materials.show', $roll->itemMaterial) }}" class="hover:underline">
                             {{ $roll->itemMaterial->material->paper }}
                         </a>
                     </flux:table.cell>
-                    <flux:table.cell align="center">{{ $roll->itemMaterial->material->expedition_code }}</flux:table.cell>
-                    <flux:table.cell align="center">{{ $roll->itemMaterial->material->formatted_grammage }}</flux:table.cell>
+                    <flux:table.cell align="center">{{ $roll->itemMaterial->material->expedition_code }}
+                    </flux:table.cell>
+                    <flux:table.cell align="center">{{ $roll->itemMaterial->material->formatted_grammage }}
+                    </flux:table.cell>
                     <flux:table.cell align="center">{{ $roll->itemMaterial->material->width }}</flux:table.cell>
                     <flux:table.cell align="center">{{ $roll->itemMaterial->material->length }}</flux:table.cell>
                     <flux:table.cell align="center">{{ $roll->itemMaterial->material->packages }}</flux:table.cell>
-                    <flux:table.cell align="center">{{ $roll->itemMaterial->material->expedition_code }}</flux:table.cell>
+                    <flux:table.cell align="center">{{ $roll->itemMaterial->material->expedition_code }}
+                    </flux:table.cell>
                     <flux:table.cell align="center">{{ $roll->itemMaterial->material->return_batch }}</flux:table.cell>
                     <flux:table.cell align="center">{{ $roll->defect ?? '-' }}</flux:table.cell>
                     <flux:table.cell align="center">{{ $roll->formatted_defect_weight ?? '-' }}</flux:table.cell>
                     <flux:table.cell align="center">
-                        @if($isEditable == $roll->id)
-                            <x-button icon="trash" size="sm" variant="primary" color="red" wire:click="removeRoll({{ $roll->id }})" />
+                        @if ($isEditable == $roll->id)
+                            <x-button icon="trash" size="sm" variant="primary" color="red"
+                                wire:click="removeRoll({{ $roll->id }})" />
                             <x-button icon="x-mark" size="sm" variant="ghost" wire:click="cancelEditRoll" />
                         @else
-                            <x-button wire:click="editRoll({{ $roll->id }})" variant="ghost" icon="pencil" size="sm" />
+                            <x-button wire:click="editRoll({{ $roll->id }})" variant="ghost" icon="pencil"
+                                size="sm" />
                         @endif
                     </flux:table.cell>
                 </flux:table.row>
