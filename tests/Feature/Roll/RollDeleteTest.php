@@ -1,5 +1,6 @@
 <?php
 
+use App\Livewire\ItemMaterials\ItemMaterialRolls;
 use App\Livewire\ItemMaterials\ItemMaterialShow;
 use App\Models\ItemMaterial;
 use App\Models\Load;
@@ -13,14 +14,17 @@ class RollDeleteTest extends TestCase
     use RefreshDatabase;
 
     // Test that the item material page used to delete rolls can be rendered.
-    public function test_item_material_show_page_can_be_rendered()
+    public function test_item_material_show_page_can_be_rendered_rolls()
     {
         $itemMaterial = ItemMaterial::factory()->create();
+        $roll = Roll::factory()->create([
+            'item_material_id' => $itemMaterial->id,
+        ]);
 
         $response = $this->get(route('item-materials.show', $itemMaterial));
 
         $response->assertStatus(200);
-        $response->assertSee('Detalhes do Item Material');
+        $response->assertSee($roll->label);
     }
 
     // Test that a roll without a load can be deleted.
@@ -33,7 +37,7 @@ class RollDeleteTest extends TestCase
             'load_id' => null,
         ]);
 
-        Livewire::test(ItemMaterialShow::class, ['itemMaterial' => $itemMaterial])
+        Livewire::test(ItemMaterialRolls::class, ['itemMaterialId' => $itemMaterial->id])
             ->call('deleteRoll', $roll)
             ->assertHasNoErrors();
 
@@ -54,7 +58,7 @@ class RollDeleteTest extends TestCase
             'status' => 'CORTADA',
         ]);
 
-        Livewire::test(ItemMaterialShow::class, ['itemMaterial' => $itemMaterial])
+        Livewire::test(ItemMaterialRolls::class, ['itemMaterialId' => $itemMaterial->id])
             ->call('deleteRoll', $roll)
             ->assertHasNoErrors();
 
