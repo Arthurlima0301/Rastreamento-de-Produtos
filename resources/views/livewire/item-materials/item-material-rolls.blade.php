@@ -1,4 +1,6 @@
-<div>
+<div class="w-full">
+    <x-success-message />
+    <x-error-message />
 
     <x-search-input />
     <x-table>
