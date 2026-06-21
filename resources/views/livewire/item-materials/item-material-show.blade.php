@@ -38,10 +38,14 @@
     <flux:button.group class="w-full">
         <x-button wire:click="toggleTab('rolls')" variant="{{ $page == 'rolls' ? 'primary' : 'ghost' }}"
             icon="circle-stack">Bobinas</x-button>
+        <x-button wire:click="toggleTab('losses')" variant="{{ $page == 'losses' ? 'primary' : 'ghost' }}"
+            icon="percent-badge">Calcular Perdas</x-button>
     </flux:button.group>
 
 
     @if ($page == 'rolls')
         <livewire:item-materials.item-material-rolls :itemMaterialId="$itemMaterial->id" />
+    @elseif ($page == 'losses')
+        <livewire:item-materials.item-material-losses :itemMaterial="$itemMaterial" />
     @endif
 </div>

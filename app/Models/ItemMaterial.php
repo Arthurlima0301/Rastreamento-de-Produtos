@@ -18,6 +18,7 @@ class ItemMaterial extends Model
         'material_id',
         'material_invoice_id',
         'total_weight',
+        'pallets_quantity',
     ];
 
     /**
@@ -26,6 +27,7 @@ class ItemMaterial extends Model
     protected $casts = [
         'number' => 'integer',
         'total_weight' => 'float',
+        'pallets_quantity' => 'integer',
     ];
 
     /**
