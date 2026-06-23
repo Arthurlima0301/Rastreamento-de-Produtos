@@ -18,6 +18,7 @@ class ItemMaterial extends Model
         'material_id',
         'material_invoice_id',
         'total_weight',
+        'pallets_quantity',
     ];
 
     /**
@@ -26,6 +27,7 @@ class ItemMaterial extends Model
     protected $casts = [
         'number' => 'integer',
         'total_weight' => 'float',
+        'pallets_quantity' => 'integer',
     ];
 
     /**
@@ -34,6 +36,22 @@ class ItemMaterial extends Model
     public function getFormattedTotalWeightAttribute(): string
     {
         return number_format((float) $this->total_weight, 2, ',', '.');
+    }
+
+    /**
+     * Get Formatted No Cutted Weight Attribute
+     */
+    public function getFormattedNoCuttedWeightAttribute(): string
+    {
+        return number_format((float) $this->no_cutted_weight, 2, ',', '.');
+    }
+    
+    /**
+     * Get Formatted Cutted Weight Attribute
+     */
+    public function getFormattedCuttedWeightAttribute(): string
+    {
+        return number_format((float) $this->cutted_weight, 2, ',', '.');
     }
 
     /**
@@ -60,6 +78,26 @@ class ItemMaterial extends Model
         return $this->hasMany(Roll::class, 'item_material_id');
     }
 
+    /**
+     * Scope a query to calculate cutted weight.
+     */
+    public function scopeWithCuttedRolls($query)
+    {
+        return $query->withSum(['rolls as cutted_weight' => function ($query) {
+            $query->where('status', 'CORTADA');
+        }], 'weight');
+    }
+
+    /**
+     * Scope a query to calculate total weight of no cutted rolls.
+     */
+    public function scopeWithNoCuttedRolls($query)
+    {
+        return $query->withSum(['rolls as no_cutted_weight' => function ($query) {
+            $query->where('status', 'EM_ESTOQUE');
+        }], 'weight');
+    }
+    
     /**
      * Scope a query to search item materials by material paper.
      */
