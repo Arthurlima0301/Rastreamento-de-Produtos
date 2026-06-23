@@ -21,6 +21,8 @@
             <flux:table.column align="center">Peso</flux:table.column>
             <flux:table.column align="center">Peso Líquido P.</flux:table.column>
             <flux:table.column align="center">Peso Bruto P.</flux:table.column>
+            <flux:table.column align="center">Á Cortar</flux:table.column>
+            <flux:table.column align="center">Cortado</flux:table.column>
             <flux:table.column align="center">Ações</flux:table.column>
         </x-slot:header>
 
@@ -41,6 +43,8 @@
                     <flux:table.cell align="center">{{ $itemMaterial->formatted_total_weight }}</flux:table.cell>
                     <flux:table.cell align="center">{{ $itemMaterial->material->formatted_package_net_weight }}</flux:table.cell>
                     <flux:table.cell align="center">{{ $itemMaterial->material->formatted_package_gross_weight }}</flux:table.cell>
+                    <flux:table.cell align="center">{{ $itemMaterial->formatted_no_cutted_weight }}</flux:table.cell>
+                    <flux:table.cell align="center">{{ $itemMaterial->formatted_cutted_weight }}</flux:table.cell>
                     <flux:table.cell align="center">
                         <x-button href="{{ route('item-materials.show', $itemMaterial) }}" icon="arrow-up-right" />
                         <x-button href="{{ route('item-materials.edit', $itemMaterial) }}" icon="arrow-path-rounded-square" />

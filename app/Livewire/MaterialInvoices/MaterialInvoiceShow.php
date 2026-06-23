@@ -2,7 +2,9 @@
 
 namespace App\Livewire\MaterialInvoices;
 
+use App\Models\ItemMaterial;
 use App\Models\MaterialInvoice;
+use App\Models\Roll;
 use Illuminate\Contracts\View\View;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\Title;
@@ -28,8 +30,14 @@ class MaterialInvoiceShow extends Component
     public function render(): View
     {
         $materialInvoice = $this->materialInvoice
-            ->load('itemMaterials.material.order.client')
+            ->load([
+                'itemMaterials' => fn($query) => $query->withCuttedRolls()->withNoCuttedRolls(),
+                'itemMaterials.material.order.client'
+            ])
             ->loadCount('itemMaterials');
+
+
+
 
         return view('livewire.material-invoices.material-invoice-show', compact('materialInvoice'));
     }
