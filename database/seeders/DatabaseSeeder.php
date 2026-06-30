@@ -3,7 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\ItemMaterial;
-use App\Models\Load;
+use App\Models\Material;
 use App\Models\Roll;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -19,16 +19,35 @@ class DatabaseSeeder extends Seeder
     {
         // User::factory(10)->create();
 
-        $itemMaterial = ItemMaterial::factory()->create();
-        $load = Load::factory()->create();
-
-        Roll::factory(6)->create([
-            'item_material_id' => $itemMaterial->id,
-            'load_id' => $load->id,
+        $material = Material::factory()->create([
+            'paper' => 'Material Teste',
+            'package_net_weight' => random_int(494, 525),
         ]);
 
-        Roll::factory(10)->create([
-            'item_material_id' => $itemMaterial->id,
+        $itemMaterial1 = ItemMaterial::factory()->create([
+            'total_weight' => random_int(15000, 20000),
+            'material_id' => $material->id,
+        ]);
+
+        $itemMaterial2 = ItemMaterial::factory()->create([
+            'total_weight' => random_int(15000, 20000),
+            'material_id' => $material->id,
+        ]);
+
+        Roll::factory(23)->create([
+            'weight' => random_int(1000, 1200),
+            'item_material_id' => $itemMaterial1->id,
+            'defect' => null,
+            'defect_weight' => 0,
+            'load_id' => null,
+            'status' => 'EM_ESTOQUE',
+        ]);
+
+        Roll::factory(23)->create([
+            'weight' => random_int(1000, 1200),
+            'item_material_id' => $itemMaterial2->id,
+            'defect' => null,
+            'defect_weight' => 0,
             'load_id' => null,
             'status' => 'EM_ESTOQUE',
         ]);
