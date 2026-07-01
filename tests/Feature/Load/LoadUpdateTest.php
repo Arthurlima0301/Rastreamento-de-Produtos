@@ -2,6 +2,7 @@
 
 use App\Livewire\Loads\EditLoad;
 use App\Livewire\Loads\LoadAddRolls;
+use App\Livewire\Loads\LoadRolls;
 use App\Livewire\Loads\LoadShow;
 use App\Models\Load;
 use App\Models\Machine;
@@ -142,7 +143,7 @@ class LoadUpdateTest extends TestCase
             'defect_weight' => 50,
         ]);
 
-        Livewire::test(LoadShow::class, ['load' => $load])
+        Livewire::test(LoadRolls::class, ['load' => $load])
             ->call('removeRoll', $roll->id)
             ->assertHasNoErrors()
             ->assertDontSee('Rolo 1');
