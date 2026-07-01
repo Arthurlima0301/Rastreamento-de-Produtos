@@ -25,6 +25,21 @@ class LoadDeleteTest extends TestCase
     {
         $load = Load::factory()->create();
 
+        Livewire::test(LoadTable::class)
+            ->call('deleteLoad', $load)
+            ->assertRedirect(route('loads.index'));
+
+        $this->assertDatabaseMissing('loads', [
+            'id' => $load->id,
+        ]);
+
+        $this->assertDatabaseCount('loads', 0);
+    }
+    // Test that deleting a load releases its rolls back to stock.
+    public function test_load_can_not_be_deleted()
+    {
+        $load = Load::factory()->create();
+
         $roll = Roll::factory()->create([
             'load_id' => $load->id,
             'status' => 'CORTADA',
@@ -36,16 +51,10 @@ class LoadDeleteTest extends TestCase
             ->call('deleteLoad', $load)
             ->assertRedirect(route('loads.index'));
 
-        $this->assertDatabaseMissing('loads', [
+        $this->assertDatabaseHas('loads', [
             'id' => $load->id,
         ]);
 
-        $this->assertDatabaseHas('rolls', [
-            'id' => $roll->id,
-            'load_id' => null,
-            'status' => 'EM_ESTOQUE',
-            'defect' => null,
-            'defect_weight' => null,
-        ]);
+        $this->assertDatabaseCount('loads', 1);
     }
 }
