@@ -15,13 +15,13 @@ class MachineShowTest extends TestCase
     {
         $machine = Machine::factory()->create([
             'name' => 'Máquina 1', 
-            'abbreviation' => 'M1'
+            'abbreviation' => 'M'
         ]);
 
         $response = $this->get(route('machines.show', $machine->id));
         $response->assertStatus(200);
         $response->assertSee('Máquina 1');
-        $response->assertSee('M1');
+        $response->assertSee('M');
     }
 
 
@@ -30,7 +30,7 @@ class MachineShowTest extends TestCase
     {
         $machine = Machine::factory()->create([
             'name' => 'Máquina 1', 
-            'abbreviation' => 'M1'
+            'abbreviation' => 'M'
         ]);
 
         Load::factory()->create([
@@ -40,6 +40,6 @@ class MachineShowTest extends TestCase
 
         $response = $this->get(route('machines.show', $machine->id));
         $response->assertStatus(200);
-        $response->assertSee('M1-1');
+        $response->assertSee('M-1');
     }
 }
