@@ -27,6 +27,9 @@
                         <flux:navmenu.item icon="plus-circle" href="{{ route('roll.create', $itemMaterial) }}">
                             Adicionar Bobina(s)
                         </flux:navmenu.item>
+                        <flux:navmenu.item icon="arrow-path" wire:click="generatePallets" class="cursor-pointer">
+                            Gerar Pallets
+                        </flux:navmenu.item>
                     </flux:navmenu>
                 </flux:dropdown>
         </x-slot>
