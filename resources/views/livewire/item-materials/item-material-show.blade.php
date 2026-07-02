@@ -43,6 +43,8 @@
             icon="circle-stack">Bobinas ({{ $totalRolls }})</x-button>
         <x-button wire:click="toggleTab('pallets')" variant="{{ $page == 'pallets' ? 'primary' : 'ghost' }}"
             icon="bars-4">Pallets ({{ $totalPallets }})</x-button>
+        <x-button wire:click="toggleTab('loads')" variant="{{ $page == 'loads' ? 'primary' : 'ghost' }}"
+            icon="inbox-stack">Cargas</x-button>
         <x-button wire:click="toggleTab('losses')" variant="{{ $page == 'losses' ? 'primary' : 'ghost' }}"
             icon="percent-badge">Calcular Perdas</x-button>
     </flux:button.group>
@@ -52,6 +54,8 @@
         <livewire:item-materials.item-material-rolls :itemMaterialId="$itemMaterial->id" />
     @elseif ($page == 'pallets')
         <livewire:item-materials.item-material-pallets :itemMaterial="$itemMaterial" />
+    @elseif ($page == 'loads')
+        <livewire:item-materials.item-material-loads :itemMaterial="$itemMaterial" />
     @elseif ($page == 'losses')
         <livewire:item-materials.item-material-losses :itemMaterial="$itemMaterial" />
     @endif
