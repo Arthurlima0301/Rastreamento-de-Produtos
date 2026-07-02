@@ -4,6 +4,7 @@
         <p><strong>Data de Corte: </strong> {{ $load->formatted_cutted_at }}</p>
         <p><strong>Turno: </strong> {{ $load->turn }}</p>
         <p><strong>Máquina: </strong> {{ $load->machine->name }}</p>
+        <p><strong>Peso Total: </strong> {{ number_format($load->rolls->sum('weight'), 2, ',', '.') }}</p>
 
         <x-button icon="pencil" variant="ghost" wire:click="edit" />
     @else

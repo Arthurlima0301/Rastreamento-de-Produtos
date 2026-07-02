@@ -22,7 +22,7 @@ class ItemMaterialShow extends Component
      */
     public function mount(ItemMaterial $itemMaterial)
     {
-        $this->itemMaterial = $itemMaterial;
+        $this->itemMaterial = $itemMaterial->load('material', 'pallets', 'rolls');
     }
 
     /**
@@ -31,9 +31,11 @@ class ItemMaterialShow extends Component
     public function render(): View
     {
 
-        $totalWeight = $this->itemMaterial->rolls()->sum('weight');
+        $totalWeight = $this->itemMaterial->rolls->sum('weight');
+        $totalPallets = $this->itemMaterial->pallets->count();
+        $totalRolls = $this->itemMaterial->rolls->count();
 
-        return view('livewire.item-materials.item-material-show', compact('totalWeight'));
+        return view('livewire.item-materials.item-material-show', compact('totalWeight', 'totalPallets', 'totalRolls'));
     }
 
     /**
@@ -41,6 +43,7 @@ class ItemMaterialShow extends Component
      */
     public function toggleTab($tab)
     {
+        $this->resetErrorBag();
         $this->page = $tab;
     }
 

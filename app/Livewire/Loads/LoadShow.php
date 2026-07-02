@@ -21,7 +21,7 @@ class LoadShow extends Component
      */
     public function mount(Load $load): void
     {
-        $this->load = $load;
+        $this->load = $load->load('rolls', 'pallets');
     }
 
     /**
@@ -29,7 +29,10 @@ class LoadShow extends Component
      */
     public function render(): View
     {
-        return view('livewire.loads.load-show');
+        $totalRolls = $this->load->rolls->count();
+        $totalPallets = $this->load->pallets->count();
+
+        return view('livewire.loads.load-show', compact('totalRolls', 'totalPallets'));
     }
 
     public function toggleTab(string $tab): void

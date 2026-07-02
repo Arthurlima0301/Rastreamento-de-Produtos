@@ -26,11 +26,27 @@ class Pallet extends Model
     ];
 
     /**
+     * Get Formatted Pallet Label
+     */
+    public function getFormattedLabelAttribute(): string
+    {
+        return str_pad($this->label, 4, '0', STR_PAD_LEFT);
+    }
+
+    /**
+     * Get Formatted Package Net Weight
+     */
+    public function getFormattedPackageNetWeightAttribute(): string
+    {
+        return number_format($this->package_net_weight, 2, ',', '.');
+    }
+
+    /**
      *  Get the load that owns the pallet.
      */
     public function cutLoad(): BelongsTo
     {
-        return $this->belongsTo(Load::class);
+        return $this->belongsTo(Load::class, 'load_id');
     }
 
     /**
@@ -38,6 +54,18 @@ class Pallet extends Model
      */
     public function itemMaterial(): BelongsTo
     {
-        return $this->belongsTo(ItemMaterial::class);
+        return $this->belongsTo(ItemMaterial::class, 'item_material_id');
+    }
+
+
+    /**
+     * Search pallets by label.
+     */
+    public function scopeSearchByLabel($query, $search)
+    {
+        $search = trim($search);
+        $query->when($search, function ($query) use ($search) {
+            $query->where('label', '=', "$search");
+        });
     }
 }
