@@ -42,6 +42,11 @@ class ItemMaterialEdit extends Component
      */
     public function replaceMaterial(int $materialId): void
     {
+        if ($this->itemMaterial->pallets()->exists()) {
+            session()->flash('error', 'Não é possível substituir o material deste item, pois ele já possui pallets associados!');
+            return;
+        }
+
         $this->itemMaterial->material_id = $materialId;
         $this->itemMaterial->save();
 
