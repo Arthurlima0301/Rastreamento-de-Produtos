@@ -68,6 +68,11 @@ class LoadRolls extends Component
         $roll = Roll::query()
             ->where('load_id', $this->load->id)
             ->findOrFail($rollId);
+        
+            if($this->load->pallets()->exists()) {
+                session()->flash('error', 'Não é possível remover rolos de uma carga que já possui pallets gerados!');
+                return;
+            }
             
         $roll->load_id = null;
         $roll->status = 'EM_ESTOQUE';

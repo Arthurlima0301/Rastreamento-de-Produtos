@@ -6,6 +6,7 @@ use App\Livewire\Loads\LoadRolls;
 use App\Livewire\Loads\LoadShow;
 use App\Models\Load;
 use App\Models\Machine;
+use App\Models\Pallet;
 use App\Models\Roll;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Livewire\Livewire;
@@ -211,5 +212,35 @@ class LoadUpdateTest extends TestCase
         ]);
 
         $this->assertSame(6, $load->rolls()->count());
+    }
+
+    // Test that a roll cannot be removed from a load that has pallets generated.
+    public function test_load_roll_cannot_be_removed_when_pallets_exist()
+    {
+
+
+        $load = Load::factory()->create();
+
+        $roll = Roll::factory()->create([
+            'label' => 'Rolo 3',
+            'status' => 'CORTADA',
+            'load_id' => $load->id,
+        ]);
+
+        Pallet::factory()->create([
+            'label' => 1,
+            'load_id' => $load->id,
+        ]);
+
+        Livewire::test(LoadRolls::class, ['load' => $load])
+            ->call('removeRoll', $roll->id)
+            ->assertSee('Não é possível remover rolos de uma carga que já possui pallets gerados!');
+
+        $this->assertDatabaseHas('rolls', [
+            'id' => $roll->id,
+            'label' => 'Rolo 3',
+            'status' => 'CORTADA',
+            'load_id' => $load->id,
+        ]);
     }
 }
