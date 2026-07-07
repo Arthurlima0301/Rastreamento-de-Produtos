@@ -4,6 +4,7 @@ namespace App\Livewire\Materials;
 
 use App\Models\Material;
 use App\Models\Order;
+use App\Rules\Materials\MaterialEditValidateRule;
 use Illuminate\Validation\Rule;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\Title;
@@ -32,6 +33,7 @@ class MaterialEdit extends Component
         'package_gross_weight' => '',
     ];
 
+    // Initialize the component with the material to be edited and populate the form with its data
     public function mount(Material $material)
     {
         $this->material = $material;
@@ -39,6 +41,7 @@ class MaterialEdit extends Component
         $this->form = $material->only(array_keys($this->form));
     }
 
+    // Render the Livewire component view with the list of orders
     public function render()
     {
         return view('livewire.materials.material-edit', [
@@ -46,30 +49,21 @@ class MaterialEdit extends Component
         ]);
     }
 
+    // Save the edited material after validation
     public function saveEdit()
     {
         $validated = $this->validate();
-
-        $materialExists = Material::query()
-            ->where('order_id', $this->form['order_id'])
-            ->where('shipment_code', $this->form['shipment_code'])
-            ->where('id', '!=', $this->material->id)
-            ->exists();
-
-        if ($materialExists) {
-            $this->addError('error', 'Esse material já existe com um Lote diferente na ordem selecionada.');
-
-            return;
-        }
 
         $this->material->update($validated['form']);
 
         return redirect()->route('orders.show', $this->form['order_id'])->with('success', 'Material Editado com sucesso!');
     }
 
+    // Define the validation rules for the form fields
     public function rules(): array
     {
         return [
+            'form' => ['required', new MaterialEditValidateRule($this->material->id)],
             'form.order_id' => ['required', 'exists:orders,id'],
             'form.item_number' => ['required'],
             'form.shipment_code' => ['required'],
@@ -87,6 +81,7 @@ class MaterialEdit extends Component
         ];
     }
 
+    // Define custom error messages for validation failures
     public function messages(): array
     {
         return [
