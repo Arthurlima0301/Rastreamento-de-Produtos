@@ -30,6 +30,9 @@
                     <flux:navmenu.item icon="arrow-path" wire:click="generatePallets" class="cursor-pointer">
                         Gerar Pallets
                     </flux:navmenu.item>
+                    <flux:navmenu.item icon="plus" href="{{ route('loads.create') }}" class="cursor-pointer">
+                        Criar Carga
+                    </flux:navmenu.item>
                 </flux:navmenu>
             </flux:dropdown>
         </x-slot>
