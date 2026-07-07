@@ -30,8 +30,8 @@ class DatabaseSeeder extends Seeder
         ]);
 
         $itemMaterial2 = ItemMaterial::factory()->create([
-            'total_weight' => random_int(15000, 20000),
-            'material_id' => $material->id,
+            'total_weight' => random_int(10000, 20000),
+            'material_id' => $material->id, 
         ]);
 
         Roll::factory(23)->create([
