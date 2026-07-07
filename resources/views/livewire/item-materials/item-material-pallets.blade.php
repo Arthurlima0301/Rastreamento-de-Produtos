@@ -21,7 +21,7 @@
                         </a>
                     </flux:table.cell>
                     <flux:table.cell align="center">
-                        <flux:button icon="pencil" variant="ghost" />
+                        <flux:button icon="pencil" variant="ghost" href="{{ route('pallets.edit', $pallet->id) }}" />
                         <flux:button icon="trash" variant="primary" color="red" />
                     </flux:table.cell>
                 </flux:table.row>

@@ -13,6 +13,7 @@ use App\Livewire\ItemMaterials\{ItemMaterialEdit, ItemMaterialIndex, ItemMateria
 use App\Livewire\Rolls\{RollEdit, RollIndex, RollsCreate};
 use App\Livewire\Loads\{LoadAddRolls, LoadCreate, LoadIndex, LoadShow};
 use App\Livewire\Dispatches\{DispatchCreate, DispatchIndex, DispatchShow};
+use App\Livewire\Pallets\PalletEdit;
 
 // Client routes
 Route::prefix('clients')->group(function () {
@@ -78,6 +79,11 @@ Route::prefix('item-materials')->group(function () {
 Route::prefix('rolls')->group(function () {
     Route::get('/', RollIndex::class)->name('rolls.index');
     Route::get('/{roll}/edit', RollEdit::class)->name('rolls.edit');
+});
+
+// Pallet routes
+Route::prefix('pallets')->group(function () {
+    Route::get('/{pallet}/edit', PalletEdit::class)->name('pallets.edit');
 });
 
 // Load routes
