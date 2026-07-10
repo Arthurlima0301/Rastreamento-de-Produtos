@@ -162,21 +162,28 @@ class LoadUpdateTest extends TestCase
     // Test that an available roll can be added to an existing load.
     public function test_load_roll_can_be_added()
     {
-        $load = Load::factory()->create();
 
-        $roll = Roll::factory()->create([
+
+        $load = Load::factory()->create();
+        Roll::factory(5)->create([
+            'status' => 'CORTADA',
+            'load_id' => $load->id,
+        ]);
+
+
+        $newRoll = Roll::factory()->create([
             'label' => 'Rolo 2',
             'status' => 'EM_ESTOQUE',
             'load_id' => null,
         ]);
 
         Livewire::test(LoadAddRolls::class, ['load' => $load])
-            ->call('addRoll', $roll->id)
+            ->call('addRoll', $newRoll->id)
             ->assertHasNoErrors()
             ->assertSee('Bobina adicionada');
 
         $this->assertDatabaseHas('rolls', [
-            'id' => $roll->id,
+            'id' => $newRoll->id,
             'label' => 'Rolo 2',
             'status' => 'CORTADA',
             'load_id' => $load->id,

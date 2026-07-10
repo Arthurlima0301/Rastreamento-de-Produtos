@@ -20,7 +20,7 @@ class LoadAddRolls extends Component
      */
     public function mount(Load $load)
     {
-        $this->load = $load;
+        $this->load = $load->load('rolls');
     }
 
     /**
@@ -30,6 +30,9 @@ class LoadAddRolls extends Component
     {
         $rolls = Roll::query()
             ->with('itemMaterial.material')
+            ->whereHas('itemMaterial', function ($query) {
+                $query->where('material_id', $this->load->rolls->first()->itemMaterial->material_id);
+            })
             ->whereNull('load_id')
             ->Orwhere('load_id', $this->load->id)
             ->searchByLabel($this->search)

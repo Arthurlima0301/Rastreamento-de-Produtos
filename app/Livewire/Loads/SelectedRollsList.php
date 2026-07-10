@@ -12,11 +12,8 @@ use Livewire\Component;
 class SelectedRollsList extends Component
 {
     public ?int $selectedMachineId = null;
-
     public ?string $selectedTurn = null;
-
     public ?string $selectedCuttedAt = null;
-
     public Collection $machines;
 
     public array $selectedRolls = [];
@@ -40,6 +37,7 @@ class SelectedRollsList extends Component
     /**
      * Clear all selected rolls from the list.
      */
+    #[On('clear-selection')]
     public function clearSelection()
     {
         $this->resetErrorBag();
