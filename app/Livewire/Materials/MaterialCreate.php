@@ -9,7 +9,7 @@ use Livewire\Attributes\Layout;
 use Livewire\Attributes\Title;
 use Livewire\Component;
 
-#[Layout('layout.layout')]
+#[Layout('Layout.layout')]
 #[Title('Criar Material')]
 class MaterialCreate extends Component
 {

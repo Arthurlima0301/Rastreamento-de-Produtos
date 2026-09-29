@@ -9,7 +9,7 @@ use Livewire\Attributes\Title;
 use Livewire\Component;
 use App\Rules\Pallets\ReplaceLabelValidate;
 
-#[Layout('layout.layout')]
+#[Layout('Layout.layout')]
 #[Title('Editar Pallet')]
 class PalletEdit extends Component
 {
