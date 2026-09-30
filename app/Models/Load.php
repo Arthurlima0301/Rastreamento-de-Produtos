@@ -57,6 +57,29 @@ class Load extends Model
     }
 
     /**
+     * Get the pallets for the load.
+     */
+    public function pallets(): HasMany
+    {
+        return $this->hasMany(Pallet::class, 'load_id');
+    }
+
+    /**
+     * Scope to filter loads with a balance of rolls minus pallets.
+     */
+    public function scopewithSufficientBalance($query, int $itemMaterialId, float $package_net_weight)
+    {
+        $query->withSum(['rolls as total_rolls_weight' => function ($q) use ($itemMaterialId) {
+                $q->where('item_material_id', $itemMaterialId);
+            }],'weight')
+            ->withSum(['pallets as total_pallets_weight' => function ($q) use ($itemMaterialId) {
+                $q->where('item_material_id', $itemMaterialId);
+            }],'package_net_weight')
+            ->orderBy('cutted_at', 'asc')
+            ->havingRaw('COALESCE(total_rolls_weight, 0) - COALESCE(total_pallets_weight, 0) >= ?', [$package_net_weight]);
+    }
+
+    /**
      * Scope a search by machine abbreviation + id.
      */
     public function scopeSearchByCode($query, string $search)

@@ -5,10 +5,13 @@ namespace App\Livewire\Rolls;
 use App\Models\Roll;
 use Illuminate\Contracts\View\View;
 use Livewire\Component;
+use Livewire\WithPagination;
 
 class RollTable extends Component
 {
     public string $search = '';
+
+    use WithPagination;
 
     /**
      * Render the paginated roll table.

@@ -7,6 +7,8 @@
 
     </x-card>
 
+    <x-error-message />
+
     <x-search-input />
 
     <x-table :paginate="$materials">

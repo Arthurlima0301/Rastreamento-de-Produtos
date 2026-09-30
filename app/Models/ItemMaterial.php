@@ -79,6 +79,14 @@ class ItemMaterial extends Model
     }
 
     /**
+     * Get the pallets associated with the item material.
+     */
+    public function pallets(): HasMany
+    {
+        return $this->hasMany(Pallet::class, 'item_material_id');
+    }
+
+    /**
      * Scope a query to calculate cutted weight.
      */
     public function scopeWithCuttedRolls($query)

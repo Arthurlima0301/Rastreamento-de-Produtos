@@ -8,6 +8,7 @@ use Illuminate\Contracts\View\View;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\Title;
 use Livewire\Component;
+use Livewire\WithPagination;
 
 #[Layout('Layout.layout')]
 #[Title('Editar Item Material')]
@@ -16,6 +17,8 @@ class ItemMaterialEdit extends Component
     public ItemMaterial $itemMaterial;
 
     public string $search = '';
+
+    use WithPagination;
 
     /**
      * Mount the component with the item material.
@@ -42,6 +45,11 @@ class ItemMaterialEdit extends Component
      */
     public function replaceMaterial(int $materialId): void
     {
+        if ($this->itemMaterial->pallets()->exists()) {
+            session()->flash('error', 'Não é possível substituir o material deste item, pois ele já possui pallets associados!');
+            return;
+        }
+
         $this->itemMaterial->material_id = $materialId;
         $this->itemMaterial->save();
 

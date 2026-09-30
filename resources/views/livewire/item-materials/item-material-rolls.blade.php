@@ -3,7 +3,7 @@
     <x-error-message />
 
     <x-search-input />
-    <x-table>
+    <x-table :paginate="$rolls">
         <x-slot:header>
             <flux:table.column align="center">Código</flux:table.column>
             <flux:table.column align="center">Peso</flux:table.column>

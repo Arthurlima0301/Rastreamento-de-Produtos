@@ -33,6 +33,10 @@ class LoadTable extends Component
      */
     public function deleteLoad(Load $load)
     {
+        if ($load->rolls()->count() > 0) {
+            return redirect()->route('loads.index')->with('error', 'Não é possível deletar a carga, pois existem bobinas associadas a ela.');
+        }
+
         $load->rolls()->update(
             [
                 'load_id' => null,

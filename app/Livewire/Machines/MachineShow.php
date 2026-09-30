@@ -8,6 +8,7 @@ use Illuminate\Contracts\View\View;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\Title;
 use Livewire\Component;
+use Livewire\WithPagination;
 
 #[Layout('Layout.layout')]
 #[Title('Detalhes da Máquina')]
@@ -16,6 +17,8 @@ class MachineShow extends Component
     public Machine $machine;
 
     public string $search = '';
+
+    use WithPagination;
 
     /**
      * Mount the component with the machine.

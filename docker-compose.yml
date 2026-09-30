@@ -1,0 +1,28 @@
+services:
+  app:
+    build: .
+    container_name: 'bonanza-oji-app'
+    volumes: 
+      - ".:/var/www/bonanza-oji"
+    ports:
+      - "8000:8000"
+    networks:
+      - bonanza-oji-network
+
+  database:
+    image: mysql:8.4
+    container_name: 'bonanza-oji-database'
+    environment:
+        MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+    volumes: 
+      - "bonanza-oji-database:/var/bin/mysql"
+    ports:
+      - "3306:3306"
+    networks:
+      - bonanza-oji-network
+
+volumes:
+  bonanza-oji-database: 
+
+networks:
+  bonanza-oji-network:

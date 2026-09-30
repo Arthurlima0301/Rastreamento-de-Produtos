@@ -3,10 +3,11 @@
 namespace App\Livewire\ItemMaterials;
 
 use App\Models\ItemMaterial;
-use App\Models\Roll;
+use App\Rules\Pallets\GeneratePalletValidationRule;
 use Illuminate\Contracts\View\View;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\Title;
+use App\Services\Pallets\GeneratePallets;
 use Livewire\Component;
 
 #[Layout('Layout.layout')]
@@ -21,7 +22,7 @@ class ItemMaterialShow extends Component
      */
     public function mount(ItemMaterial $itemMaterial)
     {
-        $this->itemMaterial = $itemMaterial;
+        $this->itemMaterial = $itemMaterial->load('material', 'pallets', 'rolls');
     }
 
     /**
@@ -29,15 +30,39 @@ class ItemMaterialShow extends Component
      */
     public function render(): View
     {
-    
-        $totalWeight = $this->itemMaterial->rolls()->sum('weight');
 
-        return view('livewire.item-materials.item-material-show', compact('totalWeight'));
+        $totalWeight = $this->itemMaterial->rolls->sum('weight');
+        $totalPallets = $this->itemMaterial->pallets->count();
+        $totalRolls = $this->itemMaterial->rolls->count();
+
+        return view('livewire.item-materials.item-material-show', compact('totalWeight', 'totalPallets', 'totalRolls'));
+    }
+
+    /**
+     * Toggle the active tab in the component.
+     */
+    public function toggleTab($tab)
+    {
+        $this->resetErrorBag();
+        $this->page = $tab;
     }
 
 
-    public function toggleTab($tab)
+    /**
+     * Generate pallets for the item material.
+     */
+    public function generatePallets(GeneratePallets $generatePallets)
     {
-        $this->page = $tab;
+        $this->validate([
+            'itemMaterial.id' => ['required', new GeneratePalletValidationRule()],
+        ]);
+
+        try {
+            $generatePallets->execute($this->itemMaterial);
+
+            session()->flash('success', 'Pallets gerados com sucesso.');
+        } catch (\Exception $e) {
+            session()->flash('error', 'Erro ao gerar pallets.' . $e->getMessage());
+        }
     }
 }

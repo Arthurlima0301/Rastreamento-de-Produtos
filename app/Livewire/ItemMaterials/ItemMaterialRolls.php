@@ -23,7 +23,7 @@ class ItemMaterialRolls extends Component
             ->orderBy('label')
             ->searchByLabel($this->search)
             ->filterByStatus($this->statusFilter)
-            ->get();
+            ->paginate(50);
 
 
         return view('item-materials.item-material-rolls', compact('rolls'));
