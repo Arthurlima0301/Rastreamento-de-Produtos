@@ -68,4 +68,14 @@ class Pallet extends Model
             $query->where('label', '=', "$search");
         });
     }
+
+    public function scopeFilterByReturnBatch($query, $value)
+    {
+        $value = trim($value);
+        $query->when($value, function ($query) use ($value) {
+            $query->whereHas('itemMaterial.material', function ($query) use ($value) {
+                $query->where('return_batch', 'like', "%{$value}");
+            });
+        });
+    }
 }
