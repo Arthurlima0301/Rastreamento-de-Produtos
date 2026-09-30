@@ -25,7 +25,9 @@ class PalletsIndex extends Component
             ->filterByReturnBatch($this->batchValue)
             ->paginate(50);
 
-        $materials = Material::selectRaw('return_batch')->get();
+        $materials = Material::selectRaw('return_batch')
+                ->whereHas('order', fn ($q) => $q->where('status', '=', 'ATIVA'))
+                ->get();
 
         return view('livewire.pallets.pallets-index', compact('pallets', 'materials'));
     }
