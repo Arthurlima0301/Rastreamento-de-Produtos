@@ -16,6 +16,8 @@
             </flux:menu.item>
             <flux:menu.item href="{{ route('rolls.index') }}" icon="circle-stack">Bobinas
             </flux:menu.item>
+            <flux:menu.item href="{{ route('pallets.index') }}" icon="square-3-stack-3d">Pallets
+            </flux:menu.item>
         </flux:menu.group>
         <flux:menu.group heading="Insumos">
             <flux:menu.item href="{{ route('supplies.index') }}" icon="cube">Insumos</flux:menu.item>
@@ -26,7 +28,8 @@
        
         </flux:menu.group>
         <flux:menu.group heading="Relatórios">
-            <flux:menu.item href="{{ route('dispatches.index') }}" icon="truck">Saídas</flux:menu.item>
+            <flux:menu.item href="{{ route('dispatches.index') }}" icon="clipboard-document-list">Saídas</flux:menu.item>
+            {{-- <flux:menu.item href="{{ route('dispatches.index') }}" icon="truck">Romaneios</flux:menu.item> --}}
         </flux:menu.group>
     </flux:menu>
 </flux:dropdown>
