@@ -6,11 +6,14 @@ use App\Models\Load;
 use App\Models\Pallet;
 use Illuminate\View\View;
 use Livewire\Component;
+use Livewire\WithPagination;
 
 class LoadPallets extends Component
 {
     public Load $load;
     public string $search = '';
+
+    use WithPagination;
 
     /**
      * Mount the component with the load id.

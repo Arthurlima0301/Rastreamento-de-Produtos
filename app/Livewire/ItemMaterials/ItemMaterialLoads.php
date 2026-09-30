@@ -5,11 +5,15 @@ namespace App\Livewire\ItemMaterials;
 use App\Models\ItemMaterial;
 use App\Models\Load;
 use Livewire\Component;
+use Livewire\WithPagination;
 
 class ItemMaterialLoads extends Component
 {
     public ItemMaterial $itemMaterial;
 
+
+    use WithPagination;
+    
     /**
      * 
      */

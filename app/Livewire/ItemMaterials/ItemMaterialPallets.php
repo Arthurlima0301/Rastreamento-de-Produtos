@@ -5,11 +5,15 @@ namespace App\Livewire\ItemMaterials;
 use App\Models\ItemMaterial;
 use App\Models\Pallet;
 use Livewire\Component;
+use Livewire\WithPagination;
 
 class ItemMaterialPallets extends Component
 {
     public ItemMaterial $itemMaterial;
     public string $search = '';
+
+
+    use WithPagination;
 
     public function render()
     {

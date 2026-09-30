@@ -7,6 +7,7 @@ use App\Models\Roll;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\Title;
 use Livewire\Component;
+use Livewire\WithPagination;
 
 #[Layout('Layout.layout')]
 #[Title('Adicionar Bobinas à Carga')]
@@ -14,6 +15,8 @@ class LoadAddRolls extends Component
 {
     public Load $load;
     public string $search = '';
+
+    use WithPagination;
 
     /**
      * Mount the component with the load being updated.
