@@ -20,7 +20,7 @@ class ItemMaterialPallets extends Component
         $pallets = Pallet::query()
             ->where('item_material_id', $this->itemMaterial->id)
             ->with('cutLoad.machine')
-            ->searchByLabel($this->search)
+            ->searchByLabelOrMaterial($this->search)
             ->paginate(50);
 
         return view('livewire.item-materials.item-material-pallets',compact('pallets'));

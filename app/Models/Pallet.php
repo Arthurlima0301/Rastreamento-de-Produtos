@@ -61,11 +61,14 @@ class Pallet extends Model
     /**
      * Search pallets by label.
      */
-    public function scopeSearchByLabel($query, $search)
+    public function scopeSearchByLabelOrMaterial($query, $search)
     {
         $search = trim($search);
         $query->when($search, function ($query) use ($search) {
-            $query->where('label', '=', "$search");
+            $query->where('label', '=', "$search")
+                ->orWhereHas('itemMaterial.material', function ($query) use ($search) {
+                    $query->where('paper', 'like', "%{$search}%");
+                });
         });
     }
 

@@ -31,7 +31,7 @@ class LoadPallets extends Component
         $pallets = Pallet::query()
             ->where('load_id', $this->load->id)
             ->with(['cutLoad.machine', 'itemMaterial.material','itemMaterial.materialInvoice'])
-            ->searchByLabel($this->search)
+            ->searchByLabelOrMaterial($this->search)
             ->paginate(50);
 
         return view('livewire.loads.load-pallets', compact('pallets'));
