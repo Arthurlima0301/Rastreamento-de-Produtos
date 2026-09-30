@@ -1,49 +1,33 @@
 <div class="w-full">
-    <x-error-message />
-
     <x-card title="Detalhes da Saída">
         <x-slot name="slot">
             <livewire:dispatches.edit-dispatch :dispatchId="$dispatch->id" />
+
+            <flux:dropdown>
+                <x-button icon="ellipsis-horizontal" />
+
+                <flux:menu>
+                    <flux:menu.item class="cursor-pointer" icon="square-3-stack-3d" href="{{ route('dispatches.pallets', $dispatch ), }}">
+                        Adicionar Pallets
+                    </flux:menu.item>
+                    <flux:menu.item class="cursor-pointer" icon="cube" href="{{ route('dispatches.supplies', $dispatch) }}">
+                        Adicionar Insumos
+                    </flux:menu.item>
+                </flux:menu>
+            </flux:dropdown>
         </x-slot>
     </x-card>
 
-    <x-table>
-        <x-slot:header>
-            <flux:table.column align="center"></flux:table.column>
-            <flux:table.column align="center">Quantidade</flux:table.column>
-            <flux:table.column align="center">Unidade de Medida</flux:table.column>
-            <flux:table.column align="center"></flux:table.column>
-            <flux:table.column align="center">Código do Insumo</flux:table.column>
-            <flux:table.column align="center"></flux:table.column>
-            <flux:table.column align="center">Insumo</flux:table.column>
-            <flux:table.column align="center"></flux:table.column>
-            <flux:table.column align="center">Nota Fiscal de Origem</flux:table.column>
-            <flux:table.column align="center">Nº Item</flux:table.column>
-        </x-slot:header>
+    <flux:button.group class="w-full">
+        <x-button wire:click="toggleTab('pallets')" variant="{{ $tab == 'pallets' ? 'primary' : 'ghost' }}"
+            icon="bars-4">Pallets</x-button>
+        <x-button wire:click="toggleTab('supplies')" variant="{{ $tab == 'supplies' ? 'primary' : 'ghost' }}"
+            icon="inbox-stack">Insumos</x-button>
+    </flux:button.group>
 
-        <x-slot:rows>
-            @foreach ($dispatch->dispatchItems as $dispatchItem)
-                <flux:table.row>
-                    <flux:table.cell align="center">-</flux:table.cell>
-                    <flux:table.cell align="center">{{ $dispatchItem->formatted_quantity }}</flux:table.cell>
-                    <flux:table.cell align="center">{{ $dispatchItem->supplyItem->supply->unit_of_measure }}</flux:table.cell>
-                    <flux:table.cell align="center">-</flux:table.cell>
-                    <flux:table.cell align="center">{{ $dispatchItem->supplyItem->supply->supply_code }}</flux:table.cell>
-                    <flux:table.cell align="center">-</flux:table.cell>
-                    <flux:table.cell align="center">
-                        <a href="{{ route('supplies.show', $dispatchItem->supplyItem->supply->id) }}" class="hover:underline">
-                            {{ $dispatchItem->supplyItem->supply->name }}
-                        </a>
-                    </flux:table.cell>
-                    <flux:table.cell align="center">-</flux:table.cell>
-                    <flux:table.cell align="center">
-                        <a href="{{ route('supply-invoices.show', $dispatchItem->supplyItem->supplyInvoice->id) }}" class="hover:underline">
-                            {{ $dispatchItem->supplyItem->supplyInvoice->formatted_supply_invoice_code }}
-                        </a>
-                    </flux:table.cell>
-                    <flux:table.cell align="center">(Item {{ $dispatchItem->supplyItem->number }})</flux:table.cell>
-                </flux:table.row>
-            @endforeach
-        </x-slot:rows>
-    </x-table>
+    @if ($tab === 'pallets')
+        <livewire:dispatches.dispatch-show-pallets :dispatchId="$dispatch->id" />
+    @elseif($tab === 'supplies')
+        <livewire:dispatches.dispatch-show-supplies :dispatchId="$dispatch->id" />
+    @endif
 </div>

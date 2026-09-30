@@ -12,7 +12,7 @@ use App\Livewire\MaterialInvoices\{MaterialInvoiceIndex, MaterialInvoiceShow};
 use App\Livewire\ItemMaterials\{ItemMaterialEdit, ItemMaterialIndex, ItemMaterialShow};
 use App\Livewire\Rolls\{RollEdit, RollIndex, RollsCreate};
 use App\Livewire\Loads\{LoadAddRolls, LoadCreate, LoadIndex, LoadShow};
-use App\Livewire\Dispatches\{DispatchCreate, DispatchIndex, DispatchShow};
+use App\Livewire\Dispatches\{DispatchCreate, DispatchCreateSupplies, DispatchCreatePallets, DispatchIndex, DispatchShow};
 use App\Livewire\Pallets\{PalletEdit, PalletsIndex};
 
 // Client routes
@@ -99,5 +99,7 @@ Route::prefix('loads')->group(function () {
 Route::prefix('dispatches')->group(function () {
     Route::get('/', DispatchIndex::class)->name('dispatches.index');
     Route::get('/create', DispatchCreate::class)->name('dispatches.create');
+    Route::get('/create/pallets/{dispatch}', DispatchCreatePallets::class)->name('dispatches.pallets');
+    Route::get('/create/supplies/{dispatch}', DispatchCreateSupplies::class)->name('dispatches.supplies');
     Route::get('/{dispatch}', DispatchShow::class)->name('dispatches.show');
 });

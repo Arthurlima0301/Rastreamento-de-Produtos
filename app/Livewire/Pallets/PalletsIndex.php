@@ -20,7 +20,7 @@ class PalletsIndex extends Component
     public function render()
     {
         $pallets = Pallet::query()
-            ->with(['itemMaterial.material.order', 'itemMaterial.materialInvoice'])
+            ->with(['itemMaterial.material.order', 'itemMaterial.materialInvoice','dispatch'])
             ->searchByLabelOrMaterial($this->search)
             ->filterByReturnBatch($this->batchValue)
             ->paginate(50);

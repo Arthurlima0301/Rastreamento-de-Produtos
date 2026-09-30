@@ -1,47 +1,64 @@
 <div class="w-full">
-    <x-card title="Criar Saída" />
+    <x-card title="Selecionar Item Material" />
 
-    <section class="flex w-full max-w-full flex-col gap-4 overflow-hidden xl:flex-row">
-        <div class="">
-            <x-search-input />
+    <x-search-input />
 
-            <x-table :paginate="$supplyItems">
-                <x-slot:header>
-                    <flux:table.column align="center">Código</flux:table.column>
-                    <flux:table.column align="center">Descrição</flux:table.column>
-                    <flux:table.column align="center">Item</flux:table.column>
-                    <flux:table.column align="center">Unidade de Medida</flux:table.column>
-                    <flux:table.column align="center">Quantidade</flux:table.column>
-                    <flux:table.column align="center">Nota Fiscal</flux:table.column>
-                    <flux:table.column align="center">Data</flux:table.column>
-                    <flux:table.column align="center">Saldo</flux:table.column>
-                    <flux:table.column align="center">
-                        <x-button wire:click="orderByMostUssed" :icon="$orderByFrequency ? 'chevron-double-up' : ''">Mais Usados</x-button>
-                    </flux:table.column>
-                    <flux:table.column align="center">Ações</flux:table.column>
-                </x-slot:header>
+    <x-table :paginate="$itemMaterials">
+        <x-slot name="header">
+            <flux:table.column align="center">Nº do Item</flux:table.column>
+            <flux:table.column align="center">Nota Fiscal</flux:table.column>
+            <flux:table.column align="center">Data</flux:table.column>
+            <flux:table.column align="center">Papel</flux:table.column>
+            <flux:table.column align="center">Gramatura</flux:table.column>
+            <flux:table.column align="center">Cód. Expedição</flux:table.column>
+            <flux:table.column align="center">Lote de Retorno</flux:table.column>
+            <flux:table.column align="center">Item</flux:table.column>
+            <flux:table.column align="center">Pedido</flux:table.column>
+            <flux:table.column align="center">Rolo</flux:table.column>
+            <flux:table.column align="center">Largura</flux:table.column>
+            <flux:table.column align="center">Comprimento</flux:table.column>
+            <flux:table.column align="center">Pacotes</flux:table.column>
+            <flux:table.column align="center">Peso</flux:table.column>
+            <flux:table.column align="center">Ações</flux:table.column>
+        </x-slot:header>
 
-                <x-slot:rows>
-                    @foreach ($supplyItems as $supplyItem)
-                        <flux:table.row wire:key="dispatch-supply-item-{{ $supplyItem->id }}">
-                            <flux:table.cell align="center">{{ $supplyItem->supply->supply_code }}</flux:table.cell>
-                            <flux:table.cell align="center">{{ $supplyItem->supply->name }}</flux:table.cell>
-                            <flux:table.cell align="center">{{ $supplyItem->number }}</flux:table.cell>
-                            <flux:table.cell align="center">{{ $supplyItem->supply->unit_of_measure }}</flux:table.cell>
-                            <flux:table.cell align="center">{{ $supplyItem->formatted_quantity }}</flux:table.cell>
-                            <flux:table.cell align="center">{{ $supplyItem->supplyInvoice->formatted_supply_invoice_code }}</flux:table.cell>
-                            <flux:table.cell align="center">{{ $supplyItem->supplyInvoice->formatted_issued_at }}</flux:table.cell>
-                            <flux:table.cell align="center">{{ $supplyItem->formatted_balance }}</flux:table.cell>
-                            <flux:table.cell align="center">{{ $supplyItem->frequence ?? '-'}}</flux:table.cell>
-                            <flux:table.cell align="center">
-                                <x-dispatches.select-supply-item-button :supply-item-id="$supplyItem->id" :supply-name="$supplyItem->supply->name" />
-                            </flux:table.cell>
-                        </flux:table.row>
-                    @endforeach
-                </x-slot:rows>
-            </x-table>
-        </div>
+        <x-slot name="rows">
+            @foreach ($itemMaterials as $itemMaterial)
+                <flux:table.row wire:key="item-material-{{ $itemMaterial->id }}">
+                    <flux:table.cell align="center">{{ $itemMaterial->number }}</flux:table.cell>
+                    <flux:table.cell align="center">
+                        <a href="{{ route('material-invoices.show', $itemMaterial->materialInvoice->id) }}"
+                            class="hover:underline">
+                            {{ $itemMaterial->materialInvoice->formatted_invoice_code }}
+                        </a>
+                    </flux:table.cell>
+                    <flux:table.cell align="center">{{ $itemMaterial->materialInvoice->formatted_issued_at }}
+                    </flux:table.cell>
+                    <flux:table.cell align="center">
+                        <a href="{{ route('item-materials.show', $itemMaterial) }}" class="hover:underline">
+                            {{ $itemMaterial->material->paper }}
+                        </a>
+                    </flux:table.cell>
 
-        <livewire:dispatches.selected-supply-items-list :key="'dispatch-selected-supply-items-list'" />
-    </section>
+                    <flux:table.cell align="center">{{ $itemMaterial->material->formatted_grammage }}</flux:table.cell>
+                    <flux:table.cell align="center">{{ $itemMaterial->material->expedition_code }}</flux:table.cell>
+                    <flux:table.cell align="center">{{ $itemMaterial->material->return_batch }}</flux:table.cell>
+                    <flux:table.cell align="center">{{ $itemMaterial->material->item_number }}</flux:table.cell>
+                    <flux:table.cell align="center">
+                        <a href="{{ route('orders.show', $itemMaterial->material->order) }}" class="hover:underline">
+                            {{ $itemMaterial->material->order->order_code }}
+                        </a>
+                    </flux:table.cell>
+                    <flux:table.cell align="center">{{ $itemMaterial->material->roll }}</flux:table.cell>
+                    <flux:table.cell align="center">{{ $itemMaterial->material->width }}</flux:table.cell>
+                    <flux:table.cell align="center">{{ $itemMaterial->material->length }}</flux:table.cell>
+                    <flux:table.cell align="center">{{ $itemMaterial->material->packages }}</flux:table.cell>
+                    <flux:table.cell align="center">{{ $itemMaterial->formatted_total_weight }}</flux:table.cell>
+                    <flux:table.cell align="center">
+                        <x-button wire:click="selectedItemMaterial({{ $itemMaterial }})" icon="arrow-right" />
+                    </flux:table.cell>
+                </flux:table.row>
+            @endforeach
+        </x-slot>
+    </x-table>
 </div>

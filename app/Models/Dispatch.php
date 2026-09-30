@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Dispatch extends Model
@@ -18,6 +19,7 @@ class Dispatch extends Model
      */
     protected $fillable = [
         'dispatched_at',
+        'item_material_id',
         'invoice',
     ];
 
@@ -42,6 +44,20 @@ class Dispatch extends Model
     public function dispatchItems(): HasMany
     {
         return $this->hasMany(DispatchItem::class, 'dispatch_id');
+    }
+
+    /**
+     *  Get the pallets for the dispatch.
+     */
+    public function pallets() : HasMany {
+        return $this->hasMany(Pallet::class, 'dispatch_id');
+    }
+
+    /**
+     *  Get the item material for the dispatch.
+     */
+    public function itemMaterial() : BelongsTo {
+        return $this->belongsTo(ItemMaterial::class, 'item_material_id');
     }
 
     /**

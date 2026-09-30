@@ -2,8 +2,8 @@
 
 namespace App\Livewire\Dispatches;
 
-use App\Models\SupplyItem;
-use Illuminate\Contracts\View\View;
+use App\Models\Dispatch;
+use App\Models\ItemMaterial;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -12,33 +12,32 @@ use Livewire\WithPagination;
 class DispatchCreate extends Component
 {
     use WithPagination;
-
     public string $search = '';
-    public bool $orderByFrequency = false;
 
-    /**
-     * Render the component view with paginated supply items filtered by search term and balance.
-     */
-    public function render(): View
+    /*
+    */
+    public function render()
     {
-
-        $supplyItems = SupplyItem::query()
-            ->with(['supply.client', 'supplyInvoice'])
-            ->withBalance()
-            ->filterBalance()
-            ->searchBySupplyName($this->search)
-            ->when($this->orderByFrequency, fn ($query) => $query->withFrequency())
-            ->orderBy('supplies.name','asc')
+        $itemMaterials = ItemMaterial::query()
+            ->with(['material.order.client', 'materialInvoice'])
+            ->orderBy('created_at', 'desc')
+            ->searchByMaterialPaper($this->search)
             ->paginate(50);
 
-        return view('livewire.dispatches.dispatch-create', compact('supplyItems'));
+        return view('livewire.dispatches.dispatch-create', compact('itemMaterials'));
     }
 
     /**
-     *  Toggle ordering by most used supply items.
+     * Redirecting to select Item Material pallets after choose Item Material
      */
-    public function orderByMostUssed() : void
+    public function selectedItemMaterial(ItemMaterial $itemMaterial)
     {
-        $this->orderByFrequency = !$this->orderByFrequency;
+        // Create Dispatch
+        $dispatch = Dispatch::create([
+            'dispatched_at' => now(),
+            'item_material_id' =>  $itemMaterial->id,
+        ]);
+
+        return redirect()->route('dispatches.pallets', [$dispatch]);
     }
 }

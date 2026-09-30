@@ -1,5 +1,18 @@
 <div class="w-full">
-    <x-card title="Pallets" />
+    <x-card title="Selecionar Pallets">
+        <x-slot name="slot">
+            <p><strong>ID Saída: </strong> {{ $dispatch->id }}</p>
+
+            <p><strong>Papel: </strong> {{ $dispatch->itemMaterial->material->paper }}</p>
+            <p><strong>Gramatura: </strong> {{ $dispatch->itemMaterial->material->formatted_grammage }}</p>
+            <p><strong>Peso Líquido: </strong> {{ $dispatch->itemMaterial->material->formatted_package_net_weight }}</p>
+
+            <x-button href="{{ route('dispatches.supplies', $dispatch)}}">Insumos</x-button>
+
+            <x-button href="{{ route('dispatches.index') }}" variant="primary">Concluído</x-button>
+        </x-slot>
+    </x-card>
+
 
     <x-search-input />
     <section class="flex w-full max-w-full flex-col gap-4 overflow-hidden xl:flex-row">
@@ -13,24 +26,16 @@
                 <flux:table.column align="center">Item na Ordem</flux:table.column>
                 <flux:table.column align="center">Material Bobina</flux:table.column>
                 <flux:table.column align="center">Material Folha</flux:table.column>
-                <flux:table.column align="center">
-                    <x-sort column-title="Lote" model="batchValue">
-                        <flux:menu.radio value="">Todos</flux:menu.radio>
-                        @foreach ($materials as $material)
-                            <flux:menu.radio value="{{ $material->return_batch }}">{{ $material->return_batch }}
-                            </flux:menu.radio>
-                        @endforeach
-                    </x-sort>
-                </flux:table.column>
+                <flux:table.column align="center">Lote</flux:table.column>
                 <flux:table.column align="center">Peso Líquido</flux:table.column>
                 <flux:table.column align="center">Peso Bruto</flux:table.column>
                 <flux:table.column align="center">Nota Fiscal</flux:table.column>
                 <flux:table.column align="center">Item NF</flux:table.column>
-                <flux:table.column align="center">NF Saída</flux:table.column>
+                <flux:table.column align="center">Ações</flux:table.column>
             </x-slot:header>
             <x-slot:rows>
                 @foreach ($pallets as $pallet)
-                    <flux:table.row>
+                    <flux:table.row wire:key="pallet-{{ $pallet->id }}">
                         <flux:table.cell align="center">{{ $pallet->formatted_label }}</flux:table.cell>
                         <flux:table.cell align="center">
                             <a href="{{ route('item-materials.show', $pallet->itemMaterial) }}" class="hover:underline">
@@ -65,10 +70,11 @@
                         </flux:table.cell>
                         <flux:table.cell align="center">{{ $pallet->itemMaterial->number }}</flux:table.cell>
                         <flux:table.cell align="center">
-                            <a href="{{ route('dispatches.show', $pallet->dispatch ?? 'N/A') }}"
-                                class="hover:underline">
-                                {{ $pallet->dispatch->invoice ?? 'N/A' }}
-                            </a>
+                            @if (!$pallet->dispatch_id)
+                                <x-button wire:click="addPallet({{ $pallet }})">Adicionar</x-button>
+                            @else
+                                <p>Já Selecionado</p>
+                            @endif
                         </flux:table.cell>
                     </flux:table.row>
                 @endforeach

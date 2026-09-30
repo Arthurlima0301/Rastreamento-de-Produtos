@@ -11,6 +11,12 @@
                 </x-sort>
             </flux:table.column>
             <flux:table.column align="center">Nota Fiscal</flux:table.column>
+            <flux:table.column align="center">Papel</flux:table.column>
+            <flux:table.column align="center">Ordem</flux:table.column>
+            <flux:table.column align="center">Item na Ordem</flux:table.column>
+            <flux:table.column align="center">Material Bobina</flux:table.column>
+            <flux:table.column align="center">Material Folha</flux:table.column>
+            <flux:table.column align="center">Lote</flux:table.column>
             <flux:table.column align="center">Ações</flux:table.column>
         </x-slot:header>
 
@@ -24,6 +30,25 @@
                     </flux:table.cell>
                     <flux:table.cell align="center">{{ $dispatch->formatted_dispatched_at }}</flux:table.cell>
                     <flux:table.cell align="center">{{ $dispatch->invoice ?? 'N/A' }}</flux:table.cell>
+                    <flux:table.cell align="center">
+                        <a href="{{ route('item-materials.show', $dispatch->itemMaterial) }}" class="hover:underline">
+                            {{ $dispatch->itemMaterial->material->paper }}
+                        </a>
+                    </flux:table.cell>
+                    <flux:table.cell align="center">
+                        <a href="{{ route('orders.show', $dispatch->itemMaterial->material->order) }}"
+                            class="hover:underline">
+                            {{ $dispatch->itemMaterial->material->order->order_code }}
+                        </a>
+                    </flux:table.cell>
+                    <flux:table.cell align="center">{{ $dispatch->itemMaterial->material->item_number }}
+                    </flux:table.cell>
+                    <flux:table.cell align="center">{{ $dispatch->itemMaterial->material->shipment_code }}
+                    </flux:table.cell>
+                    <flux:table.cell align="center">{{ $dispatch->itemMaterial->material->expedition_code }}
+                    </flux:table.cell>
+                    <flux:table.cell align="center">{{ $dispatch->itemMaterial->material->return_batch }}
+                    </flux:table.cell>
                     <flux:table.cell align="center">
                         <x-button href="{{ route('dispatches.show', $dispatch->id) }}" icon="arrow-up-right" />
 
@@ -45,7 +70,8 @@
                                 </x-button>
                             </flux:modal.close>
 
-                            <x-button wire:click="destroy({{ $dispatch->id }})" variant="primary" color="red" icon="trash">
+                            <x-button wire:click="destroy({{ $dispatch->id }})" variant="primary" color="red"
+                                icon="trash">
                                 Continuar
                             </x-button>
                         </div>

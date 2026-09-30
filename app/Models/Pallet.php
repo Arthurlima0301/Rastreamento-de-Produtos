@@ -23,6 +23,7 @@ class Pallet extends Model
         'load_id',
         'item_material_id',
         'package_net_weight',
+        'dispatch_id',
     ];
 
     /**
@@ -57,6 +58,14 @@ class Pallet extends Model
         return $this->belongsTo(ItemMaterial::class, 'item_material_id');
     }
 
+    /**
+     * Get the dispatch that owns the pallet.
+     */
+    public function dispatch(): BelongsTo
+    {
+        return $this->belongsTo(Dispatch::class, 'dispatch_id');
+    }
+
 
     /**
      * Search pallets by label.
@@ -72,6 +81,9 @@ class Pallet extends Model
         });
     }
 
+    /**
+     * 
+     */
     public function scopeFilterByReturnBatch($query, $value)
     {
         $value = trim($value);

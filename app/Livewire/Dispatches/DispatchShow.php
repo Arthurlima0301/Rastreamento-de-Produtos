@@ -3,6 +3,7 @@
 namespace App\Livewire\Dispatches;
 
 use App\Models\Dispatch;
+use App\Models\ItemMaterial;
 use Illuminate\Contracts\View\View;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\Title;
@@ -12,14 +13,15 @@ use Livewire\Component;
 #[Title('Detalhes da Saída')]
 class DispatchShow extends Component
 {
-    public int $dispatchId;
+    public Dispatch $dispatch;
+    public string $tab = 'pallets';
 
     /**
      * Mount the component with the dispatch id.
      */
     public function mount(Dispatch $dispatch): void
     {
-        $this->dispatchId = $dispatch->id;
+        $this->dispatch = $dispatch;
     }
 
     /**
@@ -27,9 +29,12 @@ class DispatchShow extends Component
      */
     public function render(): View
     {
-        $dispatch = Dispatch::with('dispatchItems.supplyItem.supply', 'dispatchItems.supplyItem.supplyInvoice')
-            ->findOrFail($this->dispatchId);
+        return view('livewire.dispatches.dispatch-show');
+    }
 
-        return view('livewire.dispatches.dispatch-show', compact('dispatch'));
+
+    public function toggleTab($tab)
+    {
+        $this->tab = $tab;
     }
 }

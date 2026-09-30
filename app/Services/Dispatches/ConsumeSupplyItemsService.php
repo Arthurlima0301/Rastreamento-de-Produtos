@@ -10,22 +10,18 @@ class ConsumeSupplyItemsService
     /**
      * Consume a list of supply items and create a Dispatch record.
      */
-    public function consume(array $supplyItems): void
+    public function consume(array $supplyItems, Dispatch $dispatch): void
     {
-        DB::transaction(function () use ($supplyItems) {
-            $this->createDispatchRecord($supplyItems);
+        DB::transaction(function () use ($supplyItems, $dispatch) {
+            $this->createDispatchRecord($supplyItems, $dispatch);
         });
     }
 
     /**
      * Create a Dispatch record with the provided supply items.
      */
-    private function createDispatchRecord(array $supplyItems): void
+    private function createDispatchRecord(array $supplyItems, Dispatch $dispatch): void
     {
-        $dispatch = Dispatch::create([
-            'dispatched_at' => now(),
-        ]);
-
         foreach ($supplyItems as $supplyItem) {
             $dispatch->dispatchItems()->create([
                 'supply_item_id' => $supplyItem['id'],

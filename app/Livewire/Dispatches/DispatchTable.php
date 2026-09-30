@@ -39,6 +39,7 @@ class DispatchTable extends Component
      */
     public function destroy(Dispatch $dispatch)
     {
+        $dispatch->pallets()->update(['dispatch_id' => null]);
         $dispatch->delete();
 
         return redirect()->route('dispatches.index')->with('success', 'Saída excluída com sucesso!');

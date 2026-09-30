@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Dispatches;
 
+use App\Models\Dispatch;
 use App\Rules\Dispatches\ValidateConsumeSupplyItems;
 use App\Services\Dispatches\ConsumeSupplyItemsService;
 use Illuminate\Contracts\View\View;
@@ -11,6 +12,13 @@ use Livewire\Component;
 class SelectedSupplyItemsList extends Component
 {
     public array $selectedSupplyItems = [];
+    public Dispatch $dispatch;
+
+    /*
+    */ 
+    public function mount(Dispatch $dispatch){
+        $this->dispatch = $dispatch;
+    }
 
     /**
      * Render the selected supply items list.
@@ -84,8 +92,8 @@ class SelectedSupplyItemsList extends Component
             'selectedSupplyItems.*.quantity.min' => 'A quantidade deve ser no mínimo 0.01.',
         ]);
 
-        try {
-            $consumeItemsService->consume($this->selectedSupplyItems);
+        try {   
+            $consumeItemsService->consume($this->selectedSupplyItems, $this->dispatch);
 
             return redirect()->route('dispatches.index')->with('success', 'Saída processada com sucesso!');
         } catch (\Exception $e) {
